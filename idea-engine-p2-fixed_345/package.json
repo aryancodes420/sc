@@ -1,0 +1,46 @@
+{
+  "name": "idea-engine",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "worker:reddit":      "tsx workers/reddit.ts",
+    "worker:hackernews":  "tsx workers/hackernews.ts",
+    "worker:appstore":    "tsx workers/appstore.ts",
+    "worker:playstore":   "tsx workers/playstore.ts",
+    "worker:producthunt": "tsx workers/producthunt.ts",
+    "worker:classifier":  "tsx workers/classifier.ts",
+    "worker:embeddings":  "tsx workers/embeddings.ts",
+    "worker:clustering":  "tsx workers/clustering.ts",
+    "worker:scorer":      "tsx workers/scorer.ts",
+    "worker:synthesizer": "tsx workers/synthesizer.ts",
+    "pipeline":           "tsx workers/reddit.ts && tsx workers/hackernews.ts && tsx workers/appstore.ts && tsx workers/playstore.ts && tsx workers/producthunt.ts && tsx workers/classifier.ts && tsx workers/embeddings.ts && tsx workers/clustering.ts && tsx workers/scorer.ts && tsx workers/synthesizer.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk":    "^0.24.0",
+    "@supabase/ssr":         "^0.3.0",
+    "@supabase/supabase-js": "^2.43.0",
+    "@upstash/redis":        "^1.31.0",
+    "google-play-scraper":   "^9.1.0",
+    "next":                  "14.2.3",
+    "react":                 "^18",
+    "react-dom":             "^18",
+    "voyageai":              "^0.0.5",
+    "zod":                   "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node":    "^20",
+    "@types/react":   "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer":   "^10.4.19",
+    "eslint":         "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss":        "^8.4.38",
+    "tailwindcss":    "^3.4.3",
+    "tsx":            "^4.11.0",
+    "typescript":     "^5"
+  }
+}
