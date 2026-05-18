@@ -14,10 +14,16 @@ export async function GET(
       .select('id, text, url, source, engagement_json, created_at, author')
       .eq('cluster_id', params.id)
       .eq('is_complaint', true)
-      .order('engagement_json->score', { ascending: false })
       .limit(50),
   ]);
 
   if (!cluster) return NextResponse.json({ error: 'Not found' }, { status: 404 });
-  return NextResponse.json({ cluster, posts: posts ?? [] });
+
+  const sorted = (posts ?? []).sort((a, b) => {
+    const scoreA = (a.engagement_json as Record<string, number> | null)?.score ?? 0;
+    const scoreB = (b.engagement_json as Record<string, number> | null)?.score ?? 0;
+    return scoreB - scoreA;
+  });
+
+  return NextResponse.json({ cluster, posts: sorted });
 }
