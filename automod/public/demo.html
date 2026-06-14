@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AutoMod — Build Your Astra</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0C0C0E;--surface:#141416;--surface-hi:#1C1C1F;
+  --border:#2A2A2E;--muted:#6B6B72;--accent:#F97316;
+  --text:#F4F4F5;
+}
+body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--surface)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.12em;font-family:monospace}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.vehicle-label{font-size:12px;color:var(--muted)}
+
+/* Main layout */
+main{display:flex;flex:1;min-height:0}
+.viewer-col{display:flex;flex-direction:column;flex:1;min-width:0;padding:10px;gap:10px}
+#canvas-wrap{flex:1;min-height:0;border-radius:12px;overflow:hidden;position:relative;background:#0a0a0c}
+canvas{display:block;width:100%!important;height:100%!important}
+.hint{position:absolute;bottom:10px;left:12px;font-size:10px;color:var(--muted);opacity:.6;font-family:monospace;pointer-events:none}
+.reset-btn{position:absolute;bottom:10px;right:12px;padding:5px 10px;background:rgba(20,20,22,.8);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:10px;font-family:monospace;cursor:pointer;backdrop-filter:blur(4px);transition:color .2s}
+.reset-btn:hover{color:var(--text)}
+
+/* Section nav */
+.section-nav{display:flex;gap:8px;overflow-x:auto;flex-shrink:0;padding-bottom:2px}
+.section-nav::-webkit-scrollbar{height:3px}
+.sec-btn{flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;cursor:pointer;transition:all .15s;white-space:nowrap;position:relative}
+.sec-btn:hover{color:var(--text);border-color:var(--muted)}
+.sec-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 12px rgba(249,115,22,.35)}
+.sec-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:none}
+.sec-btn.has-part .sec-dot{display:block}
+.sec-btn.active .sec-dot{display:none}
+
+/* Right panel */
+.right-panel{width:320px;flex-shrink:0;display:flex;flex-direction:column;border-left:1px solid var(--border);min-height:0}
+.parts-pane{flex:1;min-height:0;overflow-y:auto;border-bottom:1px solid var(--border)}
+.pane-header{padding:12px 14px 8px;border-bottom:1px solid var(--border);flex-shrink:0}
+.pane-title{font-size:10px;font-family:monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.pane-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
+/* Part cards */
+.parts-grid{padding:10px;display:flex;flex-direction:column;gap:8px}
+.part-card{border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .15s;background:var(--surface)}
+.part-card:hover{border-color:var(--muted)}
+.part-card.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.part-thumb{height:80px;background:var(--surface-hi);display:flex;align-items:center;justify-content:center;font-size:28px;position:relative}
+.part-body{padding:10px}
+.part-brand{font-size:9px;font-family:monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.part-name{font-size:12px;font-weight:600;margin:2px 0 6px;line-height:1.3}
+.part-footer{display:flex;align-items:center;justify-content:space-between}
+.part-price{font-size:13px;font-weight:700;color:var(--accent)}
+.part-buy{font-size:9px;font-family:monospace;color:var(--muted);text-decoration:none;transition:color .15s}
+.part-buy:hover{color:var(--accent)}
+.check{position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;background:var(--accent);display:none;align-items:center;justify-content:center}
+.part-card.selected .check{display:flex}
+.check svg{width:10px;height:10px}
+
+/* Color swatch thumbs */
+.swatch{width:48px;height:48px;border-radius:8px;border:2px solid rgba(255,255,255,.1)}
+.swatch-wrap{display:flex;align-items:center;gap:10px;padding:0 10px}
+
+/* Build summary */
+.summary-pane{max-height:240px;display:flex;flex-direction:column;flex-shrink:0}
+.summary-list{flex:1;overflow-y:auto;padding:8px 14px}
+.summary-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.summary-item:last-child{border-bottom:0}
+.si-info{flex:1;min-width:0}
+.si-brand{font-size:9px;font-family:monospace;color:var(--muted);text-transform:uppercase}
+.si-name{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.si-price{font-size:11px;font-weight:700;color:var(--accent)}
+.si-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;transition:color .15s;flex-shrink:0;padding:0 2px}
+.si-remove:hover{color:#EF4444}
+.empty-msg{text-align:center;padding:20px 10px;color:var(--muted);font-size:12px}
+
+/* Summary footer */
+.summary-footer{padding:12px 14px;border-top:1px solid var(--border);flex-shrink:0}
+.total-row{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.total-amount{font-size:22px;font-weight:700;color:var(--accent)}
+.total-label{font-size:10px;font-family:monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.save-btn{width:100%;padding:11px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+.save-btn:hover{background:#ea6c10}
+.save-btn:disabled{opacity:.4;cursor:default}
+.clear-btn{font-size:10px;font-family:monospace;color:var(--muted);background:none;border:none;cursor:pointer;float:right;transition:color .15s}
+.clear-btn:hover{color:#EF4444}
+
+/* Mobile */
+@media(max-width:700px){
+  main{flex-direction:column}
+  .right-panel{width:100%;border-left:0;border-top:1px solid var(--border);max-height:55vh}
+  .parts-pane{max-height:30vh}
+  .summary-pane{max-height:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="dot"></div>
+    AUTOMOD
+  </div>
+  <div class="vehicle-label">2011 Vauxhall Astra Turbo 1.4</div>
+</header>
+
+<main>
+  <div class="viewer-col">
+    <div id="canvas-wrap">
+      <canvas id="c"></canvas>
+      <div class="hint">Drag to rotate · Scroll to zoom</div>
+      <button class="reset-btn" onclick="resetCamera()">RESET VIEW</button>
+    </div>
+    <div class="section-nav" id="secNav"></div>
+  </div>
+
+  <div class="right-panel">
+    <div class="parts-pane">
+      <div class="pane-header">
+        <div class="pane-title" id="paneTitle">Select a category</div>
+        <div class="pane-sub" id="paneSub"></div>
+      </div>
+      <div class="parts-grid" id="partsGrid"></div>
+    </div>
+
+    <div class="summary-pane">
+      <div class="pane-header" style="display:flex;align-items:center;justify-content:space-between">
+        <div class="pane-title">Your Build</div>
+        <button class="clear-btn" onclick="clearBuild()">CLEAR</button>
+      </div>
+      <div class="summary-list" id="summaryList">
+        <div class="empty-msg">No parts selected yet</div>
+      </div>
+      <div class="summary-footer">
+        <div class="total-row">
+          <span class="total-amount" id="totalAmount">£0.00</span>
+          <span class="total-label">Est. Total</span>
+        </div>
+        <button class="save-btn" id="saveBtn" disabled onclick="shareBuild()">Save &amp; Share Build</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.166.1/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.166.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const SECTIONS = [
+  { id:'front_aero',  label:'Front Aero',   emoji:'🏎' },
+  { id:'rear_aero',   label:'Rear Aero',    emoji:'💨' },
+  { id:'side_skirts', label:'Side Skirts',  emoji:'⚡' },
+  { id:'wheels',      label:'Wheels',       emoji:'⭕' },
+  { id:'paint',       label:'Paint & Wrap', emoji:'🎨' },
+  { id:'window_tint', label:'Window Tint',  emoji:'🌙' },
+  { id:'suspension',  label:'Suspension',   emoji:'📉' },
+  { id:'exhaust',     label:'Exhaust',      emoji:'🔥' },
+];
+
+const PARTS = {
+  front_aero:[
+    {id:'fa1',brand:'Maxton Design',name:'Front Splitter V.1',price:89.99,emoji:'🔩',color:'#CC3300',mod:{type:'aero',tag:'splitter',intensity:.3}},
+    {id:'fa2',brand:'Maxton Design',name:'Front Splitter V.2',price:109.99,emoji:'🔩',color:'#CC3300',mod:{type:'aero',tag:'splitter',intensity:.6}},
+    {id:'fa3',brand:'ACS Motorsport',name:'Carbon Front Splitter',price:219.00,emoji:'🔩',color:'#1a1a1a',mod:{type:'aero',tag:'splitter',intensity:1}},
+  ],
+  rear_aero:[
+    {id:'ra1',brand:'Maxton Design',name:'Rear Spoiler',price:79.99,emoji:'🔩',color:'#CC3300',mod:{type:'aero',tag:'spoiler',intensity:.3}},
+    {id:'ra2',brand:'OPC Line',name:'High-Mount Rear Wing',price:189.00,emoji:'🔩',color:'#CC3300',mod:{type:'aero',tag:'wing',intensity:1}},
+    {id:'ra3',brand:'Votex',name:'Rear Diffuser',price:129.99,emoji:'🔩',color:'#111',mod:{type:'aero',tag:'diffuser',intensity:.7}},
+  ],
+  side_skirts:[
+    {id:'ss1',brand:'Maxton Design',name:'Side Skirts V.1',price:99.99,emoji:'🔩',color:'#CC3300',mod:{type:'skirts',intensity:.5}},
+    {id:'ss2',brand:'OPC Line',name:'Side Sill Extensions',price:149.00,emoji:'🔩',color:'#222',mod:{type:'skirts',intensity:1}},
+  ],
+  wheels:[
+    {id:'wh1',brand:'OPC Line',name:'18" Gloss Black',price:699.00,swatch:'#1a1a1a',mod:{type:'wheels',color:0x1a1a1a,metalness:.9,roughness:.1}},
+    {id:'wh2',brand:'Ronal',name:'R10 Turbo 17" Silver',price:549.00,swatch:'#C0C0C0',mod:{type:'wheels',color:0xC0C0C0,metalness:.8,roughness:.2}},
+    {id:'wh3',brand:'BBS',name:'CH-R 18" Gold',price:1249.00,swatch:'#C9A227',mod:{type:'wheels',color:0xC9A227,metalness:.85,roughness:.15}},
+  ],
+  paint:[
+    {id:'pt1',brand:'Vauxhall OEM',name:'Flame Red',price:1800.00,swatch:'#CC2222',mod:{type:'paint',color:0xCC2222,metalness:.3,roughness:.4}},
+    {id:'pt2',brand:'Custom Wrap',name:'Midnight Black',price:950.00,swatch:'#0a0a0a',mod:{type:'paint',color:0x111111,metalness:.2,roughness:.3}},
+    {id:'pt3',brand:'Vauxhall OEM',name:'Arctic White',price:1750.00,swatch:'#F0F0F0',mod:{type:'paint',color:0xF0F0F0,metalness:.1,roughness:.5}},
+    {id:'pt4',brand:'Custom Wrap',name:'Steel Blue',price:975.00,swatch:'#2244AA',mod:{type:'paint',color:0x2244AA,metalness:.5,roughness:.35}},
+    {id:'pt5',brand:'Custom Wrap',name:'Racing Green',price:975.00,swatch:'#1B4D2E',mod:{type:'paint',color:0x1B4D2E,metalness:.4,roughness:.4}},
+    {id:'pt6',brand:'Custom Wrap',name:'Burnt Orange',price:1050.00,swatch:'#CC5500',mod:{type:'paint',color:0xCC5500,metalness:.3,roughness:.4}},
+  ],
+  window_tint:[
+    {id:'wt1',brand:'Solar Gard',name:'Light Tint 35%',price:149.00,swatch:'#1a1a3a',mod:{type:'tint',opacity:.55}},
+    {id:'wt2',brand:'Solar Gard',name:'Dark Tint 20%',price:169.00,swatch:'#050510',mod:{type:'tint',opacity:.25}},
+  ],
+  suspension:[
+    {id:'su1',brand:'Eibach',name:'Pro-Kit Springs',price:179.00,emoji:'🔧',mod:{type:'suspension',drop:-.035}},
+    {id:'su2',brand:'H&R',name:'Sport Springs',price:155.00,emoji:'🔧',mod:{type:'suspension',drop:-.05}},
+    {id:'su3',brand:'KW Suspension',name:'Coilovers V1',price:699.00,emoji:'🔧',mod:{type:'suspension',drop:-.07}},
+  ],
+  exhaust:[
+    {id:'ex1',brand:'Milltek Sport',name:'Cat-Back System',price:549.00,emoji:'💨',mod:{type:'exhaust',size:1.2}},
+    {id:'ex2',brand:'Cobra Sport',name:'Cat-Back System',price:399.00,emoji:'💨',mod:{type:'exhaust',size:1.0}},
+  ],
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const state = { activeSection:'paint', selected:new Map() };
+
+// ─── THREE.JS SCENE ──────────────────────────────────────────────────────────
+const wrap = document.getElementById('canvas-wrap');
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:false});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a0c);
+scene.fog = new THREE.Fog(0x0a0a0c, 12, 20);
+
+const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 50);
+camera.position.set(3.5, 1.5, 3.5);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enablePan = false;
+controls.minDistance = 2.5;
+controls.maxDistance = 7;
+controls.minPolarAngle = Math.PI * 0.1;
+controls.maxPolarAngle = Math.PI * 0.5;
+controls.target.set(0, 0.1, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+
+// Lighting
+const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambient);
+const sun = new THREE.DirectionalLight(0xffffff, 1.4);
+sun.position.set(5, 8, 4);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048,2048);
+sun.shadow.camera.near = 0.5;
+sun.shadow.camera.far = 20;
+sun.shadow.camera.left = sun.shadow.camera.bottom = -4;
+sun.shadow.camera.right = sun.shadow.camera.top = 4;
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0x8090ff, 0.4);
+fill.position.set(-4, 2, -3);
+scene.add(fill);
+const rim = new THREE.DirectionalLight(0xffaa44, 0.3);
+rim.position.set(2, 3, -4);
+scene.add(rim);
+
+// Ground
+const groundGeo = new THREE.PlaneGeometry(20, 20);
+const groundMat = new THREE.MeshStandardMaterial({color:0x111113,roughness:.9,metalness:.1});
+const ground = new THREE.Mesh(groundGeo, groundMat);
+ground.rotation.x = -Math.PI/2;
+ground.position.y = -0.8;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// ─── CAR MODEL (procedural) ──────────────────────────────────────────────────
+const carGroup = new THREE.Group();
+scene.add(carGroup);
+
+// Materials
+const bodyMat = new THREE.MeshStandardMaterial({color:0xCC2222,metalness:.35,roughness:.38,name:'body'});
+const glassMat = new THREE.MeshStandardMaterial({color:0x0a0a2a,metalness:.0,roughness:.0,opacity:.72,transparent:true,name:'glass'});
+const trimMat  = new THREE.MeshStandardMaterial({color:0x1a1a1a,metalness:.6,roughness:.4,name:'trim'});
+const wheelMat = new THREE.MeshStandardMaterial({color:0xC0C0C0,metalness:.85,roughness:.15,name:'wheel'});
+const tyreMat  = new THREE.MeshStandardMaterial({color:0x111111,metalness:.0,roughness:.85,name:'tyre'});
+const lightMat = new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffee,emissiveIntensity:.4,name:'light'});
+const tailMat  = new THREE.MeshStandardMaterial({color:0xff2222,emissive:0xff0000,emissiveIntensity:.3,name:'taillight'});
+
+function box(w,h,d,mat,x,y,z,rx=0,ry=0,rz=0){
+  const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+  m.position.set(x,y,z);m.rotation.set(rx,ry,rz);m.castShadow=true;m.receiveShadow=true;
+  return m;
+}
+function cyl(rt,rb,h,seg,mat,x,y,z,rx=0,ry=0,rz=0){
+  const m = new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg),mat);
+  m.position.set(x,y,z);m.rotation.set(rx,ry,rz);m.castShadow=true;
+  return m;
+}
+
+// Body panels
+const mainBody = box(2.25,.52,1.1,bodyMat,0,.25,0);
+carGroup.add(mainBody);
+const lowerBody = box(2.1,.18,1.14,bodyMat,0,-.02,0);
+carGroup.add(lowerBody);
+
+// Cabin with slight taper
+const cabin = new THREE.Mesh(
+  new THREE.BoxGeometry(1.35,.48,1.04),
+  bodyMat
+);
+cabin.position.set(-.05,.72,0);cabin.castShadow=true;
+carGroup.add(cabin);
+
+// Windscreen & windows
+carGroup.add(box(1.1,.38,.96,glassMat,-.05,.74,0));
+carGroup.add(box(.5,.28,.92,glassMat,-.65,.72,0)); // rear
+carGroup.add(box(.35,.24,.06,glassMat,.22,.74,.56)); // side L
+carGroup.add(box(.35,.24,.06,glassMat,.22,.74,-.56));// side R
+
+// Front bumper
+const fBumper = box(.14,.26,1.1,trimMat,1.12,.12,0);
+carGroup.add(fBumper);
+// Splitter aero part (hidden by default)
+const splitter = box(.12,.06,1.12,trimMat,1.14,-.06,0);
+splitter.visible = false;
+splitter.userData.aeroType = 'splitter';
+carGroup.add(splitter);
+
+// Rear bumper
+carGroup.add(box(.14,.26,1.1,trimMat,-1.12,.12,0));
+
+// Roof spoiler (visible when rear aero selected)
+const roofSpoiler = new THREE.Mesh(
+  new THREE.BoxGeometry(.08,.1,.9),
+  trimMat
+);
+roofSpoiler.position.set(-.7,.98,0);
+roofSpoiler.visible=false;
+roofSpoiler.userData.aeroType='spoiler';
+carGroup.add(roofSpoiler);
+
+// Rear wing
+const rearWing = new THREE.Group();
+const wingPlane = box(.05,.06,1.0,trimMat,0,0,0);
+const wingL = box(.04,.2,.04,trimMat,0,-.1,.44);
+const wingR = box(.04,.2,.04,trimMat,0,-.1,-.44);
+rearWing.add(wingPlane,wingL,wingR);
+rearWing.position.set(-.85,.74,0);
+rearWing.visible=false;
+rearWing.userData.aeroType='wing';
+carGroup.add(rearWing);
+
+// Side skirts
+const skirtL = box(1.6,.08,.08,trimMat,-.05,-.12,.59);
+const skirtR = box(1.6,.08,.08,trimMat,-.05,-.12,-.59);
+skirtL.userData.aeroType='skirts'; skirtR.userData.aeroType='skirts';
+skirtL.visible=false; skirtR.visible=false;
+carGroup.add(skirtL,skirtR);
+
+// Headlights
+carGroup.add(box(.06,.14,.35,lightMat,1.14,.28,.38));
+carGroup.add(box(.06,.14,.35,lightMat,1.14,.28,-.38));
+// Tail lights
+carGroup.add(box(.06,.18,.32,tailMat,-1.14,.3,.38));
+carGroup.add(box(.06,.18,.32,tailMat,-1.14,.3,-.38));
+
+// Exhaust tip
+const exhaustTip = cyl(.06,.055,.08,16,trimMat,-1.17,.-.2,-.32,Math.PI/2);
+carGroup.add(exhaustTip);
+const exhaustTip2 = cyl(.07,.065,.08,16,trimMat,-1.17,.-.2,-.32,Math.PI/2);
+exhaustTip2.visible=false; exhaustTip2.userData.aeroType='exhaust';
+carGroup.add(exhaustTip2);
+
+// Wheels
+const WHEEL_POSITIONS = [
+  [.82,-.45,.62],[.82,-.45,-.62],[-0.82,-.45,.62],[-0.82,-.45,-.62]
+];
+const wheelMeshes = [];
+WHEEL_POSITIONS.forEach(([wx,wy,wz])=>{
+  const g = new THREE.Group();
+  g.position.set(wx,wy,wz);
+  // Tyre
+  const tyre = cyl(.32,.32,.22,28,tyreMat,0,0,0,Math.PI/2);
+  g.add(tyre);
+  // Rim
+  const rim = cyl(.22,.22,.24,12,wheelMat,0,0,0,Math.PI/2);
+  g.add(rim);
+  // Spokes
+  for(let i=0;i<5;i++){
+    const spoke = box(.18,.04,.04,wheelMat,0,0,0,0,0,(Math.PI/5)*i);
+    g.add(spoke);
+  }
+  wheelMeshes.push({group:g,rim});
+  carGroup.add(g);
+});
+
+// Ground reflection line
+carGroup.position.y = -0.12;
+
+// Store mesh refs for applying mods
+const meshRefs = { bodyMat, glassMat, wheelMeshes, splitter, roofSpoiler, rearWing, skirtL, skirtR, exhaustTip, exhaustTip2 };
+
+// ─── APPLY MODS ──────────────────────────────────────────────────────────────
+function applyMods(){
+  // Reset
+  bodyMat.color.set(0xCC2222); bodyMat.metalness=.35; bodyMat.roughness=.38;
+  glassMat.opacity=.72; glassMat.color.set(0x0a0a2a);
+  wheelMeshes.forEach(({rim})=>{rim.material.color.set(0xC0C0C0);rim.material.metalness=.85;rim.material.roughness=.15;});
+  splitter.visible=false; roofSpoiler.visible=false; rearWing.visible=false;
+  skirtL.visible=false; skirtR.visible=false;
+  exhaustTip2.visible=false;
+  carGroup.position.y=-0.12;
+
+  state.selected.forEach(part=>{
+    const m = part.mod;
+    if(m.type==='paint'){bodyMat.color.setHex(m.color);bodyMat.metalness=m.metalness;bodyMat.roughness=m.roughness;}
+    if(m.type==='tint'){glassMat.opacity=m.opacity;glassMat.color.set(0x0a0a2a);}
+    if(m.type==='wheels'){wheelMeshes.forEach(({rim})=>{rim.material.color.setHex(m.color);rim.material.metalness=m.metalness;rim.material.roughness=m.roughness;});}
+    if(m.type==='suspension'){carGroup.position.y=-0.12+m.drop;}
+    if(m.type==='aero'){
+      if(m.tag==='splitter') splitter.visible=true;
+      if(m.tag==='spoiler') roofSpoiler.visible=true;
+      if(m.tag==='wing') rearWing.visible=true;
+      if(m.tag==='diffuser'){} // visual only - would need more geo
+    }
+    if(m.type==='skirts'){skirtL.visible=true;skirtR.visible=true;}
+    if(m.type==='exhaust'){exhaustTip2.visible=true;}
+  });
+}
+
+// ─── RENDER LOOP ─────────────────────────────────────────────────────────────
+function resize(){
+  const w=wrap.clientWidth, h=wrap.clientHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+}
+resize();
+new ResizeObserver(resize).observe(wrap);
+
+let raf;
+(function animate(){raf=requestAnimationFrame(animate);controls.update();renderer.render(scene,camera);})();
+
+window.resetCamera=function(){
+  camera.position.set(3.5,1.5,3.5);
+  controls.target.set(0,0.1,0);
+  controls.update();
+};
+
+// ─── UI ──────────────────────────────────────────────────────────────────────
+function fmt(n){return'£'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+
+function renderSectionNav(){
+  const el=document.getElementById('secNav');
+  el.innerHTML=SECTIONS.map(s=>`
+    <button class="sec-btn${s.id===state.activeSection?' active':''}${state.selected.has(s.id)?' has-part':''}" onclick="setSection('${s.id}')">
+      ${s.emoji} ${s.label}
+      <span class="sec-dot"></span>
+    </button>`).join('');
+}
+
+function renderParts(){
+  const sec=state.activeSection;
+  const parts=PARTS[sec]||[];
+  document.getElementById('paneTitle').textContent=SECTIONS.find(s=>s.id===sec)?.label||'';
+  document.getElementById('paneSub').textContent=`${parts.length} option${parts.length!==1?'s':''} available`;
+  const cur=state.selected.get(sec);
+  document.getElementById('partsGrid').innerHTML=parts.map(p=>{
+    const isSel=cur?.id===p.id;
+    const thumb=p.swatch
+      ?`<div class="swatch-wrap"><div class="swatch" style="background:${p.swatch}"></div><span style="font-size:12px;color:var(--muted)">${p.name}</span></div>`
+      :`<div class="part-thumb" style="font-size:32px">${p.emoji||'🔩'}</div>`;
+    return`<div class="part-card${isSel?' selected':''}" onclick="togglePart('${sec}','${p.id}')">
+      ${thumb}
+      <div class="part-body">
+        <div class="part-brand">${p.brand}</div>
+        <div class="part-name">${p.name}</div>
+        <div class="part-footer">
+          <span class="part-price">${fmt(p.price)}</span>
+        </div>
+      </div>
+      <div class="check"><svg viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg></div>
+    </div>`;
+  }).join('');
+}
+
+function renderSummary(){
+  const parts=[...state.selected.values()];
+  const total=parts.reduce((s,p)=>s+p.price,0);
+  document.getElementById('totalAmount').textContent=fmt(total);
+  document.getElementById('saveBtn').disabled=parts.length===0;
+  if(parts.length===0){
+    document.getElementById('summaryList').innerHTML='<div class="empty-msg">🛒<br><br>Pick parts to see your build cost</div>';
+    return;
+  }
+  document.getElementById('summaryList').innerHTML=parts.map(p=>`
+    <div class="summary-item">
+      <div class="si-info">
+        <div class="si-brand">${p.brand}</div>
+        <div class="si-name">${p.name}</div>
+        <div class="si-price">${fmt(p.price)}</div>
+      </div>
+      <button class="si-remove" onclick="removePart('${p.mod.type==='tint'?'window_tint':Object.keys(PARTS).find(k=>PARTS[k].some(x=>x.id==='${p.id}'))}')" title="Remove">✕</button>
+    </div>`).join('');
+}
+
+function render(){
+  renderSectionNav();
+  renderParts();
+  renderSummary();
+  applyMods();
+}
+
+window.setSection=function(id){state.activeSection=id;render();};
+window.togglePart=function(sec,id){
+  const parts=PARTS[sec];
+  const part=parts.find(p=>p.id===id);
+  if(state.selected.get(sec)?.id===id) state.selected.delete(sec);
+  else state.selected.set(sec,part);
+  render();
+};
+window.removePart=function(sec){state.selected.delete(sec);render();};
+window.clearBuild=function(){state.selected.clear();render();};
+window.shareBuild=function(){
+  const parts=[...state.selected.values()];
+  const total=parts.reduce((s,p)=>s+p.price,0);
+  const txt=`My Vauxhall Astra Build — ${fmt(total)}\n\n`+parts.map(p=>`• ${p.brand} ${p.name} — ${fmt(p.price)}`).join('\n')+'\n\nBuilt with AutoMod';
+  if(navigator.share){navigator.share({title:'My Astra Build',text:txt}).catch(()=>{});}
+  else{navigator.clipboard.writeText(txt).then(()=>alert('Build copied to clipboard!'));}
+};
+
+render();
+</script>
+</body>
+</html>
