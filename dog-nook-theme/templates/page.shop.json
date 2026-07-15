@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "dog-nook-shop",
+      "settings": {
+        "eyebrow": "Shop all",
+        "heading": "Comfort-first accessories",
+        "subheading": "Comfort-first accessories for dogs who need a little extra calm.",
+        "sort_label": "Sort: Best selling ▾"
+      },
+      "blocks": {
+        "all": { "type": "chip", "settings": { "label": "All", "url": "/pages/shop", "active": true } },
+        "calming": { "type": "chip", "settings": { "label": "Calming", "url": "/collections/calming-essentials" } },
+        "grooming": { "type": "chip", "settings": { "label": "Grooming", "url": "/collections/grooming" } },
+        "feeding": { "type": "chip", "settings": { "label": "Feeding", "url": "/collections/mealtime-feeding" } },
+        "travel": { "type": "chip", "settings": { "label": "Travel", "url": "/collections/travel-outdoor" } }
+      },
+      "block_order": ["all", "calming", "grooming", "feeding", "travel"]
+    }
+  },
+  "order": ["main"]
+}
