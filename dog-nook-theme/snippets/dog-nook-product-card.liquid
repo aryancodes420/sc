@@ -23,7 +23,8 @@
 <a href="{{ p.url }}" class="tdn-product-card">
   <div class="tdn-product-card__media" style="background: {{ tone }};">
     {%- if p.featured_media -%}
-      {{ p.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: p.featured_media.alt | escape, widths: '300, 450, 600' }}
+      {%- assign card_alt = p.featured_media.alt | default: p.title | escape -%}
+      {{ p.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', alt: card_alt }}
     {%- endif -%}
     {%- if show_tag and pill != blank -%}
       <span class="tdn-product-card__tag">{{ pill }}</span>
