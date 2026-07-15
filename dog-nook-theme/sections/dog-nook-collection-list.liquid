@@ -5,10 +5,10 @@
 {%- endcomment -%}
 {%- assign s = section.settings -%}
 <div class="tdn">
-  <section class="tdn-section tdn-wrap">
+  <section class="tdn-section tdn-wrap" style="text-align:center;">
     {%- if s.eyebrow != blank -%}<div class="tdn-eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
     {%- if s.heading != blank -%}<h2 class="tdn-h2">{{ s.heading }}</h2>{%- endif -%}
-    <div class="tdn-grid-4">
+    <div class="tdn-grid-4" style="text-align:left;">
       {%- for block in section.blocks -%}
         {%- assign coll = collections[block.settings.collection] -%}
         <a href="{{ coll.url | default: '#' }}" class="tdn-coll-card" {{ block.shopify_attributes }}>
