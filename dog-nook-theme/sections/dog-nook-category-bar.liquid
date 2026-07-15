@@ -1,0 +1,46 @@
+{%- comment -%}
+  The Dog Nook — scrolling category bar.
+  A horizontally-scrollable row of pills (collections / links) below the header.
+  Each pill is a block, so it's fully editable.
+{%- endcomment -%}
+<div class="tdn tdn-catbar-wrap">
+  <div class="tdn-catbar tdn-scroll">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign url = block.settings.url
+        if url == blank and block.settings.collection != blank
+          assign url = collections[block.settings.collection].url
+        endif
+        assign label = block.settings.label
+        if label == blank and block.settings.collection != blank
+          assign label = collections[block.settings.collection].title
+        endif
+      -%}
+      <a href="{{ url | default: '#' }}" class="tdn-catbar__pill {% if block.settings.accent %}tdn-catbar__pill--accent{% endif %}" {{ block.shopify_attributes }}>{{ label }}</a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "TDN Category bar",
+  "tag": "section",
+  "max_blocks": 12,
+  "blocks": [
+    { "type": "pill", "name": "Pill", "settings": [
+      { "type": "text", "id": "label", "label": "Label (blank = collection title)" },
+      { "type": "collection", "id": "collection", "label": "Collection" },
+      { "type": "url", "id": "url", "label": "Or a custom link (overrides collection)" },
+      { "type": "checkbox", "id": "accent", "label": "Highlight (sage fill)", "default": false }
+    ] }
+  ],
+  "presets": [ { "name": "TDN Category bar", "blocks": [
+    { "type": "pill", "settings": { "label": "Shop all", "url": "/pages/shop", "accent": true } },
+    { "type": "pill", "settings": { "label": "Calming Essentials", "url": "/collections/calming-essentials" } },
+    { "type": "pill", "settings": { "label": "Grooming", "url": "/collections/grooming" } },
+    { "type": "pill", "settings": { "label": "Mealtime & Feeding", "url": "/collections/mealtime-feeding" } },
+    { "type": "pill", "settings": { "label": "Travel & Outdoor", "url": "/collections/travel-outdoor" } },
+    { "type": "pill", "settings": { "label": "The Rescue Bundle", "url": "/products/the-new-rescue-bundle-1" } }
+  ] } ]
+}
+{% endschema %}

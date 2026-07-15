@@ -108,10 +108,8 @@
           </button>
         {%- endform -%}
 
-        <div class="tdn-pdp__panel">
-          <span>✓ {{ s.guarantee_text | default: '30-day money-back guarantee' }}</span>
-          <span>✓ {{ product.metafields.custom.delivery_line.value | default: s.delivery_text }}</span>
-        </div>
+        {%- assign _delivery = product.metafields.custom.delivery_line.value | default: s.delivery_text -%}
+        {% render 'dog-nook-trust-panel', delivery_text: _delivery, returns_text: s.guarantee_text %}
 
         {%- if product.description != blank -%}
           <div class="tdn-pdp__about">

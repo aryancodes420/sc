@@ -1,0 +1,18 @@
+{%- comment -%}
+  The Dog Nook — product trust panel (delivery / returns / secure + payment icons).
+  Usage: {% render 'dog-nook-trust-panel', delivery_text: '...', returns_text: '...' %}
+  Params (all optional): delivery_text, returns_text, secure_text.
+  Payment icons come from the store's enabled payment providers.
+{%- endcomment -%}
+<div class="tdn tdn-trustpanel">
+  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic">🚚</span><span>{{ delivery_text | default: 'Free UK delivery on orders over £35' }}</span></div>
+  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic">↩️</span><span>{{ returns_text | default: '30-day easy returns' }}</span></div>
+  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic">🔒</span><span>{{ secure_text | default: 'Secure checkout — all major cards accepted' }}</span></div>
+  {%- if shop.enabled_payment_types.size > 0 -%}
+    <div class="tdn-trustpanel__pays">
+      {%- for type in shop.enabled_payment_types -%}
+        {{ type | payment_type_svg_tag: class: 'tdn-pay' }}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>

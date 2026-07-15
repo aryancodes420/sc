@@ -18,6 +18,18 @@
         "overlay_color": "#2e2a22"
       }
     },
+    "catbar": {
+      "type": "dog-nook-category-bar",
+      "blocks": {
+        "p0": { "type": "pill", "settings": { "label": "Shop all", "url": "/pages/shop", "accent": true } },
+        "p1": { "type": "pill", "settings": { "label": "Calming Essentials", "url": "/collections/calming-essentials" } },
+        "p2": { "type": "pill", "settings": { "label": "Grooming", "url": "/collections/grooming" } },
+        "p3": { "type": "pill", "settings": { "label": "Mealtime & Feeding", "url": "/collections/mealtime-feeding" } },
+        "p4": { "type": "pill", "settings": { "label": "Travel & Outdoor", "url": "/collections/travel-outdoor" } },
+        "p5": { "type": "pill", "settings": { "label": "The Rescue Bundle", "url": "/products/the-new-rescue-bundle-1" } }
+      },
+      "block_order": ["p0", "p1", "p2", "p3", "p4", "p5"]
+    },
     "trust": {
       "type": "dog-nook-trust-strip",
       "blocks": {
@@ -85,5 +97,5 @@
       }
     }
   },
-  "order": ["hero", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
+  "order": ["hero", "catbar", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
 }
