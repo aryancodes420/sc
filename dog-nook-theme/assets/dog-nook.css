@@ -46,8 +46,14 @@
 /* ---- scope: everything the Dog Nook sections render sits inside .tdn ---- */
 .tdn { font-family: var(--tdn-font-body); color: var(--tdn-charcoal); }
 .tdn *, .tdn *::before, .tdn *::after { box-sizing: border-box; }
-.tdn a { color: var(--tdn-sage); text-decoration: none; }
-.tdn a:hover { color: var(--tdn-sage-hover); }
+.tdn a:not(.tdn-btn) { color: var(--tdn-sage); text-decoration: none; }
+.tdn a:not(.tdn-btn):hover { color: var(--tdn-sage-hover); }
+/* buttons must keep their own text colour regardless of link colour */
+.tdn a.tdn-btn, .tdn button.tdn-btn { text-decoration: none; }
+.tdn .tdn-btn--primary { color: var(--tdn-cream); }
+.tdn .tdn-btn--primary:hover { color: var(--tdn-cream); }
+.tdn .tdn-btn--ghost { color: #fff; }
+.tdn .tdn-btn--outline { color: var(--tdn-charcoal); }
 
 .tdn-wrap { max-width: var(--tdn-maxw); margin: 0 auto; padding: 0 var(--tdn-side-pad); }
 .tdn-section { padding: 64px 0; }
