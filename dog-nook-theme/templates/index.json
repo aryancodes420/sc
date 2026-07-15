@@ -9,7 +9,7 @@
         "subheading": "Calming beds, mats and grooming tools for dogs who need a little extra reassurance.",
         "ticks": "30-day money-back guarantee | Free UK delivery over £35",
         "button_1_label": "Shop the Rescue Bundle",
-        "button_1_url": "/products/the-new-rescue-bundle",
+        "button_1_url": "/products/the-new-rescue-bundle-1",
         "button_2_label": "Shop all",
         "button_2_url": "/pages/shop",
         "grad_from": "#6f795c",
@@ -41,7 +41,7 @@
     "bundle": {
       "type": "dog-nook-featured-bundle",
       "settings": {
-        "product": "the-new-rescue-bundle",
+        "product": "the-new-rescue-bundle-1",
         "eyebrow": "Featured bundle",
         "heading": "The New Rescue Bundle",
         "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind.",
@@ -51,7 +51,7 @@
         "save_label": "You save £15",
         "button_label": "Add bundle to basket",
         "link_label": "What's inside?",
-        "link_url": "/products/the-new-rescue-bundle",
+        "link_url": "/products/the-new-rescue-bundle-1",
         "image_tone": "linear-gradient(140deg,#c79079,#a86b4f)",
         "image_placeholder_label": "Bundle flat-lay"
       }

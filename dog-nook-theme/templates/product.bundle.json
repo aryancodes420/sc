@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "main": {
+      "type": "dog-nook-bundle",
+      "settings": {
+        "eyebrow": "The Rescue Bundle",
+        "heading": "Three gentle essentials for a nervous dog settling in",
+        "intro": "The first few weeks with a newly-adopted dog are the hardest — everything is unfamiliar and their nerves are close to the surface. This bundle brings together three of our calmest, most-reached-for tools to help them settle, sniff and unwind at their own pace.",
+        "panel_label": "What's inside",
+        "separately_total": "£49.97",
+        "save_label": "You save £15",
+        "button_label": "Add bundle to basket",
+        "ticks": "30-day money-back guarantee | Dispatched fast · Free UK delivery over £35",
+        "badge": "BEST VALUE · SAVE £15",
+        "image_tone": "linear-gradient(140deg,#c79079,#a86b4f)",
+        "image_placeholder_label": "Flat-lay of all three"
+      },
+      "blocks": {
+        "i1": { "type": "item", "settings": { "name": "Lick Mat", "note": "Spread, freeze, soothe", "price": "£11.99", "tone": "#C89178" } },
+        "i2": { "type": "item", "settings": { "name": "Snuffle Mat", "note": "Nose-led foraging", "price": "£22.99", "tone": "#9AA593" } },
+        "i3": { "type": "item", "settings": { "name": "Slow-Feeder Bowl", "note": "Calmer mealtimes", "price": "£14.99", "tone": "#8B9578" } }
+      },
+      "block_order": ["i1", "i2", "i3"]
+    }
+  },
+  "order": ["main"]
+}
