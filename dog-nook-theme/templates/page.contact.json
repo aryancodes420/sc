@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "dog-nook-contact",
+      "settings": {
+        "eyebrow": "Contact",
+        "heading": "Get in touch",
+        "email": "hello@thedognook.co.uk",
+        "subtext": "We usually reply within 24 hours."
+      }
+    }
+  },
+  "order": ["main"]
+}

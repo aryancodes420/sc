@@ -1,0 +1,85 @@
+{
+  "sections": {
+    "hero": {
+      "type": "dog-nook-hero",
+      "settings": {
+        "layout": "fullbleed",
+        "eyebrow": "Made for anxious & rescue dogs",
+        "heading": "Less anxious.<br>More at home.",
+        "subheading": "Calming beds, mats and grooming tools for dogs who need a little extra reassurance.",
+        "ticks": "30-day money-back guarantee | Free UK delivery over £35",
+        "button_1_label": "Shop the Rescue Bundle",
+        "button_2_label": "Shop all",
+        "grad_from": "#6f795c",
+        "grad_mid": "#8a9472",
+        "grad_to": "#b98a67",
+        "overlay_color": "#2e2a22"
+      }
+    },
+    "trust": {
+      "type": "dog-nook-trust-strip",
+      "blocks": {
+        "b1": { "type": "cell", "settings": { "icon": "🚚", "title": "Free UK delivery", "subtitle": "On orders over £35" } },
+        "b2": { "type": "cell", "settings": { "icon": "🛡️", "title": "30-day guarantee", "subtitle": "Money-back, no fuss" } },
+        "b3": { "type": "cell", "settings": { "icon": "🐾", "title": "For anxious & rescue dogs", "subtitle": "Chosen with care" } },
+        "b4": { "type": "cell", "settings": { "icon": "📦", "title": "Fast UK dispatch", "subtitle": "Usually 1–2 days" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"]
+    },
+    "why": {
+      "type": "dog-nook-why",
+      "settings": { "eyebrow": "Why The Dog Nook", "heading": "Comfort you can return with confidence" },
+      "blocks": {
+        "w1": { "type": "card", "settings": { "icon": "🐕", "title": "Chosen for anxious & rescue dogs", "body": "Picked for dogs settling in — not a random catalogue. Everything here earns its place." } },
+        "w2": { "type": "card", "settings": { "icon": "🛡️", "title": "The risk is ours, not yours", "body": "A 30-day money-back guarantee on every order. If it doesn't help your dog settle, send it back." } },
+        "w3": { "type": "card", "settings": { "icon": "💬", "title": "A real person replies", "body": "A small UK team, usually with same-day answers. Ask us anything before you buy." } }
+      },
+      "block_order": ["w1", "w2", "w3"]
+    },
+    "bundle": {
+      "type": "dog-nook-featured-bundle",
+      "settings": {
+        "eyebrow": "Featured bundle",
+        "heading": "The New Rescue Bundle",
+        "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind.",
+        "badge": "BEST VALUE · SAVE £15",
+        "price": "£34.99",
+        "compare_price": "£49.97",
+        "save_label": "You save £15",
+        "button_label": "Add bundle to basket",
+        "link_label": "What's inside?",
+        "image_tone": "linear-gradient(140deg,#c79079,#a86b4f)",
+        "image_placeholder_label": "Bundle flat-lay"
+      }
+    },
+    "collections": {
+      "type": "dog-nook-collection-list",
+      "settings": { "eyebrow": "Shop by need", "heading": "Find what your dog needs" },
+      "blocks": {
+        "c1": { "type": "collection", "settings": { "title": "Calming Essentials", "tone": "#8B9578" } },
+        "c2": { "type": "collection", "settings": { "title": "Grooming", "tone": "#9AA593" } },
+        "c3": { "type": "collection", "settings": { "title": "Mealtime & Feeding", "tone": "#C89178" } },
+        "c4": { "type": "collection", "settings": { "title": "Travel & Outdoor", "tone": "#8B9578" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "reviews": {
+      "type": "dog-nook-reviews-placeholder",
+      "settings": {
+        "eyebrow": "Kind words",
+        "heading": "Real reviews, coming soon",
+        "body": "We only show reviews once they're real. These spaces are ready for verified owner reviews.",
+        "placeholder_note": "Awaiting verified review"
+      }
+    },
+    "newsletter": {
+      "type": "dog-nook-newsletter",
+      "settings": {
+        "eyebrow": "Join the pack",
+        "heading": "Get 10% off your first order",
+        "body": "Join the pack for calm-dog tips and early access to new bundles. No spam."
+      }
+    }
+  },
+  "order": ["hero", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
+}

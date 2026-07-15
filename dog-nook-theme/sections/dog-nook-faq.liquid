@@ -1,0 +1,42 @@
+{%- comment -%} The Dog Nook — FAQ (accordion list, narrow column) {%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="tdn tdn-fade">
+  <section class="tdn-faq">
+    {%- if s.eyebrow != blank -%}<div class="tdn-eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+    {%- if s.heading != blank -%}<h1 class="tdn-h1" style="font-size:32px; margin-bottom:26px;">{{ s.heading }}</h1>{%- endif -%}
+    {%- for block in section.blocks -%}
+      <div class="tdn-accordion" {{ block.shopify_attributes }}>
+        <button type="button" class="tdn-accordion__q"><span>{{ block.settings.q }}</span><span class="tdn-accordion__sign">+</span></button>
+        <p class="tdn-accordion__a">{{ block.settings.a }}</p>
+      </div>
+    {%- endfor -%}
+  </section>
+</div>
+
+{% stylesheet %}
+  .tdn-faq { max-width: 760px; margin: 0 auto; padding: 64px var(--tdn-side-pad); }
+  @media (max-width: 760px) { .tdn-faq { padding: 44px var(--tdn-side-pad); } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "TDN FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Help" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently asked questions" }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Question", "settings": [
+      { "type": "text", "id": "q", "label": "Question", "default": "Question goes here?" },
+      { "type": "textarea", "id": "a", "label": "Answer", "default": "Answer goes here." }
+    ] }
+  ],
+  "presets": [ { "name": "TDN FAQ", "blocks": [
+    { "type": "item", "settings": { "q": "Do lick mats and snuffle mats actually help with anxiety?", "a": "They give dogs a repetitive, nose-led job to focus on. Licking and sniffing are natural self-soothing behaviours, so many owners use them around fireworks, storms and settling a new rescue. They're comfort and enrichment tools, not medical treatments." } },
+    { "type": "item", "settings": { "q": "How much is delivery and how long does it take?", "a": "Free UK delivery on orders over £35. Under that, delivery is shown in full at checkout — never added as a surprise. Most items are dispatched within 1–2 days; the Car Boot Liner ships same-day from our UK warehouse." } },
+    { "type": "item", "settings": { "q": "What is your returns policy?", "a": "You have a 30-day money-back guarantee. You also have a legal 14-day cancellation right under the Consumer Contracts Regulations. For hygiene reasons, used lick mats, snuffle mats and grooming items can't be returned once opened unless faulty." } },
+    { "type": "item", "settings": { "q": "Is this a dropshipping store?", "a": "We're a small UK team. We choose a tight range for dogs who need a little extra calm rather than listing everything we can find, and a real person answers your emails — usually the same day." } }
+  ] } ]
+}
+{% endschema %}

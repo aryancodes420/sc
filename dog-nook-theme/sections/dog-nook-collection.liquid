@@ -1,0 +1,84 @@
+{%- comment -%}
+  The Dog Nook — Collection (banner + product grid + "Good to know").
+  Use as the main section of templates/collection.json. Wired to the live collection.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="tdn tdn-fade">
+  <section class="tdn-section tdn-wrap">
+    <div class="tdn-coll-banner" style="background: {{ s.banner_tone | default: '#8B9578' }};">
+      <div class="tdn-coll-banner__eyebrow">Collection</div>
+      <h1 class="tdn-h1" style="font-size:32px; color:#fff; margin-bottom:10px;">{{ collection.title }}</h1>
+      {%- if collection.description != blank -%}
+        <p class="tdn-coll-banner__desc">{{ collection.description | strip_html | truncatewords: 40 }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if s.show_filters -%}
+      <div class="tdn-coll-filters">
+        <a href="{{ collection.url }}" class="tdn-chip {% unless current_tags %}tdn-chip--on{% endunless %}">All</a>
+        {%- for tag in collection.all_tags limit: 6 -%}
+          {%- if current_tags contains tag -%}
+            <a href="{{ collection.url }}" class="tdn-chip tdn-chip--on">{{ tag }}</a>
+          {%- else -%}
+            <a href="{{ collection.url }}/{{ tag | handleize }}" class="tdn-chip">{{ tag }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- paginate collection.products by 16 -%}
+      <div class="tdn-grid-4">
+        {%- for product in collection.products -%}
+          {% render 'dog-nook-product-card', card_product: product, show_tag: true %}
+        {%- else -%}
+          <p class="tdn-muted">No products in this collection yet.</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <div class="tdn-pagination">{{ paginate | default_pagination }}</div>
+      {%- endif -%}
+    {%- endpaginate -%}
+
+    {%- assign gblocks = section.blocks | where: 'type', 'note' -%}
+    {%- if gblocks.size > 0 -%}
+      <div class="tdn-coll-good">
+        <div class="tdn-eyebrow">Good to know</div>
+        {%- for block in gblocks -%}
+          <div class="tdn-accordion" {{ block.shopify_attributes }}>
+            <button type="button" class="tdn-accordion__q"><span>{{ block.settings.q }}</span><span class="tdn-accordion__sign">+</span></button>
+            <p class="tdn-accordion__a">{{ block.settings.a }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+</div>
+
+{% stylesheet %}
+  .tdn-coll-banner { border-radius: 20px; padding: 44px 40px; color: #fff; margin-bottom: 30px; }
+  .tdn-coll-banner__eyebrow { font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; opacity: .85; font-weight: 700; margin-bottom: 10px; }
+  .tdn-coll-banner__desc { font-size: 15px; line-height: 1.6; max-width: 520px; margin: 0; opacity: .92; }
+  .tdn-coll-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+  .tdn-pagination { margin-top: 32px; text-align: center; font-size: 14px; }
+  .tdn-pagination a, .tdn-pagination .page.current { padding: 6px 12px; }
+  .tdn-coll-good { margin-top: 44px; max-width: 760px; }
+  @media (max-width: 760px) { .tdn-coll-banner { padding: 32px 24px; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "TDN Collection",
+  "tag": "section",
+  "settings": [
+    { "type": "color", "id": "banner_tone", "label": "Banner colour", "default": "#8B9578" },
+    { "type": "checkbox", "id": "show_filters", "label": "Show tag filter chips", "default": true }
+  ],
+  "blocks": [
+    { "type": "note", "name": "Good-to-know item", "settings": [
+      { "type": "text", "id": "q", "label": "Question", "default": "How much is delivery?" },
+      { "type": "textarea", "id": "a", "label": "Answer", "default": "Free UK delivery on orders over £35. Under that, delivery is shown in full at checkout." }
+    ] }
+  ],
+  "presets": [ { "name": "TDN Collection" } ]
+}
+{% endschema %}

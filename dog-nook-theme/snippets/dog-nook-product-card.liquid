@@ -1,0 +1,46 @@
+{%- comment -%}
+  The Dog Nook — product card
+  Usage: {% render 'dog-nook-product-card', card_product: product, show_tag: true %}
+  Accepts:
+    card_product  {Product}  required
+    show_tag      {Boolean}  optional — show category/type pill (default true)
+    tag_text      {String}   optional — override the pill text
+    tone          {String}   optional — CSS colour for empty media (fallback placeholder)
+{%- endcomment -%}
+{%- liquid
+  assign p = card_product
+  if show_tag == nil
+    assign show_tag = true
+  endif
+  assign pill = tag_text
+  if pill == blank
+    assign pill = p.type
+  endif
+  if tone == blank
+    assign tone = '#8B9578'
+  endif
+-%}
+<a href="{{ p.url }}" class="tdn-product-card">
+  <div class="tdn-product-card__media" style="background: {{ tone }};">
+    {%- if p.featured_media -%}
+      {{ p.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', alt: p.featured_media.alt | escape, widths: '300, 450, 600' }}
+    {%- endif -%}
+    {%- if show_tag and pill != blank -%}
+      <span class="tdn-product-card__tag">{{ pill }}</span>
+    {%- endif -%}
+  </div>
+  <div class="tdn-product-card__body">
+    <span class="tdn-product-card__name">{{ p.title }}</span>
+    {%- if p.metafields.reviews.rating.value != blank -%}
+      <span class="tdn-product-card__reviews">★★★★★ · {{ p.metafields.reviews.rating_count.value }} reviews</span>
+    {%- else -%}
+      <span class="tdn-product-card__reviews">☆☆☆☆☆ · No reviews yet</span>
+    {%- endif -%}
+    <span class="tdn-product-card__price tdn-price">
+      {{ p.price | money }}
+      {%- if p.compare_at_price > p.price -%}
+        <span class="tdn-compare">{{ p.compare_at_price | money }}</span>
+      {%- endif -%}
+    </span>
+  </div>
+</a>

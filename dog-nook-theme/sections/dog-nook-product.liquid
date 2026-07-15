@@ -1,0 +1,229 @@
+{%- comment -%}
+  The Dog Nook — Main product (PDP), wired to the Shopify product.
+  Use as the main section of templates/product.json.
+{%- endcomment -%}
+{%- liquid
+  assign s = section.settings
+  assign product_coll = product.collections.first
+  assign cur = product.selected_or_first_available_variant
+  assign single_option = false
+  if product.has_only_default_variant == false and product.options.size == 1
+    assign single_option = true
+  endif
+-%}
+<div class="tdn tdn-fade" data-tdn-product>
+  <section class="tdn-section tdn-wrap">
+
+    {%- comment -%} Breadcrumb {%- endcomment -%}
+    <div class="tdn-crumb">
+      <a href="/collections/all">Shop</a> &nbsp;/&nbsp;
+      {%- if product_coll -%}<a href="{{ product_coll.url }}">{{ product_coll.title }}</a> &nbsp;/&nbsp;{%- endif -%}
+      <span>{{ product.title }}</span>
+    </div>
+
+    <div class="tdn-pdp">
+      {%- comment -%} ---------- Gallery ---------- {%- endcomment -%}
+      <div class="tdn-pdp__gallery">
+        <div class="tdn-pdp__main" style="background: {{ s.placeholder_tone | default: '#8B9578' }};">
+          {%- if product.featured_media -%}
+            {{ product.featured_media | image_url: width: 1000 | image_tag: id: 'tdn-pdp-main', class: 'tdn-pdp__mainimg', widths: '500, 750, 1000', alt: product.featured_media.alt | default: product.title | escape }}
+          {%- else -%}
+            <span class="tdn-pdp__ph">Product on clean background</span>
+          {%- endif -%}
+          {%- if product.media.size > 1 -%}<span class="tdn-pdp__counter">1 / {{ product.media.size }}</span>{%- endif -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+          <div class="tdn-pdp__thumbs">
+            {%- for media in product.media limit: 6 -%}
+              <button type="button" class="tdn-pdp__thumb {% if forloop.first %}is-active{% endif %}"
+                      data-full="{{ media | image_url: width: 1000 }}"
+                      onclick="var m=document.getElementById('tdn-pdp-main'); if(m){m.src=this.dataset.full;} this.parentNode.querySelectorAll('.tdn-pdp__thumb').forEach(function(t){t.classList.remove('is-active')}); this.classList.add('is-active');">
+                {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                  <span class="tdn-pdp__play">▶</span>
+                {%- else -%}
+                  {{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+                {%- endif -%}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} ---------- Details ---------- {%- endcomment -%}
+      <div class="tdn-pdp__info">
+        {%- if product_coll -%}<div class="tdn-eyebrow">{{ product_coll.title }}</div>{%- endif -%}
+        <h1 class="tdn-h1" style="font-size:30px;">{{ product.title }}</h1>
+        <div class="tdn-pdp__reviews">☆☆☆☆☆ · No reviews yet</div>
+        <div class="tdn-pdp__price tdn-price" data-tdn-price>{{ cur.price | money }}</div>
+        {%- if product.description != blank -%}<p class="tdn-muted tdn-pdp__short">{{ s.short_text | default: product.metafields.custom.short_description.value }}</p>{%- endif -%}
+
+        {%- form 'product', product, class: 'tdn-pdp__form' -%}
+          {%- if single_option -%}
+            <div class="tdn-pdp__optlabel">{{ product.options.first }}: <span data-tdn-swatch-label>{{ cur.title }}</span></div>
+            <input type="hidden" name="id" value="{{ cur.id }}">
+            <div class="tdn-swatches" data-tdn-swatches>
+              {%- for variant in product.variants -%}
+                {%- assign val = variant.option1 | downcase -%}
+                {%- liquid
+                  case val
+                    when 'sage' then assign swtone = '#8B9578'
+                    when 'oat' then assign swtone = '#DDD3C4'
+                    when 'clay' then assign swtone = '#C89178'
+                    when 'charcoal' then assign swtone = '#2E2A22'
+                    when 'cream' then assign swtone = '#F3EDE4'
+                    else assign swtone = variant.metafields.custom.swatch_hex.value | default: '#9AA593'
+                  endcase
+                -%}
+                <button type="button" class="tdn-swatch {% if variant.id == cur.id %}is-selected{% endif %}"
+                        data-tdn-swatch data-variant-id="{{ variant.id }}" data-variant-name="{{ variant.title | escape }}"
+                        data-variant-price="{{ variant.price | money }}" data-variant-available="{{ variant.available }}"
+                        title="{{ variant.title | escape }}" aria-label="{{ variant.title | escape }}"
+                        style="background: {{ swtone }};"></button>
+              {%- endfor -%}
+            </div>
+          {%- elsif product.has_only_default_variant -%}
+            <input type="hidden" name="id" value="{{ cur.id }}">
+          {%- else -%}
+            {%- comment -%} multi-option fallback: classic variant select {%- endcomment -%}
+            <label class="tdn-pdp__optlabel" for="tdn-variant-select">Options</label>
+            <select id="tdn-variant-select" name="id" class="tdn-field" style="margin-bottom:24px;">
+              {%- for variant in product.variants -%}
+                <option value="{{ variant.id }}" {% if variant == cur %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                  {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (sold out){% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+          {%- endif -%}
+
+          <button type="submit" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__atc"
+                  data-tdn-atc data-add-label="{{ s.add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
+                  {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}{{ s.add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
+          </button>
+        {%- endform -%}
+
+        <div class="tdn-pdp__panel">
+          <span>✓ {{ s.guarantee_text | default: '30-day money-back guarantee' }}</span>
+          <span>✓ {{ product.metafields.custom.delivery_line.value | default: s.delivery_text }}</span>
+        </div>
+
+        {%- if product.description != blank -%}
+          <div class="tdn-pdp__about">
+            <h3 class="tdn-h3">{{ s.about_heading | default: 'About this' }}</h3>
+            <div class="rte tdn-pdp__desc">{{ product.description }}</div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ---------- Reviews / questions / related ---------- {%- endcomment -%}
+  <section class="tdn-pdp-alt">
+    <div class="tdn-wrap">
+      <div class="tdn-eyebrow">Reviews</div>
+      <h2 class="tdn-h2" style="font-size:24px; margin-bottom:8px;">No reviews yet</h2>
+      <p class="tdn-muted" style="margin-bottom:24px;">This product hasn't been reviewed yet. Verified owner reviews will appear here once they exist — we never write our own.</p>
+
+      {%- assign qblocks = section.blocks | where: 'type', 'question' -%}
+      {%- if qblocks.size > 0 -%}
+        <div class="tdn-eyebrow" style="margin-top:8px;">Questions</div>
+        {%- for block in qblocks -%}
+          <div class="tdn-accordion" {{ block.shopify_attributes }}>
+            <button type="button" class="tdn-accordion__q"><span>{{ block.settings.q }}</span><span class="tdn-accordion__sign">+</span></button>
+            <p class="tdn-accordion__a">{{ block.settings.a }}</p>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if product_coll and product_coll.products.size > 1 -%}
+        <h3 class="tdn-h3" style="font-size:22px; margin:40px 0 20px;">You may also like</h3>
+        <div class="tdn-grid-3">
+          {%- assign shown = 0 -%}
+          {%- for rel in product_coll.products -%}
+            {%- if rel.id != product.id and shown < 3 -%}
+              {% render 'dog-nook-product-card', card_product: rel, show_tag: false, tone: '#9AA593' %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+{%- comment -%} ---------- Mobile sticky Add-to-Cart ---------- {%- endcomment -%}
+<div class="tdn-pdp-sticky">
+  <div>
+    <div class="tdn-pdp-sticky__name">{{ product.title }}</div>
+    <div class="tdn-pdp-sticky__price tdn-price" data-tdn-price>{{ cur.price | money }}</div>
+  </div>
+  {%- form 'product', product -%}
+    <input type="hidden" name="id" value="{{ cur.id }}">
+    <button type="submit" class="tdn-btn tdn-btn--primary tdn-pdp-sticky__btn" data-tdn-atc data-add-label="{{ s.add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out" {% unless product.available %}disabled{% endunless %}>
+      {%- if product.available -%}{{ s.add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
+    </button>
+  {%- endform -%}
+</div>
+</div>
+
+{% stylesheet %}
+  .tdn-crumb { font-size: 12.5px; color: var(--tdn-faint); margin-bottom: 18px; }
+  .tdn-pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .tdn-pdp__main { position: relative; border-radius: 18px; height: 460px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .tdn-pdp__mainimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .tdn-pdp__ph { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.8); font-weight: 600; }
+  .tdn-pdp__counter { position: absolute; bottom: 12px; right: 14px; background: rgba(46,42,34,.5); color: #fff; font-size: 11px; padding: 4px 9px; border-radius: 999px; }
+  .tdn-pdp__thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
+  .tdn-pdp__thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; border: 2px solid transparent; background: #c7bda8; cursor: pointer; padding: 0; position: relative; }
+  .tdn-pdp__thumb.is-active { border-color: var(--tdn-sage); }
+  .tdn-pdp__thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .tdn-pdp__play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #3a352c; color: #fff; font-size: 14px; }
+  .tdn-pdp__reviews { font-size: 13px; color: #b3a892; margin-bottom: 14px; }
+  .tdn-pdp__price { font-size: 28px; margin-bottom: 6px; }
+  .tdn-pdp__short { margin-bottom: 22px; }
+  .tdn-pdp__optlabel { font-size: 12px; letter-spacing: .6px; text-transform: uppercase; color: var(--tdn-faint); font-weight: 600; margin-bottom: 10px; }
+  .tdn-swatches { display: flex; gap: 10px; margin-bottom: 24px; }
+  .tdn-swatch { width: 38px; height: 38px; border-radius: 10px; cursor: pointer; border: none; box-shadow: 0 0 0 1px rgba(46,42,34,.08); padding: 0; }
+  .tdn-swatch.is-selected { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--tdn-sage); }
+  .tdn-pdp__form { margin: 0 0 16px; }
+  .tdn-pdp__atc { padding: 15px; font-size: 15px; }
+  .tdn-pdp__panel { display: flex; flex-direction: column; gap: 9px; padding: 16px; background: var(--tdn-panel); border-radius: 14px; border: 1px solid var(--tdn-card-border); font-size: 13.5px; color: var(--tdn-muted-2); }
+  .tdn-pdp__about { margin-top: 26px; }
+  .tdn-pdp__desc { font-size: 14.5px; line-height: 1.7; color: var(--tdn-muted-2); }
+  .tdn-pdp-alt { background: var(--tdn-alt-bg); padding: 56px 0; margin-top: 8px; }
+  .tdn-pdp-sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: rgba(243,237,228,.96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-top: 1px solid var(--tdn-warm-border); padding: 12px 18px; display: none; align-items: center; gap: 14px; }
+  .tdn-pdp-sticky form { margin: 0; flex: 1; }
+  .tdn-pdp-sticky__name { font-size: 11px; color: var(--tdn-faint); }
+  .tdn-pdp-sticky__price { font-size: 17px; }
+  .tdn-pdp-sticky__btn { width: 100%; padding: 14px; }
+  @media (max-width: 760px) {
+    .tdn-pdp { grid-template-columns: 1fr; gap: 24px; }
+    .tdn-pdp__main { height: 300px; }
+    .tdn-pdp-sticky { display: flex; }
+    .tdn-pdp-alt { padding: 44px 0; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "TDN Product",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "short_text", "label": "Short description (falls back to metafield custom.short_description)" },
+    { "type": "text", "id": "add_label", "label": "Add-to-cart label", "default": "Add to Cart" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee line", "default": "30-day money-back guarantee" },
+    { "type": "text", "id": "delivery_text", "label": "Delivery line (falls back to metafield custom.delivery_line)", "default": "Dispatched within 1–2 days · Free UK delivery over £35" },
+    { "type": "text", "id": "about_heading", "label": "Description heading", "default": "About this" },
+    { "type": "text", "id": "placeholder_tone", "label": "Image placeholder colour", "default": "#8B9578" }
+  ],
+  "blocks": [
+    { "type": "question", "name": "Question (accordion)", "settings": [
+      { "type": "text", "id": "q", "label": "Question", "default": "Do lick mats and snuffle mats actually help with anxiety?" },
+      { "type": "textarea", "id": "a", "label": "Answer", "default": "They give dogs a repetitive, nose-led job to focus on — a natural way many dogs self-soothe. They're comfort and enrichment tools, not medical treatments." }
+    ] }
+  ],
+  "presets": [ { "name": "TDN Product", "blocks": [
+    { "type": "question", "settings": { "q": "Do lick mats and snuffle mats actually help with anxiety?", "a": "They give dogs a repetitive, nose-led job to focus on. Licking and sniffing are natural self-soothing behaviours, so many owners use them around fireworks, storms and settling a new rescue. They're comfort and enrichment tools, not medical treatments." } },
+    { "type": "question", "settings": { "q": "How much is delivery and how long does it take?", "a": "Free UK delivery on orders over £35. Under that, delivery is shown in full at checkout — never a surprise. Most items dispatch within 1–2 days." } }
+  ] } ]
+}
+{% endschema %}

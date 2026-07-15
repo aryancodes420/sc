@@ -1,0 +1,26 @@
+{%- comment -%}
+  The Dog Nook — Announcement bar.
+  Optional: only needed if you don't use Horizon's built-in announcement bar.
+  Add it to the header group, or place at the very top of a template.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="tdn">
+  <div class="tdn-announce" style="background: {{ s.bg }}; color: {{ s.text_color }};">{{ s.text }}</div>
+</div>
+
+{% stylesheet %}
+  .tdn-announce { text-align: center; font-size: 12.5px; letter-spacing: .3px; padding: 9px 16px; font-weight: 500; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "TDN Announcement",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "Free UK delivery over £35  ·  Fast dispatch  ·  Made for anxious & rescue dogs" },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#7C8767" },
+    { "type": "color", "id": "text_color", "label": "Text colour", "default": "#F3EDE4" }
+  ],
+  "presets": [ { "name": "TDN Announcement" } ]
+}
+{% endschema %}

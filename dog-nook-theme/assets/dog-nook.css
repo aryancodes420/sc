@@ -1,0 +1,158 @@
+/* ============================================================
+   The Dog Nook — design tokens & shared components
+   Drop-in styles for the Horizon theme.
+   Loaded once via snippet: {% render 'dog-nook-head' %}
+   ============================================================ */
+
+:root {
+  --tdn-cream: #F3EDE4;          /* page background */
+  --tdn-cream-deep: #E7DECF;     /* announcement / frame */
+  --tdn-sage: #7C8767;           /* primary / brand */
+  --tdn-sage-hover: #5f6a4d;
+  --tdn-charcoal: #2E2A22;       /* text / dark sections */
+  --tdn-terracotta: #C17A57;     /* accent / sale */
+  --tdn-muted: #6a6459;
+  --tdn-muted-2: #5a5346;
+  --tdn-faint: #8a8377;
+  --tdn-faint-2: #9a9184;
+  --tdn-card: #ffffff;
+  --tdn-card-border: #ece2d1;
+  --tdn-warm-border: #e3d9c8;
+  --tdn-warm-border-2: #d8cdb9;
+  --tdn-panel: #faf6ee;
+  --tdn-alt-bg: #efe7d9;
+
+  /* placeholder / gradient tones */
+  --tdn-tone-sage: #8B9578;
+  --tdn-tone-sage-grey: #9AA593;
+  --tdn-tone-clay: #C89178;
+  --tdn-tone-oat: #DDD3C4;
+  --tdn-grad-calm: linear-gradient(140deg, #8a9472, #6f795c);
+  --tdn-grad-bundle: linear-gradient(140deg, #c79079, #a86b4f);
+
+  --tdn-font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --tdn-font-body: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+
+  --tdn-maxw: 1180px;
+  --tdn-side-pad: 40px;
+  --tdn-radius-btn: 14px;
+  --tdn-radius-card: 18px;
+}
+
+@media (max-width: 760px) {
+  :root { --tdn-side-pad: 20px; }
+}
+
+/* ---- scope: everything the Dog Nook sections render sits inside .tdn ---- */
+.tdn { font-family: var(--tdn-font-body); color: var(--tdn-charcoal); }
+.tdn *, .tdn *::before, .tdn *::after { box-sizing: border-box; }
+.tdn a { color: var(--tdn-sage); text-decoration: none; }
+.tdn a:hover { color: var(--tdn-sage-hover); }
+
+.tdn-wrap { max-width: var(--tdn-maxw); margin: 0 auto; padding: 0 var(--tdn-side-pad); }
+.tdn-section { padding: 64px 0; }
+@media (max-width: 760px) { .tdn-section { padding: 44px 0; } }
+
+.tdn-eyebrow {
+  font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase;
+  font-weight: 700; color: var(--tdn-sage); margin-bottom: 14px;
+}
+.tdn-eyebrow--light { color: #cdd3bf; }
+
+.tdn-h1 { font-family: var(--tdn-font-display); font-weight: 600; letter-spacing: -.5px; line-height: 1.1; margin: 0 0 14px; }
+.tdn-h2 { font-family: var(--tdn-font-display); font-weight: 600; font-size: 34px; line-height: 1.15; margin: 0 0 26px; }
+.tdn-h3 { font-family: var(--tdn-font-display); font-weight: 600; font-size: 19px; line-height: 1.2; margin: 0 0 8px; }
+@media (max-width: 760px) { .tdn-h2 { font-size: 27px; } }
+
+.tdn-muted { font-size: 15px; line-height: 1.7; color: var(--tdn-muted); }
+.tdn-price { font-family: var(--tdn-font-display); font-weight: 700; }
+
+/* ---- buttons ---- */
+.tdn-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--tdn-font-body); font-weight: 600; font-size: 14.5px;
+  padding: 13px 24px; border-radius: var(--tdn-radius-btn);
+  cursor: pointer; border: 1.5px solid transparent; transition: background .18s, color .18s, border-color .18s;
+  text-align: center;
+}
+.tdn-btn--primary { background: var(--tdn-sage); color: var(--tdn-cream); border-color: var(--tdn-sage); }
+.tdn-btn--primary:hover { background: var(--tdn-sage-hover); border-color: var(--tdn-sage-hover); color: var(--tdn-cream); }
+.tdn-btn--outline { background: transparent; color: var(--tdn-charcoal); border-color: var(--tdn-sage); }
+.tdn-btn--outline:hover { background: rgba(124,135,103,.08); color: var(--tdn-charcoal); }
+.tdn-btn--ghost {
+  background: rgba(255,255,255,.14); color: #fff; border: 1.5px solid rgba(255,255,255,.6);
+  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+}
+.tdn-btn--ghost:hover { background: rgba(255,255,255,.24); color: #fff; }
+.tdn-btn--sm { padding: 10px 16px; font-size: 13.5px; border-radius: 12px; }
+.tdn-btn--block { width: 100%; }
+
+/* ---- cards ---- */
+.tdn-card { background: var(--tdn-card); border: 1px solid var(--tdn-card-border); border-radius: 16px; padding: 26px; }
+
+/* ---- product card (shared) ---- */
+.tdn-product-card {
+  display: flex; flex-direction: column; background: var(--tdn-card);
+  border: 1px solid var(--tdn-card-border); border-radius: 16px; overflow: hidden;
+  cursor: pointer; transition: transform .18s, box-shadow .18s; text-decoration: none; color: inherit;
+}
+.tdn-product-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(46,42,34,.10); color: inherit; }
+.tdn-product-card__media { position: relative; aspect-ratio: 4 / 3; background: var(--tdn-tone-sage); overflow: hidden; }
+.tdn-product-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tdn-product-card__tag {
+  position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,.9); color: var(--tdn-charcoal);
+  font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 999px; letter-spacing: .2px;
+}
+.tdn-product-card__body { padding: 14px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
+.tdn-product-card__name { font-weight: 600; font-size: 14.5px; }
+.tdn-product-card__reviews { font-size: 12px; color: #b3a892; }
+.tdn-product-card__price { font-weight: 700; font-size: 15.5px; margin-top: auto; font-family: var(--tdn-font-display); }
+.tdn-product-card__price .tdn-compare { color: var(--tdn-faint-2); text-decoration: line-through; font-weight: 400; margin-left: 6px; font-size: 13px; }
+
+.tdn-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.tdn-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tdn-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+@media (max-width: 900px) { .tdn-grid-4 { grid-template-columns: repeat(2, 1fr); } .tdn-grid-3 { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .tdn-grid-2 { grid-template-columns: 1fr; } }
+
+/* ---- pills / chips ---- */
+.tdn-chip { display: inline-flex; align-items: center; padding: 9px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--tdn-warm-border); background: #fff; color: var(--tdn-muted); }
+.tdn-chip--on { background: var(--tdn-sage); color: var(--tdn-cream); border-color: var(--tdn-sage); }
+.tdn-badge { background: var(--tdn-terracotta); color: #fff; font-size: 12px; font-weight: 700; padding: 5px 11px; border-radius: 999px; letter-spacing: .3px; }
+
+/* ---- accordion ---- */
+.tdn-accordion { border-bottom: 1px solid var(--tdn-warm-border); }
+.tdn-accordion__q { display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; background: none; border: none; cursor: pointer; padding: 18px 0; text-align: left; font-family: inherit; }
+.tdn-accordion__q span:first-child { font-weight: 600; font-size: 16px; color: var(--tdn-charcoal); }
+.tdn-accordion__sign { font-size: 22px; color: var(--tdn-sage); line-height: 1; flex-shrink: 0; }
+.tdn-accordion__a { font-size: 14.5px; line-height: 1.65; color: var(--tdn-muted); margin: 0 0 18px; display: none; }
+.tdn-accordion.is-open .tdn-accordion__a { display: block; }
+
+/* ---- form fields ---- */
+.tdn-field {
+  width: 100%; padding: 13px 16px; border-radius: 12px; border: 1px solid var(--tdn-warm-border-2);
+  background: #fff; color: var(--tdn-charcoal); font-size: 15px; font-family: inherit;
+}
+.tdn-field::placeholder { color: var(--tdn-faint-2); }
+.tdn-field:focus { outline: none; border-color: var(--tdn-sage); }
+
+/* ---- ticks ---- */
+.tdn-ticks { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 13.5px; color: var(--tdn-muted-2); }
+
+/* ---- cookie banner ---- */
+.tdn-cookie {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 90; max-width: 720px; margin: 0 auto;
+  background: var(--tdn-cream); border: 1px solid var(--tdn-warm-border); border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(46,42,34,.16); padding: 18px 20px;
+  display: flex; gap: 18px; align-items: center; flex-wrap: wrap;
+  animation: tdnSlideUp .3s ease;
+}
+.tdn-cookie[hidden] { display: none; }
+
+@keyframes tdnFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes tdnSlideUp { from { transform: translateY(120%); } to { transform: translateY(0); } }
+.tdn-fade { animation: tdnFade .4s ease; }
+
+/* ---- free-ship progress (cart) ---- */
+.tdn-freeship__bar { height: 7px; background: var(--tdn-warm-border); border-radius: 999px; overflow: hidden; }
+.tdn-freeship__fill { height: 100%; background: var(--tdn-sage); border-radius: 999px; transition: width .3s; }

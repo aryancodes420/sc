@@ -1,0 +1,20 @@
+{%- comment -%}
+  The Dog Nook — cookie / pixel consent banner.
+  Add before </body> in layout/theme.liquid:
+      {% render 'dog-nook-cookie-banner' %}
+  Choice persists to localStorage['tdn_consent']; shows only on first visit.
+  Copy is editable here (or move these to theme locale/settings if preferred).
+{%- endcomment -%}
+<div class="tdn tdn-cookie" data-tdn-cookie hidden role="dialog" aria-label="Cookie consent">
+  <div style="flex:1; min-width:220px;">
+    <div style="font-weight:600; font-size:15px; margin-bottom:5px;">We use cookies</div>
+    <div style="font-size:13px; color:var(--tdn-muted-2); line-height:1.55;">
+      We use cookies and pixels (including Meta &amp; TikTok) to improve your experience and measure our ads.
+      <a href="{{ pages.privacy-policy.url | default: '/policies/privacy-policy' }}" style="text-decoration:underline;">Privacy Policy</a>.
+    </div>
+  </div>
+  <div style="display:flex; gap:10px; flex-shrink:0;">
+    <button type="button" class="tdn-btn tdn-btn--outline tdn-btn--sm" data-tdn-cookie-action="declined">Decline</button>
+    <button type="button" class="tdn-btn tdn-btn--primary tdn-btn--sm" data-tdn-cookie-action="all">Accept all</button>
+  </div>
+</div>

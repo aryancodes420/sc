@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "dog-nook-faq",
+      "settings": { "eyebrow": "Help", "heading": "Frequently asked questions" },
+      "blocks": {
+        "f1": { "type": "item", "settings": { "q": "Do lick mats and snuffle mats actually help with anxiety?", "a": "They give dogs a repetitive, nose-led job to focus on. Licking and sniffing are natural self-soothing behaviours, so many owners use them around fireworks, storms and settling a new rescue. They're comfort and enrichment tools, not medical treatments." } },
+        "f2": { "type": "item", "settings": { "q": "How much is delivery and how long does it take?", "a": "Free UK delivery on orders over £35. Under that, delivery is shown in full at checkout — never added as a surprise. Most items are dispatched within 1–2 days; the Car Boot Liner ships same-day from our UK warehouse." } },
+        "f3": { "type": "item", "settings": { "q": "What is your returns policy?", "a": "You have a 30-day money-back guarantee. You also have a legal 14-day cancellation right under the Consumer Contracts Regulations. For hygiene reasons, used lick mats, snuffle mats and grooming items can't be returned once opened unless faulty." } },
+        "f4": { "type": "item", "settings": { "q": "Is this a dropshipping store?", "a": "We're a small UK team. We choose a tight range for dogs who need a little extra calm rather than listing everything we can find, and a real person answers your emails — usually the same day." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
+    }
+  },
+  "order": ["main"]
+}

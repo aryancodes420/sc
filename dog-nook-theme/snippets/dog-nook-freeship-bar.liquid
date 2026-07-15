@@ -1,0 +1,14 @@
+{%- comment -%}
+  The Dog Nook — free-delivery progress bar for the cart drawer.
+  Drop into Horizon's cart drawer / cart template, e.g. near the top of the items list:
+      {% render 'dog-nook-freeship-bar' %}
+  Reads the live cart via /cart.js and fills toward the threshold below.
+  Change threshold_cents to match your free-shipping rule (3500 = £35.00).
+{%- endcomment -%}
+{%- assign threshold_cents = 3500 -%}
+<div class="tdn">
+  <div class="tdn-freeship" data-tdn-freeship data-threshold-cents="{{ threshold_cents }}" data-currency-symbol="{{ cart.currency.symbol | default: '£' }}" style="padding:16px 0;">
+    <div class="tdn-freeship__msg" data-tdn-freeship-msg style="font-size:13px; color:var(--tdn-muted-2); margin-bottom:8px;">Free UK delivery over £35</div>
+    <div class="tdn-freeship__bar"><div class="tdn-freeship__fill" style="width:0%;"></div></div>
+  </div>
+</div>
