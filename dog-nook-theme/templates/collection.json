@@ -2,7 +2,7 @@
   "sections": {
     "main": {
       "type": "dog-nook-collection",
-      "settings": { "banner_tone": "#8B9578", "show_filters": true },
+      "settings": { "banner_tone": "#8B9578", "show_filters": false },
       "blocks": {
         "n1": { "type": "note", "settings": { "q": "How much is delivery?", "a": "Free UK delivery on orders over £35. Under that, delivery is shown in full at checkout — never a surprise." } },
         "n2": { "type": "note", "settings": { "q": "What is your returns policy?", "a": "A 30-day money-back guarantee, plus your legal 14-day cancellation right. For hygiene reasons, used lick mats, snuffle mats and grooming items can't be returned once opened unless faulty." } },

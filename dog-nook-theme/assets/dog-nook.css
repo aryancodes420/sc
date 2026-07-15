@@ -46,9 +46,9 @@
 /* ---- scope: everything the Dog Nook sections render sits inside .tdn ---- */
 .tdn { font-family: var(--tdn-font-body); color: var(--tdn-charcoal); }
 .tdn *, .tdn *::before, .tdn *::after { box-sizing: border-box; }
-.tdn a:not(.tdn-btn) { color: var(--tdn-sage); text-decoration: none; }
-.tdn a:not(.tdn-btn):hover { color: var(--tdn-sage-hover); }
-/* buttons must keep their own text colour regardless of link colour */
+/* generic inline links are sage; component links (buttons, chips, cards) keep their own colour */
+.tdn a:not(.tdn-btn):not(.tdn-chip):not(.tdn-product-card):not(.tdn-coll-card):not(.tdn-cindex) { color: var(--tdn-sage); text-decoration: none; }
+.tdn a:not(.tdn-btn):not(.tdn-chip):not(.tdn-product-card):not(.tdn-coll-card):not(.tdn-cindex):hover { color: var(--tdn-sage-hover); }
 .tdn a.tdn-btn, .tdn button.tdn-btn { text-decoration: none; }
 .tdn .tdn-btn--primary { color: var(--tdn-cream); }
 .tdn .tdn-btn--primary:hover { color: var(--tdn-cream); }
