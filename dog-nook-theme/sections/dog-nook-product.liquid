@@ -66,12 +66,18 @@
                 {%- assign val = variant.option1 | downcase -%}
                 {%- liquid
                   case val
-                    when 'sage' then assign swtone = '#8B9578'
-                    when 'oat' then assign swtone = '#DDD3C4'
-                    when 'clay' then assign swtone = '#C89178'
-                    when 'charcoal' then assign swtone = '#2E2A22'
-                    when 'cream' then assign swtone = '#F3EDE4'
-                    else assign swtone = variant.metafields.custom.swatch_hex.value | default: '#9AA593'
+                    when 'sage'
+                      assign swtone = '#8B9578'
+                    when 'oat'
+                      assign swtone = '#DDD3C4'
+                    when 'clay'
+                      assign swtone = '#C89178'
+                    when 'charcoal'
+                      assign swtone = '#2E2A22'
+                    when 'cream'
+                      assign swtone = '#F3EDE4'
+                    else
+                      assign swtone = variant.metafields.custom.swatch_hex.value | default: '#9AA593'
                   endcase
                 -%}
                 <button type="button" class="tdn-swatch {% if variant.id == cur.id %}is-selected{% endif %}"
