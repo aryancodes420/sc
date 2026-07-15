@@ -9,7 +9,9 @@
         "subheading": "Calming beds, mats and grooming tools for dogs who need a little extra reassurance.",
         "ticks": "30-day money-back guarantee | Free UK delivery over £35",
         "button_1_label": "Shop the Rescue Bundle",
+        "button_1_url": "/products/the-new-rescue-bundle",
         "button_2_label": "Shop all",
+        "button_2_url": "/pages/shop",
         "grad_from": "#6f795c",
         "grad_mid": "#8a9472",
         "grad_to": "#b98a67",
@@ -39,6 +41,7 @@
     "bundle": {
       "type": "dog-nook-featured-bundle",
       "settings": {
+        "product": "the-new-rescue-bundle",
         "eyebrow": "Featured bundle",
         "heading": "The New Rescue Bundle",
         "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind.",
@@ -48,6 +51,7 @@
         "save_label": "You save £15",
         "button_label": "Add bundle to basket",
         "link_label": "What's inside?",
+        "link_url": "/products/the-new-rescue-bundle",
         "image_tone": "linear-gradient(140deg,#c79079,#a86b4f)",
         "image_placeholder_label": "Bundle flat-lay"
       }
@@ -56,10 +60,10 @@
       "type": "dog-nook-collection-list",
       "settings": { "eyebrow": "Shop by need", "heading": "Find what your dog needs" },
       "blocks": {
-        "c1": { "type": "collection", "settings": { "title": "Calming Essentials", "tone": "#8B9578" } },
-        "c2": { "type": "collection", "settings": { "title": "Grooming", "tone": "#9AA593" } },
-        "c3": { "type": "collection", "settings": { "title": "Mealtime & Feeding", "tone": "#C89178" } },
-        "c4": { "type": "collection", "settings": { "title": "Travel & Outdoor", "tone": "#8B9578" } }
+        "c1": { "type": "collection", "settings": { "collection": "calming-essentials", "title": "Calming Essentials", "tone": "#8B9578" } },
+        "c2": { "type": "collection", "settings": { "collection": "grooming", "title": "Grooming", "tone": "#9AA593" } },
+        "c3": { "type": "collection", "settings": { "collection": "mealtime-feeding", "title": "Mealtime & Feeding", "tone": "#C89178" } },
+        "c4": { "type": "collection", "settings": { "collection": "travel-outdoor", "title": "Travel & Outdoor", "tone": "#8B9578" } }
       },
       "block_order": ["c1", "c2", "c3", "c4"]
     },
