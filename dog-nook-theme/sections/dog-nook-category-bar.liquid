@@ -1,63 +1,89 @@
 {%- comment -%}
-  The Dog Nook — scrolling category carousel.
-  A horizontally-scrollable row of pills with prev/next controls.
-  Sits directly under the header, above the hero. Each pill is a block.
+  The Dog Nook — moving category marquee.
+  A continuously-scrolling row of pills that loops seamlessly.
+  Pauses on hover/touch so pills stay clickable. Sits under the header,
+  above the hero. Each pill is a block.
 {%- endcomment -%}
 <div class="tdn tdn-catbar-wrap" data-tdn-catbar>
   <div class="tdn-catbar-inner">
-    <button type="button" class="tdn-catbar__nav tdn-catbar__nav--prev" aria-label="Scroll categories left" data-tdn-catbar-prev hidden>
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>
-    <div class="tdn-catbar tdn-scroll" data-tdn-catbar-track>
-      {%- for block in section.blocks -%}
-        {%- liquid
-          assign url = block.settings.url
-          if url == blank and block.settings.collection != blank
-            assign url = collections[block.settings.collection].url
-          endif
-          assign label = block.settings.label
-          if label == blank and block.settings.collection != blank
-            assign label = collections[block.settings.collection].title
-          endif
-        -%}
-        <a href="{{ url | default: '#' }}" class="tdn-catbar__pill {% if block.settings.accent %}tdn-catbar__pill--accent{% endif %}" {{ block.shopify_attributes }}>{{ label }}</a>
-      {%- endfor -%}
+    <div class="tdn-catbar" data-tdn-catbar-viewport>
+      <div class="tdn-catbar__track" data-tdn-catbar-track>
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign url = block.settings.url
+            if url == blank and block.settings.collection != blank
+              assign url = collections[block.settings.collection].url
+            endif
+            assign label = block.settings.label
+            if label == blank and block.settings.collection != blank
+              assign label = collections[block.settings.collection].title
+            endif
+          -%}
+          <a href="{{ url | default: '#' }}" class="tdn-catbar__pill {% if block.settings.accent %}tdn-catbar__pill--accent{% endif %}" {{ block.shopify_attributes }}>{{ label }}</a>
+        {%- endfor -%}
+      </div>
     </div>
-    <button type="button" class="tdn-catbar__nav tdn-catbar__nav--next" aria-label="Scroll categories right" data-tdn-catbar-next hidden>
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
   </div>
 </div>
 
 <script>
 (function () {
+  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function initCatbar(root) {
     if (root.dataset.tdnCatbarReady) return;
     root.dataset.tdnCatbarReady = '1';
+    var viewport = root.querySelector('[data-tdn-catbar-viewport]');
     var track = root.querySelector('[data-tdn-catbar-track]');
-    var prev = root.querySelector('[data-tdn-catbar-prev]');
-    var next = root.querySelector('[data-tdn-catbar-next]');
-    if (!track) return;
-    function amount() { return Math.max(track.clientWidth * 0.7, 160); }
-    function update() {
-      var overflow = track.scrollWidth - track.clientWidth > 4;
-      var atStart = track.scrollLeft <= 2;
-      var atEnd = track.scrollLeft >= (track.scrollWidth - track.clientWidth - 2);
-      if (prev) prev.hidden = !overflow || atStart;
-      if (next) next.hidden = !overflow || atEnd;
+    if (!track || !viewport) return;
+
+    var originals = Array.prototype.slice.call(track.children);
+    if (!originals.length) return;
+
+    if (REDUCE) { viewport.style.overflowX = 'auto'; return; }
+
+    function stride() {
+      var first = track.children[0];
+      var nextSet = track.children[originals.length];
+      if (!nextSet) return track.scrollWidth;
+      return nextSet.getBoundingClientRect().left - first.getBoundingClientRect().left;
     }
-    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -amount(), behavior: 'smooth' }); });
-    if (next) next.addEventListener('click', function () { track.scrollBy({ left: amount(), behavior: 'smooth' }); });
-    track.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+    function cloneSet() {
+      originals.forEach(function (node) {
+        var c = node.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        c.setAttribute('tabindex', '-1');
+        track.appendChild(c);
+      });
+    }
+
+    cloneSet();
+    var step = stride();
+    var guard = 0;
+    while (track.scrollWidth < viewport.clientWidth + step && guard < 12) { cloneSet(); guard++; }
+    step = stride();
+
+    var pos = 0, last = null, hovered = false, hidden = false, speed = 0.035; // px/ms
+    function frame(ts) {
+      if (last === null) last = ts;
+      var dt = ts - last; last = ts;
+      if (!hovered && !hidden) {
+        pos -= speed * dt;
+        if (-pos >= step) pos += step;
+        track.style.transform = 'translateX(' + pos + 'px)';
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    root.addEventListener('mouseenter', function () { hovered = true; });
+    root.addEventListener('mouseleave', function () { hovered = false; last = null; });
+    root.addEventListener('touchstart', function () { hovered = true; }, { passive: true });
+    root.addEventListener('touchend', function () { setTimeout(function () { hovered = false; last = null; }, 1500); }, { passive: true });
+    document.addEventListener('visibilitychange', function () { hidden = document.hidden; if (!hidden) last = null; });
+    window.addEventListener('resize', function () { step = stride() || step; });
   }
   function boot() { document.querySelectorAll('[data-tdn-catbar]').forEach(initCatbar); }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
   document.addEventListener('shopify:section:load', boot);
 })();
 </script>
