@@ -59,9 +59,12 @@
 }
 .tdn-eyebrow--light { color: #cdd3bf; }
 
-.tdn-h1 { font-family: var(--tdn-font-display); font-weight: 600; letter-spacing: -.5px; line-height: 1.1; margin: 0 0 14px; }
-.tdn-h2 { font-family: var(--tdn-font-display); font-weight: 600; font-size: 34px; line-height: 1.15; margin: 0 0 26px; }
-.tdn-h3 { font-family: var(--tdn-font-display); font-weight: 600; font-size: 19px; line-height: 1.2; margin: 0 0 8px; }
+.tdn-h1 { font-family: var(--tdn-font-display); font-weight: 600; letter-spacing: -.5px; line-height: 1.1; margin: 0 0 14px; color: var(--tdn-charcoal); }
+.tdn-h2 { font-family: var(--tdn-font-display); font-weight: 600; font-size: 34px; line-height: 1.15; margin: 0 0 26px; color: var(--tdn-charcoal); }
+.tdn-h3 { font-family: var(--tdn-font-display); font-weight: 600; font-size: 19px; line-height: 1.2; margin: 0 0 8px; color: var(--tdn-charcoal); }
+/* keep the tick/eyebrow palette from being overridden by the theme's link/heading colours */
+.tdn-eyebrow { color: var(--tdn-sage); }
+.tdn-eyebrow--light { color: #cdd3bf; }
 @media (max-width: 760px) { .tdn-h2 { font-size: 27px; } }
 
 .tdn-muted { font-size: 15px; line-height: 1.7; color: var(--tdn-muted); }
