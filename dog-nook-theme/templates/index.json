@@ -97,5 +97,5 @@
       }
     }
   },
-  "order": ["hero", "catbar", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
+  "order": ["catbar", "hero", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
 }
