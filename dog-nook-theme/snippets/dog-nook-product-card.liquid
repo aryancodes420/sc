@@ -32,15 +32,14 @@
   </div>
   <div class="tdn-product-card__body">
     <span class="tdn-product-card__name">{{ p.title }}</span>
-    {%- if p.metafields.reviews.rating.value != blank -%}
-      <span class="tdn-product-card__reviews">★★★★★ · {{ p.metafields.reviews.rating_count.value }} reviews</span>
-    {%- else -%}
-      <span class="tdn-product-card__reviews">☆☆☆☆☆ · No reviews yet</span>
-    {%- endif -%}
+    <span class="tdn-product-card__reviews">{% render 'dog-nook-stars', stars_product: p %}</span>
     <span class="tdn-product-card__price tdn-price">
-      {{ p.price | money }}
       {%- if p.compare_at_price > p.price -%}
+        <span class="tdn-product-card__sale">{{ p.price | money }}</span>
         <span class="tdn-compare">{{ p.compare_at_price | money }}</span>
+        <span class="tdn-product-card__save">Save {{ p.compare_at_price | minus: p.price | money }}</span>
+      {%- else -%}
+        {{ p.price | money }}
       {%- endif -%}
     </span>
   </div>
