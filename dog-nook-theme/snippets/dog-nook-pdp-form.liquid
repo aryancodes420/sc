@@ -1,0 +1,54 @@
+{%- comment -%}
+  The Dog Nook — PDP buy form (variant swatches / select + Add to Cart).
+  Split out of sections/dog-nook-product.liquid for reliable deploys.
+  Params: product, cur, single_option, add_label
+{%- endcomment -%}
+{%- form 'product', product, class: 'tdn-pdp__form' -%}
+  {%- if single_option -%}
+    <div class="tdn-pdp__optlabel">{{ product.options.first }}: <span data-tdn-swatch-label>{{ cur.title }}</span></div>
+    <input type="hidden" name="id" value="{{ cur.id }}">
+    <div class="tdn-swatches" data-tdn-swatches>
+      {%- for variant in product.variants -%}
+        {%- assign val = variant.option1 | downcase -%}
+        {%- liquid
+          case val
+            when 'sage'
+              assign swtone = '#8B9578'
+            when 'oat'
+              assign swtone = '#DDD3C4'
+            when 'clay'
+              assign swtone = '#C89178'
+            when 'charcoal'
+              assign swtone = '#2E2A22'
+            when 'cream'
+              assign swtone = '#F3EDE4'
+            else
+              assign swtone = variant.metafields.custom.swatch_hex.value | default: '#9AA593'
+          endcase
+        -%}
+        <button type="button" class="tdn-swatch {% if variant.id == cur.id %}is-selected{% endif %}"
+                data-tdn-swatch data-variant-id="{{ variant.id }}" data-variant-name="{{ variant.title | escape }}"
+                data-variant-price="{{ variant.price | money }}" data-variant-available="{{ variant.available }}"
+                title="{{ variant.title | escape }}" aria-label="{{ variant.title | escape }}"
+                style="background: {{ swtone }};"></button>
+      {%- endfor -%}
+    </div>
+  {%- elsif product.has_only_default_variant -%}
+    <input type="hidden" name="id" value="{{ cur.id }}">
+  {%- else -%}
+    <label class="tdn-pdp__optlabel" for="tdn-variant-select">Options</label>
+    <select id="tdn-variant-select" name="id" class="tdn-field" style="margin-bottom:24px;">
+      {%- for variant in product.variants -%}
+        <option value="{{ variant.id }}" {% if variant == cur %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+          {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (sold out){% endunless %}
+        </option>
+      {%- endfor -%}
+    </select>
+  {%- endif -%}
+
+  <button type="submit" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__atc"
+          data-tdn-atc data-add-label="{{ add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
+          {% unless product.available %}disabled{% endunless %}>
+    {%- if product.available -%}{{ add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
+  </button>
+{%- endform -%}

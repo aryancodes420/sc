@@ -1,0 +1,72 @@
+{%- comment -%}
+  The Dog Nook — PDP lower section: cross-sell, FAQ, reviews.
+  Rendered from sections/dog-nook-product.liquid. Split out to keep the
+  section file small enough to deploy reliably.
+  Params: product, product_coll, crosssell_heading, qblocks (array of question blocks)
+{%- endcomment -%}
+<section class="tdn-pdp-alt">
+  <div class="tdn-wrap">
+
+    {%- comment -%} Cross-sell first — highest-AOV placement (below description, before reviews) {%- endcomment -%}
+    {%- if product_coll and product_coll.products.size > 1 -%}
+      <div class="tdn-eyebrow">Pairs well with</div>
+      <h2 class="tdn-h2" style="font-size:24px; margin-bottom:20px;">{{ crosssell_heading | default: 'Complete the calm-down kit' }}</h2>
+      <div class="tdn-grid-3" style="margin-bottom:44px;">
+        {%- assign shown = 0 -%}
+        {%- for rel in product_coll.products -%}
+          {%- if rel.id != product.id and shown < 3 -%}
+            {% render 'dog-nook-product-card', card_product: rel, show_tag: false, tone: '#9AA593' %}
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Questions (FAQ) {%- endcomment -%}
+    {%- if qblocks and qblocks.size > 0 -%}
+      <div class="tdn-eyebrow">Good to know</div>
+      <h2 class="tdn-h2" style="font-size:24px; margin-bottom:16px;">Common questions</h2>
+      {%- for block in qblocks -%}
+        <div class="tdn-accordion" {{ block.shopify_attributes }}>
+          <button type="button" class="tdn-accordion__q"><span>{{ block.settings.q }}</span><span class="tdn-accordion__sign">+</span></button>
+          <p class="tdn-accordion__a">{{ block.settings.a }}</p>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- comment -%} Reviews — real only, never fabricated. {%- endcomment -%}
+    <div id="tdn-reviews" class="tdn-pdp__reviewsblock">
+      {%- assign rcount = product.metafields.reviews.rating_count.value | plus: 0 -%}
+      {%- assign rval = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value -%}
+      <div class="tdn-eyebrow" style="margin-top:44px;">Reviews</div>
+      {%- if rcount > 0 -%}
+        <div class="tdn-reviews-head">
+          <span class="tdn-reviews-head__num">{{ rval }}</span>
+          {% render 'dog-nook-stars', stars_product: product %}
+          <span class="tdn-muted">Based on {{ rcount }} verified review{% if rcount != 1 %}s{% endif %}</span>
+        </div>
+        {%- assign featured = product.metafields.reviews.featured.value -%}
+        {%- if featured != blank -%}
+          <div class="tdn-reviewlist">
+            {%- for rv in featured -%}
+              {%- assign rvr = rv.rating | plus: 0 -%}
+              {%- assign rve = 5 | minus: rvr -%}
+              <div class="tdn-reviewcard">
+                <div class="tdn-reviewcard__stars" aria-hidden="true">{% for i in (1..rvr) %}★{% endfor %}{% if rve > 0 %}{% for i in (1..rve) %}<span class="tdn-star--empty">★</span>{% endfor %}{% endif %}</div>
+                {%- if rv.title != blank -%}<div class="tdn-reviewcard__title">{{ rv.title }}</div>{%- endif -%}
+                <p class="tdn-reviewcard__body">{{ rv.body }}</p>
+                <div class="tdn-reviewcard__meta">{{ rv.name }}{% if rv.verified %} · <span class="tdn-reviewcard__verified">Verified owner</span>{% endif %}{% if rv.date != blank %} · {{ rv.date }}{% endif %}</div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <div data-tdn-review-widget></div>
+      {%- else -%}
+        <h2 class="tdn-h2" style="font-size:22px; margin-bottom:8px;">Be the first to review</h2>
+        <p class="tdn-muted" style="max-width:520px;">No reviews yet. Once real owners have reviewed {{ product.title | downcase }}, their verified feedback appears here — we never write our own.</p>
+        <div data-tdn-review-widget></div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>

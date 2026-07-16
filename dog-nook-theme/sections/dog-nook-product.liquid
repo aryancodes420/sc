@@ -65,56 +65,7 @@
         </div>
         {%- if product.description != blank -%}<p class="tdn-muted tdn-pdp__short">{{ s.short_text | default: product.metafields.custom.short_description.value }}</p>{%- endif -%}
 
-        {%- form 'product', product, class: 'tdn-pdp__form' -%}
-          {%- if single_option -%}
-            <div class="tdn-pdp__optlabel">{{ product.options.first }}: <span data-tdn-swatch-label>{{ cur.title }}</span></div>
-            <input type="hidden" name="id" value="{{ cur.id }}">
-            <div class="tdn-swatches" data-tdn-swatches>
-              {%- for variant in product.variants -%}
-                {%- assign val = variant.option1 | downcase -%}
-                {%- liquid
-                  case val
-                    when 'sage'
-                      assign swtone = '#8B9578'
-                    when 'oat'
-                      assign swtone = '#DDD3C4'
-                    when 'clay'
-                      assign swtone = '#C89178'
-                    when 'charcoal'
-                      assign swtone = '#2E2A22'
-                    when 'cream'
-                      assign swtone = '#F3EDE4'
-                    else
-                      assign swtone = variant.metafields.custom.swatch_hex.value | default: '#9AA593'
-                  endcase
-                -%}
-                <button type="button" class="tdn-swatch {% if variant.id == cur.id %}is-selected{% endif %}"
-                        data-tdn-swatch data-variant-id="{{ variant.id }}" data-variant-name="{{ variant.title | escape }}"
-                        data-variant-price="{{ variant.price | money }}" data-variant-available="{{ variant.available }}"
-                        title="{{ variant.title | escape }}" aria-label="{{ variant.title | escape }}"
-                        style="background: {{ swtone }};"></button>
-              {%- endfor -%}
-            </div>
-          {%- elsif product.has_only_default_variant -%}
-            <input type="hidden" name="id" value="{{ cur.id }}">
-          {%- else -%}
-            {%- comment -%} multi-option fallback: classic variant select {%- endcomment -%}
-            <label class="tdn-pdp__optlabel" for="tdn-variant-select">Options</label>
-            <select id="tdn-variant-select" name="id" class="tdn-field" style="margin-bottom:24px;">
-              {%- for variant in product.variants -%}
-                <option value="{{ variant.id }}" {% if variant == cur %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
-                  {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (sold out){% endunless %}
-                </option>
-              {%- endfor -%}
-            </select>
-          {%- endif -%}
-
-          <button type="submit" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__atc"
-                  data-tdn-atc data-add-label="{{ s.add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
-                  {% unless product.available %}disabled{% endunless %}>
-            {%- if product.available -%}{{ s.add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
-          </button>
-        {%- endform -%}
+        {% render 'dog-nook-pdp-form', product: product, cur: cur, single_option: single_option, add_label: s.add_label %}
 
         <div class="tdn-pdp__badges">
           <span class="tdn-pdp__badge">🛡️ 30-day money-back</span>
@@ -135,75 +86,9 @@
     </div>
   </section>
 
-  {%- comment -%} ---------- Cross-sell / questions / reviews ---------- {%- endcomment -%}
-  <section class="tdn-pdp-alt">
-    <div class="tdn-wrap">
-
-      {%- comment -%} Cross-sell first — highest-AOV placement (below description, before reviews) {%- endcomment -%}
-      {%- if product_coll and product_coll.products.size > 1 -%}
-        <div class="tdn-eyebrow">Pairs well with</div>
-        <h2 class="tdn-h2" style="font-size:24px; margin-bottom:20px;">{{ s.crosssell_heading | default: 'Complete the calm-down kit' }}</h2>
-        <div class="tdn-grid-3" style="margin-bottom:44px;">
-          {%- assign shown = 0 -%}
-          {%- for rel in product_coll.products -%}
-            {%- if rel.id != product.id and shown < 3 -%}
-              {% render 'dog-nook-product-card', card_product: rel, show_tag: false, tone: '#9AA593' %}
-              {%- assign shown = shown | plus: 1 -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-
-      {%- comment -%} Questions (FAQ) {%- endcomment -%}
-      {%- assign qblocks = section.blocks | where: 'type', 'question' -%}
-      {%- if qblocks.size > 0 -%}
-        <div class="tdn-eyebrow">Good to know</div>
-        <h2 class="tdn-h2" style="font-size:24px; margin-bottom:16px;">Common questions</h2>
-        {%- for block in qblocks -%}
-          <div class="tdn-accordion" {{ block.shopify_attributes }}>
-            <button type="button" class="tdn-accordion__q"><span>{{ block.settings.q }}</span><span class="tdn-accordion__sign">+</span></button>
-            <p class="tdn-accordion__a">{{ block.settings.a }}</p>
-          </div>
-        {%- endfor -%}
-      {%- endif -%}
-
-      {%- comment -%} Reviews — real only, never fabricated. Aggregate + featured cards come from
-        review-app / metafields; empty state is honest. {%- endcomment -%}
-      <div id="tdn-reviews" class="tdn-pdp__reviewsblock">
-        {%- assign rcount = product.metafields.reviews.rating_count.value | plus: 0 -%}
-        {%- assign rval = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value -%}
-        <div class="tdn-eyebrow" style="margin-top:44px;">Reviews</div>
-        {%- if rcount > 0 -%}
-          <div class="tdn-reviews-head">
-            <span class="tdn-reviews-head__num">{{ rval }}</span>
-            {% render 'dog-nook-stars', stars_product: product %}
-            <span class="tdn-muted">Based on {{ rcount }} verified review{% if rcount != 1 %}s{% endif %}</span>
-          </div>
-          {%- assign featured = product.metafields.reviews.featured.value -%}
-          {%- if featured != blank -%}
-            <div class="tdn-reviewlist">
-              {%- for rv in featured -%}
-                {%- assign rvr = rv.rating | plus: 0 -%}
-                {%- assign rve = 5 | minus: rvr -%}
-                <div class="tdn-reviewcard">
-                  <div class="tdn-reviewcard__stars" aria-hidden="true">{% for i in (1..rvr) %}★{% endfor %}{% if rve > 0 %}{% for i in (1..rve) %}<span class="tdn-star--empty">★</span>{% endfor %}{% endif %}</div>
-                  {%- if rv.title != blank -%}<div class="tdn-reviewcard__title">{{ rv.title }}</div>{%- endif -%}
-                  <p class="tdn-reviewcard__body">{{ rv.body }}</p>
-                  <div class="tdn-reviewcard__meta">{{ rv.name }}{% if rv.verified %} · <span class="tdn-reviewcard__verified">Verified owner</span>{% endif %}{% if rv.date != blank %} · {{ rv.date }}{% endif %}</div>
-                </div>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-          <div data-tdn-review-widget></div>
-        {%- else -%}
-          <h2 class="tdn-h2" style="font-size:22px; margin-bottom:8px;">Be the first to review</h2>
-          <p class="tdn-muted" style="max-width:520px;">No reviews yet. Once real owners have reviewed {{ product.title | downcase }}, their verified feedback appears here — we never write our own.</p>
-          <div data-tdn-review-widget></div>
-        {%- endif -%}
-      </div>
-
-    </div>
-  </section>
+  {%- comment -%} ---------- Cross-sell / questions / reviews (split into snippet for reliable deploys) ---------- {%- endcomment -%}
+  {%- assign qblocks = section.blocks | where: 'type', 'question' -%}
+  {% render 'dog-nook-pdp-extra', product: product, product_coll: product_coll, crosssell_heading: s.crosssell_heading, qblocks: qblocks %}
 
 {%- comment -%} ---------- Mobile sticky Add-to-Cart ---------- {%- endcomment -%}
 <div class="tdn-pdp-sticky">
@@ -220,58 +105,6 @@
 </div>
 </div>
 
-{% stylesheet %}
-  .tdn-crumb { font-size: 12.5px; color: var(--tdn-faint); margin-bottom: 18px; }
-  .tdn-pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-  .tdn-pdp__main { position: relative; border-radius: 18px; height: 460px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-  .tdn-pdp__mainimg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .tdn-pdp__ph { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.8); font-weight: 600; }
-  .tdn-pdp__counter { position: absolute; bottom: 12px; right: 14px; background: rgba(46,42,34,.5); color: #fff; font-size: 11px; padding: 4px 9px; border-radius: 999px; }
-  .tdn-pdp__thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
-  .tdn-pdp__thumb { aspect-ratio: 1; border-radius: 10px; overflow: hidden; border: 2px solid transparent; background: #c7bda8; cursor: pointer; padding: 0; position: relative; }
-  .tdn-pdp__thumb.is-active { border-color: var(--tdn-sage); }
-  .tdn-pdp__thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .tdn-pdp__play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #3a352c; color: #fff; font-size: 14px; }
-  .tdn-pdp__reviews { margin-bottom: 14px; }
-  .tdn-pdp__price { font-size: 28px; margin-bottom: 6px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .tdn-pdp__saleprice { color: var(--tdn-terracotta); }
-  .tdn-pdp__regular { font-size: 15px; color: var(--tdn-faint-2); text-decoration: line-through; -webkit-text-fill-color: currentColor; }
-  .tdn-pdp__savebadge { font-size: 12px; }
-  .tdn-pdp__short { margin-bottom: 22px; }
-  .tdn-pdp__badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
-  .tdn-pdp__badge { font-size: 12px; font-weight: 500; color: var(--tdn-muted-2); background: var(--tdn-panel); border: 1px solid var(--tdn-card-border); border-radius: 999px; padding: 6px 11px; }
-  .tdn-reviews-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 8px 0 24px; }
-  .tdn-reviews-head__num { font-family: var(--tdn-font-display); font-size: 40px; font-weight: 600; color: var(--tdn-charcoal); line-height: 1; }
-  .tdn-reviewlist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .tdn-reviewcard { background: var(--tdn-card); border: 1px solid var(--tdn-card-border); border-radius: 16px; padding: 20px; }
-  .tdn-reviewcard__stars { color: #E0B84C; font-size: 15px; letter-spacing: 1px; margin-bottom: 8px; }
-  .tdn-reviewcard__title { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
-  .tdn-reviewcard__body { font-size: 14px; line-height: 1.6; color: var(--tdn-muted-2); margin: 0 0 12px; }
-  .tdn-reviewcard__meta { font-size: 12.5px; color: var(--tdn-faint); }
-  .tdn-reviewcard__verified { color: var(--tdn-sage); font-weight: 600; }
-  @media (max-width: 680px) { .tdn-reviewlist { grid-template-columns: 1fr; } }
-  .tdn-pdp__optlabel { font-size: 12px; letter-spacing: .6px; text-transform: uppercase; color: var(--tdn-faint); font-weight: 600; margin-bottom: 10px; }
-  .tdn-swatches { display: flex; gap: 10px; margin-bottom: 24px; }
-  .tdn-swatch { width: 38px; height: 38px; border-radius: 10px; cursor: pointer; border: none; box-shadow: 0 0 0 1px rgba(46,42,34,.08); padding: 0; }
-  .tdn-swatch.is-selected { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--tdn-sage); }
-  .tdn-pdp__form { margin: 0 0 16px; }
-  .tdn-pdp__atc { padding: 15px; font-size: 15px; }
-  .tdn-pdp__panel { display: flex; flex-direction: column; gap: 9px; padding: 16px; background: var(--tdn-panel); border-radius: 14px; border: 1px solid var(--tdn-card-border); font-size: 13.5px; color: var(--tdn-muted-2); }
-  .tdn-pdp__about { margin-top: 26px; }
-  .tdn-pdp__desc { font-size: 14.5px; line-height: 1.7; color: var(--tdn-muted-2); }
-  .tdn-pdp-alt { background: var(--tdn-alt-bg); padding: 56px 0; margin-top: 8px; }
-  .tdn-pdp-sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: rgba(243,237,228,.96); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-top: 1px solid var(--tdn-warm-border); padding: 12px 18px; display: none; align-items: center; gap: 14px; }
-  .tdn-pdp-sticky form { margin: 0; flex: 1; }
-  .tdn-pdp-sticky__name { font-size: 11px; color: var(--tdn-faint); }
-  .tdn-pdp-sticky__price { font-size: 17px; }
-  .tdn-pdp-sticky__btn { width: 100%; padding: 14px; }
-  @media (max-width: 760px) {
-    .tdn-pdp { grid-template-columns: 1fr; gap: 24px; }
-    .tdn-pdp__main { height: 300px; }
-    .tdn-pdp-sticky { display: flex; }
-    .tdn-pdp-alt { padding: 44px 0; }
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
