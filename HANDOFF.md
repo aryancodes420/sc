@@ -37,8 +37,12 @@ theme. Everything custom is namespaced `dog-nook-*` (files) / `.tdn-*` (CSS).
 
 ## 2. Where things live
 
-- **Repo:** `aryancodes420/sc` · **Working branch:** `claude/hello-erxv6t`
-  (develop, commit, push here ONLY — never elsewhere without explicit permission).
+- **Repo:** `aryancodes420/sc`. **`main` is the default branch and now contains
+  the full project** (this doc lives at the repo root there — a fresh session sees
+  it on clone). Historically all work was done on `claude/hello-erxv6t`; `main` was
+  fast-forwarded to match it on 2026-07-16 so the project is discoverable.
+  **New session:** branch off `main`, read this file first, and confirm the target
+  dev branch with the owner before pushing. Keep `main` and your dev branch in sync.
 - **Theme source:** everything under `dog-nook-theme/`.
 - **MCP servers:** Shopify (`mcp__Shopify__*` / hashed name) and GitHub
   (`mcp__github__*`). Load schemas via `ToolSearch` (e.g.
@@ -246,6 +250,9 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-16 — Merged to `main`.** The project + this handoff lived only on
+  `claude/hello-erxv6t`, so fresh sessions (which land on `main`) couldn't find it.
+  Fast-forwarded `main` to match, making the project the repo's default state.
 - **2026-07-16 — Session 2 (SEO + conversion overhaul).** Fixed bundle compare-at
   price + homepage "View all" link. Full SEO pass (per-resource + page metafields,
   favicon, OG image, homepage meta). Competitor research (CalmTails, FunnyFuzzy,
