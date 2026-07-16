@@ -2,10 +2,29 @@
   The Dog Nook — head include.
   Add ONE line before </head> in layout/theme.liquid:
       {% render 'dog-nook-head' %}
-  Loads fonts, design-token CSS and shared JS once for the whole theme.
+  Loads fonts, design-token CSS and shared JS once for the whole theme,
+  plus SEO/social fallbacks (favicon, default share image, homepage meta).
 {%- endcomment -%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 {{ 'dog-nook.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'dog-nook.js' | asset_url }}" defer></script>
+
+{%- comment -%} ---- SEO / social fallbacks (fire only where Horizon's meta-tags emits nothing) ---- {%- endcomment -%}
+{%- comment -%} Favicon — only when the merchant hasn't uploaded one in theme settings {%- endcomment -%}
+{%- if settings.favicon == blank -%}
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Crect%20width=%22100%22%20height=%22100%22%20rx=%2222%22%20fill=%22%237C8767%22/%3E%3Cg%20fill=%22%23F3EDE4%22%3E%3Ccircle%20cx=%2231%22%20cy=%2240%22%20r=%228.5%22/%3E%3Ccircle%20cx=%2250%22%20cy=%2233%22%20r=%229%22/%3E%3Ccircle%20cx=%2269%22%20cy=%2240%22%20r=%228.5%22/%3E%3Cpath%20d=%22M50%2048c11%200%2019.5%208.5%2019.5%2017.5C69.5%2073%2061%2075%2050%2075s-19.5-2-19.5-9.5C30.5%2056.5%2039%2048%2050%2048z%22/%3E%3C/g%3E%3C/svg%3E">
+{%- endif -%}
+{%- comment -%} Default share image — only when the page has no image of its own (homepage, content & legal pages). Swap the URL for a branded 1200x630 once real photography exists. {%- endcomment -%}
+{%- unless page_image -%}
+  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/1036/5452/3163/files/dn-main.png?width=1200">
+  <meta property="og:image:secure_url" content="https://cdn.shopify.com/s/files/1/1036/5452/3163/files/dn-main.png?width=1200">
+  <meta property="og:image:width" content="1100">
+  <meta property="og:image:height" content="1100">
+  <meta name="twitter:image" content="https://cdn.shopify.com/s/files/1/1036/5452/3163/files/dn-main.png?width=1200">
+{%- endunless -%}
+{%- comment -%} Homepage meta description — Horizon emits none on the index {%- endcomment -%}
+{%- if request.page_type == 'index' -%}
+  <meta name="description" content="Calming beds, lick mats and grooming tools chosen to soothe anxious and rescue dogs. Free UK delivery over £35 · 30-day money-back guarantee.">
+{%- endif -%}
