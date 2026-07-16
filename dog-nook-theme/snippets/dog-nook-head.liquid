@@ -29,3 +29,6 @@
 {%- if request.page_type == 'index' -%}
   <meta name="description" content="Calming beds, lick mats and grooming tools chosen to soothe anxious and rescue dogs. Free UK delivery over £35 · 30-day money-back guarantee.">
 {%- endif -%}
+
+{%- comment -%} First-order email capture popup (self-injects into body) {%- endcomment -%}
+{% render 'dog-nook-email-popup' %}

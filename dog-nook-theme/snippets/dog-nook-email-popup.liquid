@@ -1,0 +1,74 @@
+{%- comment -%}
+  The Dog Nook — first-order email capture popup.
+  Rendered from dog-nook-head; injects itself into <body> via JS so no layout
+  edit is needed. Shows once (localStorage['tdn_popup']), tasteful, dismissible,
+  and only after the visitor has engaged (delay + scroll). Not shown to anyone
+  who already dismissed it or joined, and never on the cart/checkout.
+{%- endcomment -%}
+<template id="tdn-email-popup-tpl">
+  <div class="tdn tdn-emailpop" data-tdn-emailpop role="dialog" aria-modal="true" aria-label="Get 10% off your first order">
+    <div class="tdn-emailpop__backdrop" data-tdn-emailpop-close></div>
+    <div class="tdn-emailpop__card">
+      <button type="button" class="tdn-emailpop__x" data-tdn-emailpop-close aria-label="Close">&times;</button>
+      <div class="tdn-emailpop__eyebrow">Join the pack</div>
+      <h2 class="tdn-emailpop__h">Get 10% off your first order</h2>
+      <p class="tdn-emailpop__p">Calm-dog tips and early access to new bundles — plus a code for your first order. No spam, unsubscribe anytime.</p>
+      <form method="post" action="/contact#tdn-emailpop" accept-charset="UTF-8" class="tdn-emailpop__form" data-tdn-emailpop-form>
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="&#x2713;">
+        <input type="hidden" name="contact[tags]" value="newsletter,popup">
+        <input type="email" name="contact[email]" placeholder="you@email.com" required class="tdn-emailpop__input" aria-label="Email address">
+        <button type="submit" class="tdn-btn tdn-btn--primary tdn-emailpop__submit">Send my code</button>
+      </form>
+      <button type="button" class="tdn-emailpop__decline" data-tdn-emailpop-close>No thanks</button>
+    </div>
+  </div>
+</template>
+
+{% stylesheet %}
+  .tdn-emailpop { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .tdn-emailpop__backdrop { position: absolute; inset: 0; background: rgba(46,42,34,.5); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+  .tdn-emailpop__card { position: relative; z-index: 1; background: var(--tdn-cream, #F3EDE4); border-radius: 20px; max-width: 420px; width: 100%; padding: 36px 32px 28px; text-align: center; box-shadow: 0 20px 60px rgba(46,42,34,.25); animation: tdn-pop-in .3s ease; }
+  @keyframes tdn-pop-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .tdn-emailpop__x { position: absolute; top: 12px; right: 14px; background: none; border: none; font-size: 26px; line-height: 1; color: var(--tdn-faint, #b3a892); cursor: pointer; }
+  .tdn-emailpop__eyebrow { font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--tdn-sage, #7C8767); font-weight: 700; margin-bottom: 8px; }
+  .tdn-emailpop__h { font-family: var(--tdn-font-display, serif); font-size: 26px; line-height: 1.15; color: var(--tdn-charcoal, #2E2A22); margin: 0 0 10px; }
+  .tdn-emailpop__p { font-size: 14px; line-height: 1.6; color: var(--tdn-muted-2, #6a6355); margin: 0 0 20px; }
+  .tdn-emailpop__form { display: flex; flex-direction: column; gap: 10px; }
+  .tdn-emailpop__input { height: 48px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--tdn-warm-border, #d8cdb9); background: #fff; font-size: 14px; font-family: inherit; }
+  .tdn-emailpop__submit { height: 48px; }
+  .tdn-emailpop__decline { margin-top: 12px; background: none; border: none; color: var(--tdn-faint, #b3a892); font-size: 13px; cursor: pointer; text-decoration: underline; }
+  .tdn-emailpop__ok { font-size: 15px; color: var(--tdn-sage, #7C8767); font-weight: 600; padding: 8px 0; }
+{% endstylesheet %}
+
+<script>
+(function () {
+  var KEY = 'tdn_popup';
+  try { if (localStorage.getItem(KEY)) return; } catch (e) {}
+  // Don't show on cart/checkout.
+  if (/\/(cart|checkout)(\/|$|\?)/.test(location.pathname)) return;
+
+  var shown = false;
+  function dismiss() { try { localStorage.setItem(KEY, '1'); } catch (e) {} }
+  function show() {
+    if (shown) return; shown = true;
+    var tpl = document.getElementById('tdn-email-popup-tpl');
+    if (!tpl) return;
+    var node = tpl.content.firstElementChild.cloneNode(true);
+    document.body.appendChild(node);
+    function close() { node.remove(); dismiss(); }
+    node.querySelectorAll('[data-tdn-emailpop-close]').forEach(function (b) { b.addEventListener('click', close); });
+    document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); } });
+    var form = node.querySelector('[data-tdn-emailpop-form]');
+    if (form) form.addEventListener('submit', function () { dismiss(); });
+    setTimeout(function () { var i = node.querySelector('input[type=email]'); if (i) i.focus(); }, 60);
+  }
+  // Show after engagement: 12s dwell OR 45% scroll, whichever first.
+  var t = setTimeout(show, 12000);
+  function onScroll() {
+    var h = document.documentElement;
+    if ((h.scrollTop + window.innerHeight) / h.scrollHeight > 0.45) { clearTimeout(t); show(); window.removeEventListener('scroll', onScroll); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
