@@ -54,11 +54,33 @@
     if (shown) return; shown = true;
     var tpl = document.getElementById('tdn-email-popup-tpl');
     if (!tpl) return;
+    var lastFocused = document.activeElement;
     var node = tpl.content.firstElementChild.cloneNode(true);
     document.body.appendChild(node);
-    function close() { node.remove(); dismiss(); }
+    var card = node.querySelector('.tdn-emailpop__card') || node;
+    function focusables() {
+      return Array.prototype.slice.call(card.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(function (el) { return el.offsetParent !== null; });
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab') return;
+      var f = focusables();
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    function close() {
+      document.removeEventListener('keydown', onKey);
+      node.remove();
+      dismiss();
+      // Restore focus to whatever the visitor was on before the dialog opened.
+      if (lastFocused && typeof lastFocused.focus === 'function') { lastFocused.focus(); }
+    }
     node.querySelectorAll('[data-tdn-emailpop-close]').forEach(function (b) { b.addEventListener('click', close); });
-    document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); } });
+    document.addEventListener('keydown', onKey);
     var form = node.querySelector('[data-tdn-emailpop-form]');
     if (form) form.addEventListener('submit', function () { dismiss(); });
     setTimeout(function () { var i = node.querySelector('input[type=email]'); if (i) i.focus(); }, 60);

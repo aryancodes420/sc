@@ -53,17 +53,46 @@
     });
   }
 
-  /* ---------- Cookie consent banner ---------- */
+  /* ---------- Cookie consent banner ----------
+     The visitor's choice is now propagated to Shopify's Customer Privacy API,
+     which is the supported mechanism for gating non-essential (marketing /
+     analytics) pixels on Shopify. Declining actually withholds consent instead
+     of only hiding the banner. Essential cookies are unaffected. */
+  var CONSENT_KEY = 'tdn_consent';
+
+  function applyConsent(choice) {
+    var granted = choice === 'all';
+    var consent = {
+      marketing: granted,
+      analytics: granted,
+      preferences: granted,
+      sale_of_data: granted
+    };
+    function set() {
+      try { window.Shopify.customerPrivacy.setTrackingConsent(consent, function () {}); } catch (e) {}
+    }
+    if (window.Shopify && window.Shopify.customerPrivacy && window.Shopify.customerPrivacy.setTrackingConsent) {
+      set();
+    } else if (window.Shopify && window.Shopify.loadFeatures) {
+      window.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (err) {
+        if (!err) set();
+      });
+    }
+  }
+
   function initCookie() {
     var banner = document.querySelector('[data-tdn-cookie]');
+    var stored;
+    try { stored = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+    /* Re-apply a returning visitor's previous choice on every load. */
+    if (stored) { applyConsent(stored); }
     if (!banner) return;
-    var KEY = 'tdn_consent';
-    var choice;
-    try { choice = localStorage.getItem(KEY); } catch (e) {}
-    if (!choice) { banner.hidden = false; }
+    if (!stored) { banner.hidden = false; }
     banner.querySelectorAll('[data-tdn-cookie-action]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        try { localStorage.setItem(KEY, btn.getAttribute('data-tdn-cookie-action')); } catch (e) {}
+        var choice = btn.getAttribute('data-tdn-cookie-action');
+        try { localStorage.setItem(CONSENT_KEY, choice); } catch (e) {}
+        applyConsent(choice);
         banner.hidden = true;
       });
     });

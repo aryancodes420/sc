@@ -67,3 +67,28 @@ a.tdn-stars:hover .tdn-stars__count { color: var(--tdn-sage); text-decoration: u
   .tdn-pdp-alt { padding: 44px 0; }
 }
 @media (max-width: 680px) { .tdn-reviewlist { grid-template-columns: 1fr; } }
+
+/* ------------------------------------------------------------------
+   Accessibility fixes (WCAG 2.1/2.2 AA) — loaded after dog-nook.css so
+   these :root overrides win without redeploying the large token file.
+   ------------------------------------------------------------------ */
+/* Contrast: the previous --tdn-faint (#8a8377 ≈3.0:1) and --tdn-faint-2
+   (#9a9184 ≈2.6:1) on cream failed SC 1.4.3 (needs 4.5:1 for normal text).
+   #6f6a5c on #F3EDE4 ≈ 4.6:1. Keeps a slight hierarchy vs --tdn-muted. */
+:root {
+  --tdn-faint: #6f6a5c;
+  --tdn-faint-2: #6f6a5c;
+}
+/* Small terracotta text (card sale price + save pill) was ≈3.0:1. A darker
+   ink (#9c5230 ≈4.9:1) meets AA for small text. Large PDP price keeps the
+   brighter brand terracotta (qualifies as large text at ≥18px/bold). */
+.tdn-product-card__sale { color: #9c5230; }
+.tdn-product-card__save { color: #9c5230; background: rgba(156, 82, 48, .12); }
+
+/* Target size: swatches were 38×38 (below the 44px guideline, SC 2.5.5). */
+.tdn-swatch { width: 44px; height: 44px; }
+
+/* Visible keyboard focus for the interactive CRO components. */
+.tdn-swatch:focus-visible,
+.tdn-pdp__thumb:focus-visible,
+.tdn-accordion__q:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }
