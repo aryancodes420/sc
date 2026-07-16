@@ -36,7 +36,7 @@
         "b1": { "type": "cell", "settings": { "icon": "🚚", "title": "Free UK delivery", "subtitle": "On orders over £35" } },
         "b2": { "type": "cell", "settings": { "icon": "🛡️", "title": "30-day guarantee", "subtitle": "Money-back, no fuss" } },
         "b3": { "type": "cell", "settings": { "icon": "🐾", "title": "For anxious & rescue dogs", "subtitle": "Chosen with care" } },
-        "b4": { "type": "cell", "settings": { "icon": "📦", "title": "Fast UK dispatch", "subtitle": "Usually 1–2 days" } }
+        "b4": { "type": "cell", "settings": { "icon": "📦", "title": "Dispatched in 1–2 days", "subtitle": "Delivery about 4–7 days" } }
       },
       "block_order": ["b1", "b2", "b3", "b4"]
     },

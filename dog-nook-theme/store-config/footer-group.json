@@ -156,7 +156,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>© 2026 The Dog Nook · Made in the UK</p>",
+            "text": "<p>© 2026 The Dog Nook · A UK business</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -263,7 +263,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>The Dog Nook is a trading name of [YOUR NAME], a sole trader registered in England & Wales. Business address: [YOUR ADDRESS] · Email: hello@thedognook.co.uk</p>",
+            "text": "<p>The Dog Nook is a trading name of Aryan Sarna, a sole trader based in the United Kingdom. Business address: 10 Old Farm Close, Hounslow, TW4 7AB, United Kingdom · Email: hello@thedognook.co.uk</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",

@@ -6,6 +6,7 @@
     {%- if s.heading != blank -%}<h1 class="tdn-h1" style="font-size:32px; margin-bottom:12px;">{{ s.heading }}</h1>{%- endif -%}
     <p class="tdn-contact__lead">Email us directly at <a href="mailto:{{ s.email }}">{{ s.email }}</a> or use the form below.</p>
     {%- if s.subtext != blank -%}<p class="tdn-contact__sub">{{ s.subtext }}</p>{%- endif -%}
+    {%- if s.address != blank -%}<p class="tdn-contact__sub">{{ s.address }}</p>{%- endif -%}
 
     {%- form 'contact', class: 'tdn-contact__form' -%}
       {%- if form.posted_successfully? -%}
@@ -41,6 +42,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
     { "type": "text", "id": "email", "label": "Contact email", "default": "hello@thedognook.co.uk" },
     { "type": "text", "id": "subtext", "label": "Sub text", "default": "We usually reply within 24 hours." },
+    { "type": "text", "id": "address", "label": "Business address", "default": "The Dog Nook (Aryan Sarna) · 10 Old Farm Close, Hounslow, TW4 7AB, United Kingdom" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Send message" },
     { "type": "text", "id": "success_text", "label": "Success message", "default": "Thanks — we’ll reply within 24 hours." }
   ],
