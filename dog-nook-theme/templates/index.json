@@ -70,7 +70,7 @@
     },
     "collections": {
       "type": "dog-nook-collection-list",
-      "settings": { "eyebrow": "Shop by need", "heading": "Find what your dog needs" },
+      "settings": { "eyebrow": "Shop by need", "heading": "Find what your dog needs", "view_all_label": "View all", "view_all_url": "/collections" },
       "blocks": {
         "c1": { "type": "collection", "settings": { "collection": "calming-essentials", "title": "Calming Essentials", "tone": "#8B9578" } },
         "c2": { "type": "collection", "settings": { "collection": "grooming", "title": "Grooming", "tone": "#9AA593" } },
