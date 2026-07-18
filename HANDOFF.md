@@ -250,6 +250,22 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-18 — Deployed the audit/honesty/a11y/legal changes to the draft.**
+  Another builder had committed (branch, "no live deploy") an `audit/` folder plus
+  theme edits: honest mixed-model delivery copy (4–7 working days, overseas
+  manufacturing partner named), cookie banner now gates pixels via Shopify Customer
+  Privacy API, WCAG AA contrast/tap-target/focus fixes, email-popup focus trap, and
+  the **P0 trader-identity fix** (real name + address). Merged to `main`; deployed
+  the render-relevant files to the draft theme (checksum-verified) — including the
+  **live `sections/footer-group.json`** (the trader identity was only in the
+  `store-config` mirror before, so the live footer still showed `[YOUR NAME]`).
+  ⚠️ The trader address is the owner's **home** address (10 Old Farm Close…); it's
+  on the unpublished draft only — swap for a registered/virtual address in the theme
+  editor (Customize → Footer → the two text blocks) before publishing if desired.
+  NOTE: 3 section files (`dog-nook-product.liquid`, `dog-nook-faq.liquid`,
+  `dog-nook-trust-strip.liquid`) are git-ahead-of-theme by **schema-default/preset
+  changes only** — the JSON templates drive the rendered values, so the draft
+  renders identically; redeploy them anytime for perfect checksum parity.
 - **2026-07-16 — Merged to `main`.** The project + this handoff lived only on
   `claude/hello-erxv6t`, so fresh sessions (which land on `main`) couldn't find it.
   Fast-forwarded `main` to match, making the project the repo's default state.
