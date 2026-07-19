@@ -22,8 +22,24 @@
       </div>
     {%- endif -%}
 
-    {%- comment -%} Questions (FAQ) {%- endcomment -%}
-    {%- if qblocks and qblocks.size > 0 -%}
+    {%- comment -%}
+      Questions (FAQ). Prefer the per-product metafield custom.faq (a JSON list of
+      {"q":"…","a":"…"} objects) so each product carries its own FAQ. Fall back to
+      the shared section question blocks when no metafield is set.
+    {%- endcomment -%}
+    {%- assign faq_items = product.metafields.custom.faq.value -%}
+    {%- if faq_items != blank and faq_items.size > 0 -%}
+      <div class="tdn-eyebrow">Good to know</div>
+      <h2 class="tdn-h2" style="font-size:24px; margin-bottom:16px;">Common questions</h2>
+      {%- for item in faq_items -%}
+        {%- if item.q != blank and item.a != blank -%}
+          <div class="tdn-accordion">
+            <button type="button" class="tdn-accordion__q"><span>{{ item.q }}</span><span class="tdn-accordion__sign">+</span></button>
+            <p class="tdn-accordion__a">{{ item.a }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- elsif qblocks and qblocks.size > 0 -%}
       <div class="tdn-eyebrow">Good to know</div>
       <h2 class="tdn-h2" style="font-size:24px; margin-bottom:16px;">Common questions</h2>
       {%- for block in qblocks -%}
