@@ -38,14 +38,17 @@
     endif
     assign empty = 5 | minus: full | minus: half
   -%}
-  <a href="#tdn-reviews" class="tdn-stars" aria-label="{{ rating }} out of 5 stars, {{ count_num }} reviews">
+  {%- comment -%} Only a link when stars_link is set (PDP). Inside product cards the whole
+     card is already an <a>, and a nested <a> is invalid HTML — it makes the browser split
+     the card apart. There we render a <span> instead. {%- endcomment -%}
+  {%- if stars_link -%}<a href="#tdn-reviews" class="tdn-stars" aria-label="{{ rating }} out of 5 stars, {{ count_num }} reviews">{%- else -%}<span class="tdn-stars" aria-label="{{ rating }} out of 5 stars, {{ count_num }} reviews">{%- endif -%}
     <span class="tdn-stars__row" aria-hidden="true">
       {%- if full > 0 -%}{%- for i in (1..full) -%}<span class="tdn-star tdn-star--full">★</span>{%- endfor -%}{%- endif -%}
       {%- if half == 1 -%}<span class="tdn-star tdn-star--half"><span>★</span>★</span>{%- endif -%}
       {%- if empty > 0 -%}{%- for i in (1..empty) -%}<span class="tdn-star tdn-star--empty">★</span>{%- endfor -%}{%- endif -%}
     </span>
     <span class="tdn-stars__count">{{ rating }} · {{ count_num }} review{% if count_num != 1 %}s{% endif %}</span>
-  </a>
+  {%- if stars_link -%}</a>{%- else -%}</span>{%- endif -%}
 {%- else -%}
   {%- if stars_link -%}
     <a href="#tdn-reviews" class="tdn-stars tdn-stars--empty" aria-label="No reviews yet — be the first to review">
