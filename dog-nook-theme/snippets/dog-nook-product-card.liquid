@@ -20,7 +20,7 @@
     assign tone = '#8B9578'
   endif
 -%}
-<a href="{{ p.url }}" class="tdn-product-card">
+<a href="{{ p.url }}" class="tdn-product-card" data-price="{{ p.price }}" data-title="{{ p.title | escape }}" data-date="{{ p.published_at | date: '%s' }}">
   <div class="tdn-product-card__media" style="background: {{ tone }};">
     {%- if p.featured_media -%}
       {%- assign card_alt = p.featured_media.alt | default: p.title | escape -%}

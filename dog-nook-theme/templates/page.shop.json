@@ -5,8 +5,7 @@
       "settings": {
         "eyebrow": "Shop all",
         "heading": "Comfort-first accessories",
-        "subheading": "Comfort-first accessories for dogs who need a little extra calm.",
-        "sort_label": "Sort: Best selling ▾"
+        "subheading": "A small, considered range for dogs who find the world a bit much — calming beds and mats, gentle grooming tools and slow, settled mealtimes. Everything here is chosen for anxious and rescue dogs, backed by a 30-day money-back guarantee and honest delivery: free over £35, always shown in full at checkout."
       },
       "blocks": {
         "all": { "type": "chip", "settings": { "label": "All", "url": "/pages/shop", "active": true } },

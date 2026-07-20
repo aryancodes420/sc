@@ -46,7 +46,7 @@
       "blocks": {
         "w1": { "type": "card", "settings": { "icon": "🐕", "title": "Chosen for anxious & rescue dogs", "body": "Picked for dogs settling in — not a random catalogue. Everything here earns its place." } },
         "w2": { "type": "card", "settings": { "icon": "🛡️", "title": "The risk is ours, not yours", "body": "A 30-day money-back guarantee on every order. If it doesn't help your dog settle, send it back." } },
-        "w3": { "type": "card", "settings": { "icon": "💬", "title": "A real person replies", "body": "A small UK team, usually with same-day answers. Ask us anything before you buy." } }
+        "w3": { "type": "card", "settings": { "icon": "💬", "title": "A real person replies", "body": "One real person (based in the UK) replies — usually the same day. Ask us anything before you buy." } }
       },
       "block_order": ["w1", "w2", "w3"]
     },

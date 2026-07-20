@@ -24,11 +24,21 @@
           {%- endif -%}
         {%- endfor -%}
       </div>
-      {%- if s.sort_label != blank -%}<span class="tdn-shop__sort">{{ s.sort_label }}</span>{%- endif -%}
+      <label class="tdn-shop__sort">
+        <span>Sort by</span>
+        <select data-tdn-sort aria-label="Sort products">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price, low to high</option>
+          <option value="price-desc">Price, high to low</option>
+          <option value="title-asc">Alphabetical, A–Z</option>
+          <option value="title-desc">Alphabetical, Z–A</option>
+          <option value="date-desc">Newest first</option>
+        </select>
+      </label>
     </div>
 
-    {%- paginate shop_col.products by 24 -%}
-      <div class="tdn-grid-4">
+    {%- paginate shop_col.products by 48 -%}
+      <div class="tdn-grid-4" data-tdn-shop-grid>
         {%- for product in shop_col.products -%}
           {% render 'dog-nook-product-card', card_product: product, show_tag: true %}
         {%- else -%}
@@ -40,12 +50,45 @@
   </section>
 </div>
 
+<script>
+(function () {
+  function initShopSort(root) {
+    var scope = root || document;
+    scope.querySelectorAll('[data-tdn-sort]').forEach(function (sel) {
+      if (sel.dataset.tdnBound) return;
+      sel.dataset.tdnBound = '1';
+      var grid = (sel.closest('.tdn-wrap') || document).querySelector('[data-tdn-shop-grid]');
+      if (!grid) return;
+      var original = Array.prototype.slice.call(grid.children).filter(function (n) { return n.classList && n.classList.contains('tdn-product-card'); });
+      sel.addEventListener('change', function () {
+        var mode = sel.value;
+        var items = original.slice();
+        var num = function (el, a) { return parseFloat(el.getAttribute(a)) || 0; };
+        var txt = function (el, a) { return (el.getAttribute(a) || '').toLowerCase(); };
+        if (mode === 'price-asc') items.sort(function (a, b) { return num(a, 'data-price') - num(b, 'data-price'); });
+        else if (mode === 'price-desc') items.sort(function (a, b) { return num(b, 'data-price') - num(a, 'data-price'); });
+        else if (mode === 'title-asc') items.sort(function (a, b) { return txt(a, 'data-title').localeCompare(txt(b, 'data-title')); });
+        else if (mode === 'title-desc') items.sort(function (a, b) { return txt(b, 'data-title').localeCompare(txt(a, 'data-title')); });
+        else if (mode === 'date-desc') items.sort(function (a, b) { return num(b, 'data-date') - num(a, 'data-date'); });
+        items.forEach(function (el) { grid.appendChild(el); });
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { initShopSort(document); });
+  else initShopSort(document);
+  document.addEventListener('shopify:section:load', function (e) { initShopSort(e.target); });
+})();
+</script>
+
 {% stylesheet %}
   .tdn-shop__h1 { font-size: 32px; }
   .tdn-shop__sub { max-width: 520px; margin-bottom: 22px; }
   .tdn-shop__bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 26px; }
   .tdn-shop__chips { display: flex; flex-wrap: wrap; gap: 10px; }
-  .tdn-shop__sort { margin-left: auto; font-size: 13px; color: var(--tdn-faint); }
+  .tdn-shop__sort { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tdn-faint); }
+  .tdn-shop__sort select { font-family: inherit; font-size: 13px; font-weight: 600; color: var(--tdn-charcoal); background: #fff; border: 1px solid var(--tdn-warm-border-2); border-radius: 10px; padding: 8px 30px 8px 12px; cursor: pointer; -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a5346' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+  .tdn-shop__sort select:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 1px; }
+  @media (max-width: 620px) { .tdn-shop__sort { margin-left: 0; width: 100%; } .tdn-shop__sort select { flex: 1; } }
   .tdn-pagination { margin-top: 32px; text-align: center; font-size: 14px; }
 {% endstylesheet %}
 
@@ -56,9 +99,8 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop all" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Comfort-first accessories" },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Comfort-first accessories for dogs who need a little extra calm." },
-    { "type": "collection", "id": "collection", "label": "Products from collection", "info": "Leave empty to show every product." },
-    { "type": "text", "id": "sort_label", "label": "Sort label (visual)", "default": "Sort: Best selling ▾" }
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "A small, considered range for dogs who find the world a bit much — calming beds and mats, gentle grooming tools and slow, settled mealtimes. Everything here is chosen for anxious and rescue dogs, backed by a 30-day money-back guarantee and honest delivery: free over £35, always shown in full at checkout." },
+    { "type": "collection", "id": "collection", "label": "Products from collection", "info": "Leave empty to show every product." }
   ],
   "blocks": [
     { "type": "chip", "name": "Filter chip", "settings": [

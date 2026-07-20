@@ -1,0 +1,56 @@
+/* ============================================================
+   The Dog Nook — subtle & premium motion.
+   Hover micro-interactions + gentle scroll reveals. Kept in its
+   own small file so it deploys well under the base64 size trap.
+   Loaded via dog-nook-head, after the base + CRO stylesheets.
+   All motion is wrapped in prefers-reduced-motion so it never
+   fights accessibility; scroll reveals only apply once JS adds
+   `.tdn-js` (so no-JS visitors always see content).
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Buttons — gentle lift + shadow, quick press back down */
+  .tdn .tdn-btn { transition: background .18s, color .18s, border-color .18s, transform .16s ease, box-shadow .16s ease; }
+  .tdn .tdn-btn--primary:hover,
+  .tdn .tdn-btn--outline:hover,
+  .tdn .tdn-btn--ghost:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(46,42,34,.16); }
+  .tdn .tdn-btn:active { transform: translateY(0); box-shadow: none; }
+
+  /* Card imagery — slow, calm zoom on hover */
+  .tdn-product-card__media img,
+  .tdn-coll-card__img,
+  .tdn-cindex__img,
+  .tdn-pdp__mainimg { transition: transform .55s cubic-bezier(.2,.6,.2,1); }
+  .tdn-product-card:hover .tdn-product-card__media img,
+  .tdn-coll-card:hover .tdn-coll-card__img,
+  .tdn-cindex:hover .tdn-cindex__img { transform: scale(1.06); }
+
+  /* "Shop now →" nudges right on hover */
+  .tdn-coll-card__cta, .tdn-cindex__cta { transition: transform .18s ease, color .15s; }
+  .tdn-coll-card:hover .tdn-coll-card__cta,
+  .tdn-cindex:hover .tdn-cindex__cta { transform: translateX(4px); }
+
+  /* Chips & category pills — lift */
+  .tdn-chip, .tdn-catbar__pill { transition: background .15s, color .15s, border-color .15s, transform .15s ease, box-shadow .15s ease; }
+  .tdn-chip:hover, .tdn-catbar__pill:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(46,42,34,.09); }
+
+  /* Trust cells & feature cards — settle up */
+  .tdn-trust__cell, .tdn-card { transition: transform .2s ease, box-shadow .2s ease; }
+  .tdn-trust__cell:hover, .tdn-card:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(46,42,34,.10); }
+
+  /* Accordion question — colour shift on hover */
+  .tdn-accordion__q span:first-child { transition: color .15s ease; }
+  .tdn-accordion__q:hover span:first-child { color: var(--tdn-sage); }
+
+  /* PDP colour swatches — pop */
+  .tdn-swatch { transition: transform .15s ease, box-shadow .15s ease; }
+  .tdn-swatch:hover { transform: scale(1.08); }
+
+  /* Gallery thumbnails */
+  .tdn-pdp__thumb { transition: transform .15s ease, border-color .15s ease; }
+  .tdn-pdp__thumb:hover { transform: translateY(-2px); }
+
+  /* Scroll reveal — JS adds `.tdn-reveal` only to below-the-fold blocks,
+     so above-the-fold content never flashes. `.tdn-js` gates the whole thing. */
+  .tdn-js .tdn-reveal { opacity: 0; transform: translateY(18px); }
+  .tdn-js .tdn-reveal.is-in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(.2,.6,.2,1); }
+}
