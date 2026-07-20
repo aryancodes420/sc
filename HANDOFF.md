@@ -260,6 +260,23 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-20 — Conversion push: 2nd bundle, benefit collection, first-order code,
+  research doc.** Money-side work this session: (1) created **The Settle-In Bundle**
+  (`the-settle-in-bundle`, Product `10328065114395`) — Donut Bed (M) + Lick + Snuffle,
+  **£64.99 / compare £72.97**, ACTIVE, CONTINUE-selling, `custom.faq` + `custom.delivery_line`
+  set, published to Online Store + Shop, filed in Calming Essentials. (2) Created the
+  **"Settling a New Rescue"** benefit collection (`settling-a-new-rescue`, Collection
+  `527315861787`) with 5 products (both bundles + bed + lick + snuffle), SEO set,
+  published. (3) First-order discount: another builder already had **`WELCOME10`**
+  (10% off first order, ACTIVE) wired into the email popup's reveal screen — I created
+  a duplicate `SETTLE10`, realised the dupe, and **deleted SETTLE10**. `WELCOME10` is
+  the single first-order code. (4) Homepage **real review wall** shipped (see theme
+  commits). (5) Added **`audit/15-conversion-and-competitor-research.md`** (sourced
+  competitor + CRO research). ⚠️ Still gating everything: **zero product photos** and
+  the **draft theme isn't published** — those two owner actions unlock the rest.
+  Open code items awaiting owner input: retargeting pixels (Meta/TikTok IDs or install
+  the channel apps), surfacing the new collection in homepage/nav, cart-upsell +
+  subscriptions (need apps).
 - **2026-07-20 — Merged the real card-split fix with the ratings-number fix in
   `dog-nook-stars`.** Correction to the earlier "media flex" theory: the true cause
   of the Shop-card split was a **nested `<a>`** — the whole card is an `<a>`, and
