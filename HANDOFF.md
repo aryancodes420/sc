@@ -250,6 +250,18 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-20 — Deployed the per-product FAQ changes to the draft.** Another
+  builder committed (at `00014fb`, already on `main` + `claude/hello-erxv6t`) two
+  theme edits: `templates/page.faq.json` rebuilt as 15 trust-first Q&As (delivery,
+  returns, faulty-item legal rights, anxiety-tool honesty, materials/washing,
+  payment security), and `snippets/dog-nook-pdp-extra.liquid` now prefers a
+  per-product FAQ metafield (`product.metafields.custom.faq`, a JSON list of
+  `{q,a}`) and falls back to the shared section question blocks when unset.
+  Deployed both to the draft theme (`193158119707`) and checksum-verified
+  (`84f326845dda…` / `9b8a479aea25…`). ⚠️ The per-product PDP FAQ only renders once
+  each product's `custom.faq` metafield is populated — until then PDPs show the
+  shared fallback questions. Repeated `themeFilesUpsert` "permission stream closed"
+  errors are the known transient MCP hiccup; just retry the same call.
 - **2026-07-18 — Deployed the audit/honesty/a11y/legal changes to the draft.**
   Another builder had committed (branch, "no live deploy") an `audit/` folder plus
   theme edits: honest mixed-model delivery copy (4–7 working days, overseas
