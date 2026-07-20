@@ -1,5 +1,29 @@
 # Live catalogue changes (Shopify Admin API) — 2026-07-16
 
+---
+
+## 2026-07-20 — Phase 1 range expansion (new DRAFT products)
+Per `audit/15-product-expansion-action-plan.md` Phase 1. Created as **DRAFT** —
+NOT customer-facing until the owner sources the item, replaces every `{VERIFY}`
+placeholder in the description with real measured specs, and adds real photos.
+`custom.faq` metafield set on each (honest usage/returns answers only, no guessed
+specs). Prices are proposed RRP; inventory untracked (matches the rest of the range).
+
+| Product | GID | RRP | Type | Notes |
+|---|---|---|---|---|
+| **The Heartbeat Companion** | `10328011571483` | £24.99 | Calming | Separation/night-time/rescue plush w/ heartbeat pulse. Single variant. `{VERIFY}`: size, outer, pulse unit/battery, warmth pack, washing. |
+| **The Calming Coat** | `10328011702555` | £24.99 | Calming | Compression/pressure wrap for fireworks·storms·travel. **S/M/L variants** (all £24.99). Copy is comfort-framed, non-medical. `{VERIFY}`: chest cm per size, material, fastening, washing. |
+| **The Snuffle Ball** | `10328011833627` | £14.99 | Feeding | Foraging enrichment, complements Snuffle Mat. Single variant. `{VERIFY}`: size, material, washing. |
+
+**Before the owner sets any of these ACTIVE:** fill all `{VERIFY}` specs, add real
+photography, then add to the relevant collection (Calming Essentials / Mealtime).
+Copy already follows the honest rules (no medical/behavioural cure claims, non-medical
+disclaimer line, no fake reviews/urgency).
+
+---
+
+# Live catalogue changes (Shopify Admin API) — 2026-07-16
+
 These were written **directly to the live store** via the built-in product tools
 (which, unlike the theme-deploy GraphQL mutation, are **not** approval-gated). They
 took effect immediately on the catalogue — they do **not** depend on the theme
