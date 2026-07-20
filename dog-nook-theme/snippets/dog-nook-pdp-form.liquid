@@ -67,6 +67,12 @@
     </select>
   {%- endif -%}
 
+  {%- if product.available -%}
+    <div class="tdn-pdp__stock" style="display:flex; align-items:center; gap:7px; font-size:13.5px; font-weight:600; color:#4d7a3f; margin-bottom:14px;">
+      <span style="width:8px; height:8px; border-radius:50%; background:#5aa04a; display:inline-block;"></span>In stock — ready to dispatch
+    </div>
+  {%- endif -%}
+
   <div class="tdn-pdp__qty" style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
     <label for="tdn-qty" class="tdn-pdp__optlabel" style="margin:0;">Quantity</label>
     <input type="number" id="tdn-qty" name="quantity" value="1" min="1" inputmode="numeric" class="tdn-field" style="width:82px; text-align:center;">
@@ -76,4 +82,11 @@
           {% unless product.available %}disabled{% endunless %}>
     {%- if product.available -%}{{ add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
   </button>
+
+  {%- comment -%} Accelerated checkout (Shop Pay / PayPal / Google Pay) + Shop Pay Installments.
+     Both render only when the store has them enabled — nothing shows otherwise, so it stays honest. {%- endcomment -%}
+  {%- if product.available -%}
+    <div class="tdn-pdp__dyncheckout" style="margin-top:10px;">{{ form | payment_button }}</div>
+    <div class="tdn-pdp__terms" style="margin-top:10px;">{{ form | payment_terms }}</div>
+  {%- endif -%}
 {%- endform -%}
