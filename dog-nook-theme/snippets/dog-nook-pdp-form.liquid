@@ -77,16 +77,45 @@
     <label for="tdn-qty" class="tdn-pdp__optlabel" style="margin:0;">Quantity</label>
     <input type="number" id="tdn-qty" name="quantity" value="1" min="1" inputmode="numeric" class="tdn-field" style="width:82px; text-align:center;">
   </div>
-  <button type="submit" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__atc"
-          data-tdn-atc data-add-label="{{ add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
-          {% unless product.available %}disabled{% endunless %}>
-    {%- if product.available -%}{{ add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
-  </button>
+  <div class="tdn-pdp__cta">
+    {%- if product.available -%}
+      {%- comment -%} Primary: green "Buy it now" — adds the item and goes straight to secure checkout. {%- endcomment -%}
+      <button type="button" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__buynow" data-tdn-buynow>
+        <span class="tdn-pdp__lock" aria-hidden="true">🔒</span><span>Buy it now — Secure checkout</span>
+      </button>
+    {%- endif -%}
+    {%- comment -%} Secondary: outline Add to Cart (opens the cart drawer). {%- endcomment -%}
+    <button type="submit" class="tdn-btn tdn-btn--outline tdn-btn--block tdn-pdp__atc"
+            data-tdn-atc data-add-label="{{ add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
+            {% unless product.available %}disabled{% endunless %}>
+      {%- if product.available -%}{{ add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
+    </button>
+  </div>
 
-  {%- comment -%} Accelerated checkout (Shop Pay / PayPal / Google Pay) + Shop Pay Installments.
-     Both render only when the store has them enabled — nothing shows otherwise, so it stays honest. {%- endcomment -%}
+  {%- comment -%} Express wallets (Shop Pay / PayPal / Google Pay) + Shop Pay Installments.
+     Render only when the store has them enabled — nothing shows otherwise, so it stays honest. {%- endcomment -%}
   {%- if product.available -%}
-    <div class="tdn-pdp__dyncheckout" style="margin-top:10px;">{{ form | payment_button }}</div>
-    <div class="tdn-pdp__terms" style="margin-top:10px;">{{ form | payment_terms }}</div>
+    <div class="tdn-pdp__or">or</div>
+    <div class="tdn-pdp__dyncheckout">{{ form | payment_button }}</div>
+    <div class="tdn-pdp__terms">{{ form | payment_terms }}</div>
   {%- endif -%}
 {%- endform -%}
+
+<script>
+(function () {
+  if (window.__tdnBuyNowBound) return;
+  window.__tdnBuyNowBound = true;
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('[data-tdn-buynow]') : null;
+    if (!btn) return;
+    var form = btn.closest('form');
+    if (!form) return;
+    e.preventDefault();
+    btn.disabled = true;
+    fetch('/cart/add.js', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function () { window.location.href = '/checkout'; })
+      .catch(function () { btn.disabled = false; form.submit(); });
+  });
+})();
+</script>
