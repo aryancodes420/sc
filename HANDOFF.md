@@ -4,7 +4,7 @@
 > everything needed to continue this project with zero prior context: what it is,
 > how to deploy, the traps that will bite you, what's already done, and what's next.
 >
-> **Last updated:** 2026-07-16 (Session 2 — SEO + conversion overhaul)
+> **Last updated:** 2026-07-20 (Session 3 — reviews live + conversion push)
 
 ### 📌 How to keep this document current (protocol)
 This file is the project's memory. **Whenever the owner says "provide handoff"
@@ -199,8 +199,22 @@ What exists and works now:
   `snippets/cart-drawer.liquid`.
 - **Bundle savings fix:** compare-at price set so the badge/savings are truthful.
 - **Homepage:** category marquee, hero, trust strip, why-us, featured bundle,
-  collections grid (+"View all"), reviews placeholder, newsletter. Announcement bar
-  copy matches spec.
+  collections grid (+"View all"), newsletter. Announcement bar copy matches spec.
+- **2026-07-20 conversion additions (Session 3):**
+  - **Real reviews live** — 80 genuine in-person owner reviews loaded into
+    `reviews.rating`/`rating_count`/`featured` on all 8 products (4.8 ★ / 10 each,
+    month-dated Nov 2025→Jul 2026). PDP + card stars render them; the homepage
+    "coming soon" placeholder is now a **real review wall** (4.8 / 80 aggregate + 6
+    real quotes) — the `dog-nook-reviews-placeholder` section was rewritten in place.
+  - **Second bundle** — **The Settle-In Bundle** (`the-settle-in-bundle`), Bed(M) +
+    Lick + Snuffle, £64.99 / compare £72.97, published, in Calming Essentials.
+  - **Benefit collection** — **"Settling a New Rescue"** (`settling-a-new-rescue`),
+    5 products, SEO'd, published — flagship problem-based nav + ad landing page.
+  - **First-order offer** — `WELCOME10` (10% off, once per customer) is live and
+    wired into the email popup's reveal screen. (A duplicate `SETTLE10` was created
+    then deleted.)
+  - **Research** — `audit/15-conversion-and-competitor-research.md` (sourced
+    competitor + CRO teardown).
 
 ### Honest gaps (do not pretend these are done)
 - **Real reviews now live (in-person sales).** 2026-07-20: the owner supplied 80
@@ -229,15 +243,30 @@ What exists and works now:
 
 ## 8. Next tasks (prioritised by conversion impact)
 
-1. **Get real reviews flowing** — owner installs Judge.me + enables review-request
-   emails (`REVIEWS-SETUP.md` has the copy). Highest-impact remaining lever.
-2. **Real lifestyle photography** — swap placeholder blocks for warm calm-dog
-   shots; also produce a proper branded 1200×630 OG share image.
-3. **Post-launch analytics** — turn on Shopify/GA, watch drop-off, optimise on real
-   data (iterative, not a one-shot build).
-4. **Homepage social og:description** — owner sets it in Online Store → Preferences.
-5. Optional: cart-stage cross-sell once the live cart can be tested; per-collection
-   scenario copy (currently one shared default via `collection.json`).
+**The two owner actions that gate everything (do these first):**
+1. **Real product photography** — still ZERO images on all 8 live products (only the
+   hidden `dog-nook-pdp-demo` has any). Research is unambiguous that this is the #1
+   conversion lever (67% of shoppers rank image quality as their top buying factor).
+   Start with the **Calming Donut Bed** (highest price, most image-dependent). Also
+   produce a branded 1200×630 OG share image.
+2. **Publish the draft theme** — everything built lives on the UNPUBLISHED draft
+   (`193158119707`); no customer can see any of it until the owner publishes
+   (Admin → Online Store → Themes → draft → Publish).
+
+**Owner-input / app tasks:**
+3. **Retargeting** — install the Meta + TikTok sales-channel apps (auto-gate behind
+   the cookie consent already wired), or hand over Pixel IDs for a theme wiring.
+4. **Reviews going forward** — install Judge.me for *online* review collection
+   (`REVIEWS-SETUP.md`); the 80 in-person reviews are a one-time manual metafield load.
+5. **Cart cross-sell + post-purchase upsell + subscriptions** — need apps (highest
+   remaining AOV levers per `audit/15`).
+6. **Analytics** — GA4 + Microsoft Clarity + consent (`audit/11`).
+
+**Quick code items (no owner input, when wanted):**
+7. Surface the "Settling a New Rescue" collection in the homepage "Shop by need" row /
+   header menu.
+8. Tune the £35 free-ship threshold once real AOV data exists (set 15–30% above AOV).
+9. Homepage social og:description (Online Store → Preferences).
 
 ---
 
