@@ -67,6 +67,10 @@
     </select>
   {%- endif -%}
 
+  <div class="tdn-pdp__qty" style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+    <label for="tdn-qty" class="tdn-pdp__optlabel" style="margin:0;">Quantity</label>
+    <input type="number" id="tdn-qty" name="quantity" value="1" min="1" inputmode="numeric" class="tdn-field" style="width:82px; text-align:center;">
+  </div>
   <button type="submit" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__atc"
           data-tdn-atc data-add-label="{{ add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
           {% unless product.available %}disabled{% endunless %}>

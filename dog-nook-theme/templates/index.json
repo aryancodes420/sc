@@ -1,5 +1,13 @@
 {
   "sections": {
+    "announce": {
+      "type": "dog-nook-announcement",
+      "settings": {
+        "text": "Free UK delivery over £35  ·  Fast dispatch  ·  Made for anxious & rescue dogs",
+        "bg": "#7C8767",
+        "text_color": "#F3EDE4"
+      }
+    },
     "hero": {
       "type": "dog-nook-hero",
       "settings": {
@@ -97,5 +105,5 @@
       }
     }
   },
-  "order": ["catbar", "hero", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
+  "order": ["announce", "hero", "catbar", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
 }
