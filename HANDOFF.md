@@ -203,8 +203,15 @@ What exists and works now:
   copy matches spec.
 
 ### Honest gaps (do not pretend these are done)
-- **No real reviews yet** — needs Judge.me installed (owner, see `REVIEWS-SETUP.md`)
-  and real buyers. Everything shows "Be the first to review" until then.
+- **Real reviews now live (in-person sales).** 2026-07-20: the owner supplied 80
+  genuine reviews collected from real customers who bought the products **in person**
+  (10 per product, all 8 products). Loaded into the `reviews.*` metafields the theme
+  reads — each product shows **4.8 ★ / 10 reviews** with individual review cards.
+  Computed from the real text, not inflated. Flagged `verified: false` (no
+  platform-tracked purchase to back a "Verified owner" badge) and the aggregate line
+  was softened from "verified reviews" → "customer reviews" to stay truthful. For
+  *online* orders going forward, still install Judge.me (see `REVIEWS-SETUP.md`) so
+  new reviews flow automatically; the in-person set is a one-time manual load.
 - **No real photography** — still placeholder colour blocks/gradients. Biggest
   remaining conversion lever.
 - **Social share image is a stopgap** product shot; homepage *social* og:description
@@ -250,6 +257,20 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-20 — Loaded real in-person customer reviews (80 across all 8 products).**
+  Owner supplied genuine reviews from customers who bought the products in person
+  (not online orders, so they don't appear in Shopify order data). Wrote three
+  metafields per product via `metafieldsSet` — `reviews.rating` (rating type, 4.8),
+  `reviews.rating_count` (10), `reviews.featured` (JSON list of the real reviews,
+  verbatim). All 24 writes returned no userErrors and were read back to confirm the
+  text (incl. £, é, em-dash, emoji) round-tripped intact. Each product = **8×5★ +
+  2×4★ = 4.8 avg**, computed from the real text, never inflated. Set `verified:false`
+  (no platform-verified purchase) and edited `snippets/dog-nook-pdp-extra.liquid` to
+  change the hard-coded aggregate label "verified reviews" → "customer reviews" so
+  nothing overclaims. Deployed that snippet to the draft theme (`193158119707`),
+  checksum-verified `45e628c9dc89…`. ⚠️ Reviews render on our custom PDP once the
+  **draft theme is published** (owner action) — the currently-published theme may not
+  read these metafields.
 - **2026-07-20 — Deployed the per-product FAQ changes to the draft.** Another
   builder committed (at `00014fb`, already on `main` + `claude/hello-erxv6t`) two
   theme edits: `templates/page.faq.json` rebuilt as 15 trust-first Q&As (delivery,

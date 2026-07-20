@@ -59,7 +59,7 @@
         <div class="tdn-reviews-head">
           <span class="tdn-reviews-head__num">{{ rval }}</span>
           {% render 'dog-nook-stars', stars_product: product %}
-          <span class="tdn-muted">Based on {{ rcount }} verified review{% if rcount != 1 %}s{% endif %}</span>
+          <span class="tdn-muted">Based on {{ rcount }} customer review{% if rcount != 1 %}s{% endif %}</span>
         </div>
         {%- assign featured = product.metafields.reviews.featured.value -%}
         {%- if featured != blank -%}
