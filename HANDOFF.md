@@ -209,9 +209,12 @@ What exists and works now:
   reads — each product shows **4.8 ★ / 10 reviews** with individual review cards.
   Computed from the real text, not inflated. Flagged `verified: false` (no
   platform-tracked purchase to back a "Verified owner" badge) and the aggregate line
-  was softened from "verified reviews" → "customer reviews" to stay truthful. For
-  *online* orders going forward, still install Judge.me (see `REVIEWS-SETUP.md`) so
-  new reviews flow automatically; the in-person set is a one-time manual load.
+  was softened from "verified reviews" → "customer reviews" to stay truthful. Each
+  review carries an approximate **month-level date** spread across the owner-stated
+  collection window (Nov 2025 → Jul 2026), sorted newest-first — not exact
+  timestamps. For *online* orders going forward, still install Judge.me (see
+  `REVIEWS-SETUP.md`) so new reviews flow automatically; the in-person set is a
+  one-time manual load.
 - **No real photography** — still placeholder colour blocks/gradients. Biggest
   remaining conversion lever.
 - **Social share image is a stopgap** product shot; homepage *social* og:description
@@ -271,6 +274,14 @@ What exists and works now:
   checksum-verified `45e628c9dc89…`. ⚠️ Reviews render on our custom PDP once the
   **draft theme is published** (owner action) — the currently-published theme may not
   read these metafields.
+- **2026-07-20 — Fixed a Liquid error `dog-nook-stars` surfaced once ratings existed +
+  added review dates.** The `reviews.rating` metafield returns the score as a
+  **String** (`"4.8"`), so `dog-nook-stars.liquid`'s `rating > 0` comparison raised
+  "comparison of String with 0 failed" on every card and the PDP reviews head. Fixed
+  by coercing to a number (`assign rating_num = rating | plus: 0.0`) and using
+  `rating_num` in all comparisons/output; deployed to the draft, checksum
+  `9f775b0659c3…`. Also added approximate month-level `date` fields to every review's
+  `reviews.featured` (window Nov 2025 → Jul 2026, newest-first).
 - **2026-07-20 — Deployed the per-product FAQ changes to the draft.** Another
   builder committed (at `00014fb`, already on `main` + `claude/hello-erxv6t`) two
   theme edits: `templates/page.faq.json` rebuilt as 15 trust-first Q&As (delivery,
