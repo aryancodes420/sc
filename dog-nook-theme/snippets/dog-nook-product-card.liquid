@@ -20,11 +20,13 @@
     assign tone = '#8B9578'
   endif
 -%}
-<a href="{{ p.url }}" class="tdn-product-card">
+<a href="{{ p.url }}" class="tdn-product-card" data-price="{{ p.price }}" data-title="{{ p.title | escape }}" data-date="{{ p.published_at | date: '%s' }}">
   <div class="tdn-product-card__media" style="background: {{ tone }};">
     {%- if p.featured_media -%}
       {%- assign card_alt = p.featured_media.alt | default: p.title | escape -%}
       {{ p.featured_media | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 450, 600', alt: card_alt }}
+    {%- else -%}
+      <span class="tdn-product-card__ph" aria-hidden="true">{{ p.title }}</span>
     {%- endif -%}
     {%- if show_tag and pill != blank -%}
       <span class="tdn-product-card__tag">{{ pill }}</span>

@@ -260,6 +260,27 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-20 — Shop/collection card + filter-bar redesign, and synced git to the
+  live draft (git was stale).** The owner disliked the Shop page: filter chips not
+  filling the width, an oversized Sort control, and empty/boring product cards with
+  the title floating in white and a big gap above the price. Root causes: no product
+  photos (placeholder slabs) + `margin-top:auto` pushing the price down when a row
+  stretched. Fixes (all in a small inline `<style>` block added to
+  `snippets/dog-nook-head.liquid`, so the large CSS assets didn't need redeploying):
+  chips now `flex:1` to fill the row with the compact Sort on its own line; cards are
+  content-height (`.tdn-grid-4{align-items:start}`) so no gap; denser card body; and
+  imageless media shows the product name as a **wordmark placeholder**
+  (`.tdn-product-card__ph`, added to `snippets/dog-nook-product-card.liquid`).
+  Shop-bar overrides use extra specificity to beat the section's own stylesheet.
+  Deployed `dog-nook-head` + `dog-nook-product-card` to the draft, both
+  checksum-verified. ⚠️ **git had drifted behind the live draft** — another session
+  had shipped a real Sort `<select>` (with JS) in `dog-nook-shop.liquid`, `data-*`
+  sort attrs on the card, `dog-nook-anim.css` (new asset, loaded by `dog-nook-head`),
+  and a larger `dog-nook-cro.css`, none committed to this branch. Pulled the live
+  bodies and synced `dog-nook-cro.css` + `dog-nook-shop.liquid` back into git
+  (now checksum-identical to the draft) so the repo matches what's deployed. Real
+  product photography is still the actual fix for "empty/boring" — the placeholder
+  just makes imageless cards read as intentional.
 - **2026-07-20 — Loaded real in-person customer reviews (80 across all 8 products).**
   Owner supplied genuine reviews from customers who bought the products in person
   (not online orders, so they don't appear in Shopify order data). Wrote three
