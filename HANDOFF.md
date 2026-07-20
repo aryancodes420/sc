@@ -281,6 +281,12 @@ What exists and works now:
   (now checksum-identical to the draft) so the repo matches what's deployed. Real
   product photography is still the actual fix for "empty/boring" — the placeholder
   just makes imageless cards read as intentional.
+  **Follow-up fix:** the first version made `.tdn-product-card__media` a flex
+  container + forced `.tdn-grid-4{align-items:start}`, which broke the card layout
+  when the Sort control re-flowed the grid (media and body visually split apart).
+  Reverted both: media keeps its normal block/aspect-ratio, and the placeholder is
+  now a simple absolute overlay (`.tdn-product-card__ph{position:absolute;inset:0}`).
+  Chips-fill-width + smaller-sort were unaffected and kept.
 - **2026-07-20 — Loaded real in-person customer reviews (80 across all 8 products).**
   Owner supplied genuine reviews from customers who bought the products in person
   (not online orders, so they don't appear in Shopify order data). Wrote three

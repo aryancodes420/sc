@@ -15,14 +15,10 @@
 
 {%- comment -%} Product-card + shop-bar refinements. Kept inline here so the large CSS assets don't need redeploying (see HANDOFF deploy-size trap). Loads after the asset stylesheets; shop-bar rules use extra specificity to beat the section's own CSS. {%- endcomment -%}
 <style>
-.tdn-grid-4{align-items:start}
-.tdn-product-card__media{display:flex;align-items:center;justify-content:center;background-image:linear-gradient(155deg,rgba(255,255,255,.16),rgba(0,0,0,.12))}
-.tdn-product-card__media img{position:absolute;inset:0}
-.tdn-product-card__ph{font-family:var(--tdn-font-display);font-size:17px;line-height:1.25;font-weight:600;color:rgba(255,255,255,.85);text-align:center;padding:0 20px}
-.tdn-product-card__body{padding:14px 15px 15px;gap:4px}
+.tdn-product-card__media{background-image:linear-gradient(155deg,rgba(255,255,255,.16),rgba(0,0,0,.12))}
+.tdn-product-card__ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;font-family:var(--tdn-font-display);font-size:17px;line-height:1.25;font-weight:600;color:rgba(255,255,255,.85)}
+.tdn-product-card__body{padding:14px 15px 15px;gap:5px}
 .tdn-product-card__name{font-size:15px;line-height:1.3;color:var(--tdn-charcoal)}
-.tdn-product-card__reviews{margin:3px 0 2px}
-.tdn-product-card__price{margin-top:6px;font-size:16px}
 .tdn-shop__bar .tdn-shop__chips{flex:1 1 100%}
 .tdn-shop__bar .tdn-shop__chips .tdn-chip{flex:1 1 0;justify-content:center;text-align:center;min-width:84px}
 .tdn-shop__bar .tdn-shop__sort{margin-left:auto}
