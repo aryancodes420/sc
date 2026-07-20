@@ -54,6 +54,17 @@ Optional read-back to confirm:
 }
 ```
 
+## Op 4 (added 2026-07-20, hybrid decision) — retire duplicate rescue collection
+Per `BUILDER-COORDINATION.md`: the store has two rescue collections. Keep the other
+builder's live `Settling a New Rescue`; delete this session's duplicate `Rescue Essentials`.
+Its member draft products remain in other collections, so nothing is orphaned.
+⚠️ Delete **Rescue Essentials = `gid://shopify/Collection/527313404187`** — NOT Fireworks
+& Storms (`527313371419`), which we are keeping.
+```graphql
+mutation { collectionDelete(input: {id: "gid://shopify/Collection/527313404187"}) { deletedCollectionId userErrors { field message } } }
+```
+(Or the owner can just delete it in Admin: Products → Collections → Rescue Essentials → Delete.)
+
 ## After running
 Update `live-catalog-changes.md` (mark the "⏳ PENDING" block resolved) and delete this
 file. Do **not** publish or set any product ACTIVE — the owner does that once each item
