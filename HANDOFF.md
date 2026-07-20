@@ -260,6 +260,19 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-20 — Merged the real card-split fix with the ratings-number fix in
+  `dog-nook-stars`.** Correction to the earlier "media flex" theory: the true cause
+  of the Shop-card split was a **nested `<a>`** — the whole card is an `<a>`, and
+  `dog-nook-stars` rendered another `<a>` inside it (invalid HTML → the browser tears
+  the card apart). Another builder fixed that on the live draft by rendering a
+  `<span>` in cards and an `<a>` only when `stars_link` is set (PDP) — but their edit
+  was based on the pre-fix file, so it **re-introduced the `line 29` String-comparison
+  Liquid error** (rating read as `"4.8"` and compared with `> 0`). Merged both:
+  kept the nested-anchor `<span>` fix and re-applied the numeric coercion
+  (`assign rating_num = rating | plus: 0.0`, used in every comparison/output).
+  Deployed to the draft, checksum `6513c1e653d0…`. ⚠️ **Parallel edits on the live
+  theme keep resetting this file** — always fetch the live `dog-nook-stars` body
+  before editing and re-merge, rather than deploying a git copy blind.
 - **2026-07-20 — Shop/collection card + filter-bar redesign, and synced git to the
   live draft (git was stale).** The owner disliked the Shop page: filter chips not
   filling the width, an oversized Sort control, and empty/boring product cards with

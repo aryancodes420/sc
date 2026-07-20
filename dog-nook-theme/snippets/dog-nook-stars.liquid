@@ -25,8 +25,8 @@
     assign count = rp.metafields.reviews.rating_count.value | default: 0
   endif
   comment
-    Rating-type metafields return the score as a String ("4.8"); coerce both
-    values to numbers so the comparisons below don't raise a Liquid error.
+    Rating-type metafields return the score as a String ("4.8"); coerce to a
+    number so the comparisons below don't raise a Liquid error.
   endcomment
   assign rating_num = rating | plus: 0.0
   assign count_num = count | plus: 0
@@ -43,14 +43,17 @@
     endif
     assign empty = 5 | minus: full | minus: half
   -%}
-  <a href="#tdn-reviews" class="tdn-stars" aria-label="{{ rating_num }} out of 5 stars, {{ count_num }} reviews">
+  {%- comment -%} Only a link when stars_link is set (PDP). Inside product cards the whole
+     card is already an <a>, and a nested <a> is invalid HTML — it makes the browser split
+     the card apart. There we render a <span> instead. {%- endcomment -%}
+  {%- if stars_link -%}<a href="#tdn-reviews" class="tdn-stars" aria-label="{{ rating_num }} out of 5 stars, {{ count_num }} reviews">{%- else -%}<span class="tdn-stars" aria-label="{{ rating_num }} out of 5 stars, {{ count_num }} reviews">{%- endif -%}
     <span class="tdn-stars__row" aria-hidden="true">
       {%- if full > 0 -%}{%- for i in (1..full) -%}<span class="tdn-star tdn-star--full">★</span>{%- endfor -%}{%- endif -%}
       {%- if half == 1 -%}<span class="tdn-star tdn-star--half"><span>★</span>★</span>{%- endif -%}
       {%- if empty > 0 -%}{%- for i in (1..empty) -%}<span class="tdn-star tdn-star--empty">★</span>{%- endfor -%}{%- endif -%}
     </span>
     <span class="tdn-stars__count">{{ rating_num }} · {{ count_num }} review{% if count_num != 1 %}s{% endif %}</span>
-  </a>
+  {%- if stars_link -%}</a>{%- else -%}</span>{%- endif -%}
 {%- else -%}
   {%- if stars_link -%}
     <a href="#tdn-reviews" class="tdn-stars tdn-stars--empty" aria-label="No reviews yet — be the first to review">
