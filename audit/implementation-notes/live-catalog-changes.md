@@ -20,6 +20,53 @@ photography, then add to the relevant collection (Calming Essentials / Mealtime)
 Copy already follows the honest rules (no medical/behavioural cure claims, non-medical
 disclaimer line, no fake reviews/urgency).
 
+## 2026-07-20 — Phase 2 + Phase 3 (new DRAFT products, bundles, collections)
+Per `audit/15-...` Phases 2–3. All DRAFT until sourced + `{VERIFY}` filled + photographed.
+
+### Phase 2 — new single products
+| Product | GID | RRP | Type | Variants | `{VERIFY}` |
+|---|---|---|---|---|---|
+| **The Calming Snood** | `10328015339803` | £9.99 | Calming | Small/Medium, Large | head/neck cm, material, washing |
+| **The Wobble Feeder** | `10328015536411` | £13.99 | Feeding | single | size/capacity, difficulty dial, material, cleaning |
+
+### Phase 3 — bundles (single-SKU descriptive bundles, same model as New Rescue Bundle)
+| Bundle | GID | Contents | Price | compareAt (genuine sum) | Save |
+|---|---|---|---|---|---|
+| **The First Nights Bundle** | `10328016290075` | Donut Bed + Heartbeat Companion + Lick Mat | S £54.99 / M £61.99 / L £67.99 | 66.97 / 74.97 / 81.97 | ~£12 (17–18%) |
+| **The Fireworks Kit** | `10328016453915` | Calming Coat + Calming Snood + Snuffle Ball | £39.99 (all sizes) | 49.97 | £9.98 (20%) |
+Bundle size variant sets the size-bearing item (bed / coat); the other two items are
+constant. First Nights `templateSuffix=bundle` ✓. Compare-at prices set on both ✓.
+
+### Phase 3 — collections
+- **Created** `Fireworks & Storms` (`gid://…/Collection/527313371419`) — Fireworks Kit,
+  Calming Coat, Calming Snood, Snuffle Ball, Heartbeat Companion. (All DRAFT → grid is
+  empty on storefront until those products are set ACTIVE. Not yet linked in nav.)
+  ⚠️ handle came out as `fireworks-amp-storms` (ampersand double-encoded at create);
+  title fixed to "Fireworks & Storms". **Handle still needs cleanup** — see pending.
+- **Created** `Rescue Essentials` (`gid://…/Collection/527313404187`) — First Nights
+  Bundle, New Rescue Bundle, Donut Bed, Heartbeat Companion, Lick Mat, Snuffle Mat.
+- **Added new SKUs to existing collections:** Calming Essentials += Heartbeat, Coat,
+  Snood · Mealtime & Feeding += Snuffle Ball, Wobble · Grooming += Snood.
+
+### ⏳ PENDING — needs owner to approve one `graphql_mutation` run
+The reconnected Shopify MCP began gating raw `graphql_mutation`/`graphql_query` behind
+an interactive approval (built-in tools were unaffected). These 3 ops are ready to run
+in one approval when the owner is back:
+1. **Fireworks Kit `templateSuffix=bundle`** — until set it renders on the default
+   product template (still works; just not the bundle layout). First Nights already has it.
+2. **Fireworks & Storms handle** → `fireworks-storms` (cosmetic URL cleanup).
+3. **Per-product `custom.faq` metafields** for the 4 products created after the
+   disconnect (Snood, Wobble, First Nights, Fireworks). Until set, their PDPs fall back
+   to the shared FAQ section (no error, just generic). The FAQ JSON is ready below.
+   *(Heartbeat, Calming Coat and Snuffle Ball FAQ metafields were set successfully
+   before the disconnect.)*
+
+Ready FAQ JSON (paste as `custom.faq`, type JSON):
+- **Calming Snood** (`10328015339803`): `[{"q":"Will it stop my dog reacting to fireworks?","a":"It takes the edge off the noise for many dogs, but it isn't ear protection to a measured rating and won't silence the world. Use it alongside a safe, quiet space — and for severe noise phobia, speak to your vet too. If it's not right, you're covered by our 30-day guarantee."},{"q":"Can I use it for grooming and drying?","a":"Yes — that's the second job it does. It holds flappy ears back and covered, which makes bath time and blow-drying calmer and less of a wrestle."},{"q":"How do I introduce it?","a":"Pop it on for a few minutes at a time on a calm day, with a treat or two, so it's familiar before you use it for a stressful event. Never leave it so tight it bothers them, and take it off between uses."}]`
+- **Wobble Feeder** (`10328015536411`): `[{"q":"What food works in it?","a":"Dry kibble and firm, small treats work best — they roll out a few at a time as your dog nudges it. Wet or sticky food will clog it."},{"q":"Is it noisy on hard floors?","a":"It can rattle on tile or laminate as your dog rolls it. Many owners use it on a rug or mat to keep the noise down, which also slows it slightly for more of a challenge."},{"q":"Is it safe to leave my dog alone with it?","a":"Supervise the first few sessions to see how your dog treats it. It's a feeder, not a chew toy — take it away from a determined chewer and check it now and then for damage."}]`
+- **First Nights Bundle** (`10328016290075`): `[{"q":"What's included?","a":"The Calming Donut Bed (in your chosen size), the Heartbeat Companion and the Lick Mat — three gentle things to help a nervous or newly-adopted dog settle through the night."},{"q":"How much do I save?","a":"From £66.97 bought separately (Small) down to £54.99 as a bundle — a saving of around £12. The Medium and Large options save a similar amount on the larger bed."},{"q":"Which size should I choose?","a":"The size sets the bed only. Measure your dog curled up and pick the bed that gives them room to turn — get in touch if you're between sizes and we'll help."},{"q":"Is this right for a rescue dog?","a":"Yes — it's built for exactly the first unsettled weeks. The bed gives them a den, the Heartbeat Companion gives them company at night, and the Lick Mat helps them wind down."}]`
+- **Fireworks Kit** (`10328016453915`): `[{"q":"What's included?","a":"The Calming Coat (in your chosen size), the Calming Snood and the Snuffle Ball — three calming tools to set up before fireworks, a storm or any loud event."},{"q":"How much do I save?","a":"£49.97 bought separately, £39.99 as a kit — you save £9.98."},{"q":"When should I use it?","a":"Set it up before the noise starts, not once your dog is already panicking. Coat on, snood ready, Snuffle Ball loaded — ideally introduced on a calm day first so none of it is brand-new."},{"q":"Will it fix my dog's noise phobia?","a":"It helps many dogs cope with the edge of a loud night, but it's comfort kit, not a cure. For severe or worsening noise phobia, please involve your vet or a behaviourist."}]`
+
 ---
 
 # Live catalogue changes (Shopify Admin API) — 2026-07-16
