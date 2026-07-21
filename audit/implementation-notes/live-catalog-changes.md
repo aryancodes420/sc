@@ -48,20 +48,15 @@ constant. First Nights `templateSuffix=bundle` ✓. Compare-at prices set on bot
 - **Added new SKUs to existing collections:** Calming Essentials += Heartbeat, Coat,
   Snood · Mealtime & Feeding += Snuffle Ball, Wobble · Grooming += Snood.
 
-### ⏳ PENDING — needs owner to approve one `graphql_mutation` run
-The reconnected Shopify MCP began gating raw `graphql_mutation`/`graphql_query` behind
-an interactive approval (built-in tools were unaffected). These 3 ops are ready to run
-in one approval when the owner is back:
-1. **Fireworks Kit `templateSuffix=bundle`** — until set it renders on the default
-   product template (still works; just not the bundle layout). First Nights already has it.
-2. **Fireworks & Storms handle** → `fireworks-storms` (cosmetic URL cleanup).
-3. **Per-product `custom.faq` metafields** for the 4 products created after the
-   disconnect (Snood, Wobble, First Nights, Fireworks). Until set, their PDPs fall back
-   to the shared FAQ section (no error, just generic). The FAQ JSON is ready below.
-   *(Heartbeat, Calming Coat and Snuffle Ball FAQ metafields were set successfully
-   before the disconnect.)*
+### ✅ RESOLVED (2026-07-21) — all pending `graphql_mutation` ops run
+A fresh session got a clean raw-GraphQL grant and ran the queued mutation. Final state:
+1. **Fireworks Kit `templateSuffix=bundle`** — ✅ set (confirmed `templateSuffix=bundle`).
+2. **Fireworks & Storms handle** → `fireworks-storms` — ✅ done (fixed earlier, confirmed).
+3. **Per-product `custom.faq` metafields** for the 4 remaining products (Snood, Wobble,
+   First Nights, Fireworks Kit) — ✅ set, 4 metafields created, no `userErrors`.
+   *(Heartbeat, Calming Coat and Snuffle Ball FAQ metafields were already set earlier.)*
 
-Ready FAQ JSON (paste as `custom.faq`, type JSON):
+FAQ JSON as applied (kept for reference; paste as `custom.faq`, type JSON):
 - **Calming Snood** (`10328015339803`): `[{"q":"Will it stop my dog reacting to fireworks?","a":"It takes the edge off the noise for many dogs, but it isn't ear protection to a measured rating and won't silence the world. Use it alongside a safe, quiet space — and for severe noise phobia, speak to your vet too. If it's not right, you're covered by our 30-day guarantee."},{"q":"Can I use it for grooming and drying?","a":"Yes — that's the second job it does. It holds flappy ears back and covered, which makes bath time and blow-drying calmer and less of a wrestle."},{"q":"How do I introduce it?","a":"Pop it on for a few minutes at a time on a calm day, with a treat or two, so it's familiar before you use it for a stressful event. Never leave it so tight it bothers them, and take it off between uses."}]`
 - **Wobble Feeder** (`10328015536411`): `[{"q":"What food works in it?","a":"Dry kibble and firm, small treats work best — they roll out a few at a time as your dog nudges it. Wet or sticky food will clog it."},{"q":"Is it noisy on hard floors?","a":"It can rattle on tile or laminate as your dog rolls it. Many owners use it on a rug or mat to keep the noise down, which also slows it slightly for more of a challenge."},{"q":"Is it safe to leave my dog alone with it?","a":"Supervise the first few sessions to see how your dog treats it. It's a feeder, not a chew toy — take it away from a determined chewer and check it now and then for damage."}]`
 - **First Nights Bundle** (`10328016290075`): `[{"q":"What's included?","a":"The Calming Donut Bed (in your chosen size), the Heartbeat Companion and the Lick Mat — three gentle things to help a nervous or newly-adopted dog settle through the night."},{"q":"How much do I save?","a":"From £66.97 bought separately (Small) down to £54.99 as a bundle — a saving of around £12. The Medium and Large options save a similar amount on the larger bed."},{"q":"Which size should I choose?","a":"The size sets the bed only. Measure your dog curled up and pick the bed that gives them room to turn — get in touch if you're between sizes and we'll help."},{"q":"Is this right for a rescue dog?","a":"Yes — it's built for exactly the first unsettled weeks. The bed gives them a den, the Heartbeat Companion gives them company at night, and the Lick Mat helps them wind down."}]`
