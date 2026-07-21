@@ -37,13 +37,13 @@ each other — hence this doc.
 ---
 
 ## 📋 Open items (single source of truth — update as these close)
-- [ ] **Retire A's `Rescue Essentials` collection** (`527313404187`) — duplicate of B's
-  live rescue collection. Owner (Admin → Collections → delete) or next builder
-  (`collectionDelete`, see `PENDING-graphql-ops.md` Op 4). *Blocked for this session: no
-  built-in delete tool; GraphQL route is approval-gated and failing.*
-- [ ] **3 GraphQL polish ops** on A's drafts — Fireworks Kit `templateSuffix=bundle`,
-  collection handle tidy, 4 `custom.faq` metafields. Ready in `PENDING-graphql-ops.md`
-  (Ops 1–3). *Same approval-gate blocker.*
+- [x] **Retire A's `Rescue Essentials` collection** — ✅ **done** (confirmed deleted in the
+  live store 2026-07-20; consolidated to B's "Settling a New Rescue").
+- [x] **Fireworks & Storms handle** → `fireworks-storms` — ✅ **done** (confirmed).
+- [ ] **2 GraphQL polish ops left** on A's drafts — Fireworks Kit `templateSuffix=bundle`
+  + 4 `custom.faq` metafields (Snood, Wobble, First Nights, Fireworks Kit). Ready as one
+  idempotent call in `PENDING-graphql-ops.md`. *Blocked for the session that built this
+  (raw-GraphQL grant lost on MCP reconnect); a fresh session clears it in one call.*
 - [ ] **Get this doc onto `main`** so other sessions actually see it (see visibility note
   at the bottom). Needs a merge/PR — **owner's call**; not yet done.
 - [ ] **Owner sourcing** before any A product goes ACTIVE: real CJ costs, fill `{VERIFY}`
