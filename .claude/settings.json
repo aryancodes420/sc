@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "permissions": {
+    "allow": [
+      "mcp__*__graphql_query",
+      "mcp__*__graphql_mutation",
+      "mcp__*__graphql_schema",
+      "mcp__b3ff87a2-e58b-47aa-bdcd-72f8b730f5e6__graphql_query",
+      "mcp__b3ff87a2-e58b-47aa-bdcd-72f8b730f5e6__graphql_mutation",
+      "mcp__b3ff87a2-e58b-47aa-bdcd-72f8b730f5e6__graphql_schema",
+      "mcp__Shopify__graphql_query",
+      "mcp__Shopify__graphql_mutation",
+      "mcp__Shopify__graphql_schema"
+    ]
+  }
+}
