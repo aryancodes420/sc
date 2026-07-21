@@ -40,10 +40,10 @@ each other — hence this doc.
 - [x] **Retire A's `Rescue Essentials` collection** — ✅ **done** (confirmed deleted in the
   live store 2026-07-20; consolidated to B's "Settling a New Rescue").
 - [x] **Fireworks & Storms handle** → `fireworks-storms` — ✅ **done** (confirmed).
-- [ ] **2 GraphQL polish ops left** on A's drafts — Fireworks Kit `templateSuffix=bundle`
-  + 4 `custom.faq` metafields (Snood, Wobble, First Nights, Fireworks Kit). Ready as one
-  idempotent call in `PENDING-graphql-ops.md`. *Blocked for the session that built this
-  (raw-GraphQL grant lost on MCP reconnect); a fresh session clears it in one call.*
+- [x] **2 GraphQL polish ops left** on A's drafts — Fireworks Kit `templateSuffix=bundle`
+  + 4 `custom.faq` metafields (Snood, Wobble, First Nights, Fireworks Kit) — ✅ **done**
+  2026-07-21 (fresh session ran the queued mutation in `PENDING-graphql-ops.md`; all
+  `userErrors` empty, `templateSuffix=bundle` confirmed, 4 FAQ metafields created).
 - [ ] **Get this doc onto `main`** so other sessions actually see it (see visibility note
   at the bottom). Needs a merge/PR — **owner's call**; not yet done.
 - [ ] **Owner sourcing** before any A product goes ACTIVE: real CJ costs, fill `{VERIFY}`
@@ -97,8 +97,10 @@ All created **DRAFT** on purpose (unsourced products; owner activates after sour
      via `graphql_mutation` (see `audit/implementation-notes/PENDING-graphql-ops.md`).
    A's new draft products stay discoverable via *Calming Essentials* / *Mealtime & Feeding*
    / *Fireworks & Storms*, so retiring this collection orphans nothing that matters.
-2. The 3 GraphQL polish ops from earlier (Fireworks Kit bundle template, its handle, 4 FAQ
-   metafields) are still pending in `PENDING-graphql-ops.md`.
+2. ✅ **Done (2026-07-21):** The GraphQL polish ops (Fireworks Kit bundle template + its
+   handle + 4 FAQ metafields) have all been run. Handle was fixed earlier; the final
+   mutation (bundle template + Snood/Wobble/First Nights/Fireworks Kit FAQs) completed
+   this session with no errors.
 
 ---
 
