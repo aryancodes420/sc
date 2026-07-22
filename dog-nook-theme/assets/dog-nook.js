@@ -87,7 +87,12 @@
     /* Re-apply a returning visitor's previous choice on every load. */
     if (stored) { applyConsent(stored); }
     if (!banner) return;
-    if (!stored) { banner.hidden = false; }
+    if (!stored) {
+      banner.hidden = false;
+      /* Move focus into the consent dialog so keyboard / screen-reader users
+         are taken to it and it's announced (a11y — the banner is role=dialog). */
+      try { banner.focus(); } catch (e) {}
+    }
     banner.querySelectorAll('[data-tdn-cookie-action]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var choice = btn.getAttribute('data-tdn-cookie-action');

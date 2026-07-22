@@ -77,6 +77,9 @@
 
     root.addEventListener('mouseenter', function () { hovered = true; });
     root.addEventListener('mouseleave', function () { hovered = false; last = null; });
+    /* SC 2.2.2 — pause while a pill is keyboard-focused so it doesn't slide away. */
+    root.addEventListener('focusin', function () { hovered = true; });
+    root.addEventListener('focusout', function () { hovered = false; last = null; });
     root.addEventListener('touchstart', function () { hovered = true; }, { passive: true });
     root.addEventListener('touchend', function () { setTimeout(function () { hovered = false; last = null; }, 1500); }, { passive: true });
     document.addEventListener('visibilitychange', function () { hidden = document.hidden; if (!hidden) last = null; });

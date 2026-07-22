@@ -15,7 +15,7 @@
 <div class="tdn tdn-cartbar">
   <div class="tdn-cartbar__msg">
     {%- if total >= threshold_cents -%}
-      🎉 You’ve unlocked free UK delivery!
+      <span aria-hidden="true">🎉</span> You’ve unlocked free UK delivery!
     {%- else -%}
       You’re {{ remain | money }} away from free delivery
     {%- endif -%}

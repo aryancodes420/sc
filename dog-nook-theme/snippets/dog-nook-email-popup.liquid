@@ -58,6 +58,16 @@
     var lastFocused = document.activeElement;
     var node = tpl.content.firstElementChild.cloneNode(true);
     document.body.appendChild(node);
+    /* Make the rest of the page inert while the dialog is open so a virtual
+       cursor / screen reader can't escape it (complements the focus-trap below).
+       Restored on close. */
+    var bgInert = [];
+    Array.prototype.forEach.call(document.body.children, function (el) {
+      if (el === node || el.hasAttribute('aria-hidden')) return;
+      el.setAttribute('aria-hidden', 'true');
+      try { el.inert = true; } catch (e) {}
+      bgInert.push(el);
+    });
     var card = node.querySelector('.tdn-emailpop__card') || node;
     function focusables() {
       return Array.prototype.slice.call(card.querySelectorAll(
@@ -75,6 +85,7 @@
     }
     function close() {
       document.removeEventListener('keydown', onKey);
+      bgInert.forEach(function (el) { el.removeAttribute('aria-hidden'); try { el.inert = false; } catch (e) {} });
       node.remove();
       dismiss();
       // Restore focus to whatever the visitor was on before the dialog opened.

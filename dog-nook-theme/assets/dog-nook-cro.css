@@ -93,6 +93,24 @@ a.tdn-stars:hover .tdn-stars__count { color: var(--tdn-sage); text-decoration: u
 .tdn-pdp__thumb:focus-visible,
 .tdn-accordion__q:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }
 
+/* Q6 — inline-link contrast. The base --tdn-sage (#7C8767) is ≈3.27:1 on cream
+   (fails SC 1.4.3). Darken JUST the inline-link surface (mirror the same :not()
+   "link trap" exclusion list from dog-nook.css so no component link is caught).
+   #5f6a4d ≈4.9:1; hover #4c5539 ≈6.8:1 + underline for affordance. Loaded after
+   dog-nook.css so it wins without redeploying the token file. */
+.tdn a:not(.tdn-btn):not(.tdn-chip):not(.tdn-product-card):not(.tdn-coll-card):not(.tdn-cindex):not(.tdn-catbar__pill) { color: #5f6a4d; }
+.tdn a:not(.tdn-btn):not(.tdn-chip):not(.tdn-product-card):not(.tdn-coll-card):not(.tdn-cindex):not(.tdn-catbar__pill):hover { color: #4c5539; text-decoration: underline; }
+
+/* ST4 — tap targets ≥44px (SC 2.5.5/2.5.8). Category-bar pills and collection/
+   shop pagination links were below the guideline. Pills grow via min-height +
+   padding (keeps the marquee stride measured off the same box); pagination links
+   get a 44px min box. */
+.tdn-catbar__pill { min-height: 44px; padding-top: 11px; padding-bottom: 11px; }
+.tdn-pagination a,
+.tdn-pagination .page { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 6px 12px; box-sizing: border-box; }
+.tdn-catbar__pill:focus-visible,
+.tdn-pagination a:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }
+
 /* PDP size selector — text pills for size options (vs colour swatches). */
 .tdn-sizes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .tdn-sizebtn { min-width: 46px; padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--tdn-warm-border-2); background: #fff; color: var(--tdn-charcoal); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }

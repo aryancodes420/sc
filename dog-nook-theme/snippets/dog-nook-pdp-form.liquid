@@ -28,7 +28,7 @@
   {%- elsif single_option -%}
     <div class="tdn-pdp__optlabel">{{ product.options.first }}: <span data-tdn-swatch-label>{{ cur.title }}</span></div>
     <input type="hidden" name="id" value="{{ cur.id }}">
-    <div class="tdn-swatches" data-tdn-swatches>
+    <div class="tdn-swatches" data-tdn-swatches role="radiogroup" aria-label="{{ product.options.first | escape }}">
       {%- for variant in product.variants -%}
         {%- assign val = variant.option1 | downcase -%}
         {%- liquid
@@ -50,6 +50,8 @@
         <button type="button" class="tdn-swatch {% if variant.id == cur.id %}is-selected{% endif %}"
                 data-tdn-swatch data-variant-id="{{ variant.id }}" data-variant-name="{{ variant.title | escape }}"
                 data-variant-price="{{ variant.price | money }}" data-variant-available="{{ variant.available }}"
+                role="radio" aria-checked="{% if variant.id == cur.id %}true{% else %}false{% endif %}"
+                {% unless variant.available %}disabled{% endunless %}
                 title="{{ variant.title | escape }}" aria-label="{{ variant.title | escape }}"
                 style="background: {{ swtone }};"></button>
       {%- endfor -%}

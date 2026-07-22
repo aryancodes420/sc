@@ -5,9 +5,9 @@
   Payment icons come from the store's enabled payment providers.
 {%- endcomment -%}
 <div class="tdn tdn-trustpanel">
-  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic">🚚</span><span>{{ delivery_text | default: 'Free UK delivery on orders over £35' }}</span></div>
-  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic">↩️</span><span>{{ returns_text | default: '30-day easy returns' }}</span></div>
-  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic">🔒</span><span>{{ secure_text | default: 'Secure checkout — all major cards accepted' }}</span></div>
+  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic" aria-hidden="true">🚚</span><span>{{ delivery_text | default: 'Free UK delivery on orders over £35' }}</span></div>
+  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic" aria-hidden="true">↩️</span><span>{{ returns_text | default: '30-day easy returns' }}</span></div>
+  <div class="tdn-trustpanel__row"><span class="tdn-trustpanel__ic" aria-hidden="true">🔒</span><span>{{ secure_text | default: 'Secure checkout — all major cards accepted' }}</span></div>
   {%- if shop.enabled_payment_types.size > 0 -%}
     <div class="tdn-trustpanel__pays">
       {%- for type in shop.enabled_payment_types -%}

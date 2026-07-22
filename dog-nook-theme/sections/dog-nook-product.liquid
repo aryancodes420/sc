@@ -74,10 +74,10 @@
         {%- comment -%} Trust promises (four boxes) {%- endcomment -%}
         {%- assign _delivery = product.metafields.custom.delivery_line.value | default: s.delivery_text -%}
         <div class="tdn-pdp__promises">
-          <div class="tdn-promise"><span class="tdn-promise__ic">🚚</span><div><div class="tdn-promise__t">Tracked UK delivery</div><div class="tdn-promise__s">{{ _delivery }}</div></div></div>
-          <div class="tdn-promise"><span class="tdn-promise__ic">📦</span><div><div class="tdn-promise__t">Free UK delivery over £35</div><div class="tdn-promise__s">Under £35 it’s shown in full at checkout — never a surprise.</div></div></div>
-          <div class="tdn-promise"><span class="tdn-promise__ic">🛡️</span><div><div class="tdn-promise__t">30-day money-back guarantee</div><div class="tdn-promise__s">If it doesn’t help your dog settle, send it back — the risk is ours.</div></div></div>
-          <div class="tdn-promise"><span class="tdn-promise__ic">🔒</span><div><div class="tdn-promise__t">Secure checkout</div><div class="tdn-promise__s">Encrypted payment — all major cards, Apple Pay, Google Pay & Shop Pay.</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic" aria-hidden="true">🚚</span><div><div class="tdn-promise__t">Tracked UK delivery</div><div class="tdn-promise__s">{{ _delivery }}</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic" aria-hidden="true">📦</span><div><div class="tdn-promise__t">Free UK delivery over £35</div><div class="tdn-promise__s">Under £35 it’s shown in full at checkout — never a surprise.</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic" aria-hidden="true">🛡️</span><div><div class="tdn-promise__t">30-day money-back guarantee</div><div class="tdn-promise__s">If it doesn’t help your dog settle, send it back — the risk is ours.</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic" aria-hidden="true">🔒</span><div><div class="tdn-promise__t">Secure checkout</div><div class="tdn-promise__s">Encrypted payment — all major cards, Apple Pay, Google Pay & Shop Pay.</div></div></div>
         </div>
 
         {%- comment -%} Payment icons — reflects the store's actually-enabled methods {%- endcomment -%}
