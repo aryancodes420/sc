@@ -50,17 +50,47 @@
       },
       "block_order": ["w1", "w2", "w3"]
     },
-    "bundle": {
+    "bundle_intro": {
+      "type": "dog-nook-rich-text",
+      "settings": {
+        "eyebrow": "Two ways to start",
+        "heading": "Pick the kit that fits where your dog is",
+        "image_placeholder_label": ""
+      },
+      "blocks": {
+        "p1": { "type": "paragraph", "settings": { "text": "<p>Just settling a new rescue, or want the full nose-to-tail set-up? Start small with the mats, or go all-in with the calming bed included — both save you money versus buying separately, and both are covered by our 30-day guarantee.</p>" } }
+      },
+      "block_order": ["p1"]
+    },
+    "bundle_premium": {
+      "type": "dog-nook-featured-bundle",
+      "settings": {
+        "product": "the-settle-in-bundle",
+        "eyebrow": "Our most complete kit",
+        "heading": "The Settle-In Bundle",
+        "body": "A deep calming bed to burrow into, plus a lick mat and snuffle mat — the full kit to help a nervous or newly-adopted dog feel safe and settle in.",
+        "badge": "BEST FOR NEW RESCUES",
+        "price": "£64.99",
+        "compare_price": "£72.97",
+        "save_label": "You save £7.98",
+        "button_label": "Add bundle to basket",
+        "link_label": "What's inside?",
+        "link_url": "/products/the-settle-in-bundle",
+        "image_tone": "linear-gradient(140deg,#8a9472,#6f795c)",
+        "image_placeholder_label": "Settle-In Bundle flat-lay"
+      }
+    },
+    "bundle_entry": {
       "type": "dog-nook-featured-bundle",
       "settings": {
         "product": "the-new-rescue-bundle-1",
-        "eyebrow": "Featured bundle",
+        "eyebrow": "Start small",
         "heading": "The New Rescue Bundle",
-        "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind.",
-        "badge": "BEST VALUE · SAVE £15",
+        "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind, without the bed.",
+        "badge": "GREAT STARTER KIT",
         "price": "£34.99",
         "compare_price": "£49.97",
-        "save_label": "You save £15",
+        "save_label": "You save £14.98",
         "button_label": "Add bundle to basket",
         "link_label": "What's inside?",
         "link_url": "/products/the-new-rescue-bundle-1",
@@ -97,5 +127,5 @@
       }
     }
   },
-  "order": ["catbar", "hero", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
+  "order": ["catbar", "hero", "trust", "why", "bundle_intro", "bundle_premium", "bundle_entry", "collections", "reviews", "newsletter"]
 }
