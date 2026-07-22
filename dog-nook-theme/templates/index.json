@@ -102,12 +102,13 @@
       "type": "dog-nook-collection-list",
       "settings": { "eyebrow": "Shop by need", "heading": "Find what your dog needs", "view_all_label": "View all", "view_all_url": "/collections" },
       "blocks": {
+        "c0": { "type": "collection", "settings": { "collection": "settling-a-new-rescue", "title": "Settling a New Rescue", "tone": "#6f795c" } },
         "c1": { "type": "collection", "settings": { "collection": "calming-essentials", "title": "Calming Essentials", "tone": "#8B9578" } },
         "c2": { "type": "collection", "settings": { "collection": "grooming", "title": "Grooming", "tone": "#9AA593" } },
         "c3": { "type": "collection", "settings": { "collection": "mealtime-feeding", "title": "Mealtime & Feeding", "tone": "#C89178" } },
         "c4": { "type": "collection", "settings": { "collection": "travel-outdoor", "title": "Travel & Outdoor", "tone": "#8B9578" } }
       },
-      "block_order": ["c1", "c2", "c3", "c4"]
+      "block_order": ["c0", "c1", "c2", "c3", "c4"]
     },
     "reviews": {
       "type": "dog-nook-reviews-placeholder",
