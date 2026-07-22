@@ -1,8 +1,4 @@
-{%- comment -%}
-  The Dog Nook — Collection grid ("Shop by need").
-  Each block links a real Shopify collection; falls back to a colour tile when the
-  collection has no image.
-{%- endcomment -%}
+{%- comment -%} The Dog Nook — Collection grid ("Shop by need"). Bundle collections get a save-badge + CTA. {%- endcomment -%}
 {%- assign s = section.settings -%}
 <div class="tdn">
   <section class="tdn-section tdn-wrap" style="text-align:center;">
@@ -12,16 +8,32 @@
     <div class="tdn-grid-4" style="text-align:left;">
       {%- for block in section.blocks -%}
         {%- assign coll = collections[block.settings.collection] -%}
+        {%- liquid
+          assign has_bundle = false
+          assign best_save = 0
+          for bp in coll.products
+            if bp.type == 'Bundle' or bp.handle contains 'bundle'
+              assign has_bundle = true
+              if bp.compare_at_price > bp.price
+                assign bp_save = bp.compare_at_price | minus: bp.price
+                if bp_save > best_save
+                  assign best_save = bp_save
+                endif
+              endif
+            endif
+          endfor
+        -%}
         <a href="{{ coll.url | default: '#' }}" class="tdn-coll-card" {{ block.shopify_attributes }}>
           <div class="tdn-coll-card__media" style="background: {{ block.settings.tone | default: '#8B9578' }};">
             {%- if coll.featured_image != blank -%}
               {{ coll.featured_image | image_url: width: 600 | image_tag: class: 'tdn-coll-card__img', loading: 'lazy', alt: coll.title | escape }}
             {%- endif -%}
+            {%- if has_bundle -%}<span class="tdn-coll-card__badge">{% if best_save > 0 %}Bundle inside · Save {{ best_save | money }}{% else %}Bundle inside{% endif %}</span>{%- endif -%}
             <span class="tdn-coll-card__tag">{{ block.settings.title | default: coll.title }}</span>
           </div>
           <div class="tdn-coll-card__foot">
             <span class="tdn-coll-card__name">{{ block.settings.title | default: coll.title }}</span>
-            <span class="tdn-coll-card__cta">Shop now →</span>
+            <span class="tdn-coll-card__cta">{% if has_bundle %}See the bundle →{% else %}Shop now →{% endif %}</span>
           </div>
         </a>
       {%- endfor -%}
@@ -35,6 +47,7 @@
   .tdn-coll-card__media { position: relative; height: 150px; border-radius: 14px; overflow: hidden; display: flex; align-items: flex-end; padding: 14px; }
   .tdn-coll-card__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .tdn-coll-card__tag { position: relative; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 600; }
+  .tdn-coll-card__badge { position: absolute; top: 10px; left: 10px; background: var(--tdn-terracotta); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .2px; padding: 5px 10px; border-radius: 999px; box-shadow: 0 2px 8px rgba(46,42,34,.18); }
   .tdn-coll-card__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
   .tdn-coll-card__name { font-weight: 600; font-size: 15px; }
   .tdn-coll-card__cta { color: var(--tdn-sage); font-weight: 600; font-size: 14px; }
