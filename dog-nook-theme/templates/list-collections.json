@@ -2,7 +2,11 @@
   "sections": {
     "main": {
       "type": "dog-nook-collections-index",
-      "settings": { "eyebrow": "Shop by need", "heading": "Collections" }
+      "settings": {
+        "eyebrow": "Shop by need",
+        "heading": "Collections",
+        "collection_list": ["calming-essentials", "settling-a-new-rescue", "mealtime-feeding", "grooming", "travel-outdoor"]
+      }
     }
   },
   "order": ["main"]

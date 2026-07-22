@@ -34,3 +34,9 @@
 /* ---- payment icons ---- */
 .tdn-pdp__pays { display: flex; flex-wrap: wrap; gap: 6px; }
 .tdn-pdp__pays .tdn-pay-ic { height: 26px; width: 40px; border: 1px solid var(--tdn-card-border); border-radius: 5px; background: #fff; }
+
+/* ---- product-card overrides (this file loads last, so it wins over dog-nook.css) ----
+   Category pill → top-RIGHT so it never overlaps the placeholder wordmark (product
+   title) shown on the LEFT for image-less products. The wordmark is a no-photo stopgap. */
+.tdn-product-card__tag { left: auto; right: 10px; }
+.tdn-product-card__ph { position: absolute; top: 12px; left: 12px; right: 74px; font-size: 12.5px; font-weight: 600; letter-spacing: .2px; color: var(--tdn-charcoal); line-height: 1.3; }
