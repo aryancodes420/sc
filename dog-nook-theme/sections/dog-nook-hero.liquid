@@ -37,7 +37,7 @@
       </div>
       <div class="tdn-hero-a__media" style="background: {{ s.image_tone | default: 'var(--tdn-grad-calm)' }};">
         {%- if s.image != blank -%}
-          {{ s.image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', class: 'tdn-hero-a__img', alt: s.image.alt | default: s.heading | escape }}
+          {{ s.image | image_url: width: 1200 | image_tag: widths: '600, 900, 1200', class: 'tdn-hero-a__img', loading: 'eager', fetchpriority: 'high', alt: s.image.alt | default: s.heading | strip_html | escape }}
         {%- else -%}
           <span class="tdn-hero-a__ph">{{ s.image_placeholder_label }}</span>
         {%- endif -%}

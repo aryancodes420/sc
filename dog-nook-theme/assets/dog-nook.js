@@ -98,35 +98,22 @@
     });
   }
 
-  /* ---------- Free-shipping progress bar (reads Shopify cart) ---------- */
-  function renderFreeShip(el, cartTotalCents) {
-    var threshold = parseInt(el.getAttribute('data-threshold-cents'), 10) || 3500;
-    var symbol = el.getAttribute('data-currency-symbol') || '£';
-    var msgEl = el.querySelector('[data-tdn-freeship-msg]');
-    var fill = el.querySelector('.tdn-freeship__fill');
-    var pct = Math.min(100, (cartTotalCents / threshold) * 100);
-    if (fill) fill.style.width = pct.toFixed(0) + '%';
-    if (msgEl) {
-      if (cartTotalCents >= threshold) {
-        msgEl.textContent = '🎉 You’ve unlocked free UK delivery!';
-      } else if (cartTotalCents > 0) {
-        var remain = (threshold - cartTotalCents) / 100;
-        msgEl.textContent = 'You’re ' + symbol + remain.toFixed(2) + ' away from free delivery';
-      } else {
-        msgEl.textContent = 'Free UK delivery over ' + symbol + (threshold / 100).toFixed(0);
-      }
+  /* ---------- Sticky ATC quantity sync (mobile PDP) ----------
+     The mobile sticky Add-to-Cart is a separate <form> from the main buy form,
+     so mirror the chosen quantity into it whenever #tdn-qty changes — otherwise
+     the sticky bar always adds 1 regardless of what the shopper selected. */
+  function initStickyQty(root) {
+    var qty = (root || document).querySelector('#tdn-qty');
+    if (!qty || qty.dataset.tdnQtyBound) return;
+    qty.dataset.tdnQtyBound = '1';
+    function sync() {
+      var v = parseInt(qty.value, 10);
+      if (!(v > 0)) v = 1;
+      document.querySelectorAll('[data-tdn-sticky-qty]').forEach(function (el) { el.value = v; });
     }
-  }
-
-  function initFreeShip() {
-    var bars = document.querySelectorAll('[data-tdn-freeship]');
-    if (!bars.length) return;
-    fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
-      .then(function (r) { return r.json(); })
-      .then(function (cart) {
-        bars.forEach(function (el) { renderFreeShip(el, cart.total_price); });
-      })
-      .catch(function () {});
+    qty.addEventListener('change', sync);
+    qty.addEventListener('input', sync);
+    sync();
   }
 
   /* ---------- Scroll reveal (subtle, flash-free, opt-out on reduced-motion) ----------
@@ -160,12 +147,12 @@
     initAccordions(root);
     initSwatches(root);
     initReveal(root);
+    initStickyQty(root);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     initAll(document);
     initCookie();
-    initFreeShip();
   });
 
   /* Re-init inside the theme editor when a section is re-rendered */

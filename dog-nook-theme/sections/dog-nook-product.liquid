@@ -26,7 +26,7 @@
       <div class="tdn-pdp__gallery">
         <div class="tdn-pdp__main" style="background: {{ s.placeholder_tone | default: '#8B9578' }};">
           {%- if product.featured_media -%}
-            {{ product.featured_media | image_url: width: 1000 | image_tag: id: 'tdn-pdp-main', class: 'tdn-pdp__mainimg', widths: '500, 750, 1000', alt: product.featured_media.alt | default: product.title | escape }}
+            {{ product.featured_media | image_url: width: 1000 | image_tag: id: 'tdn-pdp-main', class: 'tdn-pdp__mainimg', widths: '500, 750, 1000', loading: 'eager', fetchpriority: 'high', alt: product.featured_media.alt | default: product.title | escape }}
           {%- else -%}
             <span class="tdn-pdp__ph">Product on clean background</span>
           {%- endif -%}
@@ -74,7 +74,7 @@
         {%- comment -%} Trust promises (four boxes) {%- endcomment -%}
         {%- assign _delivery = product.metafields.custom.delivery_line.value | default: s.delivery_text -%}
         <div class="tdn-pdp__promises">
-          <div class="tdn-promise"><span class="tdn-promise__ic">🚚</span><div><div class="tdn-promise__t">Fast, tracked dispatch</div><div class="tdn-promise__s">{{ _delivery }}</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic">🚚</span><div><div class="tdn-promise__t">Tracked UK delivery</div><div class="tdn-promise__s">{{ _delivery }}</div></div></div>
           <div class="tdn-promise"><span class="tdn-promise__ic">📦</span><div><div class="tdn-promise__t">Free UK delivery over £35</div><div class="tdn-promise__s">Under £35 it’s shown in full at checkout — never a surprise.</div></div></div>
           <div class="tdn-promise"><span class="tdn-promise__ic">🛡️</span><div><div class="tdn-promise__t">30-day money-back guarantee</div><div class="tdn-promise__s">If it doesn’t help your dog settle, send it back — the risk is ours.</div></div></div>
           <div class="tdn-promise"><span class="tdn-promise__ic">🔒</span><div><div class="tdn-promise__t">Secure checkout</div><div class="tdn-promise__s">Encrypted payment — all major cards, Apple Pay, Google Pay & Shop Pay.</div></div></div>
@@ -109,6 +109,7 @@
   </div>
   {%- form 'product', product -%}
     <input type="hidden" name="id" value="{{ cur.id }}">
+    <input type="hidden" name="quantity" value="1" data-tdn-sticky-qty>
     <button type="submit" class="tdn-btn tdn-btn--primary tdn-pdp-sticky__btn" data-tdn-atc data-add-label="{{ s.add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out" {% unless product.available %}disabled{% endunless %}>
       {%- if product.available -%}{{ s.add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
     </button>

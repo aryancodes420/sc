@@ -14,9 +14,9 @@
       {%- if form.errors -%}
         <p class="tdn-contact__err">{{ form.errors | default_errors }}</p>
       {%- endif -%}
-      <input type="text" name="contact[name]" placeholder="Your name" class="tdn-field" value="{{ form.name }}" required>
-      <input type="email" name="contact[email]" placeholder="Your email" class="tdn-field" value="{{ form.email }}" required>
-      <textarea name="contact[body]" placeholder="How can we help?" rows="5" class="tdn-field" style="resize:vertical;">{{ form.body }}</textarea>
+      <input type="text" name="contact[name]" placeholder="Your name" aria-label="Your name" class="tdn-field" value="{{ form.name }}" required>
+      <input type="email" name="contact[email]" placeholder="Your email" aria-label="Your email" class="tdn-field" value="{{ form.email }}" required>
+      <textarea name="contact[body]" placeholder="How can we help?" aria-label="How can we help?" rows="5" class="tdn-field" style="resize:vertical;">{{ form.body }}</textarea>
       <button type="submit" class="tdn-btn tdn-btn--primary" style="align-self:flex-start;">{{ s.button_label | default: 'Send message' }}</button>
     {%- endform -%}
 

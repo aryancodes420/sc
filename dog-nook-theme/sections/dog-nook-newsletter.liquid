@@ -11,7 +11,7 @@
         {%- if form.posted_successfully? -%}
           <p class="tdn-newsletter__ok">{{ s.success_text | default: 'Thanks — you’re on the list!' }}</p>
         {%- else -%}
-          <input type="email" name="contact[email]" placeholder="{{ s.placeholder | default: 'Your email address' }}" required class="tdn-newsletter__input">
+          <input type="email" name="contact[email]" placeholder="{{ s.placeholder | default: 'Your email address' }}" aria-label="{{ s.placeholder | default: 'Your email address' }}" required class="tdn-newsletter__input">
           <button type="submit" class="tdn-btn tdn-btn--primary">{{ s.button_label | default: 'Join the pack' }}</button>
         {%- endif -%}
       {%- endform -%}

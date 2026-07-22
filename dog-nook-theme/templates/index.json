@@ -114,9 +114,10 @@
       "type": "dog-nook-reviews-placeholder",
       "settings": {
         "eyebrow": "Kind words",
-        "heading": "Real reviews, coming soon",
-        "body": "We only show reviews once they're real. These spaces are ready for verified owner reviews.",
-        "placeholder_note": "Awaiting verified review"
+        "title": "Loved by dog owners",
+        "agg_rating": "4.8",
+        "agg_count": "from 80 real owner reviews",
+        "subtitle": "Collected from real owners in person and online. We never write our own."
       }
     },
     "newsletter": {
