@@ -18,7 +18,7 @@
         <input type="hidden" name="utf8" value="&#x2713;">
         <input type="hidden" name="contact[tags]" value="newsletter,popup">
         <input type="email" name="contact[email]" placeholder="you@email.com" required class="tdn-emailpop__input" aria-label="Email address">
-        <button type="submit" class="tdn-btn tdn-btn--primary tdn-emailpop__submit">Send my code</button>
+        <button type="submit" class="tdn-btn tdn-btn--primary tdn-emailpop__submit">Get my 10% code</button>
       </form>
       <button type="button" class="tdn-emailpop__decline" data-tdn-emailpop-close>No thanks</button>
     </div>
@@ -39,6 +39,7 @@
   .tdn-emailpop__submit { height: 48px; }
   .tdn-emailpop__decline { margin-top: 12px; background: none; border: none; color: var(--tdn-faint, #b3a892); font-size: 13px; cursor: pointer; text-decoration: underline; }
   .tdn-emailpop__ok { font-size: 15px; color: var(--tdn-sage, #7C8767); font-weight: 600; padding: 8px 0; }
+  .tdn-emailpop__code { font-family: var(--tdn-font-display, serif); font-size: 24px; font-weight: 700; letter-spacing: 2px; color: var(--tdn-charcoal, #2E2A22); background: #fff; border: 1px dashed var(--tdn-sage, #7C8767); border-radius: 12px; padding: 12px; margin: 0 0 16px; }
 {% endstylesheet %}
 
 <script>
@@ -82,7 +83,23 @@
     node.querySelectorAll('[data-tdn-emailpop-close]').forEach(function (b) { b.addEventListener('click', close); });
     document.addEventListener('keydown', onKey);
     var form = node.querySelector('[data-tdn-emailpop-form]');
-    if (form) form.addEventListener('submit', function () { dismiss(); });
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      dismiss();
+      /* Fire the real customer signup (list-building), then reveal the code inline. */
+      try { fetch('/contact', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'text/html' } }).catch(function () {}); } catch (err) {}
+      var c = node.querySelector('.tdn-emailpop__card');
+      if (c) {
+        c.innerHTML =
+          '<button type="button" class="tdn-emailpop__x" data-tdn-emailpop-close aria-label="Close">×</button>' +
+          '<div class="tdn-emailpop__eyebrow">You’re in</div>' +
+          '<h2 class="tdn-emailpop__h">Here’s your 10% off</h2>' +
+          '<p class="tdn-emailpop__p">Use this code at checkout on your first order:</p>' +
+          '<div class="tdn-emailpop__code">WELCOME10</div>' +
+          '<button type="button" class="tdn-btn tdn-btn--primary tdn-emailpop__submit" data-tdn-emailpop-close>Start shopping</button>';
+        c.querySelectorAll('[data-tdn-emailpop-close]').forEach(function (b) { b.addEventListener('click', close); });
+      }
+    });
     setTimeout(function () { var i = node.querySelector('input[type=email]'); if (i) i.focus(); }, 60);
   }
   // Show after engagement: 12s dwell OR 45% scroll, whichever first.

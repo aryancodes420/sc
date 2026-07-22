@@ -5,6 +5,7 @@
 {%- assign s = section.settings -%}
 <div class="tdn tdn-fade">
   <section class="tdn-section tdn-wrap">
+    <a href="{{ s.back_url | default: '/pages/shop' }}" class="tdn-back">← {{ s.back_label | default: 'Back to Shop all' }}</a>
     <div class="tdn-coll-banner" style="background: {{ s.banner_tone | default: '#8B9578' }};">
       <div class="tdn-coll-banner__eyebrow">Collection</div>
       <h1 class="tdn-h1" style="font-size:32px; color:#fff; margin-bottom:10px;">{{ collection.title }}</h1>
@@ -66,6 +67,8 @@
 </div>
 
 {% stylesheet %}
+  .tdn-back { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--tdn-muted-2); margin-bottom: 18px; transition: gap .15s ease, color .15s ease; }
+  .tdn-back:hover { color: var(--tdn-sage); gap: 10px; }
   .tdn-coll-banner { border-radius: 20px; padding: 44px 40px; color: #fff; margin-bottom: 30px; }
   .tdn-coll-banner__eyebrow { font-size: 11px; letter-spacing: 1.6px; text-transform: uppercase; opacity: .85; font-weight: 700; margin-bottom: 10px; }
   .tdn-coll-banner__desc { font-size: 15px; line-height: 1.6; max-width: 520px; margin: 0; opacity: .92; }
@@ -85,6 +88,8 @@
   "name": "TDN Collection",
   "tag": "section",
   "settings": [
+    { "type": "text", "id": "back_label", "label": "Back link label", "default": "Back to Shop all" },
+    { "type": "url", "id": "back_url", "label": "Back link URL" },
     { "type": "color", "id": "banner_tone", "label": "Banner colour", "default": "#8B9578" },
     { "type": "textarea", "id": "intro", "label": "Intro / usage line (SEO + trust)", "default": "Calm, considered kit for dogs who find the world a bit much — chosen to help them settle, sniff and unwind at their own pace." },
     { "type": "text", "id": "scenarios", "label": "Scenario chips (separate with | )", "default": "Fireworks & storms | Settling a new rescue | Home alone | Vet & travel days" },

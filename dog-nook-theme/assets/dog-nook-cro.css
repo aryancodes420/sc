@@ -92,3 +92,11 @@ a.tdn-stars:hover .tdn-stars__count { color: var(--tdn-sage); text-decoration: u
 .tdn-swatch:focus-visible,
 .tdn-pdp__thumb:focus-visible,
 .tdn-accordion__q:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }
+
+/* PDP size selector — text pills for size options (vs colour swatches). */
+.tdn-sizes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tdn-sizebtn { min-width: 46px; padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--tdn-warm-border-2); background: #fff; color: var(--tdn-charcoal); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+.tdn-sizebtn:hover { transform: translateY(-1px); }
+.tdn-sizebtn.is-selected { border-color: var(--tdn-sage); background: rgba(124,135,103,.1); }
+.tdn-sizebtn:disabled { opacity: .45; cursor: not-allowed; text-decoration: line-through; }
+.tdn-sizebtn:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }

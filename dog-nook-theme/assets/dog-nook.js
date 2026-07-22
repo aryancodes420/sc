@@ -129,9 +129,37 @@
       .catch(function () {});
   }
 
+  /* ---------- Scroll reveal (subtle, flash-free, opt-out on reduced-motion) ----------
+     Only below-the-fold blocks are hidden + animated in; anything already in
+     view stays visible, so there's never a flash of hidden content. */
+  function initReveal(root) {
+    var scope = root || document;
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.documentElement.classList.add('tdn-js');
+    var sel = '.tdn-section > .tdn-wrap > .tdn-h2, .tdn-product-card, .tdn-card, .tdn-trust__cell, .tdn-coll-card, .tdn-cindex, .tdn-bundle, .tdn-reviewcard, .tdn-review, [data-tdn-reveal]';
+    var targets = scope.querySelectorAll(sel);
+    if (!targets.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    targets.forEach(function (el) {
+      if (el.dataset.tdnRevealBound) return;
+      el.dataset.tdnRevealBound = '1';
+      /* Already visible on load → leave it alone (no hide, no flash). */
+      if (el.getBoundingClientRect().top < vh * 0.92) return;
+      el.classList.add('tdn-reveal');
+      io.observe(el);
+    });
+  }
+
   function initAll(root) {
     initAccordions(root);
     initSwatches(root);
+    initReveal(root);
   }
 
   document.addEventListener('DOMContentLoaded', function () {

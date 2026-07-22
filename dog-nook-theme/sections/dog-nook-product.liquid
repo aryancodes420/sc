@@ -67,14 +67,25 @@
 
         {% render 'dog-nook-pdp-form', product: product, cur: cur, single_option: single_option, add_label: s.add_label %}
 
-        <div class="tdn-pdp__badges">
-          <span class="tdn-pdp__badge">🛡️ 30-day money-back</span>
-          <span class="tdn-pdp__badge">🚚 Free UK over £35</span>
-          <span class="tdn-pdp__badge">🔒 Secure checkout</span>
+        {%- comment -%} Reviews bar + support link (real review data only) {%- endcomment -%}
+        <div class="tdn-pdp__reviewbar">{% render 'dog-nook-stars', stars_product: product, stars_link: true %}</div>
+        <p class="tdn-pdp__support">Questions? <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact us</a></p>
+
+        {%- comment -%} Trust promises (four boxes) {%- endcomment -%}
+        {%- assign _delivery = product.metafields.custom.delivery_line.value | default: s.delivery_text -%}
+        <div class="tdn-pdp__promises">
+          <div class="tdn-promise"><span class="tdn-promise__ic">🚚</span><div><div class="tdn-promise__t">Fast, tracked dispatch</div><div class="tdn-promise__s">{{ _delivery }}</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic">📦</span><div><div class="tdn-promise__t">Free UK delivery over £35</div><div class="tdn-promise__s">Under £35 it’s shown in full at checkout — never a surprise.</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic">🛡️</span><div><div class="tdn-promise__t">30-day money-back guarantee</div><div class="tdn-promise__s">If it doesn’t help your dog settle, send it back — the risk is ours.</div></div></div>
+          <div class="tdn-promise"><span class="tdn-promise__ic">🔒</span><div><div class="tdn-promise__t">Secure checkout</div><div class="tdn-promise__s">Encrypted payment — all major cards, Apple Pay, Google Pay & Shop Pay.</div></div></div>
         </div>
 
-        {%- assign _delivery = product.metafields.custom.delivery_line.value | default: s.delivery_text -%}
-        {% render 'dog-nook-trust-panel', delivery_text: _delivery, returns_text: s.guarantee_text %}
+        {%- comment -%} Payment icons — reflects the store's actually-enabled methods {%- endcomment -%}
+        {%- if shop.enabled_payment_types.size > 0 -%}
+          <div class="tdn-pdp__pays">
+            {%- for type in shop.enabled_payment_types -%}{{ type | payment_type_svg_tag: class: 'tdn-pay-ic' }}{%- endfor -%}
+          </div>
+        {%- endif -%}
 
         {%- if product.description != blank -%}
           <div class="tdn-pdp__about">

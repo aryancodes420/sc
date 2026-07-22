@@ -3,8 +3,29 @@
   Split out of sections/dog-nook-product.liquid for reliable deploys.
   Params: product, cur, single_option, add_label
 {%- endcomment -%}
+{%- liquid
+  assign opt_name = product.options.first | downcase
+  assign is_size = false
+  if opt_name contains 'size'
+    assign is_size = true
+  endif
+-%}
 {%- form 'product', product, class: 'tdn-pdp__form' -%}
-  {%- if single_option -%}
+  {%- if single_option and is_size -%}
+    {%- comment -%} Size options → labelled text pills (not colour swatches). {%- endcomment -%}
+    <div class="tdn-pdp__optlabel">{{ product.options.first }}: <span data-tdn-swatch-label>{{ cur.title }}</span></div>
+    <input type="hidden" name="id" value="{{ cur.id }}">
+    <div class="tdn-sizes" data-tdn-swatches role="radiogroup" aria-label="{{ product.options.first | escape }}">
+      {%- for variant in product.variants -%}
+        <button type="button" class="tdn-sizebtn {% if variant.id == cur.id %}is-selected{% endif %}"
+                data-tdn-swatch data-variant-id="{{ variant.id }}" data-variant-name="{{ variant.title | escape }}"
+                data-variant-price="{{ variant.price | money }}" data-variant-available="{{ variant.available }}"
+                role="radio" aria-checked="{% if variant.id == cur.id %}true{% else %}false{% endif %}"
+                {% unless variant.available %}disabled{% endunless %}
+                title="{{ variant.title | escape }}">{{ variant.option1 }}</button>
+      {%- endfor -%}
+    </div>
+  {%- elsif single_option -%}
     <div class="tdn-pdp__optlabel">{{ product.options.first }}: <span data-tdn-swatch-label>{{ cur.title }}</span></div>
     <input type="hidden" name="id" value="{{ cur.id }}">
     <div class="tdn-swatches" data-tdn-swatches>
@@ -46,9 +67,54 @@
     </select>
   {%- endif -%}
 
-  <button type="submit" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__atc"
-          data-tdn-atc data-add-label="{{ add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
-          {% unless product.available %}disabled{% endunless %}>
-    {%- if product.available -%}{{ add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
-  </button>
+  {%- if product.available -%}
+    <div class="tdn-pdp__stock" style="display:flex; align-items:center; gap:7px; font-size:13.5px; font-weight:600; color:#4d7a3f; margin-bottom:14px;">
+      <span style="width:8px; height:8px; border-radius:50%; background:#5aa04a; display:inline-block;"></span>In stock — ready to dispatch
+    </div>
+  {%- endif -%}
+
+  <div class="tdn-pdp__qty" style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+    <label for="tdn-qty" class="tdn-pdp__optlabel" style="margin:0;">Quantity</label>
+    <input type="number" id="tdn-qty" name="quantity" value="1" min="1" inputmode="numeric" class="tdn-field" style="width:82px; text-align:center;">
+  </div>
+  <div class="tdn-pdp__cta">
+    {%- if product.available -%}
+      {%- comment -%} Primary: green "Buy it now" — adds the item and goes straight to secure checkout. {%- endcomment -%}
+      <button type="button" class="tdn-btn tdn-btn--primary tdn-btn--block tdn-pdp__buynow" data-tdn-buynow>
+        <span class="tdn-pdp__lock" aria-hidden="true">🔒</span><span>Buy it now — Secure checkout</span>
+      </button>
+    {%- endif -%}
+    {%- comment -%} Secondary: outline Add to Cart (opens the cart drawer). {%- endcomment -%}
+    <button type="submit" class="tdn-btn tdn-btn--outline tdn-btn--block tdn-pdp__atc"
+            data-tdn-atc data-add-label="{{ add_label | default: 'Add to Cart' }}" data-soldout-label="Sold out"
+            {% unless product.available %}disabled{% endunless %}>
+      {%- if product.available -%}{{ add_label | default: 'Add to Cart' }}{%- else -%}Sold out{%- endif -%}
+    </button>
+  </div>
+
+  {%- comment -%} Shop Pay Installments messaging only (no native dynamic-checkout button —
+     the custom "Buy it now — Secure checkout" above already does that job, so the
+     native {{ form | payment_button }} was removed to avoid a duplicate Buy-it-now). {%- endcomment -%}
+  {%- if product.available -%}
+    <div class="tdn-pdp__terms">{{ form | payment_terms }}</div>
+  {%- endif -%}
 {%- endform -%}
+
+<script>
+(function () {
+  if (window.__tdnBuyNowBound) return;
+  window.__tdnBuyNowBound = true;
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('[data-tdn-buynow]') : null;
+    if (!btn) return;
+    var form = btn.closest('form');
+    if (!form) return;
+    e.preventDefault();
+    btn.disabled = true;
+    fetch('/cart/add.js', { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function () { window.location.href = '/checkout'; })
+      .catch(function () { btn.disabled = false; form.submit(); });
+  });
+})();
+</script>
