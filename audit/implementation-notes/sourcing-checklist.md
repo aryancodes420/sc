@@ -27,11 +27,19 @@
 
 ## Items
 
-### 🔴 1. The Deep Nook — orthopedic / cave calming bed  ·  STATUS: ⬜ not started
-- Target landed: **£21–45** · RRP **£79.99 / 99.99 / 119.99** (S/M/L) · sample: **YES (mandatory)**
-- Search: `orthopedic dog bed memory foam` · `calming cave dog bed` · `donut dog bed removable cover`
-- Confirm: sizes + **actual cm dimensions** · memory-foam vs poly fill · **removable machine-washable cover** · non-slip base · shipping weight/box size · **UK-warehoused option**
-- QUOTED: _____ · supplier: _____ · packaging OK? _____
+### ✅ 1. The Deep Nook — hooded cave calming bed  ·  STATUS: ✅ CONFIRMED (2026-07-24)
+- **Supplier:** CJdropshipping — "Warm Medium Large Dog Golden Retriever Removable And Washable Pet Bed"
+  · SKU family CJYD216443906FU / 907GT / 908HS · **Lists: 63** (low saturation ✓) · **4.9★** · ships China, YunExpress Ordinary, 4–7 days
+- **Confirmed landed (unit + YunExpress Ordinary shipping) & pricing:**
+  | Size | Unit | Ship | Landed | RRP | Margin |
+  |---|---|---|---|---|---|
+  | L (930g) | £8.54 | £7.63 | **£16.17** | £59.99 | 73% |
+  | XL (1.6kg) | £12.82 | £12.43 | **£25.25** | £79.99 | 68% |
+  | XXL (2.4kg) | £17.29 | £17.69 | **£34.98** | £99.99 | 65% |
+- Removable machine-washable cover ✓ · hooded cave / "3D nest" design (premium + den instinct) ✓
+- **Shipping method rule:** always YunExpress Ordinary (cheapest + 4–7d). Skip Sensitive/Oversize lines.
+- **📦 SAMPLE: order the XL** — best photos, fits most dogs. Check build quality before launch.
+- ⏳ TODO: confirm plain/neutral packaging on the sample; honest copy = small–medium dogs (not big breeds).
 
 ### 🔴 2. The Home-Alone Feeder — WiFi smart auto treat dispenser (NO camera)  ·  STATUS: ⬜
 - Target landed: **£15–30** · RRP **£59.99** · sample: **YES (light)**
