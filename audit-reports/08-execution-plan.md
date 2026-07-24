@@ -27,7 +27,9 @@ All code-completable items are DONE and deployed to the CRO working-copy draft
   plus per-image alt text. Biggest remaining conversion lever. (C5's hero-alt
   `<br>` strip is already done in Batch 1.)
 - **ST1 data:** real Materials/Dimensions/Care/Safety/box values per product.
-- **D4:** confirm `WELCOME10` is a live 10%/first-order discount in Admin.
+- **D4: CONFIRMED (2026-07-24)** — `WELCOME10` verified live via Admin API:
+  ACTIVE, 10% off, once per customer (first order), all customers, no expiry.
+  The popup/newsletter promise is backed by a real code. No action needed.
 - **D1:** decide real social profile URLs (icons currently hidden).
 - **Batch 6 (S1–S4):** A/B experiments — ship only with real traffic, never as
   fact.
