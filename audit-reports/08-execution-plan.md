@@ -27,6 +27,11 @@ All code-completable items are DONE and deployed to the CRO working-copy draft
   plus per-image alt text. Biggest remaining conversion lever. (C5's hero-alt
   `<br>` strip is already done in Batch 1.)
 - **ST1 data:** real Materials/Dimensions/Care/Safety/box values per product.
+  (Infrastructure ready: the 5 `custom.*` product metafield definitions were
+  created in Admin on 2026-07-24 — materials, dimensions, care, safety,
+  whats_in_box, all multi-line text — so values can be entered in Admin or set
+  via API the moment the owner supplies them; the PDP block renders each row as
+  soon as its field is filled.)
 - **D4: CONFIRMED (2026-07-24)** — `WELCOME10` verified live via Admin API:
   ACTIVE, 10% off, once per customer (first order), all customers, no expiry.
   The popup/newsletter promise is backed by a real code. No action needed.
