@@ -1,3 +1,37 @@
+# Live catalogue changes (Shopify Admin API)
+
+## 2026-07-24 — Draft-first range build (Theme B "CRO working copy" set as working theme)
+All on the shared live store; **everything DRAFT/unpublished — nothing customer-facing.**
+
+**New DRAFT products**
+| Product | GID | Price | Notes |
+|---|---|---|---|
+| The Deep Nook (hooded cave bed) | 10337502298395 | L £59.99 / XL £79.99 / XXL £89.99 | Supplier CONFIRMED (CJ, 4.9★, £16–35 landed). `custom.faq` set. Needs sample + photos + measured specs before ACTIVE |
+| The Auto-Play Ball | 10337504133403 | £24.99 | Motion-activated self-moving ball. `custom.faq` set. Source + photo |
+| The Calming Weighted Blanket | 10337504428315 | £34.99 | `custom.faq` set. {VERIFY} fill/weight/sizes + photo |
+
+**New DRAFT bundles** (compare-at = true sum of component prices)
+| Bundle | GID | Price | compareAt | Save |
+|---|---|---|---|---|
+| The Complete Calm System (flagship) | 10337505837339 | £139.99 | £174.95 | £34.96 |
+| The Home-Alone Kit | 10337506427163 | £69.99 | £84.96 | £14.97 |
+| The Fireworks Survival Kit | 10337506885915 | £84.99 | £109.95 | £24.96 |
+
+**Renames**
+- The New Rescue Bundle (10311327023387) → **The First Days Kit** (handle unchanged: `the-new-rescue-bundle-1`)
+- The Fireworks Kit (10328016453915) → **The Fireworks Ready Kit**
+
+**Retired:** The First Nights Bundle (10328016290075) → **ARCHIVED** (superseded by The Complete Calm System)
+
+**New collection:** Home Alone & Separation (Collection/527586427163, handle `home-alone-separation`) — 5 products
+(Home-Alone Kit, Auto-Play Ball, Heartbeat Companion, Wobble Feeder, Snuffle Ball). Grid empty on the
+storefront until member products go ACTIVE.
+
+**Before anything goes ACTIVE:** owner sources (real cost + neutral packaging), fills {VERIFY} specs, adds real photos.
+**Pending:** Theme B (`193438056731`) homepage wiring — relabel renamed bundles; feature the flagship once photographed.
+
+---
+
 # Live catalogue changes (Shopify Admin API) — 2026-07-16
 
 ---
