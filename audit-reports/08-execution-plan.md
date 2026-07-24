@@ -1,8 +1,36 @@
 # The Dog Nook — Exact CRO Execution Plan
 
 > Derived from `00-master-cro-plan.md` (+ the seven specialist reports). This is
-> the precise, file-by-file plan. **No theme files have been edited** — this is
-> the plan; implementation waits for explicit authorization.
+> the precise, file-by-file plan.
+
+## Implementation status (2026-07-24)
+
+All code-completable items are DONE and deployed to the CRO working-copy draft
+`gid://shopify/OnlineStoreTheme/193438056731` (verified; committed to branch
+`claude/dog-nook-file-review-gl61uw`). Publishing stays the owner's action.
+
+- **Batch 1 — DONE:** D3, Q4, Q2 (freeship snippet removed from git; the orphan
+  file couldn't be API-deleted from the theme — delete via Admin → Edit code if
+  desired), Q3, Q1, C2, D1 (social URLs cleared).
+- **Batch 2 — DONE:** Q5, Q6, Q7, ST4.
+- **Batch 3 — DONE:** C3 (FAQ origin resequenced, disclosure preserved), C4
+  (trust-strip de-duplicated).
+- **Batch 4 — code DONE, data/inspection pending:** ST1 spec block scaffold
+  shipped (reads `custom.materials/dimensions/care/safety/whats_in_box`, hides
+  when empty) — **needs real per-product values + metafield defs in Admin**;
+  ST2 Product/Offer JSON-LD shipped (aggregateRating only when a real review
+  count exists) — **still worth validating a live PDP in Google Rich Results**;
+  ST3 intentionally deferred (not needed at 9 single-option products).
+
+### Remaining — owner/external only (cannot be done in code without fabricating)
+- **Batch 5 (D2/C1/C5):** real product photography for 9 products + 2 bundles,
+  plus per-image alt text. Biggest remaining conversion lever. (C5's hero-alt
+  `<br>` strip is already done in Batch 1.)
+- **ST1 data:** real Materials/Dimensions/Care/Safety/box values per product.
+- **D4:** confirm `WELCOME10` is a live 10%/first-order discount in Admin.
+- **D1:** decide real social profile URLs (icons currently hidden).
+- **Batch 6 (S1–S4):** A/B experiments — ship only with real traffic, never as
+  fact.
 
 ## Deploy target & safety
 - **Work theme (deploy here):** `gid://shopify/OnlineStoreTheme/193438056731` —
