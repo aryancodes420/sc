@@ -41,11 +41,15 @@
 - **📦 SAMPLE: order the XL** — best photos, fits most dogs. Check build quality before launch.
 - ⏳ TODO: confirm plain/neutral packaging on the sample; honest copy = small–medium dogs (not big breeds).
 
-### 🔴 2. The Home-Alone Feeder — WiFi smart auto treat dispenser (NO camera)  ·  STATUS: ⬜
-- Target landed: **£15–30** · RRP **£59.99** · sample: **YES (light)**
-- Search: `wifi automatic pet feeder app` · `smart dog treat dispenser wifi` · `app control pet feeder` (Doba + CJ)
-- Confirm: 2.4GHz WiFi · **iOS + Android app** · capacity · portion control · **scheduled + manual "toss now"** · power (mains + battery backup) · **UK plug** · jam-resistant with treats not just kibble
-- QUOTED: _____ · supplier: _____ · packaging OK? _____
+### 🔴 2. The Auto-Play Ball — motion-activated self-moving dog ball  ·  STATUS: ⬜ sourcing
+- **PIVOT (2026-07-24):** WiFi smart feeder KILLED — Tuya WiFi feeders land £78–255, can't hit £59.99 margin.
+  Camera also killed earlier (bulk MOQ + support risk). Separation high-ticket is carried by the BED + bundles;
+  this ball is the cheap, ad-friendly separation HOOK instead.
+- Target landed: **≤ £15** (unit ≤£12 + ship ≤£4) · RRP **£29.99** (~50–70% margin) · sample: optional
+- Reference products: "Atuban Smart Interactive Dog Ball" (~£25 retail) · "PetDroid" (branded)
+- Search: `automatic moving dog ball` · `interactive rolling ball dog usb` · `motion activated dog ball`
+- Confirm: USB rechargeable · durable outer (natural rubber) · 2 modes (roll + bounce) · auto rest cycles
+- QUOTED: _____ · supplier: _____ · rating/lists: _____
 
 ### 🟡 3. Weighted Calming Blanket  ·  STATUS: ⬜
 - Target landed: **£7–14** · RRP **£34.99** · sample: optional
@@ -88,6 +92,6 @@
 ---
 
 ## Sample order (place once suppliers picked)
-- **Mandatory:** Deep Nook bed · Home-Alone Feeder
-- **Add if unsure:** Calming Coat (fit) · Puzzle Feeder (if electronic)
-- Budget ~£80–120. Never sell a hero you haven't held.
+- **Mandatory:** Deep Nook bed (order the XL)
+- **Add if unsure:** Calming Coat (fit) · Auto-Play Ball (test durability/charge)
+- Budget ~£60–100. Never sell a hero you haven't held.
