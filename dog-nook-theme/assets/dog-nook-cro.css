@@ -111,6 +111,16 @@ a.tdn-stars:hover .tdn-stars__count { color: var(--tdn-sage); text-decoration: u
 .tdn-catbar__pill:focus-visible,
 .tdn-pagination a:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }
 
+/* ST1 — structured product specs (Materials / Dimensions / Care / Safety / In the box).
+   Hidden entirely until the custom.* metafields are populated. */
+.tdn-pdp__specs { margin-top: 26px; }
+.tdn-specs { margin: 10px 0 0; }
+.tdn-specs__row { display: grid; grid-template-columns: 128px 1fr; gap: 10px; padding: 11px 0; border-top: 1px solid var(--tdn-warm-border); }
+.tdn-specs__row:last-child { border-bottom: 1px solid var(--tdn-warm-border); }
+.tdn-specs__row dt { font-size: 12.5px; font-weight: 600; letter-spacing: .3px; text-transform: uppercase; color: var(--tdn-faint); margin: 0; }
+.tdn-specs__row dd { font-size: 14px; line-height: 1.6; color: var(--tdn-muted-2); margin: 0; }
+@media (max-width: 560px) { .tdn-specs__row { grid-template-columns: 1fr; gap: 3px; } }
+
 /* PDP size selector — text pills for size options (vs colour swatches). */
 .tdn-sizes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .tdn-sizebtn { min-width: 46px; padding: 10px 16px; border-radius: 10px; border: 1.5px solid var(--tdn-warm-border-2); background: #fff; color: var(--tdn-charcoal); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }

@@ -93,6 +93,33 @@
             <div class="rte tdn-pdp__desc">{{ product.description }}</div>
           </div>
         {%- endif -%}
+
+        {%- comment -%} ST1 — structured product specs. Each row renders only when its
+           custom.* metafield is set; the whole block is skipped when none are present, so
+           it stays clean until the real per-product values are populated in Admin. {%- endcomment -%}
+        {%- liquid
+          assign m_materials = product.metafields.custom.materials.value
+          assign m_dimensions = product.metafields.custom.dimensions.value
+          assign m_care = product.metafields.custom.care.value
+          assign m_safety = product.metafields.custom.safety.value
+          assign m_box = product.metafields.custom.whats_in_box.value
+          assign has_specs = false
+          if m_materials != blank or m_dimensions != blank or m_care != blank or m_safety != blank or m_box != blank
+            assign has_specs = true
+          endif
+        -%}
+        {%- if has_specs -%}
+          <div class="tdn-pdp__specs">
+            <h3 class="tdn-h3">{{ s.specs_heading | default: 'Details & care' }}</h3>
+            <dl class="tdn-specs">
+              {%- if m_materials != blank -%}<div class="tdn-specs__row"><dt>Materials</dt><dd>{{ m_materials }}</dd></div>{%- endif -%}
+              {%- if m_dimensions != blank -%}<div class="tdn-specs__row"><dt>Dimensions</dt><dd>{{ m_dimensions }}</dd></div>{%- endif -%}
+              {%- if m_care != blank -%}<div class="tdn-specs__row"><dt>Care</dt><dd>{{ m_care }}</dd></div>{%- endif -%}
+              {%- if m_safety != blank -%}<div class="tdn-specs__row"><dt>Safety</dt><dd>{{ m_safety }}</dd></div>{%- endif -%}
+              {%- if m_box != blank -%}<div class="tdn-specs__row"><dt>In the box</dt><dd>{{ m_box }}</dd></div>{%- endif -%}
+            </dl>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </section>
@@ -117,6 +144,33 @@
 </div>
 </div>
 
+{%- comment -%} ST2 — Product structured data (JSON-LD). Guarantees Product/Offer schema under
+   the custom PDP regardless of Horizon's layout. aggregateRating is emitted ONLY when a real
+   review count exists — never fabricated. {%- endcomment -%}
+{%- liquid
+  assign _rcount = product.metafields.reviews.rating_count.value | plus: 0
+  assign _rating = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncate: 500 | json }},
+  {% if product.featured_media %}"image": {{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }},{% endif %}
+  "sku": {{ cur.sku | default: product.id | json }},
+  "brand": { "@type": "Brand", "name": "The Dog Nook" },
+  {% if _rcount > 0 and _rating != blank %}"aggregateRating": { "@type": "AggregateRating", "ratingValue": {{ _rating | json }}, "reviewCount": {{ _rcount | json }} },{% endif %}
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ cur.price | money_without_currency | strip | json }},
+    "availability": "https://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
+    "url": {{ shop.url | append: product.url | json }}
+  }
+}
+</script>
+
 
 {% schema %}
 {
@@ -128,6 +182,7 @@
     { "type": "text", "id": "guarantee_text", "label": "Guarantee line", "default": "30-day money-back guarantee" },
     { "type": "text", "id": "delivery_text", "label": "Delivery line (falls back to metafield custom.delivery_line)", "default": "Dispatched in 1–2 days · Delivered in about 4–7 working days · Free UK delivery over £35" },
     { "type": "text", "id": "about_heading", "label": "Description heading", "default": "About this" },
+    { "type": "text", "id": "specs_heading", "label": "Specs heading (Materials/Dimensions/Care/Safety)", "default": "Details & care" },
     { "type": "text", "id": "crosssell_heading", "label": "Cross-sell heading", "default": "Complete the calm-down kit" },
     { "type": "text", "id": "placeholder_tone", "label": "Image placeholder colour", "default": "#8B9578" }
   ],

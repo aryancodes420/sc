@@ -33,10 +33,10 @@
     "trust": {
       "type": "dog-nook-trust-strip",
       "blocks": {
-        "b1": { "type": "cell", "settings": { "icon": "🚚", "title": "Free UK delivery", "subtitle": "On orders over £35" } },
-        "b2": { "type": "cell", "settings": { "icon": "🛡️", "title": "30-day guarantee", "subtitle": "Money-back, no fuss" } },
-        "b3": { "type": "cell", "settings": { "icon": "🐾", "title": "For anxious & rescue dogs", "subtitle": "Chosen with care" } },
-        "b4": { "type": "cell", "settings": { "icon": "📦", "title": "Dispatched in 1–2 days", "subtitle": "Delivery about 4–7 days" } }
+        "b1": { "type": "cell", "settings": { "icon": "🇬🇧", "title": "A real UK business", "subtitle": "Registered UK trader — a real person replies" } },
+        "b2": { "type": "cell", "settings": { "icon": "🧼", "title": "Non-toxic & washable", "subtitle": "Food-grade, machine-washable materials" } },
+        "b3": { "type": "cell", "settings": { "icon": "📦", "title": "Dispatched in 1–2 days", "subtitle": "About 4–7 days to your door" } },
+        "b4": { "type": "cell", "settings": { "icon": "🔒", "title": "Secure checkout", "subtitle": "Encrypted — all major cards & wallets" } }
       },
       "block_order": ["b1", "b2", "b3", "b4"]
     },
