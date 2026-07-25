@@ -16,12 +16,20 @@ the **unpublished draft theme** and checksum-verify. That's the whole task.
 - **Do NOT deploy to** `193140818203` — that's the live/published theme.
 - **Do NOT publish.** Publishing is the owner's click, always.
 
-## Why it wasn't done
+## Why it wasn't done — READ THIS, it saves you 20 minutes
 
 The previous session hit `MCP error -32003: MCP tool call requires approval` on
-`themeFilesUpsert` — it ran unattended so nobody could approve the prompt. With the
-owner present to approve, it goes straight through. There is nothing wrong with the
-files.
+`themeFilesUpsert`. **This is NOT an interactive prompt the owner can click.** It was
+retried with the owner present at the keyboard and failed identically.
+
+**Diagnosis:** the Shopify MCP server disconnected and reconnected mid-session, and
+the raw-GraphQL grant did not survive the reconnect. This exact failure is already
+documented in `BUILDER-COORDINATION.md`: *"raw-GraphQL grant lost on MCP reconnect;
+a fresh session clears it in one call."*
+
+**Fix:** run this from a **fresh session**, where the grant is issued cleanly. Do not
+waste turns retrying in a session that has already thrown this error — it will fail
+the same way every time. There is nothing wrong with the files.
 
 ---
 
