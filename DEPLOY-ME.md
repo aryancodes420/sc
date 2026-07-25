@@ -1,5 +1,20 @@
 # DEPLOY BRIEF — CRO wave 2 → draft theme
 
+> # ✅ DONE — 2026-07-25. Do not re-run the deploy.
+> All 15 files are on the draft `193158119707` and checksum-verified. `dog-nook.js`
+> and `dog-nook.css` untouched. Theme still UNPUBLISHED.
+>
+> **The diagnosis below was wrong.** The blocker was not a lost raw-GraphQL grant —
+> two of the 15 files contained **real Liquid syntax errors** and Shopify's validator
+> rejected them (`dog-nook-jsonld.liquid`: a literal `}` inside a `{{ … }}` output tag;
+> `dog-nook-countdown.liquid`: `{% stylesheet %}` nested inside an `if`). Both are
+> fixed and committed. Full write-up in
+> `audit/implementation-notes/live-catalog-changes.md` and `HANDOFF.md` §10.
+>
+> **Still outstanding — owner action:** the 3 wiring steps in
+> "After deploying" below. The features render nothing until those are set.
+> The rest of this file is kept for that section and for the record.
+
 > **For the next builder session.** Self-contained: you need nothing else to do this.
 > Created 2026-07-25 by the overnight growth session on branch
 > `claude/dog-nook-files-review-6w9kwr`.

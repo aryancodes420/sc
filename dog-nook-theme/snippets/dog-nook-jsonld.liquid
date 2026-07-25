@@ -79,6 +79,14 @@
     }
   }
   </script>
+  {%- comment -%}
+    The search_term_string placeholder is built with assign rather than written
+    inline in the output tag below. Liquid scans an output tag non-greedily to the
+    first closing brace, so a literal closing brace inside the tag terminates it
+    early and the whole file fails to parse. Tag syntax has no such problem, and
+    the rendered result is identical.
+  {%- endcomment -%}
+  {%- assign search_url_template = shop.url | append: '/search?q=' | append: '{search_term_string}' -%}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -87,7 +95,7 @@
     "url": {{ shop.url | json }},
     "potentialAction": {
       "@type": "SearchAction",
-      "target": { "@type": "EntryPoint", "urlTemplate": {{ shop.url | append: '/search?q={search_term_string}' | json }} },
+      "target": { "@type": "EntryPoint", "urlTemplate": {{ search_url_template | json }} },
       "query-input": "required name=search_term_string"
     }
   }

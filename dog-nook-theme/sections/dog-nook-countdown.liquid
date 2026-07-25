@@ -74,7 +74,14 @@
   document.addEventListener('shopify:section:load', boot);
 })();
 </script>
+{%- endif -%}
 
+{%- comment -%}
+  The stylesheet block sits outside the `enabled` conditional on purpose: Shopify
+  requires stylesheet to be a top-level tag in a section file and rejects the file
+  if it is nested inside any other tag. The rules are inert when the section is
+  disabled, because none of the markup above is rendered.
+{%- endcomment -%}
 {% stylesheet %}
   .tdn-cd { background: var(--tdn-charcoal); color: var(--tdn-cream); }
   .tdn-cd__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px var(--tdn-side-pad); flex-wrap: wrap; }
@@ -93,7 +100,6 @@
     .tdn-cd__right { width: 100%; justify-content: space-between; }
   }
 {% endstylesheet %}
-{%- endif -%}
 
 {% schema %}
 {

@@ -37,12 +37,15 @@ each other — hence this doc.
 ---
 
 ## 📋 Open items (single source of truth — update as these close)
-- [ ] **🚀 DEPLOY CRO wave 2 to the draft theme** — 15 files written, committed and
-  pushed on `claude/dog-nook-files-review-6w9kwr` but **not deployed**. The previous
-  session ran unattended and hit `requires approval` on `themeFilesUpsert`.
-  **Full self-contained brief: `DEPLOY-ME.md` at the repo root.** Order matters
-  (snippets → assets → sections → `dog-nook-head.liquid` LAST). Theme-file work only,
-  no catalogue edits, so it does not collide with anyone's catalogue work.
+- [x] **🚀 DEPLOY CRO wave 2 to the draft theme** — ✅ **done 2026-07-25.** All 15
+  files upserted to the draft `193158119707` in the required order and
+  checksum-verified; `dog-nook.js` / `dog-nook.css` untouched; theme still
+  UNPUBLISHED. Two files (`dog-nook-jsonld.liquid`, `dog-nook-countdown.liquid`)
+  turned out to contain **real Liquid syntax errors** that Shopify rejected — the
+  earlier "requires approval" diagnosis in `DEPLOY-ME.md` was wrong. Both fixed and
+  committed. Details in `audit/implementation-notes/live-catalog-changes.md` and
+  `HANDOFF.md` §10. **Owner still has 3 wiring steps** (quiz blocks, countdown
+  `cutoff` from real transit times, `custom.bundle_handle`) — see `DEPLOY-ME.md`.
 - [x] **Retire A's `Rescue Essentials` collection** — ✅ **done** (confirmed deleted in the
   live store 2026-07-20; consolidated to B's "Settling a New Rescue").
 - [x] **Fireworks & Storms handle** → `fireworks-storms` — ✅ **done** (confirmed).

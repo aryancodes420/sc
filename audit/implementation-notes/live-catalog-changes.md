@@ -117,3 +117,69 @@ reviews, no fake urgency.
 - Donut Bed M/XL shipping re-quote if expanding beyond S/M/L.
 - Samples order (~£61) before going fully live.
 - SKUs are still null on all variants — add the CJ SKUs in admin for order routing.
+
+---
+
+## 2026-07-25 — CRO wave 2 deployed to the draft theme
+
+Theme-file only. **No catalogue changes** (no products, collections, discounts or
+metafields were created or edited in this session).
+
+- **Target:** `gid://shopify/OnlineStoreTheme/193158119707` — "The Dog Nook —
+  Design install", role `UNPUBLISHED`. Not published — that stays the owner's click.
+- **Live theme `193140818203` untouched.**
+- **Order used** (mandatory, per `DEPLOY-ME.md`): snippets → assets → sections →
+  `snippets/dog-nook-head.liquid` last, so head never renders a snippet that
+  isn't there yet.
+- **Not redeployed, as instructed:** `assets/dog-nook.js` (`fa7f38fe…`) and
+  `assets/dog-nook.css` (`eda5e4f6…`) — both confirmed byte-identical before and
+  after the deploy.
+
+All 15 upserted and `checksumMd5`-verified against local `md5sum`:
+
+| # | File | md5 |
+|---|---|---|
+| 1 | `snippets/dog-nook-jsonld.liquid` | `cf8d8ad123b04ab223f8bb207e5fa9df` |
+| 2 | `snippets/dog-nook-specs.liquid` | `9cc840b74229bca9f14ea4385cff3390` |
+| 3 | `snippets/dog-nook-bundle-upsell.liquid` | `052c72de1dbb92cc52f7d3938e36fb2f` |
+| 4 | `snippets/dog-nook-pdp-gallery.liquid` | `b84cfc02f1a5040735c3f64b92aad005` |
+| 5 | `snippets/dog-nook-quiz-steps.liquid` | `d29b8efdb1781ef1044d3688e360db8f` |
+| 6 | `assets/dog-nook-cro2.css` | `13e51256cd6cee978c3703fc447c2010` |
+| 7 | `assets/dog-nook-cro3.css` | `4cc44cda1f55df5e46739533da7c66da` |
+| 8 | `assets/dog-nook-gallery.js` | `ca4727f3abb575f5e0dcf2277773c253` |
+| 9 | `assets/dog-nook-quiz.js` | `fd9881644136efc5de8862f8a1b46490` |
+| 10 | `sections/dog-nook-product.liquid` | `9f9e6b14ac9aedb979028a624f37206d` |
+| 11 | `sections/dog-nook-quiz.liquid` | `e1276d123002c687bfaa17a40a56d37d` |
+| 12 | `sections/dog-nook-countdown.liquid` | `17c2fbea44f3bf1e1ede0ada2b99d8e1` |
+| 13 | `sections/dog-nook-featured-bundle.liquid` | `0af15fd85d71895044248d884bb518ab` |
+| 14 | `sections/dog-nook-collections-index.liquid` | `7fe92ad4e0829535aeefe602baded7de` |
+| 15 | `snippets/dog-nook-head.liquid` | `475eecb82d6895d6dd0efb94dd5faa3f` |
+
+### Two source bugs found during the deploy — correcting the record
+
+`DEPLOY-ME.md` blamed the earlier failure on a lost raw-GraphQL grant and stated
+"There is nothing wrong with the files." The grant was fine in this session; two
+files were genuinely invalid and Shopify's validator rejected them:
+
+1. `dog-nook-jsonld.liquid` — `FILE_VALIDATION_ERROR: Liquid syntax error (line 90)`.
+   A literal `}` sat inside a `{{ … }}` output tag (`'/search?q={search_term_string}'`).
+   Liquid scans an output tag non-greedily to the first closing brace, so the tag
+   terminated early. Moved the string into an `assign`; `{% … %}` tag syntax is not
+   affected. Rendered JSON-LD is unchanged.
+2. `dog-nook-countdown.liquid` — `'stylesheet' tag must not be nested inside other tags`.
+   The `{% stylesheet %}` block was inside `{%- if s.enabled -%}`. Moved the `endif`
+   above it. The rules are inert when the section is disabled, so no behaviour change.
+
+A scan of all 11 CRO Liquid files found no other stray `}` inside an output tag, and
+a nesting check across every file in `sections/` found no other misplaced
+`schema` / `stylesheet` / `javascript` block.
+
+### Not verified here
+The storefront is firewalled from this environment, so the preview was **not**
+loaded. Verification is checksum-level only — the owner should click through
+`https://kkeqih-jm.myshopify.com/?preview_theme_id=193158119707` (homepage + a PDP).
+
+### Also noticed
+A third theme exists that no doc mentions: `193438056731` — "The Dog Nook — Design
+install (CRO working copy)", `UNPUBLISHED`, updated 2026-07-25T03:16Z. Not touched.
+Worth confirming it isn't a parallel session's duplicate before it drifts.

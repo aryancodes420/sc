@@ -250,6 +250,32 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-25 — Deployed CRO wave 2 (15 files) to the draft theme.** Everything
+  listed in `DEPLOY-ME.md` is now on `193158119707` and checksum-verified: 5 new
+  snippets (jsonld, specs, bundle-upsell, pdp-gallery, quiz-steps), 4 assets
+  (cro2.css, cro3.css, gallery.js, quiz.js), 5 sections (product, quiz, countdown,
+  featured-bundle, collections-index) and `dog-nook-head.liquid` last, in that
+  order. `dog-nook.js` / `dog-nook.css` were not touched (checksums unchanged:
+  `fa7f38fe…` / `eda5e4f6…`). Theme is still UNPUBLISHED; the live theme
+  `193140818203` was never targeted.
+  ⚠️ **`DEPLOY-ME.md` was wrong that "there is nothing wrong with the files".**
+  Two of the 15 were rejected by Shopify's own validator and had to be fixed
+  before they would deploy at all — this was never an MCP-permission problem:
+  - `snippets/dog-nook-jsonld.liquid` — a literal `}` inside a `{{ … }}` output
+    tag (the `{search_term_string}` placeholder in the WebSite SearchAction).
+    Liquid scans an output tag non-greedily to the first closing brace, so the
+    tag terminated early and the whole file failed to parse. Fixed by building
+    the string in an `assign` (tag syntax has no such limitation); rendered
+    output is identical.
+  - `sections/dog-nook-countdown.liquid` — `{% stylesheet %}` was nested inside
+    the `{%- if s.enabled -%}` conditional. Shopify requires `stylesheet` to be a
+    top-level tag in a section file. Fixed by closing the `if` before the block;
+    the CSS is inert when the section is disabled.
+  Both fixes are committed. A repo-wide scan found no further instances of either
+  pattern. **Still inert until the owner does the 3 wiring steps in `DEPLOY-ME.md`**
+  (add the quiz section + point its 5 answer blocks at real products; add the
+  countdown and set `cutoff` from real CJ transit times; set `custom.bundle_handle`
+  on each single product).
 - **2026-07-20 — Deployed the per-product FAQ changes to the draft.** Another
   builder committed (at `00014fb`, already on `main` + `claude/hello-erxv6t`) two
   theme edits: `templates/page.faq.json` rebuilt as 15 trust-first Q&As (delivery,
