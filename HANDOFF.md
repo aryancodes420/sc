@@ -258,9 +258,13 @@ What exists and works now:
   order. `dog-nook.js` / `dog-nook.css` were not touched (checksums unchanged:
   `fa7f38fe…` / `eda5e4f6…`). Theme is still UNPUBLISHED; the live theme
   `193140818203` was never targeted.
-  ⚠️ **`DEPLOY-ME.md` was wrong that "there is nothing wrong with the files".**
-  Two of the 15 were rejected by Shopify's own validator and had to be fixed
-  before they would deploy at all — this was never an MCP-permission problem:
+  ⚠️ **There were two independent blockers, not one.** `DEPLOY-ME.md`'s
+  lost-raw-GraphQL-grant diagnosis was correct for that session (its four-test
+  table is solid, and a fresh session did clear it — every call here worked).
+  But its closing claim *"there is nothing wrong with the files"* was wrong: two
+  of the 15 were rejected by Shopify's own validator and would have failed from
+  any session regardless of grant. The grant failure had masked them, because
+  nothing had ever reached the validator:
   - `snippets/dog-nook-jsonld.liquid` — a literal `}` inside a `{{ … }}` output
     tag (the `{search_term_string}` placeholder in the WebSite SearchAction).
     Liquid scans an output tag non-greedily to the first closing brace, so the

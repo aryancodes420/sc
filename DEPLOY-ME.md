@@ -4,12 +4,21 @@
 > All 15 files are on the draft `193158119707` and checksum-verified. `dog-nook.js`
 > and `dog-nook.css` untouched. Theme still UNPUBLISHED.
 >
-> **The diagnosis below was wrong.** The blocker was not a lost raw-GraphQL grant —
-> two of the 15 files contained **real Liquid syntax errors** and Shopify's validator
-> rejected them (`dog-nook-jsonld.liquid`: a literal `}` inside a `{{ … }}` output tag;
-> `dog-nook-countdown.liquid`: `{% stylesheet %}` nested inside an `if`). Both are
-> fixed and committed. Full write-up in
+> **There were TWO independent blockers, not one.** The grant diagnosis below is
+> sound — the four-test table is good evidence that that session had lost raw
+> GraphQL entirely, and a fresh session did fix it (every call in this one worked).
+> But the closing line *"There is nothing wrong with the files"* was **wrong**: two
+> of the 15 also contained real Liquid syntax errors and Shopify's validator
+> rejected them outright. They would have failed from any session, with any grant:
+> - `dog-nook-jsonld.liquid` — a literal `}` inside a `{{ … }}` output tag
+> - `dog-nook-countdown.liquid` — `{% stylesheet %}` nested inside an `if`
+>
+> Both are fixed and committed. Full write-up in
 > `audit/implementation-notes/live-catalog-changes.md` and `HANDOFF.md` §10.
+>
+> **Lesson for the next brief:** a blocked deploy is not evidence the payload is
+> good. The grant failure masked the file errors — nothing had ever reached
+> Shopify's validator, so "the files are fine" was an untested assumption.
 >
 > **Still outstanding — owner action:** the 3 wiring steps in
 > "After deploying" below. The features render nothing until those are set.
