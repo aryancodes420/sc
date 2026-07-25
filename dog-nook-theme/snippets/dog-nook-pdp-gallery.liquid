@@ -1,0 +1,39 @@
+{%- comment -%}
+  The Dog Nook — PDP gallery (main image + thumbnails).
+  Split out of sections/dog-nook-product.liquid to keep that file under the
+  deploy-size limit (HANDOFF §3). Behaviour: assets/dog-nook-gallery.js.
+  Params: product, placeholder_tone
+{%- endcomment -%}
+<div class="tdn-pdp__gallery">
+  <div class="tdn-pdp__main" style="background: {{ placeholder_tone | default: '#8B9578' }};">
+    {%- if product.featured_media -%}
+      {%- assign m_alt = product.featured_media.alt | default: product.title | escape -%}
+      {{ product.featured_media | image_url: width: 1000 | image_tag: id: 'tdn-pdp-main', class: 'tdn-pdp__mainimg', widths: '500, 750, 1000', alt: m_alt }}
+    {%- else -%}
+      <span class="tdn-pdp__ph">Product on clean background</span>
+    {%- endif -%}
+    {%- if product.media.size > 1 -%}
+      <span class="tdn-pdp__counter"><span data-tdn-counter>1</span> / {{ product.media.size }}</span>
+    {%- endif -%}
+  </div>
+
+  {%- if product.media.size > 1 -%}
+    <div class="tdn-pdp__thumbs" data-tdn-gallery>
+      {%- for media in product.media limit: 6 -%}
+        <button type="button" class="tdn-pdp__thumb {% if forloop.first %}is-active{% endif %}"
+                aria-label="View image {{ forloop.index }}"
+                aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+                data-tdn-thumb
+                data-index="{{ forloop.index }}"
+                data-full="{{ media | image_url: width: 1000 }}"
+                data-srcset="{{ media | image_url: width: 500 }} 500w, {{ media | image_url: width: 750 }} 750w, {{ media | image_url: width: 1000 }} 1000w">
+          {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+            <span class="tdn-pdp__play">▶</span>
+          {%- else -%}
+            {{ media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+          {%- endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>

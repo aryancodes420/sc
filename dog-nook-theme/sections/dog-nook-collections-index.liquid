@@ -9,7 +9,7 @@
     {%- if s.eyebrow != blank -%}<div class="tdn-eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
     {%- if s.heading != blank -%}<h1 class="tdn-h1" style="font-size:32px; margin-bottom:26px;">{{ s.heading }}</h1>{%- endif -%}
     <div class="tdn-grid-2">
-      {%- if s.collection_list.count > 0 -%}
+      {%- if s.collection_list != blank and s.collection_list.size > 0 -%}
         {%- assign coll_list = s.collection_list -%}
       {%- else -%}
         {%- assign coll_list = collections -%}

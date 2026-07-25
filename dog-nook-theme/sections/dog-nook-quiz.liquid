@@ -1,0 +1,88 @@
+{%- comment -%}
+  The Dog Nook — "Find your dog's calm kit" quiz.
+
+  Serves both levers the £100k model identifies (growth/GROWTH-PLAN.md §1):
+    · AOV — routes shoppers to a bundle rather than a single £12 product
+    · OWNED TRAFFIC — captures the email that makes future orders free to acquire
+
+  Each answer block maps a real trigger to a real product. Nothing is
+  recommended that the shop does not sell, and the email step is skippable —
+  the result shows either way.
+
+  Styles: assets/dog-nook-cro3.css · Behaviour: assets/dog-nook-quiz.js
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="tdn">
+  <section class="tdn-section tdn-wrap tdn-quiz" data-tdn-quiz>
+
+    <div class="tdn-quiz__head">
+      {%- if s.eyebrow != blank -%}<div class="tdn-eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="tdn-h2">{{ s.heading }}</h2>{%- endif -%}
+      {%- if s.subheading != blank -%}<p class="tdn-muted tdn-quiz__sub">{{ s.subheading }}</p>{%- endif -%}
+    </div>
+
+    <div class="tdn-quiz__progress"><div class="tdn-quiz__progressbar" data-tdn-quiz-bar></div></div>
+
+    {%- comment -%} STEP 1 — the trigger. Drives the recommendation. {%- endcomment -%}
+    <div class="tdn-quiz__step is-active" data-tdn-step="1">
+      <div class="tdn-quiz__q">{{ s.q1 }}</div>
+      <div class="tdn-quiz__opts">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'answer' -%}
+            {%- assign rec = block.settings.product -%}
+            <button type="button" class="tdn-quiz__opt" data-tdn-answer
+                    data-rec-url="{{ rec.url }}"
+                    data-rec-title="{{ rec.title | escape }}"
+                    data-rec-price="{{ rec.price | money }}"
+                    data-rec-img="{{ rec.featured_media | image_url: width: 400 }}"
+                    data-rec-why="{{ block.settings.why | escape }}"
+                    {{ block.shopify_attributes }}>
+              <span class="tdn-quiz__opticon">{{ block.settings.icon }}</span>
+              <span class="tdn-quiz__optlabel">{{ block.settings.label }}</span>
+              <span class="tdn-quiz__optsub">{{ block.settings.sub }}</span>
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {% render 'dog-nook-quiz-steps', s: s %}
+
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "TDN Calm-kit quiz",
+  "tag": "section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "60 seconds" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find your dog's calm kit" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Three questions. We'll point you at the one thing most likely to help — not the most expensive one." },
+    { "type": "text", "id": "q1", "label": "Question 1", "default": "What's the hardest moment right now?" },
+    { "type": "text", "id": "q2", "label": "Question 2", "default": "How big is your dog?" },
+    { "type": "text", "id": "q3", "label": "Question 3 (email step)", "default": "Where shall we send your result?" },
+    { "type": "textarea", "id": "email_sub", "label": "Email step subtext", "default": "We'll email your match plus a 10% code for your first order. No spam, unsubscribe anytime." },
+    { "type": "text", "id": "email_button", "label": "Email button", "default": "Send my result" },
+    { "type": "text", "id": "skip_label", "label": "Skip link", "default": "Just show me the result" },
+    { "type": "text", "id": "result_button", "label": "Result button", "default": "Have a look" }
+  ],
+  "blocks": [
+    { "type": "answer", "name": "Trigger answer", "settings": [
+      { "type": "text", "id": "icon", "label": "Icon (emoji)", "default": "🎆" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Fireworks & storms" },
+      { "type": "text", "id": "sub", "label": "Sub label", "default": "Bangs, flashes, hiding" },
+      { "type": "product", "id": "product", "label": "Recommend this product" },
+      { "type": "textarea", "id": "why", "label": "Why this one", "default": "Built for noise nights — pressure, muffling and something to focus on." }
+    ] }
+  ],
+  "presets": [ { "name": "TDN Calm-kit quiz", "blocks": [
+    { "type": "answer", "settings": { "icon": "🎆", "label": "Fireworks & storms", "sub": "Bangs, flashes, hiding", "why": "For noise nights: gentle pressure, muffled sound and something to focus on." } },
+    { "type": "answer", "settings": { "icon": "🏠", "label": "Just adopted", "sub": "Settling a new rescue", "why": "Somewhere to burrow into, plus two nose-led ways to unwind." } },
+    { "type": "answer", "settings": { "icon": "🚪", "label": "Being left alone", "sub": "Pacing, whining, chewing", "why": "Company that feels like company, plus something to do." } },
+    { "type": "answer", "settings": { "icon": "🍽️", "label": "Mealtimes & boredom", "sub": "Eats too fast, finds trouble", "why": "Turns an eleven-second meal into twenty minutes of work." } },
+    { "type": "answer", "settings": { "icon": "✂️", "label": "Grooming & handling", "sub": "Brushes, nails, bath time", "why": "Makes it feel like being stroked rather than handled." } }
+  ] } ]
+}
+{% endschema %}

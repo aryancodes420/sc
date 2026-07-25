@@ -1,0 +1,87 @@
+{%- comment -%}
+  The Dog Nook — PDP specification block + size guide.
+
+  Closes two documented gaps: shoppers judge scale and suitability from specs
+  (audit P2-1), and size doubt is a leading cause of both abandoned carts and
+  returns on the three sized products (Deep Nook, Calming Coat, Donut Bed).
+
+  All metafield-driven; nothing renders until real data exists, so no
+  placeholder or invented specifications ever reach a customer.
+
+  Metafields (product):
+    custom.specs        JSON list of {"label":"…","value":"…"}
+    custom.size_guide   JSON list of {"size":"…","measurement":"…","suits":"…"}
+    custom.suitable_for       single line text
+    custom.not_ideal_for      single line text  (honesty > persuasion)
+    custom.care               single line text
+
+  Usage: {% render 'dog-nook-specs', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign specs = product.metafields.custom.specs.value
+  assign sizes = product.metafields.custom.size_guide.value
+  assign suit = product.metafields.custom.suitable_for.value
+  assign nosuit = product.metafields.custom.not_ideal_for.value
+  assign care = product.metafields.custom.care.value
+  assign has_any = false
+  if specs != blank or sizes != blank or suit != blank or nosuit != blank or care != blank
+    assign has_any = true
+  endif
+-%}
+{%- if has_any -%}
+  <div class="tdn-specs">
+    {%- if specs != blank and specs.size > 0 -%}
+      <h3 class="tdn-h3 tdn-specs__h">The details</h3>
+      <dl class="tdn-specs__list">
+        {%- for row in specs -%}
+          {%- if row.label != blank and row.value != blank -%}
+            <div class="tdn-specs__row">
+              <dt>{{ row.label }}</dt><dd>{{ row.value }}</dd>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if care != blank -%}
+          <div class="tdn-specs__row"><dt>Care</dt><dd>{{ care }}</dd></div>
+        {%- endif -%}
+      </dl>
+    {%- endif -%}
+
+    {%- if sizes != blank and sizes.size > 0 -%}
+      <h3 class="tdn-h3 tdn-specs__h">Which size?</h3>
+      <p class="tdn-specs__tip">Measure your dog curled up, nose to tail, then add
+        10&nbsp;cm. If they're between sizes, size up — dogs settle better with room
+        to stretch out.</p>
+      <div class="tdn-specs__scroll">
+        <table class="tdn-sizes">
+          <thead><tr><th>Size</th><th>Measurement</th><th>Suits</th></tr></thead>
+          <tbody>
+            {%- for sz in sizes -%}
+              <tr>
+                <th scope="row">{{ sz.size }}</th>
+                <td>{{ sz.measurement }}</td>
+                <td>{{ sz.suits }}</td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      </div>
+    {%- endif -%}
+
+    {%- if suit != blank or nosuit != blank -%}
+      <div class="tdn-suit">
+        {%- if suit != blank -%}
+          <div class="tdn-suit__col tdn-suit__col--yes">
+            <div class="tdn-suit__label">Good for</div>
+            <p>{{ suit }}</p>
+          </div>
+        {%- endif -%}
+        {%- if nosuit != blank -%}
+          <div class="tdn-suit__col tdn-suit__col--no">
+            <div class="tdn-suit__label">Not ideal for</div>
+            <p>{{ nosuit }}</p>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

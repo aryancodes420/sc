@@ -1,0 +1,53 @@
+{%- comment -%}
+  The Dog Nook — "better together" bundle upsell for single-product PDPs.
+
+  The financial model says AOV is the #1 lever on the £100k goal: moving average
+  order value from £60 to £80 removes ~900 orders a year from the target. This is
+  the main on-site mechanism for it.
+
+  Renders only when the product is genuinely part of a bundle and the bundle is
+  genuinely cheaper than buying the components separately. No invented savings —
+  the figure shown is derived from the bundle's own compare-at price.
+
+  Wiring: set a product metafield `custom.bundle_handle` (single line text) to the
+  bundle's handle, e.g. `the-settle-in-bundle`. No metafield → nothing renders.
+
+  Usage: {% render 'dog-nook-bundle-upsell', product: product %}
+{%- endcomment -%}
+{%- liquid
+  assign bh = product.metafields.custom.bundle_handle.value
+  assign bundle = nil
+  if bh != blank
+    assign bundle = all_products[bh]
+  endif
+-%}
+{%- if bundle != blank and bundle.id and bundle.id != product.id and bundle.available -%}
+  {%- liquid
+    assign saving = 0
+    if bundle.compare_at_price > bundle.price
+      assign saving = bundle.compare_at_price | minus: bundle.price
+    endif
+  -%}
+  <a href="{{ bundle.url }}" class="tdn-upsell" data-tdn-upsell>
+    <div class="tdn-upsell__media" style="background: var(--tdn-grad-calm);">
+      {%- if bundle.featured_media -%}
+        {{ bundle.featured_media | image_url: width: 200 | image_tag: loading: 'lazy', class: 'tdn-upsell__img', alt: '' }}
+      {%- endif -%}
+    </div>
+    <div class="tdn-upsell__body">
+      <div class="tdn-upsell__eyebrow">Better together</div>
+      <div class="tdn-upsell__title">{{ product.title }} is part of {{ bundle.title }}</div>
+      {%- if bundle.metafields.custom.bundle_contents.value != blank -%}
+        <div class="tdn-upsell__contents">{{ bundle.metafields.custom.bundle_contents.value }}</div>
+      {%- endif -%}
+      <div class="tdn-upsell__price">
+        <span class="tdn-upsell__now">{{ bundle.price | money }}</span>
+        {%- if saving > 0 -%}
+          <span class="tdn-upsell__was">{{ bundle.compare_at_price | money }}</span>
+          <span class="tdn-upsell__save">Save {{ saving | money }} vs buying separately</span>
+        {%- endif -%}
+      </div>
+      <span class="tdn-upsell__cta">See the bundle →</span>
+    </div>
+  </a>
+{%- endif -%}

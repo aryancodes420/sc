@@ -1,0 +1,115 @@
+{%- comment -%}
+  The Dog Nook — Bonfire Night delivery countdown.
+
+  Real urgency, not manufactured. The deadline is a genuine dispatch cut-off
+  derived from actual fulfilment transit times, so it is both legally safe
+  (DMCC 2024 / CMA prohibit fake urgency) and more persuasive than a fake timer,
+  because a customer who misses it genuinely misses the night.
+
+  ⚠️ SET `cutoff` FROM REAL TRANSIT TIMES BEFORE THIS GOES LIVE:
+     GB warehouse stock (3–7 working days)  → cut-off ≈ 24 Oct
+     China direct (7–17 days)               → cut-off ≈ 10 Oct
+  When the cut-off passes, the block automatically switches to an honest
+  "arrives after the 5th" message rather than continuing to promise delivery.
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+{%- if s.enabled -%}
+<div class="tdn">
+  <section class="tdn-cd" data-tdn-countdown
+           data-cutoff="{{ s.cutoff }}T23:59:59"
+           data-event="{{ s.event_date }}T00:00:00">
+    <div class="tdn-wrap tdn-cd__inner">
+      <div class="tdn-cd__left">
+        <div class="tdn-cd__eyebrow">{{ s.eyebrow }}</div>
+        <div class="tdn-cd__head" data-tdn-cd-head>{{ s.heading }}</div>
+        <div class="tdn-cd__sub" data-tdn-cd-sub>{{ s.subheading }}</div>
+      </div>
+      <div class="tdn-cd__right">
+        <div class="tdn-cd__clock" data-tdn-cd-clock hidden>
+          <div class="tdn-cd__unit"><span data-tdn-cd-d>–</span><small>days</small></div>
+          <div class="tdn-cd__unit"><span data-tdn-cd-h>–</span><small>hrs</small></div>
+          <div class="tdn-cd__unit"><span data-tdn-cd-m>–</span><small>min</small></div>
+        </div>
+        {%- if s.button_label != blank -%}
+          <a href="{{ s.button_url | default: '/collections/all' }}" class="tdn-btn tdn-btn--primary tdn-cd__btn">{{ s.button_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  function tick(el) {
+    var cut = new Date(el.getAttribute('data-cutoff'));
+    var now = new Date();
+    var clock = el.querySelector('[data-tdn-cd-clock]');
+    var head = el.querySelector('[data-tdn-cd-head]');
+    var sub = el.querySelector('[data-tdn-cd-sub]');
+    var ms = cut - now;
+    if (ms <= 0) {
+      /* Cut-off passed — stop promising delivery. Tell the truth instead. */
+      if (clock) clock.hidden = true;
+      if (head) head.textContent = el.getAttribute('data-past-head') || 'Ordering now? It will arrive after the 5th.';
+      if (sub) sub.textContent = el.getAttribute('data-past-sub') ||
+        'Still worth having — New Year’s Eve is the next big night, and the kit works for storms all year.';
+      return false;
+    }
+    if (clock) clock.hidden = false;
+    var d = Math.floor(ms / 86400000);
+    var h = Math.floor(ms % 86400000 / 3600000);
+    var m = Math.floor(ms % 3600000 / 60000);
+    var set = function (sel, v) { var n = el.querySelector(sel); if (n) n.textContent = v; };
+    set('[data-tdn-cd-d]', d); set('[data-tdn-cd-h]', h); set('[data-tdn-cd-m]', m);
+    return true;
+  }
+  function boot() {
+    document.querySelectorAll('[data-tdn-countdown]').forEach(function (el) {
+      if (el.dataset.tdnBound) return;
+      el.dataset.tdnBound = '1';
+      if (tick(el)) setInterval(function () { tick(el); }, 30000);
+    });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', boot); } else { boot(); }
+  document.addEventListener('shopify:section:load', boot);
+})();
+</script>
+
+{% stylesheet %}
+  .tdn-cd { background: var(--tdn-charcoal); color: var(--tdn-cream); }
+  .tdn-cd__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px var(--tdn-side-pad); flex-wrap: wrap; }
+  .tdn-cd__eyebrow { font-size: 10.5px; letter-spacing: 1.6px; text-transform: uppercase; font-weight: 700; color: #c3cbb2; margin-bottom: 4px; }
+  .tdn-cd__head { font-family: var(--tdn-font-display); font-size: 21px; font-weight: 600; line-height: 1.2; }
+  .tdn-cd__sub { font-size: 13.5px; color: rgba(243,237,228,.72); margin-top: 4px; max-width: 520px; line-height: 1.5; }
+  .tdn-cd__right { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .tdn-cd__clock { display: flex; gap: 10px; }
+  .tdn-cd__unit { background: rgba(255,255,255,.10); border-radius: 12px; padding: 8px 12px; text-align: center; min-width: 58px; }
+  .tdn-cd__unit span { font-family: var(--tdn-font-display); font-size: 22px; font-weight: 700; display: block; line-height: 1.1; }
+  .tdn-cd__unit small { font-size: 10px; letter-spacing: .8px; text-transform: uppercase; color: rgba(243,237,228,.62); }
+  .tdn-cd__btn { white-space: nowrap; }
+  @media (max-width: 760px) {
+    .tdn-cd__inner { padding: 16px var(--tdn-side-pad); }
+    .tdn-cd__head { font-size: 18px; }
+    .tdn-cd__right { width: 100%; justify-content: space-between; }
+  }
+{% endstylesheet %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TDN Delivery countdown",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show the countdown", "default": true },
+    { "type": "paragraph", "content": "Set the cut-off from REAL transit times. GB warehouse (3–7 working days) ≈ 24 Oct. China direct (7–17 days) ≈ 10 Oct. Never promise a date fulfilment cannot meet." },
+    { "type": "text", "id": "cutoff", "label": "Order-by cut-off date (YYYY-MM-DD)", "default": "2026-10-24" },
+    { "type": "text", "id": "event_date", "label": "Event date (YYYY-MM-DD)", "default": "2026-11-05" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Bonfire Night is coming" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Order by 24 October to have them ready for the 5th" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Most dogs need a week or two to get used to a new bed or coat before the bangs start. Leaving it to the last night rarely works." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop the Fireworks Kit" },
+    { "type": "url", "id": "button_url", "label": "Button link" }
+  ],
+  "presets": [ { "name": "TDN Delivery countdown" } ]
+}
+{% endschema %}
