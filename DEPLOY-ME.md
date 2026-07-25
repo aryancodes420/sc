@@ -42,6 +42,28 @@ the raw-GraphQL grant did not survive the reconnect. This exact failure is alrea
 documented in `BUILDER-COORDINATION.md`: *"raw-GraphQL grant lost on MCP reconnect;
 a fresh session clears it in one call."*
 
+**Narrowed down on 2026-07-25 by four independent tests.** Results, so you don't
+repeat them:
+
+| Test | Result |
+|---|---|
+| `themeFilesUpsert` mutation, unattended | `-32003 requires approval` |
+| Same mutation, owner at the keyboard | `-32003 requires approval` |
+| Plain **read** query (`theme { id name role }`) | `-32003 requires approval` |
+| Same read probe from a **fresh subagent** | `-32003 requires approval` |
+| Built-in tool `get-shop-info` | ✅ **worked** — returned live shop data |
+
+Two conclusions that matter:
+1. **It is not the mutation, the payload, or the theme-write safety rule.** A read-only
+   query fails identically. The whole raw-GraphQL grant (`graphql_query` *and*
+   `graphql_mutation`) is gone; the built-in tools are unaffected and still work.
+2. **Subagents inherit the broken grant.** Spawning another builder *inside* the same
+   session does not help. It must be a genuinely new session.
+
+**No built-in tool can substitute.** There is no theme-file tool in the built-in set —
+`themeFilesUpsert` via `graphql_mutation` is the only write path. So there is no
+workaround from a session in this state.
+
 **Fix:** run this from a **fresh session**, where the grant is issued cleanly. Do not
 waste turns retrying in a session that has already thrown this error — it will fail
 the same way every time. There is nothing wrong with the files.

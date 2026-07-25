@@ -1,0 +1,70 @@
+{%- comment -%} The Dog Nook — Fireworks prep timeline (numbered, date-led steps) {%- endcomment -%}
+{%- assign s = section.settings -%}
+<div class="tdn">
+  <section class="tdn-section tdn-wrap">
+    <div style="text-align:center; max-width:640px; margin:0 auto 32px;">
+      {%- if s.eyebrow != blank -%}<div class="tdn-eyebrow">{{ s.eyebrow }}</div>{%- endif -%}
+      {%- if s.heading != blank -%}<h2 class="tdn-h2">{{ s.heading }}</h2>{%- endif -%}
+      {%- if s.body != blank -%}<p class="tdn-muted" style="margin:0;">{{ s.body }}</p>{%- endif -%}
+    </div>
+
+    <ol class="tdn-timeline">
+      {%- for block in section.blocks -%}
+        <li class="tdn-timeline__row" {{ block.shopify_attributes }}>
+          <div class="tdn-timeline__when">
+            <span class="tdn-timeline__num">{{ forloop.index }}</span>
+            <strong>{{ block.settings.when }}</strong>
+          </div>
+          <div class="tdn-timeline__what">
+            <h3 class="tdn-h3" style="margin:0 0 6px;">{{ block.settings.title }}</h3>
+            <p class="tdn-muted" style="margin:0;">{{ block.settings.body }}</p>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+
+    {%- if s.footnote != blank -%}
+      <p class="tdn-muted" style="text-align:center; margin:28px auto 0; max-width:620px; font-size:14px;">{{ s.footnote }}</p>
+    {%- endif -%}
+  </section>
+</div>
+
+{% stylesheet %}
+.tdn-timeline { list-style:none; margin:0; padding:0; max-width:820px; margin-inline:auto; }
+.tdn-timeline__row { display:grid; grid-template-columns:200px 1fr; gap:20px; padding:22px 0; border-top:1px solid var(--tdn-line,#e4e0d8); align-items:start; }
+.tdn-timeline__row:first-child { border-top:0; }
+.tdn-timeline__when { display:flex; align-items:center; gap:12px; }
+.tdn-timeline__num { flex:0 0 auto; width:30px; height:30px; border-radius:999px; display:grid; place-items:center; font-size:14px; font-weight:600; background:var(--tdn-sage,#8a9472); color:#fff; }
+@media (max-width:749px) {
+  .tdn-timeline__row { grid-template-columns:1fr; gap:10px; }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "TDN Prep timeline",
+  "tag": "section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The plan" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What to do, and when" },
+    { "type": "textarea", "id": "body", "label": "Intro", "default": "Almost everything that helps a frightened dog works better if you start early. Here's the order to do it in." },
+    { "type": "textarea", "id": "footnote", "label": "Footnote", "default": "None of this is a substitute for veterinary advice. If your dog's fear is severe, speak to your vet — there are things they can prescribe that we can't sell." }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "settings": [
+      { "type": "text", "id": "when", "label": "When", "default": "8 weeks before" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Step title" },
+      { "type": "textarea", "id": "body", "label": "Body", "default": "What to do." }
+    ] }
+  ],
+  "presets": [ { "name": "TDN Prep timeline", "blocks": [
+    { "type": "step", "settings": { "when": "8 weeks before · early Sept", "title": "Start sound training while it's quiet", "body": "Play firework recordings at a volume your dog barely notices, then build up over weeks. The Dogs Trust Sounds Sound programme is free. This is the single most effective thing on this list and the one everyone skips." } },
+    { "type": "step", "settings": { "when": "4 weeks before · early Oct", "title": "Build the den now, not on the night", "body": "Pick the quietest room, away from windows. A covered bed or crate, something of yours that smells right, curtains you can close. Let them use it for weeks so it's already theirs before it has to work." } },
+    { "type": "step", "settings": { "when": "2 weeks before · by 24 Oct", "title": "Anything new needs to arrive by now", "body": "A bed, coat or snood introduced on the night is just one more strange thing on a frightening evening. Order by late October so your dog has a fortnight to adopt it. That's our real dispatch deadline, not a sales tactic." } },
+    { "type": "step", "settings": { "when": "The week of", "title": "The boring admin that saves the night", "body": "Check the microchip details are current — more dogs go missing on 5 November than any other night. Walk them in daylight all week. Ask neighbours if they're setting anything off." } },
+    { "type": "step", "settings": { "when": "On the day", "title": "Tire them out early, feed them early", "body": "A long walk before dusk, and dinner before the noise starts — frightened dogs often won't eat. Close the curtains, put the TV or radio on, and leave the den open." } },
+    { "type": "step", "settings": { "when": "On the night", "title": "Comfort them. It does not reinforce the fear.", "body": "This is the myth worth killing: you cannot reward an emotion. If your dog comes to you, reassure them. Stay calm yourself, don't force them out of hiding, and let them ride it out where they feel safest." } }
+  ] } ]
+}
+{% endschema %}
