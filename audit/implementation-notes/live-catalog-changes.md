@@ -183,3 +183,30 @@ loaded. Verification is checksum-level only — the owner should click through
 A third theme exists that no doc mentions: `193438056731` — "The Dog Nook — Design
 install (CRO working copy)", `UNPUBLISHED`, updated 2026-07-25T03:16Z. Not touched.
 Worth confirming it isn't a parallel session's duplicate before it drifts.
+
+### Correction, same day — deployed again to the RIGHT theme (`193438056731`)
+
+The owner confirmed that the theme they actually edit is **"The Dog Nook — Design
+install (CRO working copy)" `193438056731`**, not `193158119707`. `DEPLOY-ME.md` and
+`HANDOFF.md` §2 both named the wrong one; both are now corrected.
+
+All 15 files were re-deployed to `193438056731` in the same mandated order
+(snippets → assets → sections → head last) and checksum-verified. Same md5s as the
+table above. Theme still UNPUBLISHED. Its own `dog-nook.js` (`2c583546…`) and
+`dog-nook.css` (`eda5e4f6…`) were not touched.
+
+**That theme was NOT a copy of `193158119707`.** Before this deploy it was running the
+pre-split monolithic `dog-nook-product.liquid` (12,975 bytes) and the old
+`dog-nook-head.liquid` — i.e. it was behind, not ahead. All four delegate snippets it
+now needs (`dog-nook-stars`, `dog-nook-pdp-form`, `dog-nook-trust-panel`,
+`dog-nook-pdp-extra`) were confirmed present before head was deployed.
+
+**`193158119707` was left as-is.** A clean revert wasn't possible: 9 of the 15 files
+were new there, and the prior contents of the other 6 were never captured (only their
+checksums). It should be treated as an abandoned branch of the theme.
+
+**Asset drift is the real open problem.** `dog-nook.js` and `dog-nook-cro.css` now
+exist in three mutually different versions across git and the two drafts, and git
+matches neither theme (table in `HANDOFF.md` §2). CRO wave 2 is therefore layered on
+top of two different JS baselines. Nobody has established which is correct — resolve
+before publishing.

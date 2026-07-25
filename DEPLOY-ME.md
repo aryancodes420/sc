@@ -1,8 +1,18 @@
 # DEPLOY BRIEF — CRO wave 2 → draft theme
 
 > # ✅ DONE — 2026-07-25. Do not re-run the deploy.
-> All 15 files are on the draft `193158119707` and checksum-verified. `dog-nook.js`
-> and `dog-nook.css` untouched. Theme still UNPUBLISHED.
+>
+> ## ⚠️ THE TARGET THEME BELOW IS WRONG
+> This brief says `193158119707`. The owner confirmed on 2026-07-25 that the theme
+> they actually edit is **`193438056731` — "Design install (CRO working copy)"**.
+> All 15 files are deployed and checksum-verified **there**. `HANDOFF.md` §2 now
+> carries the corrected table; trust that over the ID further down this file.
+>
+> They were also deployed to `193158119707` first, before the correction. That theme
+> was not reverted and should now be treated as abandoned — do not deploy to it or
+> publish it.
+>
+> Both are UNPUBLISHED. `dog-nook.js` and `dog-nook.css` untouched in both.
 >
 > **There were TWO independent blockers, not one.** The grant diagnosis below is
 > sound — the four-test table is good evidence that that session had lost raw

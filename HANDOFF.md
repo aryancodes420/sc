@@ -69,14 +69,36 @@ theme. Everything custom is namespaced `dog-nook-*` (files) / `.tdn-*` (CSS).
 needs **BOTH**: (a) commit + push to the branch, AND (b) `themeFilesUpsert` to the
 draft theme. Doing only one leaves git and the theme out of sync.
 
-- **Themes:** MAIN/published = `gid://shopify/OnlineStoreTheme/193140818203`
-  ("Dog Nook PDP — working"). **Deploy target = the UNPUBLISHED draft**
-  `gid://shopify/OnlineStoreTheme/193158119707` ("The Dog Nook — Design install").
-  ⚠️ The live site currently runs the *other* theme, so **our work is not live
-  until the owner publishes the draft.**
+- **Themes — there are THREE. Deploy to the working copy, not the old draft:**
+
+  | Theme | ID | Role | Use |
+  |---|---|---|---|
+  | Dog Nook PDP — working | `193140818203` | **MAIN / live** | ⛔ never deploy here |
+  | Design install (**CRO working copy**) | `193438056731` | draft | ✅ **DEPLOY TARGET** — owner-confirmed 2026-07-25 |
+  | Design install (Claude) | `193158119707` | draft | ⚠️ superseded — see below |
+
+  ⚠️ **`193158119707` used to be the documented target and is now stale.** CRO wave 2
+  was deployed to it on 2026-07-25 before the owner confirmed the working copy is the
+  theme they actually edit. It was not reverted (9 of the 15 files were new there, and
+  the prior contents of the other 6 weren't captured). Treat it as an abandoned branch
+  of the theme: don't deploy to it, don't publish it, and don't trust it as a
+  reference. Confirm with the owner before deleting it.
+
+- ⚠️ **Asset drift — `dog-nook.js` and `dog-nook-cro.css` are NOT in sync.** As of
+  2026-07-25 three different versions of each exist and **git matches none of them**:
+
+  | File | git | `193158119707` | `193438056731` |
+  |---|---|---|---|
+  | `dog-nook.js` | `54ca66a4` | `fa7f38fe` | `2c583546` |
+  | `dog-nook-cro.css` | `da98a84b` | `53fdde64` | `06eae723` |
+  | `dog-nook.css` | `eda5e4f6` | `eda5e4f6` | `eda5e4f6` ✅ |
+
+  So "GitHub is source of truth" is **not currently true for those two files**. Nobody
+  has established which version is correct. Resolve this before publishing anything.
+
 - **Publishing is blocked** by the MCP tool. Owner action only:
   Admin → Online Store → Themes → draft → Publish.
-- **Preview link:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193158119707`
+- **Preview link:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731`
   (store has no password; the preview cookie sticks for the session).
 
 ### Deploy recipe (do it exactly this way)
