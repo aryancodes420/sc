@@ -1,0 +1,1130 @@
+<title>The Dog Nook — the £100k model</title>
+
+<style>
+:root{
+  --ground:#F3EDE4; --surface:#FBF8F3; --sunk:#EFE7DA;
+  --ink:#221F19; --ink-2:#544E43; --muted:#6A6459; --faint:#8C8478;
+  --rule:#DCD1BE; --rule-soft:#E7DECF;
+  --s1:#256B39; --s2:#3C79B5; --s3:#D0742F;
+  --accent:#5F6A4D; --accent-ink:#FBF8F3;
+  --good:#256B39; --warn:#9A6B12; --bad:#A8412A;
+  --focus:#3C79B5;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#191712; --surface:#211E19; --sunk:#15130F;
+    --ink:#F1EBE1; --ink-2:#C8C0B3; --muted:#9A9184; --faint:#7C7466;
+    --rule:#37332A; --rule-soft:#2B2822;
+    --s1:#2B7A45; --s2:#5292CB; --s3:#C87F35;
+    --accent:#9BA884; --accent-ink:#191712;
+    --good:#4E9B62; --warn:#C79A3A; --bad:#D07257;
+    --focus:#5292CB;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#F3EDE4; --surface:#FBF8F3; --sunk:#EFE7DA;
+  --ink:#221F19; --ink-2:#544E43; --muted:#6A6459; --faint:#8C8478;
+  --rule:#DCD1BE; --rule-soft:#E7DECF;
+  --s1:#256B39; --s2:#3C79B5; --s3:#D0742F;
+  --accent:#5F6A4D; --accent-ink:#FBF8F3;
+  --good:#256B39; --warn:#9A6B12; --bad:#A8412A;
+  --focus:#3C79B5;
+}
+:root[data-theme="dark"]{
+  --ground:#191712; --surface:#211E19; --sunk:#15130F;
+  --ink:#F1EBE1; --ink-2:#C8C0B3; --muted:#9A9184; --faint:#7C7466;
+  --rule:#37332A; --rule-soft:#2B2822;
+  --s1:#2B7A45; --s2:#5292CB; --s3:#C87F35;
+  --accent:#9BA884; --accent-ink:#191712;
+  --good:#4E9B62; --warn:#C79A3A; --bad:#D07257;
+  --focus:#5292CB;
+}
+
+:root{
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-variant-numeric:lining-nums tabular-nums}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+@media(max-width:640px){.wrap{padding:0 18px}}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule);padding:44px 0 26px}
+.mast h1{
+  font-family:var(--serif); font-weight:400; font-size:clamp(30px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.015em; text-wrap:balance;
+}
+.mast h1 em{font-style:italic;color:var(--accent)}
+.eyebrow{
+  font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--faint); margin:0 0 14px;
+}
+.standfirst{max-width:60ch;color:var(--ink-2);margin:0;font-size:17px}
+.mast-foot{
+  display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline;
+  margin-top:22px;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.06em;color:var(--faint);text-transform:uppercase;
+}
+
+/* ---------- sections ---------- */
+section{border-bottom:1px solid var(--rule);padding:52px 0}
+section:last-of-type{border-bottom:0}
+.q{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);margin:0 0 10px;
+}
+h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(23px,3.1vw,32px);
+  line-height:1.15;margin:0 0 12px;letter-spacing:-.01em;text-wrap:balance;
+}
+.lede{max-width:62ch;color:var(--ink-2);margin:0 0 30px}
+.lede strong{color:var(--ink);font-weight:600}
+
+/* ---------- solver ---------- */
+.solver{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start}
+@media(max-width:860px){.solver{grid-template-columns:1fr;gap:34px}}
+
+.controls{display:flex;flex-direction:column;gap:26px}
+.ctl-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:9px}
+.ctl-label{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.ctl-val{font-family:var(--serif);font-size:24px;line-height:1;color:var(--ink)}
+.ctl-note{font-size:12.5px;color:var(--faint);margin-top:8px;line-height:1.4}
+
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:22px;
+  background:transparent;cursor:pointer;display:block;margin:0;
+}
+input[type=range]::-webkit-slider-runnable-track{
+  height:3px;background:var(--rule);border-radius:0;
+}
+input[type=range]::-moz-range-track{height:3px;background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:15px;height:15px;border-radius:50%;
+  background:var(--accent);margin-top:-6px;border:2px solid var(--surface);
+}
+input[type=range]::-moz-range-thumb{
+  width:15px;height:15px;border-radius:50%;background:var(--accent);
+  border:2px solid var(--surface);
+}
+input[type=range]:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+
+.readout{
+  background:var(--surface);border:1px solid var(--rule);padding:26px 28px 8px;
+}
+.hero{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.hero-fig{
+  font-family:var(--serif);font-size:clamp(58px,11vw,92px);line-height:.86;
+  letter-spacing:-.02em;color:var(--ink);
+}
+.hero-cap{padding-bottom:10px;max-width:22ch;color:var(--ink-2);font-size:14.5px;line-height:1.4}
+.hero-cap b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--faint);font-weight:400;margin-bottom:3px}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);
+  border-top:1px solid var(--rule);margin:26px -28px 0}
+@media(max-width:560px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--surface);padding:16px 28px 18px}
+.tile-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:5px}
+.tile-v{font-family:var(--serif);font-size:26px;line-height:1.1;color:var(--ink)}
+.tile-s{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+.verdict{
+  margin-top:22px;padding:13px 16px;border-left:3px solid var(--accent);
+  background:var(--sunk);font-size:14.5px;color:var(--ink-2);line-height:1.45;
+}
+.verdict b{color:var(--ink)}
+
+/* ---------- charts ---------- */
+figure{margin:0}
+.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  flex-wrap:wrap;margin-bottom:4px}
+figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted)}
+.fig-note{font-size:13px;color:var(--faint);max-width:52ch;margin:8px 0 0;line-height:1.45}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis-t{font-family:var(--mono);font-size:10.5px;fill:var(--faint)}
+.grid-l{stroke:var(--rule-soft);stroke-width:1}
+.axis-l{stroke:var(--rule);stroke-width:1}
+.mark-lbl{font-family:var(--mono);font-size:11px;fill:var(--ink-2)}
+.bar-name{font-family:var(--sans);font-size:12.5px;fill:var(--ink-2)}
+.wf-link{stroke:var(--faint);stroke-width:1;stroke-dasharray:2 2;stroke-opacity:.7}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center;margin:0 0 14px;padding:0;list-style:none}
+.legend li{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2)}
+.swatch{width:11px;height:11px;flex:none;border-radius:2px}
+.legend button{
+  background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;
+  display:flex;align-items:center;gap:7px;
+}
+.legend button[aria-pressed=false]{opacity:.38}
+.legend button:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+.tip{
+  position:fixed;pointer-events:none;z-index:40;opacity:0;transform:translate(-50%,-120%);
+  background:var(--surface);border:1px solid var(--rule);padding:9px 12px;
+  font-size:13px;line-height:1.4;color:var(--ink);min-width:132px;
+  box-shadow:0 6px 22px rgba(0,0,0,.13);transition:opacity .1s;
+}
+.tip .tip-h{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:5px}
+.tip .tip-r{display:flex;justify-content:space-between;gap:16px}
+.tip .tip-r span:last-child{font-variant-numeric:tabular-nums}
+.tip .tip-d{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
+
+/* ---------- toggles ---------- */
+.seg{display:inline-flex;border:1px solid var(--rule);background:var(--surface)}
+.seg button{
+  font:inherit;font-size:13px;padding:6px 14px;background:none;border:0;cursor:pointer;
+  color:var(--muted);border-right:1px solid var(--rule);
+}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.seg button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+
+/* ---------- tables ---------- */
+details{margin-top:22px}
+summary{
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;padding:6px 0;
+}
+summary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.tscroll{overflow-x:auto;margin-top:10px;border:1px solid var(--rule);max-width:100%}
+/* grid children default to min-width:auto, which lets wide tables blow the page out */
+.two>*,.solver>*,.score>*,.tiles>*{min-width:0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;background:var(--surface)}
+th,td{padding:8px 13px;text-align:right;border-bottom:1px solid var(--rule-soft);white-space:nowrap;
+  font-variant-numeric:lining-nums tabular-nums}
+th:first-child,td:first-child{text-align:left;font-variant-numeric:normal}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--faint);font-weight:400;border-bottom:1px solid var(--rule);position:sticky;top:0;
+  background:var(--surface)}
+tbody tr:last-child td{border-bottom:0}
+
+/* ---------- scorecard ---------- */
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule)}
+.score-c{background:var(--surface);padding:18px 20px 20px;display:flex;flex-direction:column;gap:5px}
+.score-k{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.25}
+.score-t{font-family:var(--serif);font-size:30px;line-height:1;color:var(--ink);margin:4px 0 0}
+.score-w{font-size:12.5px;color:var(--muted);line-height:1.35}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;align-self:flex-start;
+  font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  padding:2px 7px;border:1px solid currentColor;margin-top:auto;
+}
+.pill.p-key{color:var(--good)}
+.pill.p-sec{color:var(--faint)}
+
+/* ---------- misc ---------- */
+.two{display:grid;grid-template-columns:1fr 300px;gap:44px;align-items:start}
+@media(max-width:860px){.two{grid-template-columns:1fr;gap:28px}}
+.aside{font-size:14px;color:var(--ink-2);line-height:1.5;border-top:2px solid var(--ink);padding-top:14px}
+.aside h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink);margin:0 0 8px;font-weight:400}
+.aside p{margin:0 0 11px}
+.aside p:last-child{margin-bottom:0}
+
+.caveat{
+  background:var(--sunk);border:1px solid var(--rule);padding:20px 24px;margin-top:8px;
+  font-size:14.5px;color:var(--ink-2);line-height:1.5;
+}
+.caveat h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  margin:0 0 9px;color:var(--ink);font-weight:400}
+.caveat p{margin:0 0 10px;max-width:70ch}
+.caveat p:last-child{margin:0}
+
+footer{padding:34px 0 60px;font-size:13px;color:var(--faint);line-height:1.6}
+footer code{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">The Dog Nook · financial model · Aug 2026 → Jul 2027</p>
+  <h1>£100,000 profit is <em>seven orders a day</em>.</h1>
+  <p class="standfirst">Not forty-five. The bundle ladder changed the arithmetic — and once you
+  can see the arithmetic move, it's obvious which two levers matter and which one doesn't.
+  Drag the sliders below.</p>
+  <div class="mast-foot">
+    <span>Target £100,000 net</span>
+    <span>Anchor Bonfire Night, 5 Nov 2026</span>
+    <span>Source growth/model.py</span>
+  </div>
+</header>
+
+<!-- ============ SOLVER ============ -->
+<section>
+  <p class="q">How many orders do I actually need?</p>
+  <h2>The solver</h2>
+  <p class="lede">Every combination of basket size, owned traffic and ad efficiency resolves to a
+  single number: <strong>orders per day</strong>. The waterfall shows where each order's money goes
+  before any of it is yours.</p>
+
+  <div class="solver">
+    <div class="controls">
+      <div>
+        <div class="ctl-head">
+          <label class="ctl-label" for="s-aov">Average basket</label>
+          <span class="ctl-val num" id="v-aov">£80</span>
+        </div>
+        <input type="range" id="s-aov" min="40" max="120" step="5" value="80"
+               aria-describedby="n-aov">
+        <p class="ctl-note" id="n-aov">Today's mix sits near £25. The kits are what move this.</p>
+      </div>
+      <div>
+        <div class="ctl-head">
+          <label class="ctl-label" for="s-own">Traffic you own</label>
+          <span class="ctl-val num" id="v-own">50%</span>
+        </div>
+        <input type="range" id="s-own" min="0" max="80" step="5" value="50"
+               aria-describedby="n-own">
+        <p class="ctl-note" id="n-own">Email, search and direct — orders that cost nothing to acquire.</p>
+      </div>
+      <div>
+        <div class="ctl-head">
+          <label class="ctl-label" for="s-roas">Return on ad spend</label>
+          <span class="ctl-val num" id="v-roas">3.5×</span>
+        </div>
+        <input type="range" id="s-roas" min="1.5" max="5" step="0.1" value="3.5"
+               aria-describedby="n-roas">
+        <p class="ctl-note" id="n-roas">Median across 35,000 brands is 1.86×. Above 4× is rare and rarely lasts.</p>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div class="hero">
+        <div class="hero-fig num" id="v-perday">7.2</div>
+        <p class="hero-cap"><b>Orders per day</b>every day, for a year, to clear £100,000 net</p>
+      </div>
+
+      <figure style="margin-top:26px">
+        <div class="fig-head">
+          <figcaption>Where one <span id="v-aov2" class="num">£80</span> order goes</figcaption>
+        </div>
+        <svg id="wf" viewBox="0 0 640 190" role="img" aria-labelledby="wf-t"></svg>
+        <title id="wf-t">Waterfall decomposing one order into costs and profit</title>
+      </figure>
+
+      <div class="tiles">
+        <div class="tile">
+          <div class="tile-k">Orders / year</div>
+          <div class="tile-v num" id="v-orders">2,612</div>
+          <div class="tile-s">at this basket size</div>
+        </div>
+        <div class="tile">
+          <div class="tile-k">Revenue needed</div>
+          <div class="tile-v num" id="v-rev">£209k</div>
+          <div class="tile-s">to net £100k</div>
+        </div>
+        <div class="tile">
+          <div class="tile-k">Profit / order</div>
+          <div class="tile-v num" id="v-ppo">£38.72</div>
+          <div class="tile-s">after everything</div>
+        </div>
+      </div>
+
+      <p class="verdict" id="v-verdict"></p>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:46px">
+    <div>
+      <figure>
+        <div class="fig-head">
+          <figcaption>Orders per day needed, by basket size</figcaption>
+        </div>
+        <svg id="ladder" viewBox="0 0 640 210" role="img" aria-labelledby="ld-t"></svg>
+        <title id="ld-t">Bar chart of daily orders needed at each basket size</title>
+        <p class="fig-note">Holding your current owned-traffic and ROAS settings. The bar in
+        <span style="color:var(--s3)">orange</span> is where the sliders sit now.</p>
+      </figure>
+    </div>
+    <aside class="aside">
+      <h3>Read it this way</h3>
+      <p>Raising the basket from <b>£60 to £80</b> takes roughly <b>900 orders a year</b> off the
+      job. Raising owned traffic from 30% to 65% takes off another 560.</p>
+      <p>Now try doubling the ROAS slider. It barely moves — and the next chart explains why that
+      isn't a bug in the model.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ TWELVE MONTHS ============ -->
+<section>
+  <p class="q">What does a realistic first year look like?</p>
+  <h2>Twelve months, three ways</h2>
+  <p class="lede">Same store, same catalogue — the difference is execution. Seasonality is real
+  (November runs 1.95× a flat month), Q4 ad costs inflate 30–50%, and ad spend can only grow about
+  50% a month before Meta's optimisation resets.</p>
+
+  <ul class="legend" id="sc-legend"></ul>
+  <figure>
+    <svg id="cum" viewBox="0 0 900 380" role="img" aria-labelledby="cum-t"></svg>
+    <title id="cum-t">Cumulative profit over twelve months under three scenarios</title>
+    <p class="fig-note">Cumulative net profit, August 2026 to July 2027. The dashed line is the
+    £100,000 target.</p>
+  </figure>
+
+  <div class="two" style="margin-top:38px">
+    <div>
+      <div class="seg" role="group" aria-label="Scenario detail" id="sc-seg"></div>
+      <div class="tscroll" style="margin-top:16px">
+        <table id="sc-table">
+          <thead><tr><th>Month</th><th>Orders</th><th>Per day</th><th>Revenue</th><th>Ad spend</th><th>Cumulative profit</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <aside class="aside">
+      <h3>The honest verdict</h3>
+      <p><b>£100k profit in year one is above even the stretch case.</b> Not through lack of effort —
+      through timing.</p>
+      <p>You launch in August with no email list, no reviews and nothing ranked. Bonfire Night
+      arrives before any of that has had time to compound, so you catch perhaps a third of what the
+      season is worth to you.</p>
+      <p>Realistic year one: <b>£35–70k profit</b> on £130–270k revenue, at a £100k+ run-rate by
+      month twelve. Year two clears it.</p>
+      <p style="color:var(--ink);font-weight:600">Bonfire Night 2026 is the rehearsal. Bonfire Night
+      2027 is the payday.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ AD CEILING ============ -->
+<section>
+  <p class="q">Why can't I just spend more on ads?</p>
+  <h2>The ceiling</h2>
+  <p class="lede">There are about 4.1 million firework-fearful dogs in the UK and a finite number of
+  their owners you can profitably reach in a month. Past roughly <strong>£6–8k of monthly ad
+  spend</strong>, each extra pound buys the same order at worse efficiency.</p>
+
+  <div class="two">
+    <figure>
+      <div class="fig-head">
+        <figcaption>Effective ROAS as monthly spend rises</figcaption>
+        <div class="seg" role="group" aria-label="Base ROAS" id="sat-seg"></div>
+      </div>
+      <svg id="sat" viewBox="0 0 640 300" role="img" aria-labelledby="sat-t"></svg>
+      <title id="sat-t">Line chart showing return on ad spend decaying as monthly budget rises</title>
+      <p class="fig-note">Decay factor 1 ÷ (1 + spend/£3,000 × 0.22). This is the model's least
+      certain assumption and the one most worth challenging with your own data.</p>
+    </figure>
+    <aside class="aside">
+      <h3>Your safe monthly spend</h3>
+      <p>Never let ad spend exceed <b>last month's contribution</b>.</p>
+      <p style="font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--ink)">
+        Aug&nbsp;£600<br>Sep&nbsp;£900<br>Oct&nbsp;£1,350<br>Nov&nbsp;£2,025<br>Dec&nbsp;£3,038<br>
+        then&nbsp;65%&nbsp;of&nbsp;prior&nbsp;contribution, capped&nbsp;£8,000
+      </p>
+      <p><b>Cash-flow warning.</b> November's spend is committed before November's revenue lands,
+      and payouts lag 2–3 days. Have roughly <b>£2,500 of working capital</b> ready in October.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section>
+  <p class="q">Which products are actually worth selling?</p>
+  <h2>Where the money is</h2>
+  <p class="lede">Contribution is what's left after product cost, card fees and a 5% refund
+  provision — the money that pays for advertising and, eventually, you.
+  <strong>One Fireworks Kit is worth seven Lick Mats.</strong></p>
+
+  <div class="fig-head" style="margin-bottom:16px">
+    <ul class="legend" style="margin:0">
+      <li><span class="swatch" style="background:var(--s1)"></span>Bundle</li>
+      <li><span class="swatch" style="background:var(--s2)"></span>Single</li>
+      <li><span class="swatch" style="background:var(--s3);opacity:.55"></span>Lost to split parcels</li>
+    </ul>
+    <div class="seg" role="group" aria-label="Parcel assumption" id="pt-seg"></div>
+  </div>
+
+  <figure>
+    <svg id="prod" viewBox="0 0 900 640" role="img" aria-labelledby="pr-t"></svg>
+    <title id="pr-t">Contribution per order for every product, bundles and singles</title>
+  </figure>
+
+  <div class="caveat" style="margin-top:34px">
+    <h3>The £14,000–28,000 question</h3>
+    <p>If CJ ships a bundle's components as separate parcels, you pay shipping several times over.
+    The Fireworks Kit loses <b>£11.00 an order</b>; the three-item kits lose £5.50. At target volume
+    that is <b>£14,000 to £28,000 a year</b>, decided by one email.</p>
+    <p>It also means a five-parcel bundle has five chances to arrive late — which, in the week
+    before Bonfire Night, is a refund and a chargeback rather than a delay.</p>
+  </div>
+
+  <details>
+    <summary>Full unit economics table</summary>
+    <div class="tscroll">
+      <table id="prod-table">
+        <thead><tr><th>Product</th><th>Price</th><th>Landed</th><th>Gross</th><th>Gross %</th><th>Contribution</th><th>C %</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+</section>
+
+<!-- ============ SCORECARD ============ -->
+<section>
+  <p class="q">What do I check every Monday?</p>
+  <h2>Five numbers</h2>
+  <p class="lede">Everything above collapses to this. Get the two marked <em>decisive</em> right and
+  £100k arrives whether or not the rest is perfect. Get them wrong and no ad budget rescues it.</p>
+  <div class="score" id="score"></div>
+</section>
+
+<!-- ============ ASSUMPTIONS ============ -->
+<section>
+  <p class="q">What could be wrong?</p>
+  <h2>Assumptions worth challenging</h2>
+  <div class="caveat">
+    <h3>Read this before trusting a single figure above</h3>
+    <p><b>Every product cost in this model is an estimate.</b> Landed costs are category-typical
+    guesses, not quoted prices. Until CJ confirms real numbers per SKU, the margins — and therefore
+    every profit figure on this page — can move materially.</p>
+    <p>That's the same email as the parcel question. One message, two answers, and it makes this
+    model real rather than indicative.</p>
+  </div>
+
+  <div class="tscroll" style="margin-top:24px">
+    <table id="assump">
+      <thead><tr><th>Assumption</th><th>Value</th><th>Confidence</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Model: <code>growth/model.py</code> · Spreadsheet: <code>growth/dog-nook-model.xlsx</code> ·
+  Full write-up: <code>growth/GROWTH-PLAN.md</code><br>
+  Market benchmarks from IRP Commerce, PDSA PAW Report, Klaviyo and CJdropshipping documentation,
+  2026. Product costs are estimates pending supplier confirmation.
+</footer>
+
+</div>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- model constants (mirror growth/model.py) ---------------- */
+var GM=0.70, PAY_PCT=0.02, PAY_FIX=0.25, REFUND=0.05,
+    FIXED_YEAR=95*12, TARGET=100000,
+    SAT_SPEND=3000, DECAY_K=0.22;
+
+function contribution(aov, owned, roas){
+  var gross   = aov*GM,
+      cogs    = aov*(1-GM),
+      fees    = aov*PAY_PCT + PAY_FIX,
+      refunds = aov*REFUND,
+      ads     = (1-owned)*(aov/roas);
+  return {cogs:cogs, fees:fees, refunds:refunds, ads:ads,
+          profit: gross - fees - refunds - ads};
+}
+function saturation(spend){ return 1/(1 + (spend/SAT_SPEND)*DECAY_K); }
+
+var gbp = function(n,d){ return "£"+n.toLocaleString("en-GB",
+  {minimumFractionDigits:d||0, maximumFractionDigits:d||0}); };
+var css = function(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+var NS="http://www.w3.org/2000/svg";
+function el(t,a){ var e=document.createElementNS(NS,t);
+  for(var k in a){ if(a[k]!==null&&a[k]!==undefined) e.setAttribute(k,a[k]); } return e; }
+function clear(n){ while(n.firstChild) n.removeChild(n.firstChild); }
+
+/* ---------------- tooltip ---------------- */
+var tip=document.getElementById("tip");
+function showTip(x,y,html){ tip.innerHTML=html; tip.style.opacity="1";
+  tip.style.left=x+"px"; tip.style.top=y+"px"; }
+function hideTip(){ tip.style.opacity="0"; }
+
+/* ---------------- data ---------------- */
+var PRODUCTS=[
+ ["The Calming Snood",9.99,1.50,"single",1],["The Lick Mat",11.99,2.50,"single",1],
+ ["The Grooming Glove",11.99,2.00,"single",1],["The Wobble Feeder",13.99,3.50,"single",1],
+ ["The Slow-Feeder Bowl",14.99,3.00,"single",1],["The Snuffle Ball",14.99,3.00,"single",1],
+ ["The Nail Grinder",19.99,5.50,"single",1],["The Snuffle Mat",22.99,5.00,"single",1],
+ ["The Heartbeat Companion",24.99,5.00,"single",1],["The Calming Coat",24.99,5.50,"single",1],
+ ["The Auto-Play Ball",24.99,7.00,"single",1],["The Car Boot Liner",29.99,9.00,"single",1],
+ ["Calming Donut Bed (S)",29.99,9.00,"single",1],["Calming Donut Bed (M)",37.99,12.00,"single",1],
+ ["Calming Donut Bed (L)",44.99,15.00,"single",1],["The Weighted Blanket",34.99,11.00,"single",1],
+ ["The Deep Nook (L)",59.99,20.00,"single",1],["The Deep Nook (XL)",79.99,26.00,"single",1],
+ ["The Deep Nook (XXL)",89.99,30.00,"single",1],
+ ["First Days Kit",34.99,10.50,"bundle",3],["Settle-In Bundle",64.99,18.20,"bundle",3],
+ ["Home-Alone Kit",69.99,15.00,"bundle",3],["Fireworks Survival Kit",84.99,17.50,"bundle",5],
+ ["Complete Calm System",139.99,44.00,"bundle",5]
+];
+var EXTRA_PARCEL=2.75;
+function unitEcon(p, split){
+  var parcels = split ? p[4] : 1,
+      landed = p[2] + (parcels-1)*EXTRA_PARCEL,
+      gross = p[1]-landed,
+      fees = p[1]*PAY_PCT+PAY_FIX,
+      refunds = p[1]*REFUND;
+  return {name:p[0], price:p[1], landed:landed, gross:gross,
+          grossPct:gross/p[1]*100, contrib:gross-fees-refunds,
+          contribPct:(gross-fees-refunds)/p[1]*100, kind:p[3], parcels:parcels};
+}
+
+var MONTHS=["Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul"];
+var SCENARIOS=[
+ {key:"base",  name:"Base",    sub:"modest execution",  hue:"--s2",
+  cum:[-82,8,350,1210,1611,1894,2088,2478,3125,4132,5323,6659],
+  rev:[741,1349,2025,3158,2931,2643,2370,2561,3056,3854,4507,5031],
+  ord:[14,25,37,57,51,45,40,42,49,61,70,76],
+  ads:[450,658,830,1020,1339,1275,1194,1117,1171,1311,1536,1720],
+  totRev:34226, totProfit:6658},
+ {key:"good",  name:"Good",    sub:"strong execution",  hue:"--s1",
+  cum:[0,310,1186,3470,4950,6377,7720,10071,13857,19758,26686,34218],
+  rev:[1110,2086,3708,7036,7365,8176,8568,10432,13932,19581,23973,24935],
+  ord:[19,35,60,112,114,124,126,150,196,269,322,328],
+  ads:[600,900,1350,2025,3038,3598,3928,4088,4847,6273,8000,8000],
+  totRev:130902, totProfit:34218},
+ {key:"stretch",name:"Stretch",sub:"everything lands",  hue:"--s3",
+  cum:[96,602,1852,4964,7431,10401,13633,19148,27737,40016,53681,69743],
+  rev:[1264,2397,4302,8353,8939,12164,15995,22703,32969,47067,53843,57658],
+  ord:[20,37,65,122,126,167,213,294,415,576,642,670],
+  ads:[600,900,1350,2025,3038,4556,6697,8619,11983,17134,20000,20000],
+  totRev:267654, totProfit:69741}
+];
+
+/* ================= SOLVER ================= */
+var sAov=document.getElementById("s-aov"),
+    sOwn=document.getElementById("s-own"),
+    sRoas=document.getElementById("s-roas");
+
+function solverState(){
+  return {aov:+sAov.value, owned:+sOwn.value/100, roas:+sRoas.value};
+}
+
+function drawWaterfall(st){
+  var svg=document.getElementById("wf"); clear(svg);
+  var W=640,H=190, padB=42, padT=8, left=0;
+  var c=contribution(st.aov, st.owned, st.roas);
+  var steps=[
+    {l:"Order",   v:st.aov,     type:"total", col:"--ink"},
+    {l:"Product", v:-c.cogs,    type:"down"},
+    {l:"Fees",    v:-c.fees,    type:"down"},
+    {l:"Refunds", v:-c.refunds, type:"down"},
+    {l:"Ads",     v:-c.ads,     type:"down"},
+    {l:"Profit",  v:c.profit,   type:"total", col: c.profit>0?"--s1":"--bad"}
+  ];
+  var maxV=st.aov, plotH=H-padB-padT;
+  var n=steps.length, gap=10, bw=(W-gap*(n-1))/n;
+  var y=function(v){ return padT + plotH - (v/maxV)*plotH; };
+
+  // baseline
+  svg.appendChild(el("line",{x1:0,y1:padT+plotH,x2:W,y2:padT+plotH,class:"axis-l"}));
+
+  var run=0, prevX=null, prevY=null;
+  steps.forEach(function(s,i){
+    var x=i*(bw+gap), top, bot;
+    if(s.type==="total"){ top=y(s.v); bot=y(0); if(i===0) run=s.v; }
+    else { top=y(run); run+=s.v; bot=y(run); }
+    // dotted connector carrying the running total across the gap
+    if(prevX!==null){
+      svg.appendChild(el("line",{x1:prevX, y1:prevY, x2:x, y2:prevY, class:"wf-link"}));
+    }
+    prevX=x+bw; prevY=(i===0) ? top : bot;
+    var hgt=Math.max(2, Math.abs(bot-top));
+    // the opening total is an outline — it is the whole, not a cost
+    var isOpen = (i===0);
+    var fill = s.type==="total" ? css(s.col) : css("--s3");
+    var r=el("rect",{x:x, y:Math.min(top,bot), width:bw, height:hgt, rx:2,
+      fill:fill, "fill-opacity": isOpen ? 0.09 : (s.type==="total" ? 1 : 0.62),
+      stroke: isOpen ? css("--ink") : null, "stroke-width": isOpen ? 1.5 : null});
+    r.style.cursor="default";
+    (function(s,c){
+      r.addEventListener("mouseenter",function(e){
+        var b=r.getBoundingClientRect();
+        showTip(b.left+b.width/2, b.top,
+          '<div class="tip-h">'+s.l+'</div><div class="tip-r"><span>'+
+          (s.v<0?"cost":"amount")+'</span><span>'+gbp(Math.abs(s.v),2)+'</span></div>');
+      });
+      r.addEventListener("mouseleave",hideTip);
+    })(s);
+    svg.appendChild(r);
+
+    var lab=el("text",{x:x+bw/2, y:padT+plotH+16, class:"axis-t","text-anchor":"middle"});
+    lab.textContent=s.l; svg.appendChild(lab);
+    var val=el("text",{x:x+bw/2, y:padT+plotH+31, class:"axis-t","text-anchor":"middle",
+      fill: s.type==="total"?css("--ink"):css("--faint")});
+    val.textContent=(s.v<0?"−":"")+gbp(Math.abs(s.v), 2);
+    svg.appendChild(val);
+  });
+}
+
+function drawLadder(st){
+  var svg=document.getElementById("ladder"); clear(svg);
+  var W=640,H=210, padL=6,padR=6,padB=40,padT=10;
+  var basks=[40,50,60,70,80,90,100,110,120];
+  var vals=basks.map(function(a){
+    var pd=(TARGET+FIXED_YEAR)/contribution(a, st.owned, st.roas).profit/365;
+    return pd>0&&isFinite(pd)? pd : null;
+  });
+  var maxV=Math.max.apply(null, vals.map(function(v){return v===null?0:v;}));
+  maxV=Math.max(maxV, 1);
+  var plotH=H-padB-padT, plotW=W-padL-padR;
+  var gap=9, bw=(plotW-gap*(basks.length-1))/basks.length;
+  svg.appendChild(el("line",{x1:padL,y1:padT+plotH,x2:W-padR,y2:padT+plotH,class:"axis-l"}));
+
+  basks.forEach(function(b,i){
+    var x=padL+i*(bw+gap), v=vals[i];
+    var isNow = Math.abs(b-st.aov)<2.5;
+    if(v===null){
+      var t=el("text",{x:x+bw/2,y:padT+plotH-8,class:"axis-t","text-anchor":"middle",
+        fill:css("--bad")}); t.textContent="loss"; svg.appendChild(t);
+    } else {
+      var h=Math.max(2,(v/maxV)*plotH);
+      var r=el("rect",{x:x, y:padT+plotH-h, width:bw, height:h, rx:3,
+        fill: isNow?css("--s3"):css("--s2"), "fill-opacity": isNow?1:0.78});
+      svg.appendChild(r);
+      (function(b,v,r){
+        r.addEventListener("mouseenter",function(){
+          var bb=r.getBoundingClientRect();
+          showTip(bb.left+bb.width/2, bb.top,
+            '<div class="tip-h">£'+b+' basket</div>'+
+            '<div class="tip-r"><span>orders/day</span><span>'+v.toFixed(1)+'</span></div>'+
+            '<div class="tip-r"><span>orders/yr</span><span>'+Math.round(v*365).toLocaleString("en-GB")+'</span></div>');
+        });
+        r.addEventListener("mouseleave",hideTip);
+      })(b,v,r);
+      if(isNow || i%2===0){
+        var vt=el("text",{x:x+bw/2, y:padT+plotH-h-7, class:"mark-lbl","text-anchor":"middle",
+          fill: isNow?css("--ink"):css("--muted")});
+        vt.textContent=v.toFixed(1); svg.appendChild(vt);
+      }
+    }
+    var lt=el("text",{x:x+bw/2, y:padT+plotH+16, class:"axis-t","text-anchor":"middle",
+      fill: isNow?css("--ink"):css("--faint")});
+    lt.textContent="£"+b; svg.appendChild(lt);
+  });
+  var cap=el("text",{x:padL, y:H-8, class:"axis-t"});
+  cap.textContent="average basket →"; svg.appendChild(cap);
+}
+
+function updateSolver(){
+  var st=solverState();
+  document.getElementById("v-aov").textContent="£"+st.aov;
+  document.getElementById("v-aov2").textContent="£"+st.aov;
+  document.getElementById("v-own").textContent=Math.round(st.owned*100)+"%";
+  document.getElementById("v-roas").textContent=st.roas.toFixed(1)+"×";
+
+  var c=contribution(st.aov, st.owned, st.roas);
+  var ppo=c.profit;
+  var vd=document.getElementById("v-verdict");
+
+  if(ppo<=0.5){
+    document.getElementById("v-perday").textContent="—";
+    document.getElementById("v-orders").textContent="—";
+    document.getElementById("v-rev").textContent="—";
+    document.getElementById("v-ppo").textContent=gbp(ppo,2);
+    vd.innerHTML="<b>No number of orders reaches £100k here.</b> At this combination each order "+
+      "makes "+gbp(ppo,2)+", so selling more only loses money faster. Raise the basket, "+
+      "raise owned traffic, or improve ROAS.";
+  } else {
+    var orders=(TARGET+FIXED_YEAR)/ppo, perday=orders/365, rev=orders*st.aov;
+    document.getElementById("v-perday").textContent=perday.toFixed(1);
+    document.getElementById("v-orders").textContent=Math.round(orders).toLocaleString("en-GB");
+    document.getElementById("v-rev").textContent="£"+Math.round(rev/1000)+"k";
+    document.getElementById("v-ppo").textContent=gbp(ppo,2);
+
+    var verdict;
+    if(perday<=6)       verdict="<b>Comfortably reachable.</b> Fewer than six orders a day is a "+
+      "one-person business that works.";
+    else if(perday<=9)  verdict="<b>Realistic, and this is the target.</b> Seven-ish orders a day "+
+      "is achievable with the kits doing the heavy lifting and email carrying half the traffic.";
+    else if(perday<=16) verdict="<b>Hard, but not impossible.</b> Double digits daily means paid "+
+      "traffic doing most of the work — and paid traffic gets more expensive as you scale.";
+    else                verdict="<b>Not a realistic plan.</b> "+perday.toFixed(0)+" orders a day at "+
+      "this basket size needs traffic volumes this niche won't profitably supply.";
+    vd.innerHTML=verdict;
+  }
+  drawWaterfall(st);
+  drawLadder(st);
+}
+[sAov,sOwn,sRoas].forEach(function(s){ s.addEventListener("input",updateSolver); });
+
+/* ================= CUMULATIVE PROFIT ================= */
+var scOn={base:true,good:true,stretch:true};
+
+function drawCum(){
+  var svg=document.getElementById("cum"); clear(svg);
+  var W=900,H=380,padL=62,padR=132,padT=18,padB=40;
+  var plotW=W-padL-padR, plotH=H-padT-padB;
+  var maxY=110000;
+  var x=function(i){ return padL + i*(plotW/(MONTHS.length-1)); };
+  var y=function(v){ return padT + plotH - (v/maxY)*plotH; };
+
+  [0,25000,50000,75000,100000].forEach(function(v){
+    svg.appendChild(el("line",{x1:padL,y1:y(v),x2:padL+plotW,y2:y(v),class:"grid-l"}));
+    var t=el("text",{x:padL-10,y:y(v)+4,class:"axis-t","text-anchor":"end"});
+    t.textContent = v===0?"£0":"£"+(v/1000)+"k"; svg.appendChild(t);
+  });
+  // target line
+  svg.appendChild(el("line",{x1:padL,y1:y(TARGET),x2:padL+plotW,y2:y(TARGET),
+    stroke:css("--ink"),"stroke-width":1.5,"stroke-dasharray":"5 4","stroke-opacity":.55}));
+  var tl=el("text",{x:padL+plotW+8,y:y(TARGET)+4,class:"axis-t",fill:css("--ink")});
+  tl.textContent="£100k target"; svg.appendChild(tl);
+
+  svg.appendChild(el("line",{x1:padL,y1:y(0),x2:padL+plotW,y2:y(0),class:"axis-l"}));
+  MONTHS.forEach(function(m,i){
+    var t=el("text",{x:x(i),y:padT+plotH+18,class:"axis-t","text-anchor":"middle",
+      fill: (m==="Nov")?css("--ink"):css("--faint")});
+    t.textContent=m; svg.appendChild(t);
+  });
+  var nov=MONTHS.indexOf("Nov");
+  svg.appendChild(el("line",{x1:x(nov),y1:padT,x2:x(nov),y2:padT+plotH,
+    stroke:css("--rule"),"stroke-width":1}));
+  var nt=el("text",{x:x(nov)+6,y:padT+11,class:"axis-t",fill:css("--faint")});
+  nt.textContent="Bonfire Night"; svg.appendChild(nt);
+
+  SCENARIOS.forEach(function(s){
+    if(!scOn[s.key]) return;
+    var col=css(s.hue);
+    var d=s.cum.map(function(v,i){ return (i?"L":"M")+x(i)+" "+y(v); }).join(" ");
+    svg.appendChild(el("path",{d:d,fill:"none",stroke:col,"stroke-width":2,
+      "stroke-linejoin":"round","stroke-linecap":"round"}));
+    // emphasized endpoint
+    var last=s.cum.length-1;
+    svg.appendChild(el("circle",{cx:x(last),cy:y(s.cum[last]),r:4.5,fill:col,
+      stroke:css("--ground"),"stroke-width":2}));
+    var lt=el("text",{x:x(last)+10,y:y(s.cum[last])+4,class:"mark-lbl",fill:col});
+    lt.textContent=s.name+" "+gbp(Math.round(s.cum[last]/1000)*1000).replace(",000","k");
+    svg.appendChild(lt);
+  });
+
+  // crosshair layer
+  var cross=el("line",{x1:0,y1:padT,x2:0,y2:padT+plotH,stroke:css("--ink"),
+    "stroke-width":1,"stroke-opacity":0,"pointer-events":"none"});
+  svg.appendChild(cross);
+  var dots=el("g",{"pointer-events":"none"}); svg.appendChild(dots);
+  var hit=el("rect",{x:padL,y:padT,width:plotW,height:plotH,fill:"transparent"});
+  svg.appendChild(hit);
+
+  hit.addEventListener("mousemove",function(e){
+    var box=svg.getBoundingClientRect();
+    var rel=(e.clientX-box.left)/box.width*W;
+    var i=Math.round((rel-padL)/(plotW/(MONTHS.length-1)));
+    i=Math.max(0,Math.min(MONTHS.length-1,i));
+    cross.setAttribute("x1",x(i)); cross.setAttribute("x2",x(i));
+    cross.setAttribute("stroke-opacity",".3");
+    clear(dots);
+    var html='<div class="tip-h">'+MONTHS[i]+(i<5?" 2026":" 2027")+'</div>';
+    SCENARIOS.forEach(function(s){
+      if(!scOn[s.key]) return;
+      var col=css(s.hue);
+      dots.appendChild(el("circle",{cx:x(i),cy:y(s.cum[i]),r:4,fill:col,
+        stroke:css("--ground"),"stroke-width":2}));
+      html+='<div class="tip-r"><span><i class="tip-d" style="background:'+col+'"></i>'+
+        s.name+'</span><span>'+gbp(s.cum[i])+'</span></div>';
+    });
+    showTip(e.clientX, e.clientY-14, html);
+  });
+  hit.addEventListener("mouseleave",function(){
+    cross.setAttribute("stroke-opacity",0); clear(dots); hideTip();
+  });
+}
+
+/* legend */
+var lg=document.getElementById("sc-legend");
+SCENARIOS.forEach(function(s){
+  var li=document.createElement("li");
+  var b=document.createElement("button");
+  b.type="button"; b.setAttribute("aria-pressed","true");
+  b.innerHTML='<span class="swatch" style="background:var('+s.hue+')"></span>'+
+    s.name+' <span style="color:var(--faint)">· '+s.sub+' · '+
+    gbp(s.totProfit)+'</span>';
+  b.addEventListener("click",function(){
+    var on=b.getAttribute("aria-pressed")==="true";
+    var count=Object.keys(scOn).filter(function(k){return scOn[k];}).length;
+    if(on && count<=1) return;
+    scOn[s.key]=!on; b.setAttribute("aria-pressed", String(!on)); drawCum();
+  });
+  li.appendChild(b); lg.appendChild(li);
+});
+
+/* scenario table */
+var scSel="good";
+var scSeg=document.getElementById("sc-seg");
+SCENARIOS.forEach(function(s){
+  var b=document.createElement("button");
+  b.type="button"; b.textContent=s.name;
+  b.setAttribute("aria-pressed", String(s.key===scSel));
+  b.addEventListener("click",function(){
+    scSel=s.key;
+    Array.prototype.forEach.call(scSeg.children,function(c){
+      c.setAttribute("aria-pressed", String(c===b)); });
+    fillScTable();
+  });
+  scSeg.appendChild(b);
+});
+function fillScTable(){
+  var s=SCENARIOS.filter(function(x){return x.key===scSel;})[0];
+  var tb=document.querySelector("#sc-table tbody"); clear(tb);
+  MONTHS.forEach(function(m,i){
+    var tr=document.createElement("tr");
+    var days=[31,30,31,30,31,31,28,31,30,31,30,31][i];
+    tr.innerHTML="<td>"+m+"</td><td>"+s.ord[i]+"</td><td>"+(s.ord[i]/days).toFixed(1)+
+      "</td><td>"+gbp(s.rev[i])+"</td><td>"+gbp(s.ads[i])+"</td><td>"+gbp(s.cum[i])+"</td>";
+    tb.appendChild(tr);
+  });
+  var tr=document.createElement("tr");
+  tr.style.borderTop="1px solid var(--rule)";
+  tr.innerHTML="<td style='font-weight:600'>Year</td><td style='font-weight:600'>"+
+    s.ord.reduce(function(a,b){return a+b;},0).toLocaleString("en-GB")+
+    "</td><td>—</td><td style='font-weight:600'>"+gbp(s.totRev)+"</td><td>"+
+    gbp(s.ads.reduce(function(a,b){return a+b;},0))+"</td><td style='font-weight:600'>"+
+    gbp(s.totProfit)+"</td>";
+  tb.appendChild(tr);
+}
+
+/* ================= SATURATION ================= */
+var satBase=3.5;
+var satSeg=document.getElementById("sat-seg");
+[2.5,3.5,4.5].forEach(function(v){
+  var b=document.createElement("button");
+  b.type="button"; b.textContent=v.toFixed(1)+"× base";
+  b.setAttribute("aria-pressed", String(v===satBase));
+  b.addEventListener("click",function(){
+    satBase=v;
+    Array.prototype.forEach.call(satSeg.children,function(c){
+      c.setAttribute("aria-pressed", String(c===b)); });
+    drawSat();
+  });
+  satSeg.appendChild(b);
+});
+
+function drawSat(){
+  var svg=document.getElementById("sat"); clear(svg);
+  var W=640,H=300,padL=48,padR=20,padT=16,padB=44;
+  var plotW=W-padL-padR, plotH=H-padT-padB;
+  var maxX=20000, maxY=5;
+  var x=function(v){ return padL + (v/maxX)*plotW; };
+  var y=function(v){ return padT + plotH - (v/maxY)*plotH; };
+
+  [1,2,3,4,5].forEach(function(v){
+    svg.appendChild(el("line",{x1:padL,y1:y(v),x2:padL+plotW,y2:y(v),class:"grid-l"}));
+    var t=el("text",{x:padL-9,y:y(v)+4,class:"axis-t","text-anchor":"end"});
+    t.textContent=v+"×"; svg.appendChild(t);
+  });
+  // breakeven-ish reference
+  svg.appendChild(el("line",{x1:padL,y1:y(2),x2:padL+plotW,y2:y(2),
+    stroke:css("--bad"),"stroke-width":1.5,"stroke-dasharray":"4 4","stroke-opacity":.6}));
+  var bt=el("text",{x:padL+8,y:y(2)+18,class:"axis-t",fill:css("--bad")});
+  bt.textContent="2× — below here, paid growth stops paying"; svg.appendChild(bt);
+
+  svg.appendChild(el("line",{x1:padL,y1:y(0),x2:padL+plotW,y2:y(0),class:"axis-l"}));
+  [0,5000,10000,15000,20000].forEach(function(v){
+    var t=el("text",{x:x(v),y:padT+plotH+18,class:"axis-t","text-anchor":"middle"});
+    t.textContent = v===0?"£0":"£"+(v/1000)+"k"; svg.appendChild(t);
+  });
+  var xl=el("text",{x:padL,y:H-8,class:"axis-t"});
+  xl.textContent="monthly ad spend →"; svg.appendChild(xl);
+
+  // shaded sweet spot 6–8k
+  svg.appendChild(el("rect",{x:x(6000),y:padT,width:x(8000)-x(6000),height:plotH,
+    fill:css("--s1"),"fill-opacity":.08}));
+  var st=el("text",{x:(x(6000)+x(8000))/2,y:padT+13,class:"axis-t","text-anchor":"middle",
+    fill:css("--muted")}); st.textContent="ceiling"; svg.appendChild(st);
+
+  var pts=[];
+  for(var s=200;s<=maxX;s+=200){ pts.push([s, satBase*saturation(s)]); }
+  var d=pts.map(function(p,i){ return (i?"L":"M")+x(p[0])+" "+y(p[1]); }).join(" ");
+  var area=d+" L"+x(maxX)+" "+y(0)+" L"+x(200)+" "+y(0)+" Z";
+  svg.appendChild(el("path",{d:area,fill:css("--s2"),"fill-opacity":.10}));
+  svg.appendChild(el("path",{d:d,fill:"none",stroke:css("--s2"),"stroke-width":2,
+    "stroke-linecap":"round"}));
+
+  // labelled markers
+  [600,3000,6000,14000,20000].forEach(function(sp){
+    var v=satBase*saturation(sp);
+    svg.appendChild(el("circle",{cx:x(sp),cy:y(v),r:4,fill:css("--s2"),
+      stroke:css("--ground"),"stroke-width":2}));
+    var above = sp < 10000;   // past 10k the 2x reference line sits just above the curve
+    var t=el("text",{x:x(sp), y:y(v)+(above?-11:19), class:"mark-lbl",
+      "text-anchor": sp>=20000?"end":"middle"});
+    t.textContent=v.toFixed(2)+"×"; svg.appendChild(t);
+  });
+
+  var hit=el("rect",{x:padL,y:padT,width:plotW,height:plotH,fill:"transparent"});
+  svg.appendChild(hit);
+  hit.addEventListener("mousemove",function(e){
+    var box=svg.getBoundingClientRect();
+    var sp=Math.max(200,Math.min(maxX,((e.clientX-box.left)/box.width*W - padL)/plotW*maxX));
+    var v=satBase*saturation(sp);
+    showTip(e.clientX, e.clientY-14,
+      '<div class="tip-h">'+gbp(Math.round(sp/100)*100)+' a month</div>'+
+      '<div class="tip-r"><span>effective ROAS</span><span>'+v.toFixed(2)+'×</span></div>'+
+      '<div class="tip-r"><span>revenue back</span><span>'+gbp(Math.round(sp*v))+'</span></div>');
+  });
+  hit.addEventListener("mouseleave",hideTip);
+}
+
+/* ================= PRODUCTS ================= */
+var split=false;
+var ptSeg=document.getElementById("pt-seg");
+[["One parcel",false],["Split parcels",true]].forEach(function(o){
+  var b=document.createElement("button");
+  b.type="button"; b.textContent=o[0];
+  b.setAttribute("aria-pressed", String(o[1]===split));
+  b.addEventListener("click",function(){
+    split=o[1];
+    Array.prototype.forEach.call(ptSeg.children,function(c){
+      c.setAttribute("aria-pressed", String(c===b)); });
+    drawProducts(); fillProdTable();
+  });
+  ptSeg.appendChild(b);
+});
+
+function drawProducts(){
+  var svg=document.getElementById("prod"); clear(svg);
+  var rows=PRODUCTS.map(function(p){
+    var base=unitEcon(p,false), now=unitEcon(p,split);
+    return {n:p[0], kind:p[3], base:base.contrib, now:now.contrib,
+            price:p[1], parcels:now.parcels};
+  }).sort(function(a,b){ return b.base-a.base; });
+
+  var W=900, rowH=23, padL=196, padR=64, padT=6;
+  var H=padT + rows.length*rowH + 26;
+  svg.setAttribute("viewBox","0 0 "+W+" "+H);
+  var plotW=W-padL-padR;
+  var maxV=Math.max.apply(null, rows.map(function(r){return r.base;}));
+  var x=function(v){ return (v/maxV)*plotW; };
+
+  [0,20,40,60,80].forEach(function(v){
+    if(v>maxV) return;
+    svg.appendChild(el("line",{x1:padL+x(v),y1:padT,x2:padL+x(v),y2:padT+rows.length*rowH,
+      class:"grid-l"}));
+    var t=el("text",{x:padL+x(v),y:padT+rows.length*rowH+16,class:"axis-t","text-anchor":"middle"});
+    t.textContent="£"+v; svg.appendChild(t);
+  });
+
+  rows.forEach(function(r,i){
+    var yy=padT+i*rowH, bh=15, col=css(r.kind==="bundle"?"--s1":"--s2");
+    var lbl=el("text",{x:padL-12, y:yy+bh-2.5, class:"bar-name","text-anchor":"end",
+      fill: r.kind==="bundle"?css("--ink"):css("--ink-2")});
+    lbl.textContent=r.n; svg.appendChild(lbl);
+
+    // the kept portion
+    svg.appendChild(el("rect",{x:padL, y:yy, width:Math.max(1,x(r.now)), height:bh,
+      fill:col, rx:3}));
+    // the lost portion, with a 2px gap
+    if(r.now < r.base-0.01){
+      var lx=padL+x(r.now)+2, lw=Math.max(1, x(r.base)-x(r.now)-2);
+      svg.appendChild(el("rect",{x:lx, y:yy, width:lw, height:bh,
+        fill:css("--s3"), "fill-opacity":.5, rx:3}));
+    }
+    var vt=el("text",{x:padL+x(r.base)+9, y:yy+bh-2.5, class:"mark-lbl",
+      fill: r.now<r.base-0.01?css("--s3"):css("--muted")});
+    vt.textContent="£"+r.now.toFixed(2)+(r.now<r.base-0.01?" ↓":"");
+    svg.appendChild(vt);
+
+    var hit=el("rect",{x:0,y:yy-3,width:W,height:rowH,fill:"transparent"});
+    (function(r,hit){
+      hit.addEventListener("mouseenter",function(e){
+        var html='<div class="tip-h">'+r.n+'</div>'+
+          '<div class="tip-r"><span>price</span><span>£'+r.price.toFixed(2)+'</span></div>'+
+          '<div class="tip-r"><span>you keep</span><span>£'+r.now.toFixed(2)+'</span></div>';
+        if(r.now<r.base-0.01){
+          html+='<div class="tip-r"><span style="color:var(--s3)">lost to '+r.parcels+
+            ' parcels</span><span style="color:var(--s3)">−£'+(r.base-r.now).toFixed(2)+'</span></div>';
+        }
+        showTip(e.clientX, e.clientY-14, html);
+      });
+      hit.addEventListener("mousemove",function(e){ showTip(e.clientX, e.clientY-14, tip.innerHTML); });
+      hit.addEventListener("mouseleave",hideTip);
+    })(r,hit);
+    svg.appendChild(hit);
+  });
+}
+
+function fillProdTable(){
+  var tb=document.querySelector("#prod-table tbody"); clear(tb);
+  PRODUCTS.map(function(p){ return unitEcon(p,split); })
+    .sort(function(a,b){ return b.contrib-a.contrib; })
+    .forEach(function(u){
+      var tr=document.createElement("tr");
+      tr.innerHTML="<td>"+u.name+(u.kind==="bundle"?
+        ' <span style="color:var(--s1);font-family:var(--mono);font-size:10px;letter-spacing:.08em">BUNDLE</span>':"")+
+        "</td><td>£"+u.price.toFixed(2)+"</td><td>£"+u.landed.toFixed(2)+
+        "</td><td>£"+u.gross.toFixed(2)+"</td><td>"+u.grossPct.toFixed(1)+
+        "%</td><td>£"+u.contrib.toFixed(2)+"</td><td>"+u.contribPct.toFixed(1)+"%</td>";
+      tb.appendChild(tr);
+    });
+}
+
+/* ================= SCORECARD ================= */
+var SCORE=[
+ ["Orders per day","7+","7-day rolling average, Shopify home","falling two weeks running",false],
+ ["Average basket","£80","Shopify → Reports","below £65",true],
+ ["Conversion rate","2.5%","Shopify → Reports","below 1.5%",false],
+ ["Owned-traffic share","50%","GA4: email + organic + direct ÷ all","below 30%",true],
+ ["Revenue ÷ ad spend","3.5×","your own maths, blended","below 2.5×",false]
+];
+var sc=document.getElementById("score");
+SCORE.forEach(function(r){
+  var d=document.createElement("div"); d.className="score-c";
+  d.innerHTML='<div class="score-k">'+r[0]+'</div>'+
+    '<div class="score-t num">'+r[1]+'</div>'+
+    '<div class="score-w">'+r[2]+'</div>'+
+    '<div class="score-w" style="color:var(--bad)">Red flag: '+r[3]+'</div>'+
+    '<span class="pill '+(r[4]?"p-key":"p-sec")+'">'+(r[4]?"decisive":"watch")+'</span>';
+  sc.appendChild(d);
+});
+
+/* ================= ASSUMPTIONS ================= */
+var ASSUMP=[
+ ["UK pet-care ecommerce conversion rate","2.70%","High · IRP Commerce, Jun 2026"],
+ ["UK pet-care average order value","£85.50–£100.87","High · IRP Commerce"],
+ ["Meta UK CPM (feed)","£7.50–£14","Medium · 2026 benchmarks"],
+ ["Q4 cost-per-click inflation","+30–50%","High"],
+ ["Median Meta ROAS across 35,000 brands","1.86×","High"],
+ ["UK dogs with firework fear","41% · 4.1m dogs","High · PDSA PAW Report"],
+ ["Email share of ecommerce revenue","38–45%","Medium · Klaviyo 2026"],
+ ["Cart-abandonment recovery","8–12%","Medium · Klaviyo 2026"],
+ ["CJ transit, China → UK","7–17 days","High · CJ documentation"],
+ ["CJ transit, GB warehouse","3–7 working days","High · CJ documentation"],
+ ["Blended gross margin","70%","Medium · derived"],
+ ["Refund / breakage provision","5% of revenue","Medium · industry-typical"],
+ ["Product landed costs","see table above","ESTIMATE — owner must verify"],
+ ["Ad saturation curve","k = 0.22 at £3,000","Low — challenge this"]
+];
+var at=document.querySelector("#assump tbody");
+ASSUMP.forEach(function(r){
+  var tr=document.createElement("tr");
+  var low=/ESTIMATE|Low/.test(r[2]);
+  tr.innerHTML="<td>"+r[0]+"</td><td>"+r[1]+"</td><td style='text-align:left;color:"+
+    (low?"var(--bad)":"var(--muted)")+"'>"+r[2]+"</td>";
+  at.appendChild(tr);
+});
+
+/* ================= INIT ================= */
+function renderAll(){ updateSolver(); drawCum(); drawSat(); drawProducts(); }
+renderAll(); fillScTable(); fillProdTable();
+
+// redraw on theme change so CSS-variable colours are re-read
+if(window.matchMedia){
+  var mq=window.matchMedia("(prefers-color-scheme: dark)");
+  if(mq.addEventListener) mq.addEventListener("change", renderAll);
+}
+new MutationObserver(renderAll).observe(document.documentElement,
+  {attributes:true, attributeFilter:["data-theme"]});
+window.addEventListener("resize", function(){ hideTip(); });
+})();
+</script>
