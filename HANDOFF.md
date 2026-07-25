@@ -293,3 +293,30 @@ What exists and works now:
 - **2026-07-16 — Session 1 (initial build).** Custom Horizon-layered theme:
   homepage sections, PDP, collections, legal pages, footer menu repair, continuous
   category marquee, product trust panel, free-ship bar.
+
+- **2026-07-25 — Overnight growth + CRO session.** Owner goal set: **£100k net profit
+  in ~12 months**, anchored to Bonfire Night (5 Nov 2026). Added `growth/` —
+  `GROWTH-PLAN.md` (unit economics for all 24 SKUs, a **bundle parcel-shipping trap
+  worth £14–28k/yr**, three 12-month simulations with UK dog-anxiety seasonality, and
+  a solver showing £100k needs ~2,600 orders at ~£80 AOV, i.e. ~7/day),
+  `dog-nook-model.xlsx` (live model), `model.py`, `marketing/LAUNCH-KIT.md`,
+  `content/SEO-PLAN-AND-ARTICLES.md` (5 publish-ready articles),
+  `OPS-RISK-AND-MEASUREMENT.md`, and `START-HERE.md` at the repo root.
+  **Key strategic finding: AOV and owned-traffic share decide the outcome; ad ROAS
+  saturates around £6–8k/month, so more budget does not fix it.**
+  Theme: fixed 4 real bugs (PDP gallery srcset, collections-index `.count` vs `.size`,
+  featured-bundle product lookup, PDP short-description gate) and added CRO wave 2 —
+  `dog-nook-bundle-upsell`, `dog-nook-quiz` (+`-steps`, `dog-nook-quiz.js`,
+  `dog-nook-cro3.css`), `dog-nook-specs`, `dog-nook-jsonld`, `dog-nook-countdown`,
+  `dog-nook-pdp-gallery`, `dog-nook-gallery.js`, `dog-nook-cro2.css`.
+  ⚠️ **NOT YET DEPLOYED to the draft theme** — session capacity ran out and a partial
+  upload would break the draft, because `dog-nook-head.liquid` renders the new
+  snippets. **Deploy order: snippets → assets → sections → `dog-nook-head.liquid`
+  LAST.** Files: snippets `dog-nook-jsonld`, `dog-nook-specs`, `dog-nook-bundle-upsell`,
+  `dog-nook-pdp-gallery`, `dog-nook-quiz-steps`; assets `dog-nook-cro2.css`,
+  `dog-nook-cro3.css`, `dog-nook-gallery.js`, `dog-nook-quiz.js`; sections
+  `dog-nook-product`, `dog-nook-quiz`, `dog-nook-countdown`, `dog-nook-featured-bundle`,
+  `dog-nook-collections-index`; then `snippets/dog-nook-head`. `dog-nook.js` and
+  `dog-nook.css` are UNCHANGED — do not redeploy them. All files verified under the
+  base64 size limit. Declined to build fake urgency/scarcity or invented compare-at
+  prices (DMCC 2024 / Meta policy); built real-deadline equivalents instead.
