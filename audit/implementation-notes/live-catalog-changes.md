@@ -28,7 +28,14 @@ All on the shared live store; **everything DRAFT/unpublished — nothing custome
 storefront until member products go ACTIVE.
 
 **Before anything goes ACTIVE:** owner sources (real cost + neutral packaging), fills {VERIFY} specs, adds real photos.
-**Pending:** Theme B (`193438056731`) homepage wiring — relabel renamed bundles; feature the flagship once photographed.
+
+**Theme B homepage relabel — DONE** (`templates/index.json` on theme `193438056731`, unpublished):
+- Hero button "Shop the Rescue Bundle" → "Shop the First Days Kit"
+- Category-bar pill "The Rescue Bundle" → "The First Days Kit"
+- Featured-bundle heading "The New Rescue Bundle" → "The First Days Kit"
+- URLs/handles unchanged (`/products/the-new-rescue-bundle-1`); verified byte-identical (9902 B) after upsert.
+
+**Still pending (deferred until photos):** feature the flagship Complete Calm System in the homepage hero/premium slot.
 
 ---
 
