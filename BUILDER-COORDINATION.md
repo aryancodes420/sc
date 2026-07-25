@@ -37,6 +37,12 @@ each other — hence this doc.
 ---
 
 ## 📋 Open items (single source of truth — update as these close)
+- [ ] **🚀 DEPLOY CRO wave 2 to the draft theme** — 15 files written, committed and
+  pushed on `claude/dog-nook-files-review-6w9kwr` but **not deployed**. The previous
+  session ran unattended and hit `requires approval` on `themeFilesUpsert`.
+  **Full self-contained brief: `DEPLOY-ME.md` at the repo root.** Order matters
+  (snippets → assets → sections → `dog-nook-head.liquid` LAST). Theme-file work only,
+  no catalogue edits, so it does not collide with anyone's catalogue work.
 - [x] **Retire A's `Rescue Essentials` collection** — ✅ **done** (confirmed deleted in the
   live store 2026-07-20; consolidated to B's "Settling a New Rescue").
 - [x] **Fireworks & Storms handle** → `fireworks-storms` — ✅ **done** (confirmed).
@@ -121,6 +127,7 @@ All created **DRAFT** on purpose (unsourced products; owner activates after sour
 | Session / branch | Working on | Since | Status |
 |---|---|---|---|
 | `claude/dog-book-product-analysis-ervhl9` | Range expansion (drafts) + coordination doc | 2026-07-20 | done, awaiting owner sourcing |
+| `claude/dog-nook-files-review-6w9kwr` | Growth model + CRO wave 2 (theme files only, no catalogue edits) | 2026-07-25 | **code done, DEPLOY OUTSTANDING — see `DEPLOY-ME.md`** |
 | _(other builder — please add yourself + your branch here)_ | Settle-In bundle, WELCOME10, theme CSS | 2026-07-20 | live |
 
 ---
