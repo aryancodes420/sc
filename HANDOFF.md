@@ -289,11 +289,14 @@ What exists and works now:
      left unset (snippet no-ops, no empty block). Each mapping is truthful ("X is
      part of Y").
   3. **Bonfire Night countdown** — added `countdown` (`dog-nook-countdown`) to
-     `index.json` (after `hero`) but **`enabled: false`, no cutoff set**. Per the
-     brief, the date must come from real CJ transit times (GB-warehouse default
-     24 Oct vs China ~15 Oct); setting a date fulfilment can't meet is the exact
-     failure this section prevents. **Owner action:** confirm transit times → set
-     `cutoff` + tick "Show the countdown" in the theme editor.
+     `index.json` (after `hero`). Owner confirmed the fireworks SKUs ship **China
+     direct / CJ (7–17 days)**, so `cutoff` is set to **`2026-10-15`** (not the
+     GB-warehouse default of 24 Oct) and the heading updated to match. Kept
+     **`enabled: false`** for now: the fireworks SKUs are still DRAFT, so enabling
+     it would promote a Bonfire Night deadline with no purchasable fireworks
+     products, and in July it is ~3 months early. **Owner action:** once the
+     fireworks range is active (aim early October), tick "Show the countdown" in
+     the theme editor and point its button at the live fireworks product/collection.
   `index.json` redeployed to `193438056731` and checksum-verified
   (`02ad221750e242634b8127ed99be68d5`, 12,123 B); repo file synced to match.
   `dog-nook.js` / `dog-nook-cro.css` untouched (asset drift in §2 left for the owner

@@ -6,7 +6,7 @@ Activated the 3 inert wave-2 features (see `DEPLOY-ME.md` / `HANDOFF.md` §10).
 **Theme edit — `templates/index.json`** (redeployed, checksum `02ad221750e242634b8127ed99be68d5`, 12,123 B; repo synced):
 - Added `quiz` (`dog-nook-quiz`) after `why`; 5 answer blocks → ACTIVE products:
   🎆 `lick-mat-1` · 🏠 `the-settle-in-bundle` · 🚪 `snuffle-mat-medium-1` · 🍽️ `slow-feeder-bowl-1` · ✂️ `grooming-glove-1`.
-- Added `countdown` (`dog-nook-countdown`) after `hero`, **`enabled:false`, no cutoff** — awaits owner's real CJ transit times.
+- Added `countdown` (`dog-nook-countdown`) after `hero`. Owner confirmed **China/CJ shipping** → `cutoff` set to **`2026-10-15`** + heading updated. Kept **`enabled:false`** (fireworks SKUs still DRAFT + 3 months early); owner ticks "Show the countdown" once the fireworks range is active. (Redeploy checksum `339b431158a04fd8dc2576528726de72`.)
 
 **Metafields — `custom.bundle_handle` (single_line_text_field)** for the PDP bundle upsell:
 | Product | GID | value |

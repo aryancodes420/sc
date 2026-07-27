@@ -32,7 +32,9 @@
     "countdown": {
       "type": "dog-nook-countdown",
       "settings": {
-        "enabled": false
+        "enabled": false,
+        "cutoff": "2026-10-15",
+        "heading": "Order by 15 October to have them ready for the 5th"
       }
     },
     "catbar": {
