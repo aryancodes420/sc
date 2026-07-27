@@ -11,10 +11,17 @@ Activated the 3 inert wave-2 features (see `DEPLOY-ME.md` / `HANDOFF.md` §10).
 **Metafields — `custom.bundle_handle` (single_line_text_field)** for the PDP bundle upsell:
 | Product | GID | value |
 |---|---|---|
-| The Lick Mat | 10311314768155 | `the-settle-in-bundle` |
-| The Snuffle Mat | 10311317258523 | `the-settle-in-bundle` |
+| The Lick Mat | 10311314768155 | `the-new-rescue-bundle-1` |
+| The Snuffle Mat | 10311317258523 | `the-new-rescue-bundle-1` |
 | The Calming Donut Bed | 10311318274331 | `the-settle-in-bundle` |
 | The Slow-Feeder Bowl | 10311321518363 | `the-new-rescue-bundle-1` |
+
+**Ladder rationale (updated 2026-07-27):** mats + feeder → First Days Kit (£34.99, believable
+jump from ~£12–15 items) rather than jumping straight to the £64.99 Settle-In. Bed → Settle-In
+(bed is £59.99, so the full kit is a genuine +£5 near-jump). This is rung 1 of an intended AOV
+ladder (single → entry bundle → premium → flagship). Bundle→bundle upsell is NOT yet wired —
+the upsell snippet renders only on the `dog-nook-product` PDP template, not the `dog-nook-bundle`
+template — so the on-site push currently stops at the first bundle. See strategy note.
 
 Grooming Glove / Nail Grinder / Car Boot Liner left unset (in no active bundle; snippet no-ops).
 `dog-nook.js` / `dog-nook-cro.css` untouched. Live `193140818203` never touched. Not visually verified (firewall).
