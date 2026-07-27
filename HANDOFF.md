@@ -272,6 +272,33 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-27 — Wired up CRO wave 2 on the working-copy draft (`193438056731`).**
+  The 3 activation steps from `DEPLOY-ME.md` are done (2 of 3 fully; countdown
+  intentionally left inert pending owner input):
+  1. **Calm-kit quiz** — added `quiz` (`dog-nook-quiz`) to `templates/index.json`,
+     placed after `why`. Its 5 answer blocks point at real **ACTIVE** products:
+     Fireworks→Lick Mat · Just adopted→Settle-In Bundle · Left alone→Snuffle Mat ·
+     Mealtimes→Slow-Feeder Bowl · Grooming→Grooming Glove. The draft Fireworks SKUs
+     were deliberately avoided — a `product` setting pointing at an unpublished
+     product renders a blank result card on the storefront.
+  2. **PDP bundle upsell** — set `custom.bundle_handle` on Lick Mat, Snuffle Mat and
+     Donut Bed → `the-settle-in-bundle`; Slow-Feeder Bowl → `the-new-rescue-bundle-1`
+     (First Days Kit — the only active bundle containing it). Both bundles are ACTIVE
+     with `inventoryPolicy: CONTINUE`, so `bundle.available` is true and the snippet
+     renders. Grooming Glove / Nail Grinder / Car Boot Liner are in no active bundle →
+     left unset (snippet no-ops, no empty block). Each mapping is truthful ("X is
+     part of Y").
+  3. **Bonfire Night countdown** — added `countdown` (`dog-nook-countdown`) to
+     `index.json` (after `hero`) but **`enabled: false`, no cutoff set**. Per the
+     brief, the date must come from real CJ transit times (GB-warehouse default
+     24 Oct vs China ~15 Oct); setting a date fulfilment can't meet is the exact
+     failure this section prevents. **Owner action:** confirm transit times → set
+     `cutoff` + tick "Show the countdown" in the theme editor.
+  `index.json` redeployed to `193438056731` and checksum-verified
+  (`02ad221750e242634b8127ed99be68d5`, 12,123 B); repo file synced to match.
+  `dog-nook.js` / `dog-nook-cro.css` untouched (asset drift in §2 left for the owner
+  to resolve). Live `193140818203` and abandoned `193158119707` never touched.
+  Not visually verified (firewall) — owner to click through the preview.
 - **2026-07-25 — Deployed CRO wave 2 (15 files) to the draft theme.** Everything
   listed in `DEPLOY-ME.md` is now on `193158119707` and checksum-verified: 5 new
   snippets (jsonld, specs, bundle-upsell, pdp-gallery, quiz-steps), 4 assets

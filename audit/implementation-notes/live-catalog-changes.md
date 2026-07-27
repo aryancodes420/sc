@@ -1,3 +1,26 @@
+# Live catalogue changes (Shopify Admin API)
+
+## 2026-07-27 — CRO wave 2 wiring (draft theme `193438056731`)
+Activated the 3 inert wave-2 features (see `DEPLOY-ME.md` / `HANDOFF.md` §10).
+
+**Theme edit — `templates/index.json`** (redeployed, checksum `02ad221750e242634b8127ed99be68d5`, 12,123 B; repo synced):
+- Added `quiz` (`dog-nook-quiz`) after `why`; 5 answer blocks → ACTIVE products:
+  🎆 `lick-mat-1` · 🏠 `the-settle-in-bundle` · 🚪 `snuffle-mat-medium-1` · 🍽️ `slow-feeder-bowl-1` · ✂️ `grooming-glove-1`.
+- Added `countdown` (`dog-nook-countdown`) after `hero`, **`enabled:false`, no cutoff** — awaits owner's real CJ transit times.
+
+**Metafields — `custom.bundle_handle` (single_line_text_field)** for the PDP bundle upsell:
+| Product | GID | value |
+|---|---|---|
+| The Lick Mat | 10311314768155 | `the-settle-in-bundle` |
+| The Snuffle Mat | 10311317258523 | `the-settle-in-bundle` |
+| The Calming Donut Bed | 10311318274331 | `the-settle-in-bundle` |
+| The Slow-Feeder Bowl | 10311321518363 | `the-new-rescue-bundle-1` |
+
+Grooming Glove / Nail Grinder / Car Boot Liner left unset (in no active bundle; snippet no-ops).
+`dog-nook.js` / `dog-nook-cro.css` untouched. Live `193140818203` never touched. Not visually verified (firewall).
+
+---
+
 # Live catalogue changes (Shopify Admin API) — 2026-07-16
 
 ---
