@@ -37,6 +37,14 @@ storefront until member products go ACTIVE.
 
 **Still pending (deferred until photos):** feature the flagship Complete Calm System in the homepage hero/premium slot.
 
+## 2026-07-27 — Footer/pages audit + fixes
+- **Footer menu relabel:** `footer-explore` menu item "The Rescue Bundle" → **"The First Days Kit"** (MenuItem 816184656155; url `/products/the-new-rescue-bundle-1` unchanged). Matches the homepage relabel.
+- **Audited all footer-linked pages** (Shop, Collections, About, Contact, FAQ, Shipping, Refund & Returns, Terms, Privacy, Cookie). All published; content accurate + consistent (free over £35, 30-day guarantee, 14-day CCR right, UK-only, hello@thedognook.co.uk). About/FAQ/Contact/Shop are template-driven (`page.about/faq/contact/shop`), not blank.
+- **Flagged for owner:**
+  1. Native Shopify policies unset except Privacy — Refund/Shipping/Terms exist only as custom `/pages/`. Checkout + order emails link the *native* policies (blank). Recommend pasting copy into Settings → Policies. (Copy drafted for owner.)
+  2. "Car Boot Liner ships same-day from our UK warehouse" (Shipping page + FAQ f1/f2) — product exists + ACTIVE, but same-day/UK-stock fulfilment claim needs owner confirmation.
+  3. Refund & Shipping links appear in both Help + Legal footer columns (harmless dup).
+
 ---
 
 # Live catalogue changes (Shopify Admin API) — 2026-07-16
