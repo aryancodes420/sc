@@ -123,6 +123,19 @@ invalid characters`). A 19 KB file failed twice in a row. Rules:
 - **`WebSearch` works** (routes through Anthropic infra, not the blocked proxy).
   Use it for competitor/market research — it returns real, current snippets even
   though direct `WebFetch` of those sites 403s (Cloudflare + firewall).
+  ⚠️ **But `WebSearch` is documented US-only.** It cannot produce a UK top-10.
+  For any UK-ranking question (which is all of `RESEARCH-BRIEF-SEO.md`) its
+  output is a US-skewed approximation with no volume or difficulty data —
+  usable for "who is in this space", never as UK SERP evidence. Mark it
+  `[SERP-US]`, not `[Obs]`.
+- **"Almost any site" is in practice *every* site.** A 2026-07-27 sweep found no
+  reachable host at all: competitors, charities (dogstrust, pdsa), `google.com`,
+  `reddit.com`, `example.com` and `thedognook.co.uk` itself all fail with
+  `CONNECT tunnel failed, response 403`. Confirm with
+  `curl -sS "$HTTPS_PROXY/__agentproxy/status"`, which logs each denial as
+  `connect_rejected — gateway answered 403 (policy denial)`. This is the
+  environment's egress policy; per `/root/.ccr/README.md` it must be reported,
+  not routed around.
 - **PDF reading:** `pdftoppm` isn't installed; use `pypdf` in Python. If you hit
   `_cffi_backend` errors, `pip install --force-reinstall cffi` fixes it.
 
@@ -249,6 +262,24 @@ What exists and works now:
 ---
 
 ## 10. Changelog
+
+- **2026-07-27 — Ran `RESEARCH-BRIEF-SEO.md` §0. Gate FAILED; research not
+  started.** Both gate URLs returned `curl: (56) CONNECT tunnel failed, response
+  403`; the proxy logged each as `connect_rejected — gateway answered 403 to
+  CONNECT (policy denial)`. A wider sweep of 11 hosts found **zero** reachable,
+  including `google.com`, `reddit.com`, `example.com` and `thedognook.co.uk` —
+  so this is a blanket egress policy, not competitor-side blocking. `WebFetch`
+  403s identically. `WebSearch` works but is **US-only**, which cannot answer a
+  brief written entirely around UK top-10 rankings (see §4).
+  Job impact: **B impossible** (it is defined as opening every competitor —
+  source, schema, word counts, pricing); **D mostly impossible** (cannot reach
+  ChatGPT/Perplexity/Gemini, nor any `robots.txt`); **A and C partial**; **E
+  weak**. Per §0, **no research artifacts were produced** — deliberately, to
+  avoid a third blind teardown. Nothing under `growth/content/` was touched.
+  **Owner's decision: widen the environment network policy and re-run from §0.**
+  Note for whoever sets that policy: a fixed allowlist conflicts with Job B's
+  "find the competitors nobody has named yet", which by definition needs domains
+  that cannot be listed in advance.
 
 - **2026-07-25 — Deployed CRO wave 2 (15 files) to the draft theme.** Everything
   listed in `DEPLOY-ME.md` is now on `193158119707` and checksum-verified: 5 new
