@@ -13,6 +13,8 @@
   </section>
 </div>
 
+{% render 'dog-nook-jsonld', faq_blocks: section.blocks %}
+
 {% stylesheet %}
   .tdn-faq { max-width: 760px; margin: 0 auto; padding: 64px var(--tdn-side-pad); }
   @media (max-width: 760px) { .tdn-faq { padding: 44px var(--tdn-side-pad); } }

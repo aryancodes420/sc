@@ -17,6 +17,44 @@
   assign logo = 'https://cdn.shopify.com/s/files/1/1036/5452/3163/files/dn-main.png?width=512'
 -%}
 
+{%- comment -%}
+  ---- FAQPage mode ----
+  Called with an explicit Q/A list by the section that owns that content:
+    {% render 'dog-nook-jsonld', faq_blocks: section.blocks %}  FAQ page / collection notes
+    {% render 'dog-nook-jsonld', faq_items: faq_items %}        product metafield custom.faq
+
+  It is called from the section and not from dog-nook-head because a head-level
+  snippet cannot see another section's blocks. Emitting it beside the visible
+  accordions also keeps the markup and the on-page wording in step — Google
+  requires FAQ structured data to match text the visitor can actually read.
+
+  Accepts either shape: blocks expose .settings.q/.a, metafield rows expose .q/.a.
+  Emits nothing at all when no complete question/answer pair exists, so an empty
+  or half-filled section never produces invalid markup.
+{%- endcomment -%}
+{%- assign faq_src = faq_blocks | default: faq_items -%}
+{%- if faq_src != blank -%}
+  {%- assign faq_n = 0 -%}
+  {%- capture faq_entries -%}
+    {%- for fitem in faq_src -%}
+      {%- assign fq = fitem.settings.q | default: fitem.q -%}
+      {%- assign fa = fitem.settings.a | default: fitem.a -%}
+      {%- if fq != blank and fa != blank -%}
+        {%- if faq_n > 0 -%},{%- endif -%}
+        {"@type":"Question","name":{{ fq | strip_html | json }},"acceptedAnswer":{"@type":"Answer","text":{{ fa | strip_html | json }} } }
+        {%- assign faq_n = faq_n | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- if faq_n > 0 -%}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{ faq_entries }}]}
+  </script>
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} ---- page-type schema: the no-parameter call from dog-nook-head ---- {%- endcomment -%}
+{%- unless faq_src != blank -%}
 {%- if request.page_type == 'product' -%}
   {%- liquid
     assign v = product.selected_or_first_available_variant
@@ -117,3 +155,4 @@
   }
   </script>
 {%- endif -%}
+{%- endunless -%}

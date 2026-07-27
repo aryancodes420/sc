@@ -263,6 +263,38 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-27 — Built the two network-independent items from the brief's §5
+  (FAQPage schema, AI-crawler files) while the research stays blocked.**
+  `dog-nook-jsonld.liquid` gains a **FAQPage mode**: called with an explicit Q/A
+  list it emits FAQPage and nothing else; called with no parameters (the
+  `dog-nook-head` call) it behaves exactly as before. It has to work that way
+  because a head-level snippet cannot see another section's blocks. Wired into
+  the three places that hold real Q&A — `dog-nook-faq` (FAQ page),
+  `dog-nook-pdp-extra` (product: `custom.faq` metafield first, question blocks
+  second, matching whichever actually rendered) and `dog-nook-collection`
+  ("Good to know" notes). Emits nothing when no complete q+a pair exists, so a
+  half-filled section cannot produce invalid markup. Comma placement was
+  simulated against empty / all-incomplete / gapped / quote-and-newline inputs —
+  all parse as valid JSON.
+  ⚠️ `dog-nook-jsonld.liquid` is now **6,930 bytes** — at the §3 size ceiling.
+  Split it before adding any further schema type.
+  Also avoided the brace bug that broke this same file before: the closing
+  braces after the final `{{ … }}` are spaced apart, not adjacent.
+  New `templates/robots.txt.liquid` opts the AI crawlers in by name (GPTBot,
+  OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended,
+  Applebot-Extended and others), preserving `robots.default_groups` first so
+  Shopify's own protections survive; each named group repeats the private-path
+  disallows, since a named group outranks `*`.
+  **Unresolved — `llms.txt` cannot currently be served.** The content is written
+  and committed at the repo root, but Shopify themes accept only
+  assets/config/layout/locales/sections/snippets/templates, so there is no theme
+  path that serves `/llms.txt` at the domain root (an asset would serve from
+  `cdn.shopify.com`, which does not satisfy the convention). Options to test once
+  unblocked: native Shopify support, or an admin URL redirect `/llms.txt` →
+  a page. **I could not verify which is available — do not assume it is live.**
+  Nothing was deployed: the Shopify MCP server is disconnected this session, so
+  git and theme `193158119707` are now **out of sync** per §3.
+
 - **2026-07-27 — Ran `RESEARCH-BRIEF-SEO.md` §0. Gate FAILED; research not
   started.** Both gate URLs returned `curl: (56) CONNECT tunnel failed, response
   403`; the proxy logged each as `connect_rejected — gateway answered 403 to

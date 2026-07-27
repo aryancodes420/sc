@@ -50,6 +50,17 @@
       {%- endfor -%}
     {%- endif -%}
 
+    {%- comment -%}
+      FAQPage schema for whichever source rendered above, so the markup always
+      mirrors the questions actually on the page. Nothing is emitted when the
+      product has neither a custom.faq metafield nor question blocks.
+    {%- endcomment -%}
+    {%- if faq_items != blank and faq_items.size > 0 -%}
+      {% render 'dog-nook-jsonld', faq_items: faq_items %}
+    {%- elsif qblocks and qblocks.size > 0 -%}
+      {% render 'dog-nook-jsonld', faq_blocks: qblocks %}
+    {%- endif -%}
+
     {%- comment -%} Reviews — real only, never fabricated. {%- endcomment -%}
     <div id="tdn-reviews" class="tdn-pdp__reviewsblock">
       {%- assign rcount = product.metafields.reviews.rating_count.value | plus: 0 -%}

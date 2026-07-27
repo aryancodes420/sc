@@ -1,0 +1,42 @@
+{%- comment -%}
+  The Dog Nook — robots.txt
+
+  ⚠️ Adding this file makes the THEME responsible for robots.txt. Shopify's own
+  rules are preserved by looping `robots.default_groups` first and emitting them
+  unchanged — never replace that loop with hand-written rules, or you lose
+  Shopify's checkout/cart/account protections and risk de-indexing the shop.
+
+  What this file adds: explicit permission for AI answer engines. Without a named
+  group these bots fall under `User-agent: *`; naming them is what lets us opt in
+  deliberately (Google-Extended and Applebot-Extended in particular are pure
+  opt-in tokens — silence means "no"). Being quotable in ChatGPT, Claude,
+  Perplexity and AI Overviews is the fastest visibility route for a domain with
+  no authority yet, which is why this matters more than usual here.
+
+  Each AI group repeats the private-path disallows rather than only `Allow: /`,
+  because robots.txt precedence gives a named group priority over `*` — so a bare
+  Allow would invite them into /cart and /checkout.
+
+  Verify after deploying: fetch https://thedognook.co.uk/robots.txt and confirm
+  the default groups still appear above the AI section.
+{%- endcomment -%}
+{% for group in robots.default_groups %}
+{{ group.user_agent }}
+{% for rule in group.rules %}{{ rule }}
+{% endfor %}{% if group.sitemap != blank %}{{ group.sitemap }}
+{% endif %}{% endfor %}
+# ---------------------------------------------------------------
+# AI answer engines — explicitly welcome on public content.
+# Removing a line here withdraws consent for that engine.
+# ---------------------------------------------------------------
+{% assign ai_agents = 'GPTBot,OAI-SearchBot,ChatGPT-User,ClaudeBot,Claude-User,Claude-SearchBot,PerplexityBot,Perplexity-User,Google-Extended,Applebot-Extended,Amazonbot,meta-externalagent,CCBot' | split: ',' %}
+{% for agent in ai_agents %}User-agent: {{ agent }}
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Disallow: /orders
+Disallow: /account
+Disallow: /search
+Allow: /
+
+{% endfor %}Sitemap: {{ shop.url }}/sitemap.xml
