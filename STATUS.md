@@ -30,6 +30,23 @@ Everything else is built, priced, wired and verified. Zero of the real products 
 
 ---
 
+## 🚨 URGENT — LIVE COMPLIANCE RISK (found 2026-08-05, verified against live store)
+
+1. **FAKE REVIEWS ARE LIVE ON 8 ACTIVE PRODUCTS.** `reviews.rating` = 4.8,
+   `reviews.rating_count` = 10, and `reviews.featured` holds 10 fabricated reviews with
+   invented names/dates/bodies — on Lick Mat, Snuffle Mat, Donut Bed, Grooming Glove,
+   Nail Grinder, Slow-Feeder, Car Boot Liner, First Days Kit. **The store has had ZERO
+   orders.** Banned under DMCC 2024 (CMA can fine directly, up to 10% of turnover) and
+   fed to Google as `aggregateRating`. **Awaiting owner go-ahead to delete.**
+   ⚠️ An earlier version of this file said "zero reviews exist" — that was WRONG.
+   Zero *real* reviews exist; ten fake ones per product are live.
+2. **Bundle pages show wrong contents + a false saving.** `templates/product.bundle.json`
+   hardcodes First Days Kit's contents/totals; 6 products share it. The live Settle-In
+   £64.99 page claims contents cost £49.97 (truth: £72.97) and badges "SAVE £15"
+   (truth: £7.98) — i.e. it reads as costing more than its parts. False savings claim.
+
+---
+
 ## ⛔ BLOCKED — owner action only (no agent can do these)
 
 1. **PRODUCT PHOTOS** ← the launch gate. Everything waits on this.
@@ -82,4 +99,4 @@ Bonfire Night 2026 = rehearsal. 2027 = payday.
 
 Output from the recon workflow lands in `audit/findings/`. Newest first.
 
-_(nothing yet — first run pending)_
+- **2026-08-05** — `audit/findings/2026-08-05-recon-report.md` (9-agent recon: compliance, pricing, competitors, ~25 unblocked fixes)
