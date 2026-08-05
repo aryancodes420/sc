@@ -23,6 +23,11 @@ ladder (single → entry bundle → premium → flagship). Bundle→bundle upsel
 the upsell snippet renders only on the `dog-nook-product` PDP template, not the `dog-nook-bundle`
 template — so the on-site push currently stops at the first bundle. See strategy note.
 
+**Catalogue cleanups (2026-07-27):**
+- Fixed collection title `Home Alone &amp; Separation` → **`Home Alone & Separation`** (was double-encoded; handle unchanged).
+- Set `custom.faq` (type json, house-voice) on the 3 flagship bundles: Complete Calm System (10337505837339), Home-Alone Kit (10337506427163), Fireworks Survival Kit (10337506885915).
+- Set `templateSuffix=bundle` on Settle-In Bundle (10328065114395) + the 3 above, for consistent bundle-layout rendering (First Days Kit already had it). ⚠️ Live theme `193140818203` has **no** `product.bundle` template, so on live these fall back to the default product template (same as First Days already does — no live-visible change); the draft `193438056731` renders the proper bundle layout.
+
 Grooming Glove / Nail Grinder / Car Boot Liner left unset (in no active bundle; snippet no-ops).
 `dog-nook.js` / `dog-nook-cro.css` untouched. Live `193140818203` never touched. Not visually verified (firewall).
 
