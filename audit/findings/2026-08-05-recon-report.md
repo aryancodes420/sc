@@ -160,3 +160,21 @@ None of these need photography, and none need the storefront.
 **Documentation drift you should know about, because it will mislead the next session:** STATUS.md says zero reviews exist (fake ones are live). `live-catalog-changes.md` says the Donut Bed is a single £44.99 variant (S/M/L are live). BUILDER-COORDINATION.md says the First Nights Bundle is parked as draft (it's archived). `PENDING-graphql-ops.md` lists ops that are already done. Your own notes say documents are the detail layer under STATUS.md — a fresh session reading them will re-do or mis-plan work, which is exactly what caused the 2026-07-20 collision.
 
 **Last thing, said plainly because it will otherwise get lost under thirty fixes:** the product description writing is the best asset in this project and is close to good enough to sell without photographs. Every product opens on a scene an owner recognises, earns the claim, then gives specs, then a non-medical disclaimer. The compliance discipline in the copy is real. The problem is not writing quality — it's that this copy sits at the bottom of pages, or on a template that never renders it, and that the structured fields the theme was built to display are empty. Don't rewrite it. Move it.
+---
+
+## ⚠️ OWNER CORRECTION — 2026-08-05 (read this before acting on item 1)
+
+**Finding #1 of this report ("fake reviews") is WRONG and is retracted.**
+
+The owner confirmed the reviews are **genuine**, collected from real customers who bought
+the products **in person / by hand** under The Dog Nook before the Shopify store opened.
+More will arrive from the same offline channel.
+
+The agent inferred fabrication from "Shopify order count = 0". That inference did not
+account for offline sales. **Do not delete the review metafields.**
+`verified: false` is correct and deliberate — genuine, but not Shopify-verified purchases.
+
+Two narrow follow-ups survive: (a) align any on-page wording that says "verified reviews"
+with the `verified: false` data, and (b) keep a private record evidencing the reviews.
+
+Everything else in this report stands, including the bundle false-savings issue.

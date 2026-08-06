@@ -30,20 +30,37 @@ Everything else is built, priced, wired and verified. Zero of the real products 
 
 ---
 
-## 🚨 URGENT — LIVE COMPLIANCE RISK (found 2026-08-05, verified against live store)
+## ✅ REVIEWS — RESOLVED, DO NOT "FIX" (owner confirmed 2026-08-05)
 
-1. **FAKE REVIEWS ARE LIVE ON 8 ACTIVE PRODUCTS.** `reviews.rating` = 4.8,
-   `reviews.rating_count` = 10, and `reviews.featured` holds 10 fabricated reviews with
-   invented names/dates/bodies — on Lick Mat, Snuffle Mat, Donut Bed, Grooming Glove,
-   Nail Grinder, Slow-Feeder, Car Boot Liner, First Days Kit. **The store has had ZERO
-   orders.** Banned under DMCC 2024 (CMA can fine directly, up to 10% of turnover) and
-   fed to Google as `aggregateRating`. **Awaiting owner go-ahead to delete.**
-   ⚠️ An earlier version of this file said "zero reviews exist" — that was WRONG.
-   Zero *real* reviews exist; ten fake ones per product are live.
-2. **Bundle pages show wrong contents + a false saving.** `templates/product.bundle.json`
-   hardcodes First Days Kit's contents/totals; 6 products share it. The live Settle-In
-   £64.99 page claims contents cost £49.97 (truth: £72.97) and badges "SAVE £15"
-   (truth: £7.98) — i.e. it reads as costing more than its parts. False savings claim.
+**The reviews on 8 products are GENUINE.** The owner sold these products **in person /
+by hand** under The Dog Nook before the Shopify store opened, and collected the reviews
+from those real customers. More are coming from the same channel.
+
+⚠️ **Do NOT delete them.** The 2026-08-05 recon workflow flagged them as fabricated
+because the Shopify store shows zero orders — that inference was WRONG, because the
+sales happened offline. Any future audit will likely re-raise this; the answer is
+recorded here so nobody deletes real customer proof.
+
+`verified: false` in the metafield is **correct and deliberate** — they are genuine but
+not Shopify-verified purchases.
+
+**Two real follow-ups remain (wording + evidence, not deletion):**
+1. The PDP reportedly renders "Based on 10 **verified** reviews". The data says
+   `verified: false`. Align the wording (e.g. "from 10 customers" / "collected in
+   person") so the page doesn't overclaim. ← Claude can fix.
+2. Keep a simple private record (who, when, where sold) so the reviews can be evidenced
+   if ever challenged. Under DMCC 2024 the burden is on the trader to show reviews are
+   genuine. ← owner, 10 minutes.
+
+---
+
+## 🚨 STILL OPEN — LIVE COMPLIANCE RISK (verified 2026-08-05)
+
+**Bundle pages show wrong contents + a false saving.** `templates/product.bundle.json`
+hardcodes First Days Kit's contents/totals; 6 products share it. The live Settle-In
+£64.99 page claims contents cost £49.97 (truth: £72.97) and badges "SAVE £15"
+(truth: £7.98) — i.e. it reads as costing *more* than its parts. This one is real and
+unaffected by the reviews correction.
 
 ---
 
