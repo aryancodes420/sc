@@ -33,3 +33,23 @@ Major system, card scheme, pegs, cue-word criterion and material generators adde
 marked; conceptual and verbatim standards demoted from gates to probes with agent-2's real month-4–6
 and month-6–9 horizons restored; "near-perfect recall" → 80–90% at 7+ days; test-8 protocol; four
 matched RAVLT triads; single scoring system for numbers; 17 cross-file contradictions reconciled.
+
+## 2026-08-09 — Round-1 recovery (`research/round-1-recovered.md`)
+
+The round-1 critic's digest was truncated at 60,000 chars by an orchestrator bug. All 16 agents had
+succeeded; ~40% of the payload was never seen. Recovered from the run journal, not re-run.
+
+| File | Change | Claim | Why |
+|---|---|---|---|
+| evidence.md | Split the MoL meta-analysis row into **C-004a (Twomey & Kroneisen 2021)** and **C-004b (Ondřej 2025)**; C-004b → `[CONTESTED]` | C-004 | g=0.65/13 RCTs belongs to the 2021 paper, not the 2025 one it was attributed to. The 2025 paper is a **critique** of the 2021 pooling, not a confirmation — so the system had **one** data point where it believed it had two. Second instance of this error class (cf. Wagner/Dresler same cohort). |
+| evidence.md, drills.md | Planning range for MoL restated as **d ≈ 0.2–0.9 with a lower bound including "no benefit vs active control"** | C-004b | Bias-adjusted delayed recall in young adults d = 0.42 CI [0.00, 0.80]; PET-adjusted 0.00–0.22; GRADE very low; 80–89% high risk of bias. |
+| evidence.md | **NEW:** durability dependency stated explicitly | C-004b | MoL evidence is same-day serial recall of word lists vs rote rehearsal; delayed comparisons essentially absent. Durability must be carried by spaced retrieval + sleep, not loci. |
+| drills.md | **NEW section:** cap palace-architecture time, reallocate to image/cue quality | C-004b | Caplan 2019 (navigation not a major determinant; peg-method variant), Bouffard 2018 (temporal scaffolds comparable), Caplan 2022 (body = loci). Spatial component probably not the active ingredient. |
+| drills.md | **NEW section:** three retrieval-quality conditions — mandatory feedback, overt not covert, no-lookahead | sweep | Classroom nulls cluster on withheld feedback; a 2026 Prolific study found no retrieval benefit in unsupervised self-administration — structurally our learner's condition. |
+| drills.md | **NEW:** element-interactivity caveat on dense conceptual material | sweep | van Gog & Sweller 2015 vs Karpicke & Aue / Rawson is a live dispute over exactly this learner's priority material. |
+| benchmarks.md | **RESOLVED** IMM vs GMM as two different awards; flagged 2018 revision | provenance sweep | IMM ≈ 1000/10/2:00 + 3000 pts; GMM = 1400/14/<40 s. A research lane printed GMM numbers under an IMM heading. |
+| benchmarks.md | Stripped "(anchored)" from Week-12 speed cards → `[INV]`; deleted "20 words at 6 months" | provenance sweep | Both were **invented by this synthesis** and cited back as externally anchored. New tracked defect class: **inference laundering**. |
+| drills.md | Removed the "~4 days" ghosting reference number | provenance sweep | n=1, contradicted within its own lane, and supplying it destroyed the self-measurement it was attached to. |
+| evidence.md | 150 reviews/day → time budget, not empirical threshold; review-cap contradiction reconciled | provenance sweep | Vendor-blog origin, no denominator. Anki manual's 20-new→200-review ratio is the primary-source alternative. Target 150 by capping NEW cards; leave max-reviews 9999. |
+| evidence.md | **NEW:** missed-technique search queue (14 families, zero corpus mentions) | missed-methods sweep | Production effect, errorless learning/vanishing cues, contextual interference, JOL calibration, part-whole chaining, morphological decomposition, etc. **Search queue, not findings.** |
+| evidence.md | Corrected the round-1 integrity diagnosis; recorded WebSearch budget exhaustion (200/200) | — | Round 2 cannot run as a search round in this session. |

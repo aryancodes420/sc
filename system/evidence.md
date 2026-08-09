@@ -60,7 +60,8 @@ configuration in this system therefore rests on directly-read documentation.
 
 | Claim | Magnitude | Label | Source |
 |---|---|---|---|
-| Method of loci, pooled effect | **g = 0.65 [0.45–0.85] to d = 0.88 [0.47, 1.25]** — with **"very strong evidence for publication bias"**, small-study effects "suggesting potential inflation", and **GRADE certainty low to very low** | **`[PROBABLE]`** (downgraded R1) | Ondřej et al. 2025, *Br J Psychol* 116:930–986, 13 trials; Twomey & Kroneisen |
+| **C-004a** — MoL pooled effect, 13 RCTs | g = 0.65 [0.45, 0.85], I² = 45.5%, stable under bias adjustment and leave-one-out; high risk of experimental bias (random-sequence generation and allocation concealment mostly unreported); **outcomes mostly same-day** | `[PROBABLE]` | **Twomey & Kroneisen 2021, *QJEP*** (PMID 33535926). *The system previously attributed this to the 2025 paper. That was wrong.* |
+| **C-004b** — MoL, larger 2025 synthesis | **d = 0.88 [0.47, 1.25]** for *immediate serial recall vs rote rehearsal* — from only 13 computable effect sizes out of 37 young-adult experiments. **Very strong evidence of publication bias; PET-adjusted d = 0.22 [0.00, 6.22] and in another analysis 0.00 [0.00, 0.00]. Delayed recall in young adults d = 0.42, CI [0.00, 0.80] — lower bound at zero. ~80–89% of experiments at high risk of bias. GRADE certainty VERY LOW.** | **`[CONTESTED]`** (2 of 3 lenses REFUTED) | Ondřej 2025, *Br J Psychol* 116:930–986 (PMID 40457944). **This paper is a critique of Twomey & Kroneisen, not a confirmation of it** — it faults the 2021 pooling for no RoB 2, no young/older split, no retention-interval split, and undisclosed effect-size selection among >20 candidates per study. |
 | ~~**Naïve MoL fails on abstract nouns**~~ | — | **REJECTED AS WRITTEN — provenance failure** | **Roediger (1980) does not test this.** It is an ordering-recall study whose stimuli were *exclusively concrete* nouns (imagery > 6.0); it has no abstract-noun condition. Probable real source: **Foth (1973), JVLVB 12:239–245 — unread**. **Direct counter-evidence: Kroneisen & Makerud 2017 (*QJEP* 70:1824–1836) found the MoL advantage LARGER for low-imageability words.** Restated claim ("MoL specifically fails on abstract material") = **`[CONTESTED]`, abstract-only**. |
 | Interleaving is **not universal**: g = 0.42 overall, g = 0.67 visual/inductive, g = 0.34 maths, **g = −0.39 for words (blocking wins)** | — | `[ESTABLISHED]` | Brunmair & Richter 2019 |
 | Self-explanation | g = 0.55 | `[ESTABLISHED]` | Bisra et al. 2018 |
@@ -252,13 +253,109 @@ immune to divided attention"), which one lens used to build a rule *loosening* a
 during triage. Only the press release was seen, not the primary text. **A rule that loosens this
 system's most invasive protection may not rest on a press release.** Round-2 verification item.
 
+## 3c-R1b. Round-1 recovery — the 40% the critic never saw
+
+The round-1 critic reported that a third of the work was undelivered. **It was delivered.** All 16
+agents completed with zero errors; the orchestrator truncated the critic's digest at 60,000
+characters, cutting everything after C-003's second lens. Recovered verbatim from the run journal into
+`research/round-1-recovered.md`. Nothing was re-run. What the truncation hid was, in aggregate, *more
+consequential than the half that survived*.
+
+**C-004 was audited after all — 2 REFUTED, 1 WEAKENED — and it is a citation-merge artifact.**
+"13 RCTs, g = 0.65 [0.45, 0.85], stable under publication-bias adjustment" is **Twomey & Kroneisen
+2021 (QJEP)**, not the 2025 *British Journal of Psychology* paper it was attributed to. The 2025
+paper is a **different, larger synthesis that explicitly criticises the 2021 one**. Three consequences:
+
+1. **The system had one meta-analytic data point where it believed it had two.** Confidence in the
+   core technique drops accordingly. This is the *second* time round 1 caught this exact error — the
+   first was counting Wagner 2021 as corroboration of Dresler when it is the same cohort.
+2. **The bias-adjusted floor includes zero.** In the 2025 synthesis, delayed recall in young adults
+   is **d = 0.42, CI [0.00, 0.80]**; PET-adjusted estimates run 0.00–0.22; GRADE certainty is **very
+   low**; ~80–89% of experiments are at high risk of bias. Plan against a **range of roughly
+   d ≈ 0.2–0.9 whose lower bound includes "no benefit over a well-executed active control"** — never
+   against 0.65 as a robust floor.
+3. **The evidence is same-day serial recall of word lists versus rote rehearsal.** Delayed-interval
+   comparisons are rare (essentially one 1991 study). There is **no meta-analytic evidence for the
+   method of loci on dense technical prose, statutes, or conceptual hierarchies at multi-week
+   delay** — i.e. on your actual material. **Durability must be carried by the spaced-retrieval and
+   sleep components, not by loci.** That dependency is now stated rather than assumed.
+
+**The mechanism is probably not spatial.** Caplan et al. 2019 (navigation ability "not a major
+determinant"; MoL "a peg-method variant"), Bouffard et al. 2018 (temporal non-spatial scaffolds give
+comparable gains), Caplan lab 2022 (body and loci scaffolds equally superior). Also: only ~25% of
+trained older adults in the ACTIVE study showed follow-up behaviour consistent with using the method
+*on the trained task* (Gross et al. 2014) — a strategy-abandonment rate that dwarfs most effect sizes
+in this document. Consequence in `drills.md`: cap palace-architecture time, reallocate to image and
+cue quality.
+
+### Inference laundering — a defect class this system generated twice
+
+The provenance sweep found that **two of the program's performance gates were invented by this
+synthesis and then cited back to itself as externally anchored**:
+
+- **"Deck <3 min at 3 months / <90 s at 12 months"** appears in **no source**. It originated in a
+  research lane's own "Practice implication" line, became a Stage gate, then entered `benchmarks.md`
+  as one of three cells claimed "externally anchored." The single real time-anchored datum behind it
+  is **selected on outcome** (a practitioner who went on to set a USA record) — a survivorship
+  ceiling presented as a median trajectory.
+- **"~20 words/60 s at 6 months"** takes one forum poster's *plateau* — the number he reported
+  finding hard to exceed — promotes it to a target, and attaches a horizon present in no material.
+
+Both corrected in `benchmarks.md`. **The defect class is now tracked: any cell claiming an anchor
+must name a source that predates this repo.**
+
+### Other corrections from the recovered payload
+
+| Item | Correction |
+|---|---|
+| **IMM vs GMM** | **Resolved — two different awards, conflated inside this system.** IMM ≈ 1,000 digits/hr · 10 decks/hr · deck ≤2:00 · ≥3,000 points; **GMM = 1,400 · 14 · <40 s**. A research lane printed the GMM triad under an IMM heading with the IMM-only administrative clause attached, labelled `[ESTABLISHED]`. Still era-ambiguous: a 2018 revision reportedly raised IMM to 1,040/11/90 s. |
+| **~4-day ghosting cooldown** | n = 1 forum account, from competition-volume drilling — and **the same lane records the opposite consensus** (only *same-day* reuse is a widely-agreed hazard). Supplying the number before the measurement anchored the experiment that was meant to produce it. Number removed from `drills.md`. |
+| **~150 reviews/day** | Vendor-blog origin, self-disclosed; the "<1/5 of users" figure has **no denominator**. The primary-source alternative was already in the repo: the Anki manual's own ~20 new → ~200 reviews/day ratio. Treat 150 as a **time budget (~20 min)**, not an empirical sustainability threshold. |
+| **Review cap contradiction** | One lane sets `Maximum reviews/day = 9999` ("capping reviews hides debt"); another states "hard cap ~150 reviews/day." Implemented literally these fight. Correct reading: **target ~150 by capping NEW cards; leave Anki's max-reviews at 9999.** |
+| **"Buried backlog" (1,000–2,000 cards)** | Drives the automatic circuit-breaker rule and has **no named source at all** — not even a forum thread. `[ANECDOTE, uncited]`. |
+| **Far transfer** | Additional confirmation: mnemonic imagery training improved long-term memory tasks with **no effect** on working memory, arithmetic, spatial ability or fluid intelligence. Reinforces the existing disclaimer. |
+
+### Techniques all six lanes missed entirely
+
+A corpus grep found **zero mentions** across all research and system files of: the **production
+effect** (read-aloud), **errorless learning / vanishing cues**, **errorful generation**, **contextual
+interference and practice variability**, **overlearning**, **retrieval-induced forgetting**,
+**judgments-of-learning / metacognitive calibration**, **state-dependent and context-reinstatement
+effects**, **part-whole and backward chaining** (the music-memorisation family), **morphological and
+etymological decomposition**, **concept mapping**, **shadowing**, **dictation**, **mental practice**.
+
+Clinical memory rehabilitation — whose standard techniques are errorless learning and vanishing cues —
+is mentioned exactly once in the entire corpus. **This is a search queue, not a set of findings:**
+none of these has been verified to have real evidence, and none may enter the system without its own
+search-backed pass. Ordered by plausible payoff for dense technical concepts plus verbatim: production
+effect, errorless learning / vanishing cues, contextual interference, JOL calibration, part-whole
+chaining, morphological decomposition.
+
+**Also a structural blind spot:** the corpus contains **no practitioner account of abandoning the
+mnemonic methods themselves** on cost-benefit grounds for dense technical material — only accounts of
+abandoning the schedule, the tool, or the expectation. That is the single highest-value unrun query.
+
 ### Round-1 integrity failures, recorded
 
-Two-thirds of the specified round-1 work was never delivered: **0 of 3 coverage sweeps**, and **0 of
-3 lenses on the fourth claim** (whose identity was not even recoverable, because loop Stage A — the
-claim register — was skipped). The provenance sweep that was supposed to verify the practitioner
-numbers setting your progression gates did not run, so **all four remain exactly as unverified as
-before**. Round 2's first job is finishing round 1, not auditing fresh claims.
+**Superseded by §3c-R1b — the diagnosis was wrong.** The critic reported 0 of 3 sweeps and 0 of 3
+lenses on C-004 as undelivered. They were delivered; the orchestrator truncated the digest. All 16
+agents completed with zero errors. Recovered in full.
+
+**What genuinely did not run, and why it blocks round 2:** the session's **WebSearch budget was
+exhausted (200/200)** partway through the sweep phase. Consequences, recorded honestly:
+
+- The **critic/null-result sweep ran ~4 of its planned 8–14 queries** — it self-reports as *"roughly
+  one-third complete."* Spacing, interleaving, sleep and TMR were **never searched for nulls at all**.
+- The **provenance sweep externally verified only the IMM/GMM item**; the other four gates were
+  audited by tracing this repo's internal citation chain. That is decisive for *provenance* — it
+  shows where each number was invented — but it is **not** independent verification of the underlying
+  forum and vendor sources.
+- The **missed-methods and practitioner-dissent sweep executed zero searches.** Its coverage map came
+  from grepping the corpus. It correctly refused to report effect sizes from prior knowledge.
+
+**Round 2 therefore cannot run as a search round in this session.** It needs a fresh session (or a
+raised search budget) — and per `/research-loop.md` §5, discharging the full-text queue would still
+beat it.
 
 **Blocking infrastructure now created:** `research/claim-register.tsv`, `research/seen-register.tsv`,
 `research/verification-queue.md`, `system/CHANGELOG.md`. Without the seen-register, round 2 would

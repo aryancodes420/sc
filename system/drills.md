@@ -74,7 +74,13 @@ Repeat at 3 days and 5 days with different palaces.
 - **Your cooldown = the shortest interval at which ghosting rate ≤ 5%** (1 intrusion in 20).
 - **Portfolio size = loci used per session × cooldown days × 1.5.**
 
-Practitioner reference point is ~4 days°. Yours is the number that counts.
+**No reference number is supplied on purpose.** The "~4 days" figure previously printed here is
+n = 1 — one competitor's forum account, from competition-volume drilling at 100 loci/day — and the
+*same* research lane records the opposite consensus one paragraph later: that ghosting is not a
+serious problem *unless a journey is reused more than once in a single day*, and that champions
+rotate a small set of journeys continuously without severe degradation. Supplying a number before
+the measurement anchors you and destroys the experiment. Same-day reuse is the only widely-agreed
+hazard; anything from 1–4 days is disputed. **Yours is the only number that counts.**
 
 **Index or die.** One spreadsheet row per palace: name, location, rooms, loci, occupant, date
 written, date free. An unindexed portfolio caps out around 10 palaces°. Global numbering (`03-2-4`)
@@ -337,6 +343,51 @@ picture-based tasks produce little (Fernandes & Moscovitch 2000, 2002), and all 
 verbal. **Every latency-scored drill — D2, cards, numbers, the Saturday tracker — runs under full
 attention always**, because divided attention at retrieval preserves accuracy by lengthening latency
 (Craik, Eftekhari & Binns 2018) and would silently corrupt every timed gate.
+
+## Retrieval quality — three conditions, added after round-1 recovery
+
+The testing effect is not a property of "doing a quiz." The documented null conditions are specific,
+and a solo adult training at home sits close to all three.
+
+**1. Feedback is a necessary condition, not an enhancement.** In the applied classroom literature,
+the studies that found *no* testing effect against rereading or no-activity were those where
+**feedback was withheld**. If any retrieval rep in your day is unscored and uncorrected, you are
+running the known failure configuration. Every attempt gets a correctness check before you move on.
+
+**2. Overt, not covert.** Whether silent "thinking it through" counts as retrieval practice is an
+open boundary question that round 1 could not resolve. **Default to overt** — written or spoken
+aloud — for every scored rep. Silent mental review does not count toward your log.
+
+**3. Unsupervised self-administration is a documented null condition.** A 2026 *Frontiers in
+Psychology* study on Prolific samples found no significant retrieval-vs-restudy difference at delayed
+test *despite* multiple engagement safeguards. You are structurally closer to that condition than to
+the supervised lab studies the effect was built on. The countermeasure is enforced effort: **no
+lookahead, no peeking before the attempt is complete, scored attempts only.**
+
+**And one caveat aimed straight at your priority material.** Whether retrieval practice works for
+*high-element-interactivity* (dense conceptual) content is a **live published dispute** — van Gog &
+Sweller (2015) argued the effect shrinks or vanishes as element interactivity rises; Karpicke & Aue
+and Rawson rebutted, noting the nulls used isolated words or immediate massed retrieval. `[CONTESTED]`.
+The contested zone *is* your primary material. Practical consequence: **do not rely on bare retrieval
+alone for dense concepts** — pair it with elaboration and worked examples, and never use immediate
+massed retrieval, which is the exact condition where the nulls appear.
+
+## Palace architecture: spend less time on it than you think
+
+Round-1 recovery found the spatial component is probably **not the active ingredient**:
+
+- Navigation knowledge and ability are "not major determinants" of loci success, and the method
+  "may be best viewed as a variant of peg methods" (Caplan, Legge, Cheng & Madan 2019, *QJEP*).
+- Purely **temporal, non-spatial** scaffolds — autobiographical sequences, "making a sandwich" —
+  produce comparable free-recall gains (Bouffard, Stokes, Kramer & Ekstrom 2018, *Mem Cogn* 46:17–31).
+- Body scaffolds and loci scaffolds are **equally** superior (Caplan lab 2022, *Memory* 30:7).
+- The 2025 meta-analysis locates the benefit in **imagery and elaborative depth**, not spatial
+  navigation, and reports no clear MoL advantage over pegword.
+
+**Consequence:** cap the time you spend perfecting route geometry and hunting for more buildings.
+Reallocate it to **image-generation quality and cue distinctiveness**, which are the plausible active
+ingredients. The palace is one interchangeable ordered-cue scaffold — useful, not privileged. If
+building palaces is eating your D4 minutes, that is a defect, not diligence.
 
 ## What you are explicitly NOT building
 

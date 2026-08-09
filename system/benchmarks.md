@@ -122,18 +122,36 @@ and price it at 15 min. One name, one placement, one duration — used identical
 
 ## Targets by week
 
-**Sourcing, stated honestly.** Only three cells are externally anchored: the Week-12 word-list row
-(≥55/72, Dresler-anchored), the Week-12 cards row (<3 min, agent-2 §3.6) and the Week-12 digits row
-(agent-2 Stage 3). **Every Week-4 and Week-8 cell, every names & faces cell and every real-material
-probe cell is a linear interpolation invented by this synthesis with no evidential basis.** They are
-marked `[INV]` and should be replaced with your own week-0-anchored trajectory after the week-4
-battery.
+**Sourcing, stated honestly — revised down again after round-1 recovery.** The previous version
+claimed three externally-anchored cells. **It is one, and even that one is weak.**
+
+- **Week-12 word list (≥55/72)** — anchored to Dresler, a single small quasi-experiment. Stretch
+  ceiling, not expectation.
+- **Week-12 cards (<3 min)** — **`[INV]`, not anchored.** The provenance audit traced "3-month =
+  deck <3 min, 12-month = <90 s" to *no source at all*. It first appears in agent-2's own
+  "Practice implication" line, is restated as a Stage-3 gate, and then re-enters `benchmarks.md`
+  cited as "externally anchored." That is **inference laundering** — this system's own guess cited
+  back to itself as evidence. The one real time-anchored datum behind it (a practitioner at 1:27
+  twelve months before a record) is **selected on outcome**: a survivorship ceiling, not a median
+  trajectory.
+- **ML Words** — the "~20 words at 6 months" mark is **deleted**. Its source is one forum poster's
+  *plateau* — the number he explicitly found hard to exceed — inverted into a target, with a
+  "6-month" horizon that appears in no cited material. The Week-12 band of 15–18 is retained as what
+  it actually is: **n = 1 practitioner self-report, no time axis**.
+
+**Every Week-4 and Week-8 cell, every names & faces cell and every real-material probe cell remains a
+linear interpolation invented by this synthesis with no evidential basis**, marked `[INV]`. Replace
+all of it with your own week-0-anchored trajectory after the week-4 battery.
+
+> **New defect class, now tracked:** *inference laundering* — a number invented in a "practice
+> implication" line, promoted to a gate, then cited as externally anchored. Two of this system's
+> gates were built this way. Any cell claiming an anchor must name a source that predates this repo.
 
 | Measure | Week 0 | Week 4 | Week 8 | Week 12 |
 |---|---|---|---|---|
 | **Word list, Dresler format** (72 words, 20-min delay) | baseline (untrained ≈ 26/72) | ≥40 `[INV]` | ≥50 `[INV]` | **≥55** — *anchored to one small quasi-experiment; treat as a stretch ceiling, not an expectation* |
 | **5-min numbers** (competition points, row rule) | baseline | 40 `[INV]` | 70 `[INV]` | **≥100 pts** (5 perfect rows) |
-| **Speed cards** (fastest perfect in box) | baseline (often none) | <6 min `[INV]` | <4 min `[INV]` | **<3 min** (anchored°) |
+| **Speed cards** (fastest perfect in box) | baseline (often none) | <6 min `[INV]` | <4 min `[INV]` | <3 min `[INV]` — *not anchored; this system invented it (see sourcing note)* |
 | **ML Words** (60 s) | baseline | 12 `[INV]` | 14 `[INV]` | **15–18**° |
 | **Names & faces** (60 s, 15 faces) | baseline | ≥ wk0 + 3 `[INV]` | ≥ wk0 + 6 `[INV]` | **≥ wk0 + 9, floor 10 names** `[INV]` |
 | **Conceptual set** (relationship-scored) | n/a | 15 items ≥80% @24 h `[INV]` | 30 items ≥85% @7 d — **probe** | 30 items ≥85% @7 d — **probe** |
@@ -158,16 +176,25 @@ numbers indicate whether you are on track for those horizons; they are not pass/
 
 ## Long-horizon anchors (year 2+, and a flagged conflict)
 
-**Two lanes returned different International Master of Memory standards**, citing the same source
-family, neither able to open the primary rulebook:
+**RESOLVED in round-1 recovery — they are two different awards, conflated.** The earlier
+"unresolved conflict" was a merge error inside this system, not a sourcing failure upstream:
 
-- Agent 6: 1,000 digits/hour · 10 decks/hour · deck ≤2:00 · ≥3,000 championship points (GMM ≥5,000)
-- Agent 2: 1,400 digits/hour · 14 decks/hour · deck <40 s
+| Title | Standard | Eligibility |
+|---|---|---|
+| **International Master of Memory (IMM)** | ~1,000 digits/hour · 10 decks/hour · deck ≤2:00, plus ≥3,000 cumulative championship points | sub-standards may be met across WMSC-approved 10-discipline tournaments |
+| **Grand Master of Memory (GMM)** | 1,400 digits/hour · 14 decks/hour · deck **<40 s** | reported as awardable only at the World Memory Championships |
 
-Almost certainly different eras of a standard revised upward, or two different awards conflated.
-**`[CONTESTED]` — verify against the current WMSC rulebook.** Changes nothing here: both sit far
-beyond 12 weeks. Firmly sourced elite anchors: speed-cards world record **12.74 s** (**2017 or
-2018 — lanes disagree, unverified**); Mullen 18.65 s (2016).
+Agent 6 had the IMM set; agent 2 had the **GMM** set printed under an IMM heading, with the IMM-only
+administrative clause attached — a chimera of both awards, labelled `[ESTABLISHED]`. Corrected here.
+
+**Still era-ambiguous `[CONTESTED]`:** a 2018 Millennium Standards revision reportedly raised these to
+**1,040 digits/hour, 11 decks/hour, 90-second deck**, and a 2021 revision page exists that no agent
+could open. So print IMM as *"circa 1,000–1,040 digits/hr, 10–11 decks/hr, deck 90 s–2:00, revised at
+least once"* rather than a false-precision triad. Unknown whether the IAM (a separate body from WMSC)
+issues its own titles under the same names — if so there may be a **third** standard set.
+
+Changes nothing inside 12 weeks: all of it sits far beyond. Firmly sourced elite anchor:
+speed-cards world record **12.74 s** (**2017 or 2018 — lanes disagree, unverified**); Mullen 18.65 s.
 
 ## Open items before any normative number is printed
 
