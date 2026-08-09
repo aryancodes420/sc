@@ -1,0 +1,27 @@
+hash	finding	round	status
+C-001a	DA costs far more at encoding than retrieval (direction only)	R1	abstract-only
+C-001b	The magnitudes 46% / 22% / 1-13%	R1	refuted
+C-001c	Retrieval is cheap, so review may be degraded	R1	refuted
+C-002	MoL specifically fails on abstract material	R1	refuted-as-written
+C-003	Dresler 2017: 26->62/72, 6wk, <=30min/day; durability	R1	abstract-only
+C-004	UNRESOLVED - identity not recoverable from R1 payload	R1	none
+C-005	Spacing g=0.74 (Latimier 2021) / d=0.71 (Cepeda 2006)	R1	abstract-only
+C-006	Retrieval practice g=0.50 vs restudy / g=0.61 vs all controls	R1	abstract-only
+C-007	Sleep benefit to episodic memory g=0.44	R1	abstract-only
+C-008	Sleep deprivation cuts encoding ~40%	R1	abstract-only
+C-009	MoL pooled effect g=0.65 to d=0.88, very strong publication bias, GRADE low	R1	abstract-only
+C-010	Interleaving g=0.42 overall but g=-0.39 for words	R1	abstract-only
+C-011	Self-explanation g=0.55	R1	abstract-only
+C-012	Self-reference d=0.45	R1	abstract-only
+C-013	Generation d=0.40	R1	abstract-only
+C-014	3R beats rereading and note-taking in less time	R1	abstract-only
+C-015	Note-taking encoding effect only d=0.22	R1	abstract-only
+C-016	FSRS load multipliers 2.17x at 0.95 / 3.73x at 0.97	R1	full-text (repo read directly)
+C-017	Deck <3min at 3mo; <90s at 12mo	R1	unverified
+C-018	~20 words/60s at 6 months	R1	unverified
+C-019	~4-day ghosting cooldown	R1	unverified
+C-020	~150 reviews/day sustainable	R1	unverified
+C-021	IMM standards (1000 vs 1400 digits/hr)	R1	unverified
+N-1	Material-match interference at retrieval (verbal load is the killer)	R1	abstract-only
+N-2	Loci interfere with READING but not listening; self-generated pathways win on expository text	R1	abstract-only
+N-5	MoL may be positional not imaginal (aphantasia; peg-method reframe)	R1	abstract-only

@@ -1,0 +1,27 @@
+id	claim	label	source	verified	instructions_depending	leverage	uncertainty	audit_priority	round
+C-001a	DA costs far more at encoding than retrieval (direction only)	PROBABLE	Craik 1996 + 4 same-lab papers; Mulligan 2023 double dissociation	abstract-only	program.md Block-4 protection; README rule 1; drills.md two-rules	5	3	15	R1 survived
+C-001b	The magnitudes 46% / 22% / 1-13%	STRUCK	not locatable in any source by 3 independent searchers	refuted	none - deleted from 4 files	5	5	25	R1 struck
+C-001c	Retrieval is cheap, so review may be degraded	CONTESTED	Fernandes+Moscovitch 2000/2002; Guez+Naveh-Benjamin 2013 against	refuted	REVERSED: review now full-attention + verbal-load ban	5	5	25	R1 reversed
+C-002	MoL specifically fails on abstract material	CONTESTED	Roediger 1980 MISATTRIBUTED; probable real source Foth 1973 (unread); Kroneisen+Makerud 2017 opposite direction	refuted-as-written	drills.md D4 rationale; symbol lexicon; lexicon gate demoted to probe	5	5	25	R1 rejected
+C-003	Dresler 2017: 26->62/72, 6wk, <=30min/day; durability	PROBABLE	Dresler 2017 pseudo-randomised n=17/16/17; Wagner 2021 = SAME cohort	abstract-only	program.md dose argument; README headline; benchmarks 55/72 target; maintenance dose	5	4	20	R1 downgraded
+C-004	UNRESOLVED - identity not recoverable from R1 payload	unaudited	-	none	unknown	?	?	?	R2 item 1
+C-005	Spacing g=0.74 (Latimier 2021) / d=0.71 (Cepeda 2006)	ESTABLISHED	two meta-analyses	abstract-only	all spacing/scheduling design	5	2	10	R2 - check shared-study overlap
+C-006	Retrieval practice g=0.50 vs restudy / g=0.61 vs all controls	ESTABLISHED	Rowland 2014; Adesope 2017	abstract-only	entire retrieval-first design	5	2	10	R2
+C-007	Sleep benefit to episodic memory g=0.44	ESTABLISHED	Berres+Erdfelder 2021	abstract-only	recovery rule 1; encoding-block placement	4	2	8	R2
+C-008	Sleep deprivation cuts encoding ~40%	ESTABLISHED-direction	Yoo 2007 single study	abstract-only	recovery rule 2	3	3	9	R2
+C-009	MoL pooled effect g=0.65 to d=0.88, very strong publication bias, GRADE low	PROBABLE	Ondrej 2025 BJP 13 trials	abstract-only	expected-gain framing throughout	4	3	12	R1 partial
+C-010	Interleaving g=0.42 overall but g=-0.39 for words	ESTABLISHED	Brunmair+Richter 2019	abstract-only	drills.md block-vs-interleave rule	4	2	8	R2
+C-011	Self-explanation g=0.55	ESTABLISHED	Bisra 2018	abstract-only	D4 step 5; Reading OS step 4	3	2	6	R2
+C-012	Self-reference d=0.45	ESTABLISHED	Symons+Johnson 1997	abstract-only	D4 step 4	2	2	4	low priority
+C-013	Generation d=0.40	ESTABLISHED	Bertsch 2007	abstract-only	produce-first rule	3	2	6	R2
+C-014	3R beats rereading and note-taking in less time	ESTABLISHED	McDaniel 2009	abstract-only	Reading OS default loop	4	2	8	R2
+C-015	Note-taking encoding effect only d=0.22	ESTABLISHED	Kobayashi 2005	abstract-only	notes-from-recall-sheet rule	3	2	6	R2
+C-016	FSRS load multipliers 2.17x at 0.95 / 3.73x at 0.97	ESTABLISHED	arithmetic on published FSRS formula	full-text (repo read directly)	three-preset architecture	4	1	4	closed
+C-017	Deck <3min at 3mo; <90s at 12mo	ANECDOTE	forum/vendor	unverified	drills.md D2 table; benchmarks wk12 cards	3	5	15	R2 provenance - NOT RUN in R1
+C-018	~20 words/60s at 6 months	ANECDOTE	forum	unverified	drills.md D2 table	2	5	10	R2 provenance - NOT RUN
+C-019	~4-day ghosting cooldown	ANECDOTE	forum	unverified	palace portfolio sizing	2	5	10	N=1 inner loop var 1
+C-020	~150 reviews/day sustainable	ANECDOTE	vendor blogs	unverified	already demoted to monitored outcome	1	5	5	no action needed
+C-021	IMM standards (1000 vs 1400 digits/hr)	CONTESTED	two lanes disagree	unverified	year-2 anchors only	1	5	5	do not spend agents
+N-1	Material-match interference at retrieval (verbal load is the killer)	PROBABLE	Fernandes+Moscovitch 2000/2002	abstract-only	verbal-load ban	5	3	15	R1 adopted
+N-2	Loci interfere with READING but not listening; self-generated pathways win on expository text	PROBABLE	De Beni+Moe; Moe+De Beni 2005	abstract-only	D4 A/B modality arm	4	3	12	R1 adopted
+N-5	MoL may be positional not imaginal (aphantasia; peg-method reframe)	PROBABLE	Thomas 2022; Caplan 2019	abstract-only	symbol lexicon necessity; palace-as-ordering-scaffold	4	3	12	R1 adopted

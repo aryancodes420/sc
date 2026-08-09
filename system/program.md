@@ -9,10 +9,20 @@
 
 ## 1. The dose decision
 
-The only RCT-grade dose evidence is Dresler et al. 2017: 51 memory-naïve adults, **≤30 min/day for
-~40 days**, method-of-loci arm went from ~26 to ~62 of 72 words, **and the gain persisted at four
-months with no continued training**. The active control (working-memory drilling) gained +11 — about
-a third. Time-on-task is not the active ingredient; **strategy is**. [research/agent-5 §1]
+The only dose evidence at this outcome magnitude is Dresler et al. 2017 — a single small
+**quasi-experimental** training study (**pseudo-randomised, n = 17 / 16 / 17**, not an RCT), **never
+independently replicated**. Method-of-loci arm went from ~26 to ~62 of 72 words at six weeks on
+**≤30 min/day for ~40 days**; the active control (working-memory drilling) gained +11 — about a
+third. Time-on-task is not the active ingredient; **strategy is**. [research/agent-5 §1;
+round-1 audit C-003]
+
+**On durability, corrected.** The first version of this file said the gain "persisted at four
+months." It does not persist intact: Wagner et al. 2021 (*Sci Adv* 7:eabc7606 — **the same cohort**,
+not a replication) report the four-month retest at **+22.7 ± 18.8 words (n = 16)** against **+36**
+immediately post-training. So roughly **60% of the gain is retained with no maintenance, with very
+large individual variation** — an SD of 18.8 on a mean of 22.7 means some people kept nearly all of
+it and some kept almost none. This is why §6 now carries a maintenance dose, which the first version
+omitted because it had inherited persistence as free.
 
 Documented elite doses cluster at **~30 min/day**, not hours: Foer's own account is "just half an
 hour every day" (the widely repeated "one hour" figure is unsourced); Mullen trained ~30 min/day
@@ -97,9 +107,30 @@ prepared in the preceding Sunday slot. Draw the test-8 items in that same slot, 
 Encode, then sleep on it. [agent-6 §A1]
 
 **Block 4 is single-tasked and interruption-proofed to a degree that feels excessive.** Divided
-attention at *encoding* costs 22–46% of recall; at *retrieval*, 1–13%. Blocks 2 and 6 tolerate
-imperfect conditions — deliberately put them in the commute, the queue, the noisy kitchen, and
-spend your protected quiet on Block 4. [agent-1 §1]
+attention at encoding costs substantially more than divided attention at retrieval — the *direction*
+is well replicated, including by a lab hostile to the rest of the claim. *(The specific figures
+"22–46%" and "1–13%" were struck in round-1 audit: three independent searchers could not locate them
+in any source. Cite the direction, not magnitudes.)*
+
+**Blocks 2 and 6 run under FULL attention by default.** *(This reverses the first version of this
+file, which told you to put reviews in the commute and the noisy kitchen. That instruction was
+wrong — see `evidence.md` §3b-R1.)* Degraded conditions are a permitted fallback only when the
+alternative is skipping the rep, never for first-pass or shaky items, and only under **non-verbal**
+load — walking, dishes, light exercise.
+
+> **Hard ban on verbal concurrent load during any retrieval:** no podcasts, audiobooks,
+> conversation, email or Slack triage, subtitled video, or reading anything else. Word-based
+> concurrent tasks produce *large* retrieval interference while digit- and picture-based tasks
+> produce little (Fernandes & Moscovitch 2000, 2002). Every domain in your profile — software/math,
+> law, medicine, finance — and every verbatim passage is **verbal**, so the original rule prescribed
+> precisely the interference type that damages retrieval of precisely the material being reviewed.
+> The failure mode is invisible: today's recall score is preserved while the downstream trace decays.
+
+**All latency-scored measures run under full attention, without exception:** the D2 speed drill,
+speed cards, 5-minute numbers, and the five Memory League disciplines. Divided attention at retrieval
+preserves accuracy by lengthening decision latency (Craik, Eftekhari & Binns 2018), so measuring any
+timed gate under degraded conditions produces false negatives and mis-schedules reviews. **Block 2 is
+protected core and full-attention. Block 6 is full-attention by default with a non-verbal fallback.**
 
 ### Weekly shape
 
@@ -196,7 +227,9 @@ complete at week 4. Lexicon ≥40.
 ### Weeks 5–6 — Cards, and verbatim begins
 52 card images. Quarter → half → full deck. **D5a verbatim (technical/legal)** starts: 12-line
 passages, one locus per clause. End of week 6 closes the **Dresler-equivalent window** — the six
-weeks × ≥30 min/day the RCT evidence actually covers. Expect a step change, and expect it to persist.
+weeks × ≥30 min/day that study covers. **Expect a step change. Expect to keep roughly 60% of it
+without maintenance, with high individual variance** — which is why maintenance is scheduled below,
+not optional.
 
 **Gate:** full deck 100% accurate under 6 min; 12-line passage 100% all-or-nothing at 24 h.
 
@@ -219,8 +252,26 @@ disappointment, checkable from your log.
 **Week 12: benchmark battery.**
 
 **Week-12 gates (agent-2's own 12-week composite — Stages 0–4):**
-≥55/72 on a Dresler-format word list · 100 digits in 5 min at ≥95% immediate and ≥85% at 24 h · full
-deck under 3 min at 100% · lexicon ≥150 · 100+ indexed loci.
+100 digits in 5 min at ≥95% immediate and ≥85% at 24 h · full deck under 3 min at 100% · 100+ indexed
+loci · **≥55/72 on a Dresler-format word list — treat as a stretch ceiling, not an expectation.**
+That target is anchored to one small quasi-experiment whose effect is a far outlier against every
+pooled estimate (g = 0.65 to d = 0.88, on an evidence base GRADE-rated low to very low).
+
+**Demoted to probe:** lexicon ≥150. Its entire evidential warrant was the Roediger-1980 abstract-noun
+null, which round 1 rejected as misattributed (see §6a). A gate is pass/fail on your 12 weeks and may
+not rest on a struck citation. It stays tracked; it stops being a verdict.
+
+## 6a. Post-program maintenance (weeks 13+) — added after round-1 audit
+
+The first version had no maintenance protocol because it had inherited "the gain persisted at four
+months" as free. It is not free: ~40% of the peak gain was lost over four months without practice.
+
+**Minimum maintenance dose, in the Sunday slot:** one timed re-walk of each cold-archive palace on a
+rotating schedule (so every palace is walked at least monthly), plus continued spaced retrieval on
+old material via the existing Anki queue. **Dose is a calibration target, not a known quantity** —
+no dose-response curve for mnemonic maintenance exists in the literature (Twomey & Kroneisen 2021
+found the pooled MoL effect roughly flat across session counts). Set it from your own retention data
+via the inner loop in `/research-loop.md` §4.
 
 **Week-12 probes (on-track indicators for month 4–9, not pass/fail):**
 30-item conceptual set ≥85% at 7 d · **12-line** unfamiliar passage, 15 min to memorise, ≥60% of

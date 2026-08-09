@@ -142,10 +142,27 @@ troublesome card. [agent-5 §2, §4]
 
 ## D4 — Concept encoding (Block 4, ~60% of Block-4 minutes)
 
-**The problem this exists to solve:** naïve method of loci does **not** work on abstract material.
-Roediger (1980) found a reliable loci advantage for concrete nouns and **none** for abstract ones.
-The mnemonic is not "put it in a palace" — it is the **conversion step that precedes** the palace.
-[agent-2 §5.1]
+**The problem this exists to solve — restated after the round-1 audit.** Abstract material is harder
+to image, and the concreteness effect itself is `[ESTABLISHED]`. But whether the method of loci
+**specifically** fails on abstract material is `[CONTESTED]`, and the citation this program
+originally rested on was wrong:
+
+- **Roediger (1980) does not test it.** It is an ordering-recall study whose stimuli were
+  *exclusively concrete* nouns (Paivio–Yuille–Madigan imagery > 6.0). It contains no abstract-noun
+  condition and therefore cannot have produced an abstract-noun null. Two independent auditors traced
+  the real source to **Foth (1973), JVLVB 12:239–245**, which has not been read in full.
+- **There is direct counter-evidence.** Kroneisen & Makerud (2017, *QJEP* 70:1824–1836) found the
+  method-of-loci advantage was **larger** for low-imageability words than for high-imageability ones —
+  the opposite of the assumed direction.
+- **The mechanism may not be imaginal at all.** Aphantasic participants benefit from interactive-
+  imagery instructions as much as controls (Thomas et al. 2022); navigation ability is "not a major
+  determinant" of loci success, and the method "may be best viewed as a variant of peg methods"
+  (Caplan et al. 2019, *QJEP* 72:2541–2553). If the benefit is **positional and structural** rather
+  than pictorial, low-imageability material is not automatically excluded.
+
+**Consequence for this drill:** the conversion step is now the **default for genuinely
+low-imageability terms**, justified by the concreteness/imageability literature that still stands —
+not a mandatory universal step justified by a null result that was never demonstrated.
 
 ### Protocol
 
@@ -163,6 +180,21 @@ The mnemonic is not "put it in a palace" — it is the **conversion step that pr
 
 A permanent file: **one fixed image per recurring abstract term**, reused forever, so a new fact
 assembles from known parts. Invention cost is the real bottleneck at scale. [agent-2 §5.3]
+
+> **MANDATORY WEEKS 1–2 A/B — the lexicon must now earn its place.** Its warrant was the struck
+> Roediger citation, so you test it on yourself rather than assuming it. Take matched pairs of dense
+> technical passages from your primary domain. Encode **half direct-to-loci** and **half
+> lexicon-then-loci**. Score both at 24 h and 7 d under the relationship rubric. **Set the D4 time
+> split by the result.** If direct-to-loci wins or ties on your material, the lexicon shrinks to
+> genuinely low-imageability terms only and you reclaim a large amount of time. This is inner-loop
+> variable #0 and it outranks the other seven.
+
+**Also test delivery modality (new, N-2).** De Beni & Moè report that loci mnemonics **interfere with
+reading** but not with listening, while self-generated loci pathways beat experimenter-supplied ones
+on **expository passages** (Moè & De Beni 2005). You work almost entirely from *written* material —
+textbooks, PDFs, case law — so this is a demonstrated sign flip sitting directly across your main use
+case. Run one arm of the A/B with the passage **read aloud to you or via text-to-speech** before
+encoding. `[PROBABLE]`, abstract-only.
 
 **Acceptance rule (hard):** an image is admissible only if decoding the scene recovers the
 **relationship**, not merely the word. A padlock jamming a keyhole encodes inhibition-at-receptor;
@@ -185,7 +217,7 @@ spiral. [agent-5 §7.2]
 |---|---|---|
 | Week 4 | 15-item set ≥80% at 24 h | probe `[INVENTED]` |
 | Week 8 | 30-item set ≥85% at 7 d | **probe, not a gate** |
-| Week 12 | 30-item set ≥85% at 7 d, lexicon ≥150 | lexicon = gate; set = probe |
+| Week 12 | 30-item set ≥85% at 7 d, lexicon ≥150 | **both probes** — the lexicon was demoted from gate in round-1 audit, since its warrant was the struck Roediger citation |
 | Month 4–6 | 30-item set ≥85% at 7 d | **agent-2's actual placement** |
 
 **agent-2 §Stage 5 places conceptual competence at month 4–6 and prices it at 40–80 hours.** This
@@ -294,9 +326,17 @@ problem types, diagnostic categories, case discrimination. Block terminology, de
 one-to-one facts. Applying it universally makes a large part of your curriculum measurably worse.
 [agent-1 §8]
 
-**Protect encoding, not review.** Divided attention at encoding costs 22–46% of recall; at retrieval,
-1–13%. Single-task Block 4 excessively; put Blocks 2 and 6 in imperfect conditions deliberately.
-[agent-1 §1]
+**Protect encoding — and protect review too.** Divided attention costs much more at encoding than at
+retrieval (direction well replicated; the specific percentages were struck in round-1 audit as
+unlocatable in any source). Single-task Block 4 excessively. **Blocks 2 and 6 run under full
+attention by default** — the first version of this file said to degrade them deliberately, and that
+was wrong. Degraded conditions are a fallback against skipping the rep, never for first-pass or shaky
+items, and **never under verbal load**: no podcasts, audiobooks, conversation, message triage or
+other reading. Word-based concurrent tasks produce large retrieval interference where digit- and
+picture-based tasks produce little (Fernandes & Moscovitch 2000, 2002), and all your material is
+verbal. **Every latency-scored drill — D2, cards, numbers, the Saturday tracker — runs under full
+attention always**, because divided attention at retrieval preserves accuracy by lengthening latency
+(Craik, Eftekhari & Binns 2018) and would silently corrupt every timed gate.
 
 ## What you are explicitly NOT building
 

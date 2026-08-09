@@ -46,10 +46,12 @@ configuration in this system therefore rests on directly-read documentation.
 
 | Claim | Magnitude | Label | Source |
 |---|---|---|---|
-| Divided attention at **encoding** costs 22–46% of recall; at **retrieval**, 1–13% | largest single-manipulation effect in the corpus | `[ESTABLISHED]` | Craik et al. 1996; Naveh-Benjamin et al. 2000 |
+| **C-001a — direction:** divided attention costs far more at encoding than at retrieval | direction only | **`[PROBABLE]`** (downgraded R1) | Craik et al. 1996; Naveh-Benjamin et al. 2000; Craik, Eftekhari & Binns 2018; double dissociation in Mulligan, Spataro & West 2023. **Provenance flag: six supporting papers, all sharing Craik and/or Naveh-Benjamin. Zero preregistered replications, zero registered reports, zero multi-lab efforts found.** |
+| **C-001b — the magnitudes** 46% / 22% / 1–13% | — | **STRUCK — unlocatable** | Three independent searchers could not find these figures in any source. Primary sources describe "large" and "small or no" reductions qualitatively. Deleted from all four `/system/` files. |
+| **C-001c — "retrieval is nearly cheap"** ⇒ review may be degraded | — | **`[CONTESTED]`** | **Against:** Fernandes & Moscovitch 2000 (*JEP:Gen* 129:155–176) — substantial interference at retrieval *and* encoding, with word-based distractors producing large retrieval interference; Fernandes & Moscovitch 2002; **Guez & Naveh-Benjamin 2013 (*PLoS ONE* 8:e74447) — a co-author of the original, finding DA at retrieval strongly disrupts later memory for the retrieved episode**. The 1996 near-zero retrieval cost used a *non-verbal* manual RT task. **The dependent instruction was reversed — see §3b-R1.** |
 | Spacing beats massing | g = 0.74 (retrieval practice); d = 0.71 (distributed practice) | `[ESTABLISHED]` | Latimier et al. 2021; Cepeda et al. 2006 — two meta-analyses converging within 0.03 |
 | Retrieval practice beats restudy | g = 0.50 vs restudy; g = 0.61 vs all controls | `[ESTABLISHED]` | Rowland 2014; Adesope et al. 2017 |
-| Mnemonic training works on ordinary adults, and the gain is durable | ~26 → ~62 of 72 words in 6 weeks at ≤30 min/day; **held at 4 months with no further practice** | `[ESTABLISHED]` | Dresler et al. 2017 (*Neuron*), n = 51, 3 arms |
+| **C-003 — mnemonic training works on ordinary adults** | ~26 → ~62 of 72 words in 6 weeks at ≤30 min/day. **At 4 months: +22.7 ± 18.8 words (n = 16) vs +36 immediately post — ~60% of the gain retained, wildly heterogeneous.** | **`[PROBABLE]`** (downgraded R1); the "held at 4 months" sub-claim → **`[CONTESTED]`**; "RCT-grade" → **factually false, struck** | Dresler et al. 2017 (*Neuron*) — **pseudo-randomised, n = 17/16/17, quasi-experimental, never independently replicated. Wagner et al. 2021 and the 2025 eLife preprint analyse THE SAME COHORT — one row, three analyses, one dataset.** Counting them separately inflated the perceived weight of the headline promise roughly threefold. No dose-response curve exists: Twomey & Kroneisen 2021 found the pooled MoL effect roughly flat across session counts. |
 | Sleep benefit to episodic memory | g = 0.44 | `[ESTABLISHED]` | Berres & Erdfelder 2021 |
 | One night of sleep deprivation degrades **encoding** | ~40% reduction in new-memory formation | `[ESTABLISHED]` direction; **the exact 40% is one estimate from a single well-cited study, not a meta-analysis** (agent-6 Finding 2) | Yoo, Hu, Gujar, Jolesz & Walker 2007, *Nature Neuroscience* |
 | Capacity is ~4 chunks, but **chunk size is unbounded** | digit span 7 → 82 over ~264 sessions | `[ESTABLISHED]` | Cowan 2001; Chase & Ericsson 1981/82 |
@@ -58,9 +60,8 @@ configuration in this system therefore rests on directly-read documentation.
 
 | Claim | Magnitude | Label | Source |
 |---|---|---|---|
-| Method of loci, single-session RCT floor | g = 0.65 [0.45–0.85], but high risk of trial bias | `[ESTABLISHED]` | MoL meta-analysis, *BJP* 2025, 13 RCTs |
-| Training increases specifically **durable** memories; encoding becomes *more efficient*, not harder-working | activation decreases in lateral PFC, parahippocampal, retrosplenial cortex | `[ESTABLISHED]` | Wagner et al. 2021 (*Sci Adv*) |
-| **Naïve MoL fails on abstract nouns** — reliable advantage for concrete, none for abstract | — | `[ESTABLISHED]` | Roediger 1980 |
+| Method of loci, pooled effect | **g = 0.65 [0.45–0.85] to d = 0.88 [0.47, 1.25]** — with **"very strong evidence for publication bias"**, small-study effects "suggesting potential inflation", and **GRADE certainty low to very low** | **`[PROBABLE]`** (downgraded R1) | Ondřej et al. 2025, *Br J Psychol* 116:930–986, 13 trials; Twomey & Kroneisen |
+| ~~**Naïve MoL fails on abstract nouns**~~ | — | **REJECTED AS WRITTEN — provenance failure** | **Roediger (1980) does not test this.** It is an ordering-recall study whose stimuli were *exclusively concrete* nouns (imagery > 6.0); it has no abstract-noun condition. Probable real source: **Foth (1973), JVLVB 12:239–245 — unread**. **Direct counter-evidence: Kroneisen & Makerud 2017 (*QJEP* 70:1824–1836) found the MoL advantage LARGER for low-imageability words.** Restated claim ("MoL specifically fails on abstract material") = **`[CONTESTED]`, abstract-only**. |
 | Interleaving is **not universal**: g = 0.42 overall, g = 0.67 visual/inductive, g = 0.34 maths, **g = −0.39 for words (blocking wins)** | — | `[ESTABLISHED]` | Brunmair & Richter 2019 |
 | Self-explanation | g = 0.55 | `[ESTABLISHED]` | Bisra et al. 2018 |
 | Self-reference effect | d ≈ 0.45 | `[ESTABLISHED]` | Symons & Johnson 1997 |
@@ -208,6 +209,60 @@ all below the 8 threshold — and returned 51 required fixes. The substantive ch
 **Not fixed, recorded instead:** C9 above; the `[ANECDOTE]`° practitioner numbers that still set the
 progression standards (they have no better source — the inner loop in `/research-loop.md` §4 replaces
 them with measured data); and every `[INVENTED]` interpolation in the week-4/8 target columns.
+
+---
+
+## 3b-R1. What the round-1 evidence audit changed
+
+Sixteen agents: four load-bearing claims × three independent refutation lenses, plus coverage sweeps.
+**Three of three delivered claims changed label — a 100% label-change rate**, against the loop's own
+<10% resolution-floor stop threshold. The round was emphatically **not dry**. Full report:
+`research/round-1-audit.md`.
+
+**The one live instruction that was reversed.** The system told you to put review blocks in "the
+commute, the queue, the noisy kitchen." That is now **deleted and reversed**: reviews run under full
+attention by default, with a **hard ban on verbal concurrent load**. The reasoning matters more than
+the rule — word-based concurrent tasks produce *large* retrieval interference while digit- and
+picture-based tasks produce little, the original 1996 near-zero result used a *non-verbal* manual RT
+task, and every domain in this learner's profile is verbal. Worse, a co-author of the original paper
+later argued that divided attention at retrieval **strongly disrupts memory for the retrieved
+episode** — meaning in a spaced-retrieval program, degrading review preserves today's recall score
+while deleting tomorrow's gain. **The failure mode is invisible in the metric the learner checks.**
+
+**What survived, and got stronger.** C-001a — the *direction* of the encoding/retrieval asymmetry —
+survived all three lenses. Fernandes & Moscovitch 2000, the strongest independent test and hostile to
+the rest of the claim, found encoding costs **large regardless of distractor type**: a
+material-general confirmation from outside the originating lab. **The encoding-protection rule stands
+unweakened.** A real audit does not demolish everything.
+
+### New material adopted (absent from the system in any form)
+
+| # | Finding | Label | Consequence |
+|---|---|---|---|
+| N-1 | **Material-match interference at retrieval** — word-based concurrent tasks interfere heavily; digit/picture tasks little (Fernandes & Moscovitch 2000, 2002) | `[PROBABLE]` | Became the hard verbal-load ban. This is the moderator that turns the old review rule from harmless into harmful. |
+| N-2 | **Delivery-modality sign flip** — loci mnemonics **interfere with reading** but not with listening (De Beni & Moè); self-generated pathways beat supplied ones on **expository passages** (Moè & De Beni 2005) | `[PROBABLE]` | Larger design consequence than the abstract/concrete split the system was optimising for, because this learner works almost entirely from written material. Now an A/B arm in `drills.md` D4. |
+| N-3 | **Pacing moderator** — multitasking during expository reading: overall g = −0.28; **experimenter-paced g = −0.54; self-paced g = −0.14, not reliable** (Clinton-Lisell 2021, 22 studies) | `[PROBABLE]` | The only pooled, ecologically-matched estimate near this system's actual reading task. Encoding protection is best justified on *throughput* for self-paced dense reading and on *retention* for externally-paced material. |
+| N-4 | **Training-similarity and randomisation bias** — SMD 0.18 overall vs **1.15 when outcomes resemble the trained task**; g = 0.07 randomised vs 0.27 not (*Psychon Bull Rev* 2024) | `[PROBABLE]` | Indicts this system's own scoreboard: 7 of 8 tests measure trained tasks. Added to `benchmarks.md` as a reading instruction. Independently explains why Dresler's effect is such an outlier. |
+| N-5 | **MoL's mechanism may be positional, not imaginal** — aphantasics benefit as much as controls (Thomas et al. 2022); navigation ability "not a major determinant"; MoL "best viewed as a variant of peg methods" (Caplan et al. 2019) | `[PROBABLE]` | Second, independent reason the symbol lexicon loses its necessity. Also reframes the palace as an **ordering scaffold**, which is what verbatim recall actually needs. |
+| N-6 | **Live contradiction:** does distracted retrieval still consolidate? Guez & Naveh-Benjamin 2013 (no) vs Buchin & Mulligan 2019 and Kessler et al. 2014 (yes / better) | `[CONTESTED]` | **Logged, not converted into a rule in either direction.** It is why the new rule is "full attention by default, degraded as fallback" rather than a prohibition — the program cannot bet a scarce daily block on the optimistic side of a live dispute. |
+| N-7 | **MoL-specific transfer ceiling** — Li et al. 2021 (n=148): MoL improved only the trained task and lost to dual n-back on transfer; *eLife* 2025 (N=75, randomised): large on-task gains, limited near transfer, **no brain-structural change** | `[PROBABLE]` | Strengthens the existing far-transfer disclaimer with randomised, recent, MoL-specific evidence — and is a direct non-replication of the neural half of the Dresler/Wagner story. |
+
+**Deliberately not adopted:** Middlebrooks et al. 2017 ("prioritisation of high-value information is
+immune to divided attention"), which one lens used to build a rule *loosening* attention protection
+during triage. Only the press release was seen, not the primary text. **A rule that loosens this
+system's most invasive protection may not rest on a press release.** Round-2 verification item.
+
+### Round-1 integrity failures, recorded
+
+Two-thirds of the specified round-1 work was never delivered: **0 of 3 coverage sweeps**, and **0 of
+3 lenses on the fourth claim** (whose identity was not even recoverable, because loop Stage A — the
+claim register — was skipped). The provenance sweep that was supposed to verify the practitioner
+numbers setting your progression gates did not run, so **all four remain exactly as unverified as
+before**. Round 2's first job is finishing round 1, not auditing fresh claims.
+
+**Blocking infrastructure now created:** `research/claim-register.tsv`, `research/seen-register.tsv`,
+`research/verification-queue.md`, `system/CHANGELOG.md`. Without the seen-register, round 2 would
+resurface every finding round 1 rejected — the specific failure mode that stops a loop converging.
 
 ---
 

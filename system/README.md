@@ -19,9 +19,16 @@ cost trends toward zero as intervals stretch. Trained, that reads as "I looked a
 because the work is compressed into the look.
 
 Best evidence that this works on ordinary adults: **Dresler et al. 2017** — 51 memory-naïve adults,
-≤30 min/day for six weeks, ~26 → ~62 of 72 words, **still holding four months later with no further
-practice**. The active control that drilled the same duration gained a third as much. Strategy is
-the active ingredient, not hours.
+≤30 min/day for six weeks, ~26 → ~62 of 72 words. At four months with no further practice the group
+retained about **60% of that gain (+22.7 ± 18.8 words, n = 16)**, with very large individual
+variation. The active control that drilled the same duration gained a third as much — strategy is the
+active ingredient, not hours.
+
+Two honest qualifications, added after the round-1 evidence audit: this is a single small
+**quasi-experimental** study (pseudo-randomised, n = 17/16/17), **never independently replicated**;
+and the widely-cited follow-up (Wagner et al. 2021) analyses **the same cohort**, so it is not
+corroboration. The technique's pooled effect across 13 trials is smaller (g = 0.65 to d = 0.88) and
+carries very strong evidence of publication bias.
 
 ## What is promised
 
@@ -195,9 +202,13 @@ floating in space is not a rep.
 
 ## The four rules that decide whether this works
 
-1. **Protect encoding, not review.** Divided attention at encoding costs 22–46% of recall; at
-   retrieval, 1–13%. Single-task Block 4 to a degree that feels excessive; put reviews in imperfect
-   conditions on purpose.
+1. **Protect encoding — and protect review too.** Divided attention costs much more at encoding than
+   at retrieval, so single-task Block 4 to a degree that feels excessive. But **do not degrade your
+   reviews on purpose** — the first version of this file said to, and that was wrong. Blocks 2 and 6
+   run under full attention by default; degraded conditions are a fallback against skipping, never a
+   plan, and **never with verbal load** (no podcasts, conversation, or reading anything else while
+   you review). All your material is verbal, and verbal concurrent load is precisely what damages
+   verbal retrieval. See `evidence.md` §3b-R1.
 2. **Score at 24 hours, never immediately.** Gains show up specifically in *durable* memories.
    Massed practice feels better and retains worse — trust the delayed score, never the feeling.
 3. **≥50% of Block-4 minutes on real target material.** Synthetic drills alone produce someone good

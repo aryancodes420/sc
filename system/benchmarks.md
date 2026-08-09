@@ -24,6 +24,19 @@ Violate any and the comparison is void, not merely noisy.
    you are measuring. [agent-6 §A3]
 5. **Record audio; score afterwards from the recording**, not live. Instructions read from a script or
    TTS, verbatim, every time.
+6. **Full attention, no exceptions** — every test here is latency- or accuracy-scored, and divided
+   attention at retrieval preserves accuracy by lengthening latency (Craik, Eftekhari & Binns 2018).
+   A benchmark run under any concurrent load is void, not noisy.
+
+### How to read your own numbers (added after round-1 audit)
+
+**Seven of these eight tests measure trained tasks.** A 2024 *Psychonomic Bulletin & Review*
+meta-analysis of cognitive training reports SMD **0.18 overall versus 1.15 when outcomes resemble the
+trained task**, and g = 0.07 for randomised versus 0.27 for non-randomised designs. Your scores on
+tests 1–7 will rise partly because you are practising the tests. That is not fraud — near-transfer is
+real and is what this system claims — but it means **tests 1–7 measure the system working, not you
+getting generally better**, and **test 8 is the only one insulated from this**. Weight it accordingly.
+`[PROBABLE]`, abstract-only.
 
 **Strategy-on vs strategy-off:** run span tests twice — rehearsal only, then using your system — at
 **week 0 and week 12 only**. The file itself says strategy-off is an unenforceable honest-effort
@@ -118,7 +131,7 @@ battery.
 
 | Measure | Week 0 | Week 4 | Week 8 | Week 12 |
 |---|---|---|---|---|
-| **Word list, Dresler format** (72 words, 20-min delay) | baseline (untrained ≈ 26/72) | ≥40 `[INV]` | ≥50 `[INV]` | **≥55** (anchored) |
+| **Word list, Dresler format** (72 words, 20-min delay) | baseline (untrained ≈ 26/72) | ≥40 `[INV]` | ≥50 `[INV]` | **≥55** — *anchored to one small quasi-experiment; treat as a stretch ceiling, not an expectation* |
 | **5-min numbers** (competition points, row rule) | baseline | 40 `[INV]` | 70 `[INV]` | **≥100 pts** (5 perfect rows) |
 | **Speed cards** (fastest perfect in box) | baseline (often none) | <6 min `[INV]` | <4 min `[INV]` | **<3 min** (anchored°) |
 | **ML Words** (60 s) | baseline | 12 `[INV]` | 14 `[INV]` | **15–18**° |
@@ -126,7 +139,7 @@ battery.
 | **Conceptual set** (relationship-scored) | n/a | 15 items ≥80% @24 h `[INV]` | 30 items ≥85% @7 d — **probe** | 30 items ≥85% @7 d — **probe** |
 | **Verbatim** (all-or-nothing lines) | n/a | — | 30 lines ≥70% @24 h — **probe** | **12 lines** unfamiliar, 15 min, ≥60% @24 h — **probe** |
 | **Real-material probe** (test 8) | n/a | ≥70% `[INV]` | ≥80% `[INV]` | ≥85% `[INV]` |
-| **Symbol lexicon** | 0 | ≥40 `[INV]` | ≥100 `[INV]` | **≥150** (agent-2 composite) |
+| **Symbol lexicon** | 0 | ≥40 `[INV]` | ≥100 `[INV]` | ≥150 — **probe, not a gate** (demoted in round-1 audit; its warrant was a struck citation) |
 | **Digit span, strategy-off** | baseline | not run | not run | context only — **not a target** |
 | **RAVLT sum T1–T5** | baseline | see noise rule | see noise rule | see noise rule |
 
