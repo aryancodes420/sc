@@ -51,6 +51,7 @@ configuration in this system therefore rests on directly-read documentation.
 | Retrieval practice beats restudy | g = 0.50 vs restudy; g = 0.61 vs all controls | `[ESTABLISHED]` | Rowland 2014; Adesope et al. 2017 |
 | Mnemonic training works on ordinary adults, and the gain is durable | ~26 → ~62 of 72 words in 6 weeks at ≤30 min/day; **held at 4 months with no further practice** | `[ESTABLISHED]` | Dresler et al. 2017 (*Neuron*), n = 51, 3 arms |
 | Sleep benefit to episodic memory | g = 0.44 | `[ESTABLISHED]` | Berres & Erdfelder 2021 |
+| One night of sleep deprivation degrades **encoding** | ~40% reduction in new-memory formation | `[ESTABLISHED]` direction; **the exact 40% is one estimate from a single well-cited study, not a meta-analysis** (agent-6 Finding 2) | Yoo, Hu, Gujar, Jolesz & Walker 2007, *Nature Neuroscience* |
 | Capacity is ~4 chunks, but **chunk size is unbounded** | digit span 7 → 82 over ~264 sessions | `[ESTABLISHED]` | Cowan 2001; Chase & Ericsson 1981/82 |
 
 ### Tier 2 — technique-level findings that shape the drills
@@ -160,6 +161,53 @@ Not a real conflict, but easily confused. Anki's display-order setting is about 
 front-loaded block of new cards; it is not the interleaving-vs-blocking manipulation from the
 learning literature. The blocking rule (**block vocabulary and terminology, interleave
 discrimination**) is applied at the level of *what you study*, not the review queue.
+
+---
+
+**C7. Speed-cards world-record date.** agent-2 §3.4 says 12.74 s was set in **2018**; agent-6 §B2 says
+**2017**. Both cite the same record. Neither could open a primary source. **Unresolved — both
+`/system/` files now read "2017 or 2018 — lanes disagree, unverified."** Trivial in itself, retained
+here because an unflagged discrepancy is how small errors become quoted facts.
+
+**C8. Rey–Osterrieth Complex Figure, dropped.** agent-6 §B3 suggested ROCF once at week 0 as a
+visual-memory anchor. **Omitted deliberately:** no openable norm tables, no repeatable parallel form
+(one figure, massive item memory), and low value at n=1 where the comparison is self-referenced
+anyway. Recorded rather than silently dropped.
+
+**C9. The 30%-generation reserve is under-dosed, knowingly.** agent-3 §4.6 recommends ~30% of daily
+time on unscheduled generation, because SRS produces *cued* retrieval and does not produce transfer,
+integration or fluent application. At 70 min/day that is 21 min/day, which does not fit alongside
+everything else the lanes mandate. **Resolved against agent-3:** a 20-min Sunday generation session
+plus the Reading OS teach-aloud step. This is a real deviation and the most likely place the system
+is weaker than the evidence recommends. If spare capacity appears, it goes here first.
+
+---
+
+## 3b. What the red-team pass changed
+
+An adversarial document audit scored the first version of `/system/` at **4 / 3 / 2 / 4 / 4** across
+traceability, day-one executability, sustainability, benchmark objectivity and internal consistency —
+all below the 8 threshold — and returned 51 required fixes. The substantive changes:
+
+| Defect found | Change made |
+|---|---|
+| **The day did not close.** Advertised 67–82 min/day while separately mandating card authoring (15–22 min), 30% generation (21 min) and a weekly Reading OS pass (8–11 min/day) that appeared in no block — true cost **115–130 min/day** | Scope cut, not minutes found: new cards 15→**8/day**; generation → weekly session (C9); Reading OS **replaces** Block 4 on Wed/Thu rather than adding to it; benchmark days **cancel** the daily block |
+| **Following the Anki instruction produced 60 new cards/day** against a stated 15/day cap — Anki applies new-card limits *per preset*, and `/system/` sent the learner to `/research/` for the table | Full settings table pasted into `program.md` §7 with per-preset values (**3 · 5 · 0**) summing to 8, and an explicit warning that the limit is per-preset |
+| ~12 target numbers invented but published under a note claiming nothing was invented | Note rewritten; every unsourced cell marked `[INVENTED]`; only three Week-12 cells are externally anchored |
+| Two research gates silently moved earlier — agent-2 places conceptual competence at **month 4–6** and the 30-line verbatim standard at **month 6–9**; both had been made week-8/12 gates | Both demoted to **probes** with agent-2's real horizons stated; week-12 verbatim cut 30 lines → **12 lines**, which is what this system's own cost model supports |
+| The Major system, 52-card scheme, rhyming pegs and cue-word criterion were required and printed nowhere | Appendix added to `drills.md` with all four, plus three worked cue-word examples |
+| No method given for generating any drill or benchmark material | Generator commands added to `README.md`, plus a named concrete-noun source |
+| One RAVLT interference list and one recognition set prepared for four sessions — the exact practice-effect failure the section was written to prevent | **Four complete matched triads**; generator command supplied |
+| Test 8 — the only test measuring the mission — was self-selected, self-cued and self-scored with no rubric | Five-part protocol: numbered sampling frame in the log, RNG draw before the battery, cues written **at encoding time**, binary scoring, scored from audio ≥12 h later |
+| Two incompatible scoring systems for the 5-minute numbers test | Competition row scoring only; "≥95%" deleted everywhere as not expressible under row scoring |
+| "15-minute floor session" was 27 minutes by the system's own block times | Respecified as 5 min recall check + 10 min review-only Anki, hard stop at 15 |
+| Week-0 battery could not fit 72 min (three untrained card attempts alone need 24–33) | Speed cards become a **15-minute box**, up to three attempts; battery restated at ~80 min |
+| "Near-perfect recall" promised, above every number in the system | Replaced with the **80–90% at 7+ days** contract the gates actually support |
+| 17 further internal contradictions (D6 scheduled vs unschedulable, three names for Saturday, two D0 lifespans, two D1 gates, USAMC mislabelling, time/place rule contradicting the mobile-blocks rule, etc.) | All reconciled to a single statement each, present identically in every file |
+
+**Not fixed, recorded instead:** C9 above; the `[ANECDOTE]`° practitioner numbers that still set the
+progression standards (they have no better source — the inner loop in `/research-loop.md` §4 replaces
+them with measured data); and every `[INVENTED]` interpolation in the week-4/8 target columns.
 
 ---
 

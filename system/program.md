@@ -1,265 +1,310 @@
 # program.md — The 12-Week Progressive Program
 
-## The dose decision (read this first — it is the most important design choice in the system)
+> **Revision note (post-red-team).** The first version of this file advertised 67–82 min/day while
+> separately mandating card authoring, unscheduled generation and a weekly Reading OS pass that
+> appeared in no block — a true cost of 115–130 min/day. That is fixed below by *cutting scope*, not
+> by finding more minutes. What was cut and why is stated in §2. Read §2 before anything else.
+
+---
+
+## 1. The dose decision
 
 The only RCT-grade dose evidence is Dresler et al. 2017: 51 memory-naïve adults, **≤30 min/day for
 ~40 days**, method-of-loci arm went from ~26 to ~62 of 72 words, **and the gain persisted at four
 months with no continued training**. The active control (working-memory drilling) gained +11 — about
 a third. Time-on-task is not the active ingredient; **strategy is**. [research/agent-5 §1]
 
-The documented daily doses of elite practitioners cluster at **~30 min/day**, not hours: Foer's
-own account is "just half an hour every day" (the widely repeated "one hour" figure is unsourced);
-Mullen trained ~30 min/day while a full-time medical student. Dellis (4–6 h/day) is the documented
-outlier, not the norm. [research/agent-5 §2]
+Documented elite doses cluster at **~30 min/day**, not hours: Foer's own account is "just half an
+hour every day" (the widely repeated "one hour" figure is unsourced); Mullen trained ~30 min/day
+while a full-time medical student. Dellis (4–6 h/day) is the documented outlier. [agent-5 §2]
 
-**Therefore:** your 60–90 min/day is split into a **30-minute protected strategy core** — the part
-with RCT support — and a **surplus spent on real target material**, not on more drilling. Anyone
-selling "champions train four hours a day" is generalising from one person. This program does not
-ask for hours; it asks for 30 minutes that are genuinely at the edge of your ability, plus applied
-volume on your actual sources.
+**Therefore:** a **38-minute protected strategy core** (Blocks 2+3+4) — the part with RCT support —
+plus storage and instrumentation around it. This program does not ask for hours.
 
-## What this program promises, and what it does not
+## 2. What this program actually costs, and what was cut to make it fit
 
-**Promised:** near-perfect, on-demand recall of material you deliberately encode with the system;
-word-perfect reproduction of passages you choose to encode verbatim; a large, measurable jump on
-scored memory tasks.
+**Honest arithmetic.** A full implementation of everything the research lanes recommend costs
+115–130 min/day. The brief is 60–90. Four things were cut, and each cut is a real loss, stated:
 
-**Explicitly not promised:** general intelligence gains, working-memory capacity gains, or automatic
-improvement on material you did *not* deliberately encode. Melby-Lervåg et al. 2016 (87 publications,
-145 comparisons) found no convincing far transfer from working-memory training; Ramon et al. 2016
-found world-record face–name memorisers were **as impaired as controls** on face inversion and the
-other-race effect, with no hippocampal enlargement. The gains are strategy- and material-specific.
-[research/agent-5 §5, research/agent-6 §A5]
+| Cut | Was | Now | What is lost |
+|---|---|---|---|
+| New cards/day | 15 | **8** | Slower knowledge accumulation. 8/day ≈ 480 cards over 12 weeks and ~80 reviews/day at maturity, which fits a 20-min review block. 15/day did not. |
+| "~30% of daily time for unscheduled generation" [agent-3 §4.6] | 21 min/day | **one 20-min Sunday session + the Reading OS teach-aloud step** | This is a real deviation from agent-3's recommendation. Generation is what SRS cannot do, and it is now under-dosed. Flagged as a known weakness, not solved. |
+| Reading OS | additional, unbudgeted | **replaces Block 4 on Wed/Thu** | Nothing — this is the correct fix. The Reading OS *produces* the encoding, so it was never additional work; it was mis-modelled as such. |
+| Week-8/12 conceptual and verbatim **gates** | gates | **probes** | See §3. |
 
-This disclaimer is load-bearing, not throat-clearing: **transfer disappointment is one of the five
-documented quit causes**, and it only bites people who were promised something else.
+**The load-bearing honesty statement.** agent-2 prices its own Stages 3–5 at **85–150 hours**. Weeks
+3–12 of this program supply roughly **32 hours** of encoding time. **This program therefore clears
+agent-2's Stages 0–4 in 12 weeks and does NOT complete Stages 5–6.** That is exactly what agent-2's
+own 12-week composite specifies — "Stage 2, 3 and 4 gates cleared" — and the first version of this
+file quietly promised more. Conceptual mastery is a **month 4–6** outcome; the USAMC-format verbatim
+standard is a **month 6–9** outcome, per agent-2 §Stage 5 and §Stage 6. The week-8 and week-12
+conceptual and verbatim numbers below are *probes* telling you whether you are on track for those
+horizons — not gates you have failed if you miss.
+
+## 3. What is promised, and what is not
+
+**Promised:** **80–90% cued recall at 7+ days on material you deliberately encode**, and word-perfect
+reproduction of specific passages you choose and maintain. Those are the numbers the evidence and
+this program's own gates support: Dresler's best result is 62/72 (86%); Rawson & Dunlosky's
+successive relearning gives 83% at 30 days; this program's week-12 targets are 55/72 (76%) and ≥85%
+at 7 days. **"Near-perfect" is not one of those numbers** and the first version of this file should
+not have used it.
+
+**Explicitly not promised:** general intelligence gains, working-memory capacity gains, or
+improvement on material you did not deliberately encode. Melby-Lervåg et al. 2016 (87 publications,
+145 comparisons) found no convincing far transfer; Ramon et al. 2016 found world-record face–name
+memorisers were **as impaired as controls** on face inversion and the other-race effect, with no
+hippocampal enlargement. [agent-5 §5, agent-6 §A5]
+
+This disclaimer is load-bearing: **transfer disappointment is one of five documented quit causes**,
+and it only bites people who were promised something else.
 
 ---
 
-## The daily schedule
+## 4. The daily schedule
 
-Total **67–82 minutes**. Times are the working budget; the block order matters more than the exact
-minutes.
+**Mon / Tue / Fri — 76 minutes**
 
-| # | Block | Min | What | Why |
+| # | Block | Min | What | Core? |
 |---|---|---|---|---|
-| 1 | **Delayed-recall check** | 7 | Recall yesterday's encoded set cold, before looking at anything. Score it. | Training gains show up specifically in *durable* memories; immediate recall does not distinguish them. This is your primary daily metric. [agent-2 §1.3] |
-| 2 | **Speed drill** (D2) | 10 | Timer at 90% of current best. Digits / cards / names by day. | Foer's documented plateau-breaker; Mullen's ~25% speed allocation. [agent-5 §2] |
-| 3 | **Error autopsy** (D3) | 3 | One written line per failure: *why the image or locus failed*. | The feedback half of deliberate practice. Foer wrote one for every troublesome card. [agent-5 §2, §4] |
-| 4 | **Encoding block** (D4/D5) | 25–30 | Real target material only. Concepts 45% / verbatim 30% / detail 25%. | The mission. ~75% of core, per Mullen's split. |
-| 5 | **Spaced review** | 20 | Anki, ~150 reviews steady state. | Storage layer. Load model in `agent-3 §2`. |
-| 6 | **Log** | 2 | Numeric entry in `tracking.md`. | Foer kept a spreadsheet and reviewed it with a coach; deliberate practice requires objective feedback. [agent-5 §2] |
-| — | *Optional* focused-attention ritual | ≤10 | Session-entry only. | g ≈ 0.18 attention, **no** working-memory effect vs active controls. Ritual, not intervention. [agent-6 §A5] |
+| 1 | Delayed-recall check | 5 | Recall yesterday's set cold, top 10 items, before looking at anything. Score it. | instrumentation |
+| 2 | Speed drill (D2) | 10 | Timer at 90% of current best. | **PROTECTED CORE** |
+| 3 | Error autopsy (D3) | 3 | One written line per failure: *why the image or locus failed*. | **PROTECTED CORE** |
+| 4 | Encoding (D4/D5) | 25 | Real target material only. | **PROTECTED CORE** |
+| 5 | Card authoring | 10 | Write the day's 8 cards from the gap list. | storage |
+| 6 | Anki review | 20 (cap 25) | Whatever the queue actually is. | storage |
+| 7 | Log | 3 | `tracking.md`. | instrumentation |
+
+**Wed / Thu — 76 minutes.** Blocks 4 + 5 (35 min) are replaced by the **Reading OS** on the week's
+source. Steps 3–8 of the pipeline *are* the encoding block and they produce the cards, so this is a
+substitution, not an addition. All other blocks unchanged.
+
+**Sat — ~50 minutes.** Blocks 2–4 are replaced by the **Saturday tracker** (~25 min, see
+`benchmarks.md`). Blocks 1, 6, 7 unchanged.
+
+**Sun — ~88 minutes.** Blocks 1, 6, 7 (28 min) plus the week's overheads:
+system slot (15) + generation session (20) + `00-Inbox` rewrite pass (15) + next week's material
+prep (10).
+
+**Benchmark days (weeks 0, 4, 8, 12): the daily block is CANCELLED, not additional.** Materials are
+prepared in the preceding Sunday slot. Draw the test-8 items in that same slot, from your log,
+**before** you know your battery score.
 
 ### Two placement rules that are not negotiable
 
-**Block 4 goes in your last 2–3 waking hours.** Sleep benefit to episodic memory is g = 0.44, the
-largest lever in the recovery lane. Encode, then sleep on it. [agent-6 §A1]
+**Block 4 goes in your last 2–3 waking hours.** Sleep benefit to episodic memory is g = 0.44.
+Encode, then sleep on it. [agent-6 §A1]
 
 **Block 4 is single-tasked and interruption-proofed to a degree that feels excessive.** Divided
-attention at *encoding* costs 22–46% of recall; divided attention at *retrieval* costs 1–13%. This
-asymmetry is the largest single-manipulation effect in the whole evidence base. Blocks 2 and 5
-tolerate imperfect conditions — deliberately put them there and spend your protected quiet on
-block 4. [agent-1 §1]
+attention at *encoding* costs 22–46% of recall; at *retrieval*, 1–13%. Blocks 2 and 6 tolerate
+imperfect conditions — deliberately put them in the commute, the queue, the noisy kitchen, and
+spend your protected quiet on Block 4. [agent-1 §1]
 
 ### Weekly shape
 
-| Day | Speed drill | Encoding focus | Other |
+| Day | Speed drill | Block 4 | Other |
 |---|---|---|---|
-| Mon | Digits | Concepts (primary domain) | |
-| Tue | Cards | Concepts | |
-| Wed | Digits | Verbatim | |
-| Thu | Cards | Concepts | |
+| Mon | Digits° | Concepts (primary domain) | |
+| Tue | Cards° | Concepts | |
+| Wed | Digits° | **Reading OS** (Blocks 4+5) | |
+| Thu | Cards° | **Reading OS** (Blocks 4+5) | |
 | Fri | Names | Verbatim | |
-| Sat | — | Light | **Weekly tracker**: 5 Memory League 60-s disciplines, ~10 min |
-| Sun | — | Light / catch-up | **System slot** — the only time you may change anything |
+| Sat | — | — | Saturday tracker (~25 min, replaces Blocks 2–4) |
+| Sun | — | — | System slot · generation · Inbox pass · material prep |
 
-Discipline pairing across the week and a quarantined day for system work are both taken from
-Dellis's documented week. **System freeze applies Mon–Sat**: no new encoding system, no new palace
-scheme, no new Anki add-on, no template changes. Any change adopted on a Sunday must survive a
-**two-week trial with logged scores** before another change is permitted. [agent-5 §2, §7.3]
+° Digits begin week 3 and cards week 5 — see the weeks-1–2 substitution in `drills.md` D2.
+
+**System freeze applies Mon–Sat.** No new encoding system, palace scheme, add-on or template change
+outside the Sunday slot. Any change adopted on a Sunday must survive a **two-week trial with logged
+scores** before another. [agent-5 §2, §7.3]
+
+### Scheduled decrements (so load does not only ever rise)
+
+- **Week 2:** D0 retires on gate clearance (typically 3–6 sessions).
+- **Week 5:** delayed-recall check is already at 5 min (top 10 items only) — hold it there.
+- **Week 7:** the second domain's maintenance reviews are capped at 20 cards/day and come **out of**
+  the 20-minute review block, not in addition.
+- **Week 9:** verbatim maintenance replaces new verbatim acquisition for two weeks.
 
 ---
 
-## Recovery rules (ranked by evidence, not by popularity)
+## 5. Recovery rules (ranked by evidence, not popularity)
 
-**High-yield — these are the entire serious set:**
+**High-yield — the entire serious set:**
 
-1. **7–9 h sleep, every night.** g = 0.44 for episodic retention. Never trade sleep for extra
-   review; the review is worth less than the sleep that consolidates it. [agent-6 A7 #1]
-2. **Never encode new material sleep-deprived.** One night of deprivation cuts the ability to form
-   new memories by ~40%. After a bad night, convert the encoding block to *retrieval practice of
-   already-encoded material*. [agent-6 A7 #2]
+1. **7–9 h sleep, every night.** g = 0.44 for episodic retention. Never trade sleep for review.
+2. **Never encode new material sleep-deprived.** One night of deprivation cuts new-memory formation
+   by ~40% *(single well-cited study, not a meta-analysis — treat the exact 40% as one estimate, the
+   direction as solid — agent-6 Finding 2)*. After a bad night, convert Block 4 to retrieval practice
+   of already-encoded material.
 3. **Caffeine: fixed daily dose, hard cut-off 8 h before bed.** 400 mg taken *six* hours before bed
-   cut objectively measured sleep by more than an hour — and participants did not notice. Dose
-   variation is also a measurement confound on benchmark days. [agent-6 A7 #3]
+   cut objectively measured sleep by more than an hour — and participants did not notice.
 4. **Never benchmark under acute stress.** Acute stress reliably impairs *retrieval*, which is
-   exactly what a benchmark measures. Abort the session at stress ≥8/10. [agent-6 A7 #4]
-5. **No alcohol on training days; none in the 24 h before a benchmark.** Anterograde encoding
-   impairment is not in dispute; the "retrograde facilitation" protective story failed a
-   preregistered replication. [agent-6 A7 #5]
+   exactly what a benchmark measures. Abort at stress ≥8/10.
+5. **No alcohol on training days; none 24 h before a benchmark.**
 
-**Marginal — do them for health, do not expect them to move your scores:**
+**Marginal — do for health, do not expect score movement:** aerobic base 3×/week (meta-analytic
+hippocampal effect g = 0.13, and it looks like preservation not growth); optional 20–30 min nap 1–3 h
+after heavy encoding, before 15:00.
 
-6. Aerobic base 3×/week. Meta-analytic hippocampal effect is g = 0.13 and looks like *preservation*,
-   not growth. [agent-6 A7 #8]
-7. Optional 20–30 min nap, 1–3 h after a heavy encoding block, before 15:00. [agent-6 A7 #7]
+**Do NOT do — these exist to save you time and money:** n-back or commercial brain training (no
+convincing far transfer, two independent meta-analyses); targeted memory reactivation at home
+(g = 0.29 lab *with documented publication bias*, null in REM and wake, cannot stage-lock at home);
+caffeine dosed for consolidation (replication titled "at best small", proposes withdrawal reversal;
+a 2025 study found increased false alarms); supplements and nootropic stacks (no meta-analytic
+evidence located). [agent-6 A7]
 
-**Do NOT do — these exist to save you time and money:**
-
-8. **n-back / commercial brain training: zero minutes.** No convincing far transfer, replicated
-   across two independent meta-analyses. [agent-6 A7 #10]
-9. **Targeted memory reactivation at home: no.** g = 0.29 in the lab *with documented publication
-   bias*, null in REM and null during wake, and home audio cannot stage-lock to slow-wave sleep.
-   [agent-6 A7 #11]
-10. **Do not dose caffeine for consolidation.** The original positive finding's replication is
-    titled "at best small" and proposes the effect is withdrawal reversal; a 2025 study found it
-    increased false alarms. [agent-6 A7 #12]
-11. **No supplements or nootropic stacks.** No meta-analytic evidence was found for any of them in
-    adult declarative memory. [agent-6 A6]
-
-### Resolved conflict: sleep-proximate encoding vs the 4-hour exercise window
-
-van Dongen et al. 2016 found 35 min of hard intervals **4 h after** encoding improved 48-h
-retention, while exercise immediately after did not. That cannot coexist with encoding in your last
-2–3 waking hours — 4 h later, you are asleep.
-
-**Resolution: sleep wins.** The sleep benefit is `[ESTABLISHED]`, meta-analytic, g = 0.44; the
-exercise-timing result is `[PROBABLE]`, a single n = 72 study with replication status unestablished.
-Put your aerobic sessions in the morning or early afternoon on general-health and sleep-quality
-grounds and forgo the 4-hour alignment on weekdays. On a weekend with a large midday encoding
-block, *then* place the interval session ~4 h after it and take the free win.
+**Resolved conflict — sleep-proximate encoding vs the 4-hour exercise window.** van Dongen 2016 found
+35 min of intervals 4 h after encoding improved 48-h retention. That cannot coexist with encoding in
+your last 2–3 waking hours. **Sleep wins:** g = 0.44 meta-analytic `[ESTABLISHED]` beats a single
+n = 72 `[PROBABLE]` study. Aerobic sessions go morning or early afternoon. On a weekend with a large
+midday encoding block, take the 4-hour alignment as a free win.
 
 ---
 
-## The 12 weeks
+## 6. The 12 weeks
 
-Week 0 runs **before any training begins** — see `benchmarks.md`. Do not skip it; without it, none
-of your later scores mean anything, because your own week-0 numbers define your tier boundaries.
+Week 0 runs **before any training begins**. Without it you have no denominator.
 
 ### Week 0 — Baseline and setup (no training)
-
-- Run the **full benchmark battery** (~72 min). Fresh random material, conditions logged.
-- Install Anki. Create three presets — **Core-0.93**, **Bulk-0.90**, **Intake-0.85** — plus the
-  `00-Inbox` and `99-Palaces` decks. Exact settings table in `research/agent-3 §3`.
-- Scout **five real buildings** you know cold. Do not build them yet.
-- Choose your **primary domain** for weeks 1–12 from your four (software/math, law, medicine,
-  finance). The other three are maintenance only. This is the single most important adherence
-  decision you make: four domains ingesting at once fragments review load and is the documented
-  route to the review-debt spiral. [agent-5 §7.2]
-- Create `symbol-lexicon.tsv` (columns: `domain`, `term`, `image`, `date_added`) and
-  `palace-index.tsv` (columns: `palace`, `location`, `rooms`, `loci`, `occupant`, `written`, `free`).
+Full benchmark battery (~78 min at week 0 — see `benchmarks.md`). Anki configured per §7. Five
+buildings scouted. Primary domain chosen. `symbol-lexicon.tsv` and `palace-index.tsv` created.
+Full runbook in `README.md`.
 
 ### Weeks 1–2 — Image fluency and the first palaces
+D0 until gate clears, then retire. Build 5 palaces × 20 loci, 5 loci per room°. Hot pool (2–4
+journeys, overwritten daily) split from cold archive (write-once, domain-segregated). Run the
+**ghosting experiment** with the scoring rule in `drills.md`. Start the Major system: 10 images/day.
+Adopt the Reading OS triage rule on everything you read. New cards **5/day**.
 
-**Goal: 100 indexed loci and an automatic route.**
-
-- D0 image fluency until the gate clears (50/50 nouns in ≤150 s, animate and interacting), then
-  retire it.
-- Build 5 palaces × 20 loci, 5 loci per room. Walk each forwards, backwards, and from an arbitrary
-  locus **with no content in it** until fluent.
-- Split hot pool (2–4 journeys for speed drills) from cold archive (write-once, domain-segregated).
-- Run the **ghosting experiment**: write a list into palace A, wait 1 / 3 / 5 days, overwrite,
-  measure. That number is your personal cooldown constant and it sizes your whole portfolio.
-- Start the Major system: 10 images/day.
-- Adopt the **Reading OS triage rule** immediately on everything you read: *six months, exact words,
-  decision.* [agent-4 Part 3]
-- Anki: 10 new cards/day maximum, primary domain only.
-
-**Gate:** 20/20 concrete words, 2-min encode, **100% at 24 h**; palace recited backwards without
-error; portfolio index populated.
+**Gate (agent-2 Stage 1 + Stage 2):** 20/20 concrete words, 2-min encode, 100% at 24 h; palace
+recited backwards without error; **40/40 words, 4-min encode, ≥90% at 24 h**; portfolio index
+populated; personal cooldown measured and documented.
 
 ### Weeks 3–4 — The number system and first real material
+Complete 00–99, **derived from Major phonetics** (appendix in `drills.md`) — a free-associated set
+has no self-repair mechanism and decays permanently. Begin D4 concept encoding on real material.
+Reading OS Config B on one **2,000–3,000 word** source per week (Wed/Thu blocks). New cards **8/day**.
 
-- Complete 00–99, **derived from Major phonetics, not free-associated** — a free-associated set has
-  no self-repair mechanism and decays permanently. [agent-2 §3.2]
-- Begin **D4 concept encoding on real target material** in your primary domain. Symbol lexicon
-  starts growing at ~5 permanent entries per session.
-- Full Reading OS Config B on one dense source per week: triage → survey → read at comprehension
-  rate → self-explain at section boundaries → **blank-page free recall** → gap audit → cue-column
-  notes written *from the recall sheet, not the source* → card extraction **from the gap list only**.
-  [agent-4 Part 2]
-- Anki: 15 new cards/day. This is the number that produces ~150 reviews/day at maturity, which is
-  the documented sustainable steady state. [agent-3 §3.1, agent-5 §3]
+**Week 4: benchmark battery.**
 
-**Week 4: run the benchmark battery.** [benchmarks.md]
-
-**Gate:** all 100 number images bidirectional in ≤200 s; 15-item conceptual set ≥80% at 24 h under
-relationship scoring; lexicon ≥40 entries.
+**Gate:** all 100 number images bidirectional in ≤200 s. This clears the **image half** of agent-2's
+Stage 3 gate; the throughput half (100 digits/5 min) is a week-12 target, so Stage 3 is *not*
+complete at week 4. Lexicon ≥40.
 
 ### Weeks 5–6 — Cards, and verbatim begins
+52 card images. Quarter → half → full deck. **D5a verbatim (technical/legal)** starts: 12-line
+passages, one locus per clause. End of week 6 closes the **Dresler-equivalent window** — the six
+weeks × ≥30 min/day the RCT evidence actually covers. Expect a step change, and expect it to persist.
 
-- 52 card images, Major-consistent where possible. Quarter-deck → half-deck → full deck.
-- **D5a verbatim (technical/legal)** starts: 12-line passages, one locus per clause, one cue word
-  per clause. All-or-nothing line scoring from day one.
-- Concept encoding continues; lexicon ≥80.
-- End of week 6 marks the end of the **Dresler-equivalent window** — the 6 weeks × ≥30 min/day that
-  the RCT evidence actually covers. Expect a step change here, and expect it to persist.
-
-**Gate:** full deck 100% accurate under 5 min; 12-line passage 100% all-or-nothing at 24 h.
+**Gate:** full deck 100% accurate under 6 min; 12-line passage 100% all-or-nothing at 24 h.
 
 ### Weeks 7–9 — Scale and the second verbatim technique
+**D5b verbatim (prose/speeches)** starts — beat segmentation, meaning justification, motor enactment,
+aloud at tempo. Do **not** merge with D5a. Second domain enters maintenance (capped 20 reviews/day,
+out of the existing block). First quarterly palace sweep.
 
-- **D5b verbatim (prose/speeches)** starts — beat segmentation, meaning justification, motor
-  enactment, aloud at performance tempo. Do **not** merge it with D5a; they are different techniques.
-- Concept sets scale to 30 items, scored at **7 days**, relationship standard.
-- Second domain enters **maintenance** (review only, no new intake).
-- First quarterly palace sweep: filter `prop:s>180 tag:palace-image`, suspend, free the loci.
+**Week 8: benchmark battery.**
 
-**Week 8: run the benchmark battery.**
+**Gate:** full deck under 4 min at 100%.
+**Probes (not gates — agent-2 places these at month 4–6):** 30-item conceptual set ≥85% at 7 d;
+30-line passage ≥70% of lines perfect at 24 h.
 
-**Gate:** 30-item conceptual set ≥85% at 7 d; 30-line passage ≥70% of lines perfect at 24 h; deck
-under 3 min at 100%.
+### Weeks 10–12 — Consolidation and the week-12 gates
+Steady state. No new systems, no new tooling. Lexicon to ≥150.
+Verify **≥50% of Block-4 minutes are on real target material** — the countermeasure to transfer
+disappointment, checkable from your log.
 
-### Weeks 10–12 — Consolidation and the 12-week gates
+**Week 12: benchmark battery.**
 
-- Full pipeline at steady state. No new systems. No new tooling.
-- Verbatim under **USAMC format**: unfamiliar 30-line passage, 15 min to memorise, recall at 24 h.
-- Lexicon to ≥150 entries.
-- Verify **≥50% of the week's encoding volume is real target material**, not synthetic drills. This
-  is the countermeasure to transfer disappointment and it is checkable from your log. [agent-5 §7.4]
+**Week-12 gates (agent-2's own 12-week composite — Stages 0–4):**
+≥55/72 on a Dresler-format word list · 100 digits in 5 min at ≥95% immediate and ≥85% at 24 h · full
+deck under 3 min at 100% · lexicon ≥150 · 100+ indexed loci.
 
-**Week 12: run the benchmark battery.**
-
-**12-week composite target:** ≥55/72 on a Dresler-format word list; 100 digits in 5 min at ≥95%
-immediate and ≥85% at 24 h; full deck under 3 min at 100%; 30-item conceptual set ≥85% at 7 d;
-30-line unfamiliar passage ≥60% of lines perfect at 24 h; lexicon ≥150; 100+ indexed loci.
+**Week-12 probes (on-track indicators for month 4–9, not pass/fail):**
+30-item conceptual set ≥85% at 7 d · **12-line** unfamiliar passage, 15 min to memorise, ≥60% of
+lines perfect at 24 h. *(The 30-line version at 15 min is arithmetically unreachable: the cost model
+in `drills.md` prices 240–300 words at 19–36 min even at trained fluency. agent-2 calls the 30-line
+standard a 6–9 month mark. Attempt it at month 6.)*
 
 ---
 
-## Anki integration (the storage layer)
+## 7. Anki configuration (full table — do not go to `/research/` for this)
 
-Full settings in `research/agent-3 §3`. The operational summary:
+**Critical:** Anki enforces new-card limits **per preset**. 8/day is a **total across all presets**.
+You must set each preset individually to the values below, which sum to 8.
 
-- **Three presets, not one.** Core-0.93 for verbatim, formulas, statute text, high-stakes items;
-  Bulk-0.90 for concepts and general facts (this is where the volume lives); Intake-0.85 for fast
-  capture. Running the whole collection at 0.95+ turns a 60-minute day into a 130+ minute day and
-  the system fails by abandonment, which is a 0% retention outcome. The exchange rate: **0.95 costs
-  ~2.17× the reviews of 0.90; 0.97 costs ~3.73×** at fixed stability (~2–3× in realistic steady
-  state). [agent-3 §2]
-- **Control intake, not reviews.** Leave max reviews effectively uncapped and cap **new cards at 15/day**.
-  Capping reviews hides debt rather than removing it. [agent-3 §3.1]
-- **Circuit-breaker:** if backlog exceeds 2× the daily cap, **new cards go to 0** until it clears,
-  and the backlog drains in capped daily chunks — never in one heroic sitting, which is the
-  documented abandonment trigger. Backlog is a scheduling event, not a moral failure. [agent-5 §7.2]
-- **Never reset or rebuild the deck.** "Reschedule cards on change" is off by default and the Anki
-  manual states it is not recommended. Leave it off permanently. [agent-3 §1.7]
+### Preset `Core-0.93` — verbatim, formulas, statute text, anything that must never fail
+
+| Setting (as in Anki) | Value | Reason |
+|---|---|---|
+| FSRS | **On** (global toggle) | Default scheduler since 25.07. Do not install any FSRS add-on. |
+| Desired Retention | **0.93** | ~1.4× the 0.90 load; worth it only on must-never-fail material. |
+| Learning steps | **`10m 1h`** | Manual warns steps ≥1 day are not recommended with FSRS. |
+| Relearning steps | **`10m`** | A lapse should cost minutes, not a full re-ladder. |
+| Maximum interval | **`365`** | Forces an annual touch on material you promise to produce on demand. |
+| **New cards/day** | **3** | Part of the 8/day total. |
+| Maximum reviews/day | **`9999`** | Capping reviews hides debt; control intake instead. |
+| Leech threshold | **4** | Surface broken cards fast. |
+| Leech action | **Tag Only** | Suspending silently deletes knowledge; tagging forces a rewrite. |
+| Bury new / review / interday siblings | **All On** | Stops clozes cueing each other. |
+| Reschedule cards on change | **Off** | Manual: "not recommended". Never turn on. |
+| Insertion order | **Sequential** | Manual guidance. |
+| New/review order | **Mix with reviews** | Avoids a front-loaded new-card block. |
+| Easy Days | Sat/Sun **Reduced** | Only mark genuinely low-capacity days. |
+
+### Preset `Bulk-0.90` — concepts and general facts (where the volume lives)
+As above except: Desired Retention **0.90** · Maximum interval **1825** · **New cards/day 5** ·
+Leech threshold **6**.
+
+### Preset `Intake-0.85` — fast capture during reading
+As above except: Desired Retention **0.85** · Maximum interval **3650** · **New cards/day 0**
+(the Inbox is filled by hand and drained in the Sunday rewrite pass, not fed by the scheduler) ·
+Leech threshold **8**.
+
+### Decks
+```
+00-Inbox              → Intake-0.85
+01-<primary domain>   → Bulk-0.90
+  01a-Concepts        → Bulk-0.90
+  01b-Verbatim        → Core-0.93
+99-Palaces            → Core-0.93   (max interval 180)
+```
+Maximum three levels. Deck sprawl is the most common cause of untouched decks.
+
+### Operating rules
+- **Never reset or rebuild the deck.** "Reschedule cards on change" stays off permanently. [agent-3 §1.7]
 - **Grade honestly.** Again = could not produce it. Hard = produced it slowly. Using Hard as a soft
   Again is the single most common way to corrupt FSRS's fit. [agent-3 §3.4]
-- **Cards come from the gap list**, after blank-page recall has identified what you actually don't
-  know — not during reading, when everything looks worth carding. [agent-4 step 8]
-- **Reserve ~30% of daily time for unscheduled generation** — writing summaries from memory, solving
-  problems, explaining aloud. SRS reliably produces *cued* retrieval and does not reliably produce
-  transfer, integration, or fluent application. No card configuration substitutes for this.
-  [agent-3 §4.6]
+- **Block 6 = whatever your queue actually is, capped at 25 minutes.** Expect 40–80 reviews/day
+  through week 12 and ~150/day only from month 9 onward. The "150/day" figure is an *outcome to
+  monitor*, not a daily budget. If the queue exceeds 25 min three days running, the circuit-breaker
+  fires. [agent-5 §3°, agent-3 §2]
+- **Circuit-breaker:** backlog > 2× daily cap → **new cards to 0** until clear, drained in capped
+  daily chunks, never in one heroic sitting. Backlog is a scheduling event, not a moral failure.
+- **Cards come from the gap list**, after blank-page recall has identified what you don't know — not
+  during reading, when everything looks worth carding. [agent-4 step 8]
+- **Optimize FSRS** at ~1,000 reviews, then at each doubling, then monthly. 4–6 clicks in year one.
 
-## Habit protection
+**Known under-dose, stated honestly:** agent-3 §4.6 recommends ~30% of daily time on unscheduled
+generation, because SRS produces *cued* retrieval and does not produce transfer, integration or
+fluent application. This program supplies a 20-min Sunday generation session plus the Reading OS
+teach-aloud step — well under 30%. If you find spare capacity, put it here first.
 
-Fix **one time and one physical context** for the core block and do not move it for the first
-66 days. Lally et al. 2010: median time to automaticity was 66 days (range 18–254), and **missing a
-single opportunity did not materially affect habit formation**. [agent-5 §7.5]
+## 8. Habit protection
+
+Fix **one time and one physical place for Block 4** and do not move either for 66 days. Lally et al.
+2010: median time to automaticity 66 days (range 18–254), and **missing a single opportunity did not
+materially affect habit formation**. Blocks 2 and 6 are deliberately mobile.
 
 - Adherence is scored on a **7-day rolling average, never on streaks**.
-- One missed day is explicitly a non-event. This is evidence-backed, not consolation.
-- **Two consecutive misses trigger an automatic drop to a 15-minute floor session** — delayed-recall
-  check plus Anki only. The floor never goes to zero.
+- One missed day is explicitly a non-event. Evidence-backed, not consolation.
+- **Two consecutive misses → the 15-minute floor session:** 5 min delayed-recall check (top 10 items)
+  + 10 min Anki, review-only, new cards forced to 0. **Stop at 15 minutes even if the queue is not
+  clear.** The floor never goes to zero.
+
+---
+
+° Marked numbers are practitioner-sourced `[ANECDOTE]` — see `evidence.md` Tier 5. They are starting
+hypotheses to be replaced by your own logged data, not evidence.
