@@ -53,3 +53,18 @@ succeeded; ~40% of the payload was never seen. Recovered from the run journal, n
 | evidence.md | 150 reviews/day → time budget, not empirical threshold; review-cap contradiction reconciled | provenance sweep | Vendor-blog origin, no denominator. Anki manual's 20-new→200-review ratio is the primary-source alternative. Target 150 by capping NEW cards; leave max-reviews 9999. |
 | evidence.md | **NEW:** missed-technique search queue (14 families, zero corpus mentions) | missed-methods sweep | Production effect, errorless learning/vanishing cues, contextual interference, JOL calibration, part-whole chaining, morphological decomposition, etc. **Search queue, not findings.** |
 | evidence.md | Corrected the round-1 integrity diagnosis; recorded WebSearch budget exhaustion (200/200) | — | Round 2 cannot run as a search round in this session. |
+
+## 2026-08-09 — Encoding layer re-specified around person-perception (`system/leverage.md`)
+
+Operator reports high person-perception ability. Encoding layer re-specified to run on that channel.
+Memory-science dependencies traced as usual; person-perception science is **unresearched** and marked
+as such throughout, added to the round-2 queue.
+
+| File | Change | Basis |
+|---|---|---|
+| leverage.md | **NEW.** Character-primitive lexicon, actor-method verbatim reorder, names/faces promotion, Dominic-style 00–99, cue-articulation read log, calibration metrics | Animacy effect (`agent-2 §5.5`); relationship-acceptance rule (§5.6); self-reference d≈0.45 (`agent-1 §7`); person-based elite number systems (§3.1); Noice & Noice actor method (§6.1) |
+| drills.md D4 | Lexicon primitive: object → **character with a motive** | A character cannot be encoded without a relationship, so the label-only failure mode is structurally harder to commit |
+| drills.md D5b | Verbatim reordered: author-as-person → rhetorical posture → beats → word justification | The actor method *is* intention-reading applied to text; adversarially-drafted material (statutes, contracts) suits it especially |
+| drills.md D6 | Names & faces promoted from substrate drill to **primary track**; reads bound to conclusions, not just faces | Only memory-sport discipline running on the operator's native channel; feeds the person library |
+| drills.md A2 | 00–99 built Dominic-style (person + action) on Major phonetics | Faster acquisition on this channel; upgrades to PAO without rework. Cost: marginally slower at elite speed — irrelevant, competition is not the goal |
+| benchmarks.md | Test 8 gains a person-read component | Measures the asset the file exists to build |
