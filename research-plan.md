@@ -18,12 +18,38 @@ reading marketed as comprehension-neutral.
 ## 1. Subject profile assumed for this build
 
 - Adult, high motivation, 60–90 min/day dedicated training + integration into normal reading/study.
-- **PRIORITY MATERIAL: unspecified by the operator** (template line left unedited). Resolution:
-  build a **general system with five pluggable material tracks** — (a) technical/conceptual,
-  (b) verbatim passages, (c) numbers, (d) names/faces, (e) foreign-language vocabulary. The core
-  program is track-agnostic; each track has its own encoding recipe, drill and benchmark so the
-  learner selects 1–2 as primary without restructuring the program. This assumption is stated in
-  /system/README.md so it can be overridden in one place.
+- **PRIORITY MATERIAL (operator-confirmed):**
+  1. **Dense technical concepts** — understanding *and* durable retention, not recall of labels.
+     PRIMARY. This is the hardest case in the literature (abstract, non-imageable, structure-heavy)
+     and gets the largest share of program time.
+  2. **Verbatim passages** — word-perfect reproduction. PRIMARY.
+  3. **General detail capture** — names, numbers, dates, conversational and situational detail
+     encountered without warning. SECONDARY but continuous: this is trained as an always-on
+     capture habit rather than a scheduled block, because it has no advance notice.
+  Retained as pluggable tracks but weighted ~45 / 30 / 25. Numbers and names are trained as
+  *substrate skills* (they build the imagery fluency the other two depend on), not as ends.
+- **Domains (operator-confirmed): all four — software/CS/math, law/regulation/policy,
+  medicine/bio/chem, finance/economics/quant — "and more."** Design consequences, binding on synthesis:
+  (a) The core system must be **domain-general**; no domain-specific mnemonic convention may be
+      hard-coded into the program. What is domain-specific is the **symbol lexicon**, which the
+      learner builds per domain from a fixed procedure the system supplies.
+  (b) Worked examples (cards, encodings, palace layouts) must **span all four domains**, not one.
+  (c) **Cross-domain interference becomes a first-class risk**: one symbol lexicon serving four
+      fields will collide (e.g. "capital", "security", "resolution", "stress" mean different things
+      per domain). Mitigation to design in: domain-namespaced symbols and domain-segregated palace
+      estates, so a locus never hosts two domains.
+  (d) Breadth raises volume risk. The program must enforce **one primary domain at a time** for new
+      material intake, with the others in maintenance, or review load fragments and adherence fails.
+- **Verbatim sub-types (operator-confirmed):** technical/legal text (precision-dominant → loci-per-
+  clause, element-test encoding) AND prose/literature/speeches (prosody-dominant → Noice & Noice
+  active-experiencing, meaning-first rehearsal). Both get drills; they are different techniques and
+  must not be merged into one instruction.
+- **Stated goal, in the operator's terms:** "see something and be able to perfectly understand and
+  remember it." Design translation: single-exposure comprehension + deliberate encoding at first
+  contact (target 30–120 s per dense chunk, falling with fluency) + a retrieval schedule that drives
+  per-item maintenance cost toward zero. The system optimises for *time-to-permanent* per unit of
+  material, not for passive absorption. No lane may respond to this goal by lowering it; lanes report
+  what the evidence supports and the program closes the gap with training volume and technique.
 - Timeline: measurable superiority at 12 weeks; elite trajectory over 12 months.
 
 ## 2. How the six lanes compose into one system
