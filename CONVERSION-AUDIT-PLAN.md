@@ -36,18 +36,55 @@ that closes it. A finding without a proposed replacement is not finished work.
 
 ---
 
+## ⚠️ The flaw in the obvious version of this plan — read first
+
+An element-by-element comparison has a built-in ceiling: **it makes you slightly better than
+your rivals at everything, and the best at nothing.** Score every element against theirs,
+close every gap, and you land at "competent" — a well-executed version of the same shop.
+That does not win. People don't switch shops for a marginally better trust badge.
+
+The stores that win are the ones that are the **obvious** choice for a specific person with a
+specific problem. That's a positioning decision, and it has to come *first*, because it
+changes what every element on every page is supposed to say. "Improve the hero" is a
+meaningless instruction until you know what the hero is arguing.
+
+**So the sequence is: decide what we're the best in the world at → then audit every element
+against that.** Comparison tells us where we're behind. Positioning tells us what to aim at.
+We need both, in that order.
+
+There are three candidate positions already evidenced in the research, and each has a
+competitor-proof moat:
+
+1. **The 3-3-3 timeline.** Every UK rescue teaches it (3 days decompress / 3 weeks settle /
+   3 months at home); only charities rank for it; no retailer has claimed it. It maps
+   exactly onto the bundle ladder, which turns the price tiers into *stages of a dog
+   settling in* rather than discount tiers. **This is the strongest of the three.**
+2. **The indoor problem.** My Anxious Dog owns "anxious dog" but sells the outdoor,
+   on-lead, other-people problem. Nobody owns the dog who won't settle at night, won't eat
+   for three days, paces, shadows you room to room. That is every product we sell.
+3. **Sold by hand, proven in person.** We have real reviews from real customers who bought
+   face to face, before the website existed. No dropshipper can fake that, and it directly
+   answers the complaint that sinks our nearest rival ("not really a UK business").
+
+**Phase 0.5 picks one as primary.** Everything downstream is judged against it.
+
+---
+
 ## Who we're measuring against
 
 Pick from three tiers — you learn different things from each. **Do not copy tier 1 blindly:
 our nearest competitor has poor Trustpilot reviews, so imitating them imports their
 weaknesses.**
 
-- **Tier 1 — direct UK rivals.** calmingdogbeds.co.uk, My Anxious Dog, and 2–3 others found
-  during research. These define the category's table stakes.
-- **Tier 2 — big UK pet retail.** Pets at Home, Bella & Duke, Lords & Labradors. These
-  define what shoppers are *used to* — the baseline UX expectation.
-- **Tier 3 — best-in-class DTC (any category).** Brands with genuinely excellent PDPs.
-  These are where the ideas that beat the category come from.
+- **Tier 1 — direct UK rivals (beat these).** `calmingdogbeds.co.uk` · `myanxiousdog.co.uk`
+  · Thundershirt UK · Snuggle Puppy UK. Plus any others surfaced in Phase 0. These define
+  the category's table stakes — and tier 1 is *beatable*, which is the whole opportunity.
+- **Tier 2 — big UK pet retail (match these).** Pets at Home · Lords & Labradors ·
+  Bella & Duke. Not rivals — they set what a UK shopper *expects* a shop to do. Falling
+  below this baseline reads as amateur.
+- **Tier 3 — best-in-class DTC (steal from these).** Any category. Brands with genuinely
+  excellent product pages and checkout. This is where ideas that beat the category come
+  from — copying tier 1 alone caps us at "slightly better than mediocre".
 
 ---
 
@@ -76,6 +113,13 @@ size guide · reviews · FAQ · cross-sell/upsell · sticky mobile buy bar · br
 ### Phase 0 · Set up
 Confirm web access works (the previous run was blind — see `START-HERE-NEXT-BUILDER.md`).
 Lock the competitor list. Agree the rubric. **Nothing else starts until this is done.**
+
+### Phase 0.5 · Decide the position — **the phase everything else depends on**
+Pick the primary position from the three candidates above (recommendation: **the 3-3-3
+timeline**, with "sold by hand" as the supporting trust story). Write it as one sentence
+that a stranger would understand. Every element scored later is judged on how well it
+advances that sentence — not just on whether it beats a rival.
+**Owner decision. Nothing else starts until it's made.**
 
 ### Phase 1 · Capture
 Screenshot every page of ours and every equivalent page of each competitor, desktop and
@@ -170,5 +214,13 @@ Everything else — every rewrite, every fix, every test — is mine.
 
 ## Sign-off
 
-Owner approves: competitor list · the rubric · the scope · the phase order.
-Then `START-HERE-NEXT-BUILDER.md` gets updated to point at this plan, and execution begins.
+**Decisions already made (override any of them if you disagree):**
+- Competitor list — set, three tiers, named above
+- Rubric — set: clarity, motivation, trust, friction, relevance, scored 1–5
+- Scope — set: every page type, every PDP element, desktop + mobile
+- Phase order — set, with Phase 0.5 (positioning) inserted before any auditing
+
+**The one decision only the owner can make: the primary position** (Phase 0.5).
+Recommendation: the 3-3-3 timeline, supported by the sold-by-hand proof.
+
+Once that sentence exists, `START-HERE-NEXT-BUILDER.md` points here and execution begins.
