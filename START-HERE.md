@@ -1,3 +1,17 @@
+> # ⛔ SUPERSEDED — do not follow this file
+>
+> This is the **25 July 2026** brief. It is kept for history only.
+>
+> **Two things in here are now WRONG and will cause real damage:**
+> * It tells you to deploy to theme **`193158119707`** — that theme is **ABANDONED**.
+>   The live deploy target is **`193438056731`**.
+> * It says the CRO wave 2 files are undeployed. **They were deployed on 2026-07-25** and
+>   wired up on 2026-07-27.
+>
+> **👉 Go to `START-HERE-NEXT-BUILDER.md` instead.** Then `STATUS.md`.
+
+---
+
 # START HERE — morning of 25 July 2026
 
 Everything from the overnight session. Read this page, then do the five things in §2.

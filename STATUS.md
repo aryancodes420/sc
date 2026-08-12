@@ -7,6 +7,24 @@
 
 ---
 
+## 🧭 THE POSITION (decided 2026-08-05) — read `POSITIONING.md`
+
+> **Everything your rescue dog needs in their first three months — matched to the stage
+> they're actually at.** Supported by: *"Sold by hand before it was ever sold online."*
+
+The store is organised around the **3-3-3 timeline** every UK rescue teaches
+(3 days decompress · 3 weeks settle · 3 months at home). The bundles are those three
+stages, not three discount tiers. **Every change is judged on whether it helps someone
+work out which stage their dog is at, and get the right thing for it.**
+
+Approved audit spec: `CONVERSION-AUDIT-PLAN.md`. Executing builder starts at
+`START-HERE-NEXT-BUILDER.md`.
+
+⚠️ Language: *"what many rescues tell adopters"*, never *"the rule"*. Never claim a product
+reduces anxiety (ASA treats anxiety as a health condition).
+
+---
+
 ## 🚦 Can I launch today?
 
 **No — blocked on ONE thing: product photography.**
@@ -112,7 +130,11 @@ Bonfire Night 2026 = rehearsal. 2027 = payday.
 - **Change log:** `audit/implementation-notes/live-catalog-changes.md`
 - **Growth model:** `growth/GROWTH-PLAN.md`
 - **Multi-agent system:** `.claude/workflows/` — run with `/workflows` or ask Claude
+- **▶ START HERE (next builder):** `START-HERE-NEXT-BUILDER.md` — the job, in order
+- **The position:** `POSITIONING.md` — 3-3-3. Read before judging anything.
+- **Approved audit spec:** `CONVERSION-AUDIT-PLAN.md`
 - **Brief for a web-enabled builder:** `BRIEF-FOR-WEB-ENABLED-BUILDER.md` — the questions this environment could not answer
+- ⛔ **`START-HERE.md` is SUPERSEDED** (25 July, points at the abandoned theme). Ignore it.
 - **Preview:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731`
 
 ---
