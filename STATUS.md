@@ -62,6 +62,10 @@ hardcodes First Days Kit's contents/totals; 6 products share it. The live Settle
 (truth: £7.98) — i.e. it reads as costing *more* than its parts. This one is real and
 unaffected by the reviews correction.
 
+**→ Queued as TODO 1 in `START-HERE-NEXT-BUILDER.md`** with the exact file, the true
+figures, and two fix options. Also queued there: the First Days Kit says "save £15" in
+several places when the true figure is £14.98, and the PDP "verified reviews" wording.
+
 ---
 
 ## ⛔ BLOCKED — owner action only (no agent can do these)

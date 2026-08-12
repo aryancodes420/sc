@@ -40,7 +40,64 @@ theme source audit, general competitor research on page anatomy and AOV tactics.
 
 ---
 
-## Step 2 — run the workflow
+## Step 2 — DO THESE TWO FIXES FIRST (already diagnosed, just execute)
+
+Don't research these. They're confirmed. Fix them before you run anything else — one is a
+live false claim on the owner's most valuable page.
+
+### 🔴 TODO 1 — Bundle pages state a saving that isn't true
+
+**File:** `dog-nook-theme/templates/product.bundle.json` (deploy to theme `193438056731`)
+
+**The bug:** the template hardcodes **The First Days Kit's** contents and totals into
+section settings, and **6 products share that one template.** So every other bundle
+displays First Days Kit's numbers.
+
+**What the live Settle-In Bundle page currently claims vs the truth:**
+
+| Shown on page | Reality |
+|---|---|
+| Contents include a Slow-Feeder Bowl | It's Donut Bed + Lick Mat + Snuffle Mat — **no slow-feeder** |
+| "£49.97 bought separately" | **£72.97** (£44.99 + £11.99 + £22.99 at the bundle's Medium bed) |
+| Badge: "BEST VALUE · SAVE £15" | Real saving is **£7.98** |
+
+Read literally the page says the bundle costs **more** than its parts. It is a false
+savings claim + a misdescription of goods (DMCC 2024 / CMA). The four premium kits inherit
+the same panel — the £139.99 Complete Calm System would also claim its parts cost £49.97.
+
+**Fix — two options, pick based on time:**
+- **Safe, ~10 min:** blank `separately_total` and `badge` in the template so nothing false
+  renders. Removes the legal exposure immediately; page just shows less.
+- **Proper, ~1–2 h:** drive contents + totals from per-product metafields
+  (e.g. `custom.bundle_contents`, `custom.bundle_separately_total`) so each bundle shows
+  its own real numbers, then set those metafields on all 6 bundles. **Every total must be
+  computed from the real component prices** — never rounded up, never invented.
+
+**Verify:** re-deploy, confirm `checksumMd5`, then **load the page** and read the numbers
+back. Also check the First Days Kit still reads correctly (its own numbers are the ones
+currently hardcoded, so it's the one page that's right today — don't break it).
+
+⚠️ Also fix the rounded saving: the First Days Kit says **"You save £15"** in several
+places. The true figure is **£14.98**, and the homepage already says £14.98 — so the store
+contradicts itself. Rounded-up savings are exactly what the CMA challenges.
+
+### 🟠 TODO 2 — "Verified reviews" wording overclaims
+
+The PDP reportedly renders **"Based on 10 verified reviews"**, but the review data
+correctly carries `verified: false`.
+
+**The reviews are genuine** — the owner sold these products in person before the Shopify
+store opened. `verified: false` is right, because they aren't Shopify-verified *purchases*.
+**Do not delete anything.** Just align the wording so the page doesn't overclaim —
+e.g. *"from 10 customers"* or *"collected in person"*, which is truer and, given this
+brand's positioning, actually reads stronger.
+
+**Confirm the wording renders as described before changing it** — this was reported from
+source-reading, not observation.
+
+---
+
+## Step 3 — run the workflow
 
 ```
 Workflow({ scriptPath: ".claude/workflows/full-cycle.js" })
