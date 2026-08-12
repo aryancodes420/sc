@@ -102,8 +102,11 @@ several places when the true figure is £14.98, and the PDP "verified reviews" w
 - **The live site is NOT what we've been building.** Live = theme `193140818203` (old, 15 Jul).
   All new work is on UNPUBLISHED draft `193438056731`. Publishing is the owner's click.
 - **Never deploy to `193140818203`** (live) or `193158119707` (abandoned).
-- **The storefront is firewalled from Claude.** No agent can screenshot or visually verify.
-  Anything claiming "it looks perfect" is guessing. Owner does visual QA.
+- **Check whether YOU can see the storefront before trusting any layout claim.** In a
+  restricted environment it returns 403 and no agent can screenshot or visually verify —
+  that's how run #1 produced ~10 confident guesses. In a web-enabled environment you CAN
+  and MUST load pages. Either way: **anything claiming "it looks perfect" without having
+  loaded the page is guessing.** Test first (`START-HERE-NEXT-BUILDER.md` Step 0).
 - **Asset drift unresolved:** `dog-nook.js` + `dog-nook-cro.css` differ across git and both
   drafts; git matches neither. Don't "fix" without deciding which is canonical.
 - **One chat at a time on the catalogue.** Git branches do NOT protect the Shopify store —
