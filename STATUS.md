@@ -7,6 +7,24 @@
 
 ---
 
+## 🧭 THE POSITION (decided 2026-08-05) — read `POSITIONING.md`
+
+> **Everything your rescue dog needs in their first three months — matched to the stage
+> they're actually at.** Supported by: *"Sold by hand before it was ever sold online."*
+
+The store is organised around the **3-3-3 timeline** every UK rescue teaches
+(3 days decompress · 3 weeks settle · 3 months at home). The bundles are those three
+stages, not three discount tiers. **Every change is judged on whether it helps someone
+work out which stage their dog is at, and get the right thing for it.**
+
+Approved audit spec: `CONVERSION-AUDIT-PLAN.md`. Executing builder starts at
+`START-HERE-NEXT-BUILDER.md`.
+
+⚠️ Language: *"what many rescues tell adopters"*, never *"the rule"*. Never claim a product
+reduces anxiety (ASA treats anxiety as a health condition).
+
+---
+
 ## 🚦 Can I launch today?
 
 **No — blocked on ONE thing: product photography.**
@@ -84,12 +102,19 @@ several places when the true figure is £14.98, and the PDP "verified reviews" w
 - **The live site is NOT what we've been building.** Live = theme `193140818203` (old, 15 Jul).
   All new work is on UNPUBLISHED draft `193438056731`. Publishing is the owner's click.
 - **Never deploy to `193140818203`** (live) or `193158119707` (abandoned).
-- ~~**The storefront is firewalled from Claude.**~~ **NO LONGER TRUE (2026-08-12).** A
-  session can load and screenshot the storefront, including the draft preview and a mobile
-  viewport. Chromium needs a loopback tunnel + CA pin first — one command, see
-  `tools/agent-browser/`. Don't report "I can't see the site" without trying it.
-  ⚠️ Still true: **always assert `Shopify.theme.id`** — `?preview_theme_id=` is silently
-  dropped and you get the *live* theme with a plausible 200 (`audit/lessons/L002`).
+- **Check whether YOU can see the storefront before trusting any layout claim.** In a
+  restricted environment it returns 403 and no agent can screenshot or visually verify —
+  that's how run #1 produced ~10 confident guesses. In a web-enabled environment you CAN
+  and MUST load pages. Either way: **anything claiming "it looks perfect" without having
+  loaded the page is guessing.** Test first (`START-HERE-NEXT-BUILDER.md` Step 0).
+  - **A failed browser is usually fixable, not a verdict (proven 2026-08-12).** Chromium
+    cannot open `:443` here and fails every HTTPS page with `ERR_CONNECTION_RESET`, which
+    looks exactly like a blocked policy and isn't. One command fixes it —
+    `tools/agent-browser/`. Don't report "I can't see the site" without trying it.
+  - ⚠️ **Always assert `Shopify.theme.id` on every page.** `?preview_theme_id=` only sets a
+    cookie and the myshopify→domain 301 drops it, so you silently get the *live* theme with
+    a plausible 200. A full analysis was once written against the wrong theme
+    (`audit/lessons/L002`).
 - **Asset drift unresolved:** `dog-nook.js` + `dog-nook-cro.css` differ across git and both
   drafts; git matches neither. Don't "fix" without deciding which is canonical.
 - **One chat at a time on the catalogue.** Git branches do NOT protect the Shopify store —
@@ -116,10 +141,14 @@ Bonfire Night 2026 = rehearsal. 2027 = payday.
 - **Change log:** `audit/implementation-notes/live-catalog-changes.md`
 - **Growth model:** `growth/GROWTH-PLAN.md`
 - **Multi-agent system:** `.claude/workflows/` — run with `/workflows` or ask Claude
+- **▶ START HERE (next builder):** `START-HERE-NEXT-BUILDER.md` — the job, in order
+- **The position:** `POSITIONING.md` — 3-3-3. Read before judging anything.
+- **Approved audit spec:** `CONVERSION-AUDIT-PLAN.md`
 - **Lessons (read before starting):** `audit/lessons/` — traps that already cost a session
 - **Browser access:** `tools/agent-browser/` — makes screenshots/preview verification work
 - **Defect list:** `PROBLEMS-1.md` — 11 logged, not yet started
 - **Brief for a web-enabled builder:** `BRIEF-FOR-WEB-ENABLED-BUILDER.md` — the questions this environment could not answer
+- ⛔ **`START-HERE.md` is SUPERSEDED** (25 July, points at the abandoned theme). Ignore it.
 - **Preview:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731`
 
 ---

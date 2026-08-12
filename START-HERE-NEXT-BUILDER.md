@@ -26,10 +26,27 @@ environment → less restricted network policy).
 
 ---
 
+## Step 0.5 — working rules (5 seconds, saves an hour)
+
+- **Branch:** cut a new branch off `main` (`git checkout -b claude/<your-task>`). Push there.
+  **Do not commit straight to `main`** — the owner fast-forwards it once work is reviewed.
+- **New CSS goes in `assets/dog-nook-cro3.css`** (or a new `cro4.css` you add to
+  `snippets/dog-nook-head.liquid`). **Never** edit `dog-nook.css` or `dog-nook-cro.css` —
+  both are near the deploy size limit and both have unresolved version drift.
+- **Deploy files one or two at a time, BASE64, then verify `checksumMd5`.** A hand-emitted
+  base64 string over ~10–12 KB corrupts silently. `HANDOFF.md` §3 has the recipe.
+- **These docs are stale — trust `STATUS.md` over any of them:**
+  `START-HERE.md` (superseded) · `BUILDER-COORDINATION.md` (20 Jul; its open checkboxes are
+  done) · `audit/implementation-notes/PENDING-graphql-ops.md` (all executed).
+
+---
+
 ## Step 1 — read, don't redo
 
 | Read | For |
 |---|---|
+| **`POSITIONING.md`** | **The position the whole shop is built on. Read before anything else — every judgement depends on it.** |
+| **`CONVERSION-AUDIT-PLAN.md`** | **The approved spec for the audit. This is the job.** |
 | `STATUS.md` | Source of truth. If it disagrees with your memory, it wins. |
 | `audit/findings/2026-08-05-recon-report.md` | Everything run #1 found. **Build on it, don't repeat it.** |
 | `HANDOFF.md` §2, §3 | Theme IDs and the deploy recipe (BASE64, verify checksums) |
@@ -94,6 +111,39 @@ brand's positioning, actually reads stronger.
 
 **Confirm the wording renders as described before changing it** — this was reported from
 source-reading, not observation.
+
+### 🔵 TODO 3 — Rebuild the shop around 3-3-3 (the main body of work)
+
+Read `POSITIONING.md` first. The owner has decided the store is organised around a rescue
+dog's first three months. **This is not a copy tweak — it's the spine of the site**, and it
+should happen alongside the audit, not after it.
+
+Build, in this order:
+
+1. **Bundles become stages.** First Days = days 1–3 · Settle-In = weeks 1–3 ·
+   Complete Calm = months 1–3. Say the stage on each bundle page and everywhere they're
+   listed. Keep the real savings maths — the stage is the *reason*, the saving stays true.
+2. **Homepage hero asks the question** — *"Where's your dog right now?"* — with three doors,
+   one per stage. This replaces a product-led hero. It is the single biggest visible change
+   and the thing no competitor has.
+3. **Tag every product with its stage** (a `custom.stage` metafield is the obvious route),
+   and surface it on the PDP. A lick mat is a day-one product; a bed is a week-one product.
+4. **Add one question to the quiz:** *"How long have you had them?"* → routes to the right
+   stage. Cheapest, most natural upsell available.
+5. **Restructure `settling-a-new-rescue`** into the three stages, and make it the spine of
+   the navigation rather than one collection among many.
+6. **Map the five unpublished articles to stages** and publish them, then build the stage
+   landing pages they should link into.
+7. **Write the stage-timed email sequence** (day 1 · day 3 · week 1 · week 3 · month 1),
+   matched to what the dog is actually doing that week. Copy only — the owner has to pick
+   and connect an email platform. Hand it over ready to paste.
+
+**Language rule:** *"what many rescues tell adopters"*, never *"the rule"*. Every dog
+differs, and saying so builds more trust than false certainty. And never claim a product
+reduces anxiety — see the standing rules.
+
+**Do not rewrite the product descriptions.** They already speak to these exact moments.
+Label them by stage and move them up the page.
 
 ---
 
