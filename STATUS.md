@@ -84,8 +84,12 @@ several places when the true figure is £14.98, and the PDP "verified reviews" w
 - **The live site is NOT what we've been building.** Live = theme `193140818203` (old, 15 Jul).
   All new work is on UNPUBLISHED draft `193438056731`. Publishing is the owner's click.
 - **Never deploy to `193140818203`** (live) or `193158119707` (abandoned).
-- **The storefront is firewalled from Claude.** No agent can screenshot or visually verify.
-  Anything claiming "it looks perfect" is guessing. Owner does visual QA.
+- ~~**The storefront is firewalled from Claude.**~~ **NO LONGER TRUE (2026-08-12).** A
+  session can load and screenshot the storefront, including the draft preview and a mobile
+  viewport. Chromium needs a loopback tunnel + CA pin first — one command, see
+  `tools/agent-browser/`. Don't report "I can't see the site" without trying it.
+  ⚠️ Still true: **always assert `Shopify.theme.id`** — `?preview_theme_id=` is silently
+  dropped and you get the *live* theme with a plausible 200 (`audit/lessons/L002`).
 - **Asset drift unresolved:** `dog-nook.js` + `dog-nook-cro.css` differ across git and both
   drafts; git matches neither. Don't "fix" without deciding which is canonical.
 - **One chat at a time on the catalogue.** Git branches do NOT protect the Shopify store —
@@ -112,6 +116,9 @@ Bonfire Night 2026 = rehearsal. 2027 = payday.
 - **Change log:** `audit/implementation-notes/live-catalog-changes.md`
 - **Growth model:** `growth/GROWTH-PLAN.md`
 - **Multi-agent system:** `.claude/workflows/` — run with `/workflows` or ask Claude
+- **Lessons (read before starting):** `audit/lessons/` — traps that already cost a session
+- **Browser access:** `tools/agent-browser/` — makes screenshots/preview verification work
+- **Defect list:** `PROBLEMS-1.md` — 11 logged, not yet started
 - **Brief for a web-enabled builder:** `BRIEF-FOR-WEB-ENABLED-BUILDER.md` — the questions this environment could not answer
 - **Preview:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731`
 
