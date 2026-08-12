@@ -1,3 +1,8 @@
+> # ✅ ALL EXECUTED — 2026-07-27. Nothing pending here.
+> Kept for history. Do not re-run. Trust `STATUS.md`.
+
+---
+
 # PENDING — GraphQL-only ops for a fresh session to run
 
 > **For the next builder session.** The Phase 1–3 product expansion is done (see

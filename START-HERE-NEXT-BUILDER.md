@@ -26,6 +26,21 @@ environment → less restricted network policy).
 
 ---
 
+## Step 0.5 — working rules (5 seconds, saves an hour)
+
+- **Branch:** cut a new branch off `main` (`git checkout -b claude/<your-task>`). Push there.
+  **Do not commit straight to `main`** — the owner fast-forwards it once work is reviewed.
+- **New CSS goes in `assets/dog-nook-cro3.css`** (or a new `cro4.css` you add to
+  `snippets/dog-nook-head.liquid`). **Never** edit `dog-nook.css` or `dog-nook-cro.css` —
+  both are near the deploy size limit and both have unresolved version drift.
+- **Deploy files one or two at a time, BASE64, then verify `checksumMd5`.** A hand-emitted
+  base64 string over ~10–12 KB corrupts silently. `HANDOFF.md` §3 has the recipe.
+- **These docs are stale — trust `STATUS.md` over any of them:**
+  `START-HERE.md` (superseded) · `BUILDER-COORDINATION.md` (20 Jul; its open checkboxes are
+  done) · `audit/implementation-notes/PENDING-graphql-ops.md` (all executed).
+
+---
+
 ## Step 1 — read, don't redo
 
 | Read | For |

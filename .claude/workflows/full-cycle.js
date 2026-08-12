@@ -6,7 +6,6 @@ export const meta = {
     { title: 'Gate', detail: 'prove we can reach the site — refuse to run blind' },
     { title: 'See', detail: 'load and describe every page type as it actually renders' },
     { title: 'Research', detail: 'open real competitor pages, record real prices' },
-    { title: 'Compare', detail: 'ours vs theirs, page by page' },
     { title: 'Verify', detail: 'attack every finding before it reaches the owner' },
     { title: 'Plan', detail: 'one sequenced fix list, not a dump' },
   ],
@@ -33,8 +32,20 @@ const PREVIEW = 'https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731'
 
 const CONTEXT = `
 PROJECT: "The Dog Nook" — UK Shopify store, calming/comfort gear for ANXIOUS and RESCUE dogs.
-READ FIRST: STATUS.md (source of truth), then audit/findings/2026-08-05-recon-report.md
-(what run #1 already found — DO NOT redo it, build on it).
+READ FIRST, IN THIS ORDER:
+ 1. POSITIONING.md — the position the whole store is built on. EVERY judgement below is
+    made against it, not just against a competitor's version of the same element.
+ 2. STATUS.md — source of truth.
+ 3. audit/findings/2026-08-05-recon-report.md — what run #1 found. DO NOT redo it.
+
+THE POSITION (summary — read the file for the detail):
+"Everything your rescue dog needs in their first three months — matched to the stage
+they're actually at." The store is organised around the 3-3-3 timeline UK rescues teach:
+3 days decompress · 3 weeks settle · 3 months at home. The three bundles ARE those stages,
+not three discount tiers. Supporting proof: "sold by hand before it was ever sold online."
+
+So scoring an element "as good as a competitor's" is NOT a pass. The question is: does this
+element help someone work out which stage their dog is at, and get the right thing for it?
 
 Draft theme preview (unpublished, no password): ${PREVIEW}
 
@@ -88,6 +99,10 @@ const FINDING_SCHEMA = {
 
 /* The ONLY legitimate reasons a task is owner-only. Anything else => Claude does it. */
 const OWNER_ONLY_TEST = `
+SCORE AGAINST THE POSITION TOO. For any element you assess, also ask: does it advance
+"which stage is your dog at, and what do they need for it"? An element that beats every
+competitor but says nothing about the stage is still a miss — flag it as a positioning gap.
+
 CLASSIFY EVERY FINDING: can Claude do it, or must the owner?
 
 **Default to CLAUDE.** Claude can read and write the catalogue, metafields, prices,
