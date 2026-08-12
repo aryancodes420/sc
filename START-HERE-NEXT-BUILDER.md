@@ -97,6 +97,39 @@ brand's positioning, actually reads stronger.
 **Confirm the wording renders as described before changing it** — this was reported from
 source-reading, not observation.
 
+### 🔵 TODO 3 — Rebuild the shop around 3-3-3 (the main body of work)
+
+Read `POSITIONING.md` first. The owner has decided the store is organised around a rescue
+dog's first three months. **This is not a copy tweak — it's the spine of the site**, and it
+should happen alongside the audit, not after it.
+
+Build, in this order:
+
+1. **Bundles become stages.** First Days = days 1–3 · Settle-In = weeks 1–3 ·
+   Complete Calm = months 1–3. Say the stage on each bundle page and everywhere they're
+   listed. Keep the real savings maths — the stage is the *reason*, the saving stays true.
+2. **Homepage hero asks the question** — *"Where's your dog right now?"* — with three doors,
+   one per stage. This replaces a product-led hero. It is the single biggest visible change
+   and the thing no competitor has.
+3. **Tag every product with its stage** (a `custom.stage` metafield is the obvious route),
+   and surface it on the PDP. A lick mat is a day-one product; a bed is a week-one product.
+4. **Add one question to the quiz:** *"How long have you had them?"* → routes to the right
+   stage. Cheapest, most natural upsell available.
+5. **Restructure `settling-a-new-rescue`** into the three stages, and make it the spine of
+   the navigation rather than one collection among many.
+6. **Map the five unpublished articles to stages** and publish them, then build the stage
+   landing pages they should link into.
+7. **Write the stage-timed email sequence** (day 1 · day 3 · week 1 · week 3 · month 1),
+   matched to what the dog is actually doing that week. Copy only — the owner has to pick
+   and connect an email platform. Hand it over ready to paste.
+
+**Language rule:** *"what many rescues tell adopters"*, never *"the rule"*. Every dog
+differs, and saying so builds more trust than false certainty. And never claim a product
+reduces anxiety — see the standing rules.
+
+**Do not rewrite the product descriptions.** They already speak to these exact moments.
+Label them by stage and move them up the page.
+
 ---
 
 ## Step 3 — run the workflow
