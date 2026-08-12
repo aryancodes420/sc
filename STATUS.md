@@ -108,6 +108,7 @@ Bonfire Night 2026 = rehearsal. 2027 = payday.
 - **Change log:** `audit/implementation-notes/live-catalog-changes.md`
 - **Growth model:** `growth/GROWTH-PLAN.md`
 - **Multi-agent system:** `.claude/workflows/` — run with `/workflows` or ask Claude
+- **Brief for a web-enabled builder:** `BRIEF-FOR-WEB-ENABLED-BUILDER.md` — the questions this environment could not answer
 - **Preview:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731`
 
 ---
