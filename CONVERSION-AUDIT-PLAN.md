@@ -1,7 +1,7 @@
 # The Conversion Audit — objective & plan
 
-> **Status: DRAFT FOR OWNER APPROVAL.** Do not execute until the owner signs this off.
-> Once approved, this is the spec the executing builder works to.
+> **Status: APPROVED 2026-08-05.** This is the spec the executing builder works to.
+> **Phase 0.5 is DONE — the position is decided: see `POSITIONING.md`.** Start at Phase 1.
 
 ---
 
@@ -220,7 +220,8 @@ Everything else — every rewrite, every fix, every test — is mine.
 - Scope — set: every page type, every PDP element, desktop + mobile
 - Phase order — set, with Phase 0.5 (positioning) inserted before any auditing
 
-**The one decision only the owner can make: the primary position** (Phase 0.5).
-Recommendation: the 3-3-3 timeline, supported by the sold-by-hand proof.
+**Phase 0.5 — DECIDED.** The primary position is the **3-3-3 timeline**, supported by the
+sold-by-hand proof. Written up in `POSITIONING.md`. Every element scored in Phase 3 is
+judged against that sentence, not only against a rival's version of the same element.
 
-Once that sentence exists, `START-HERE-NEXT-BUILDER.md` points here and execution begins.
+Approved. `START-HERE-NEXT-BUILDER.md` points here. Execution begins at Phase 1.

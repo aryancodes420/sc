@@ -30,6 +30,8 @@ environment → less restricted network policy).
 
 | Read | For |
 |---|---|
+| **`POSITIONING.md`** | **The position the whole shop is built on. Read before anything else — every judgement depends on it.** |
+| **`CONVERSION-AUDIT-PLAN.md`** | **The approved spec for the audit. This is the job.** |
 | `STATUS.md` | Source of truth. If it disagrees with your memory, it wins. |
 | `audit/findings/2026-08-05-recon-report.md` | Everything run #1 found. **Build on it, don't repeat it.** |
 | `HANDOFF.md` §2, §3 | Theme IDs and the deploy recipe (BASE64, verify checksums) |
