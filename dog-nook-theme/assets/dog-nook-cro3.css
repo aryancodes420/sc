@@ -1,0 +1,63 @@
+/* The Dog Nook — CRO wave 2b: calm-kit quiz styles.
+   Split from dog-nook-cro2.css to stay under the deploy-size limit
+   (HANDOFF §3). Loaded by dog-nook-head alongside cro2. */
+
+/* Link-colour trap (HANDOFF §5): the result card is an <a>, so its colour is
+   pinned here or dog-nook.css paints it sage-on-sage and it disappears. */
+.tdn a.tdn-quiz__rcard, .tdn a.tdn-quiz__rcard:hover { color: var(--tdn-charcoal) !important; text-decoration: none !important; }
+
+/* ---------- quiz ---------- */
+.tdn-quiz { max-width: 780px; }
+.tdn-quiz__head { text-align: center; }
+.tdn-quiz__sub { max-width: 500px; margin: -12px auto 22px; }
+.tdn-quiz__progress { height: 4px; background: var(--tdn-warm-border); border-radius: 999px; overflow: hidden; margin-bottom: 28px; }
+.tdn-quiz__progressbar { height: 100%; width: 25%; background: var(--tdn-sage); border-radius: 999px; transition: width .3s ease; }
+.tdn-quiz__step { display: none; }
+.tdn-quiz__step.is-active { display: block; animation: tdnFade .35s ease; }
+.tdn-quiz__q { font-family: var(--tdn-font-display); font-size: 23px; font-weight: 600; text-align: center; margin-bottom: 20px; line-height: 1.25; }
+.tdn-quiz__opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.tdn-quiz__opts--3 { grid-template-columns: repeat(3, 1fr); }
+.tdn-quiz__opt {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  background: var(--tdn-card); border: 1.5px solid var(--tdn-card-border); border-radius: 16px;
+  padding: 18px; cursor: pointer; text-align: left; font-family: inherit;
+  transition: border-color .16s, transform .16s, box-shadow .16s;
+  min-height: 44px;
+}
+.tdn-quiz__opt:hover { border-color: var(--tdn-sage); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(46,42,34,.08); }
+.tdn-quiz__opt:focus-visible { outline: 2px solid var(--tdn-sage); outline-offset: 2px; }
+.tdn-quiz__opticon { font-size: 26px; line-height: 1.2; }
+.tdn-quiz__optlabel { font-weight: 600; font-size: 15px; color: var(--tdn-charcoal); }
+.tdn-quiz__optsub { font-size: 12.5px; color: var(--tdn-muted); }
+.tdn-quiz__back, .tdn-quiz__skip, .tdn-quiz__restart {
+  background: none; border: none; font-family: inherit; cursor: pointer;
+  color: var(--tdn-muted); font-size: 13.5px; padding: 10px 4px; text-decoration: underline;
+}
+.tdn-quiz__back:hover, .tdn-quiz__skip:hover, .tdn-quiz__restart:hover { color: var(--tdn-sage); }
+.tdn-quiz__back { display: block; margin: 18px auto 0; }
+.tdn-quiz__skip { display: block; margin: 12px auto 0; }
+.tdn-quiz__emailsub { text-align: center; max-width: 420px; margin: -10px auto 18px; }
+.tdn-quiz__form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; }
+.tdn-quiz__form .tdn-field { flex: 1; min-width: 0; }
+
+.tdn-quiz__result { text-align: center; }
+.tdn-quiz__rtitle { margin: 8px 0 10px; }
+.tdn-quiz__rwhy { font-size: 15px; line-height: 1.65; color: var(--tdn-muted-2); max-width: 520px; margin: 0 auto 22px; }
+.tdn-quiz__rcard {
+  display: block; max-width: 340px; margin: 0 auto; background: var(--tdn-card);
+  border: 1px solid var(--tdn-card-border); border-radius: 18px; overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+}
+.tdn-quiz__rcard:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(46,42,34,.10); }
+.tdn-quiz__rmedia { height: 190px; }
+.tdn-quiz__rmedia img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tdn-quiz__rbody { padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.tdn-quiz__rprice { font-size: 22px; }
+.tdn-quiz__rbtn { width: 100%; }
+.tdn-quiz__restart { margin: 18px auto 0; display: block; }
+
+@media (max-width: 620px) {
+  .tdn-quiz__opts, .tdn-quiz__opts--3 { grid-template-columns: 1fr; }
+  .tdn-quiz__q { font-size: 20px; }
+  .tdn-quiz__form { flex-direction: column; }
+}

@@ -69,14 +69,36 @@ theme. Everything custom is namespaced `dog-nook-*` (files) / `.tdn-*` (CSS).
 needs **BOTH**: (a) commit + push to the branch, AND (b) `themeFilesUpsert` to the
 draft theme. Doing only one leaves git and the theme out of sync.
 
-- **Themes:** MAIN/published = `gid://shopify/OnlineStoreTheme/193140818203`
-  ("Dog Nook PDP — working"). **Deploy target = the UNPUBLISHED draft**
-  `gid://shopify/OnlineStoreTheme/193158119707` ("The Dog Nook — Design install").
-  ⚠️ The live site currently runs the *other* theme, so **our work is not live
-  until the owner publishes the draft.**
+- **Themes — there are THREE. Deploy to the working copy, not the old draft:**
+
+  | Theme | ID | Role | Use |
+  |---|---|---|---|
+  | Dog Nook PDP — working | `193140818203` | **MAIN / live** | ⛔ never deploy here |
+  | Design install (**CRO working copy**) | `193438056731` | draft | ✅ **DEPLOY TARGET** — owner-confirmed 2026-07-25 |
+  | Design install (Claude) | `193158119707` | draft | ⚠️ superseded — see below |
+
+  ⚠️ **`193158119707` used to be the documented target and is now stale.** CRO wave 2
+  was deployed to it on 2026-07-25 before the owner confirmed the working copy is the
+  theme they actually edit. It was not reverted (9 of the 15 files were new there, and
+  the prior contents of the other 6 weren't captured). Treat it as an abandoned branch
+  of the theme: don't deploy to it, don't publish it, and don't trust it as a
+  reference. Confirm with the owner before deleting it.
+
+- ⚠️ **Asset drift — `dog-nook.js` and `dog-nook-cro.css` are NOT in sync.** As of
+  2026-07-25 three different versions of each exist and **git matches none of them**:
+
+  | File | git | `193158119707` | `193438056731` |
+  |---|---|---|---|
+  | `dog-nook.js` | `54ca66a4` | `fa7f38fe` | `2c583546` |
+  | `dog-nook-cro.css` | `da98a84b` | `53fdde64` | `06eae723` |
+  | `dog-nook.css` | `eda5e4f6` | `eda5e4f6` | `eda5e4f6` ✅ |
+
+  So "GitHub is source of truth" is **not currently true for those two files**. Nobody
+  has established which version is correct. Resolve this before publishing anything.
+
 - **Publishing is blocked** by the MCP tool. Owner action only:
   Admin → Online Store → Themes → draft → Publish.
-- **Preview link:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193158119707`
+- **Preview link:** `https://kkeqih-jm.myshopify.com/?preview_theme_id=193438056731`
   (store has no password; the preview cookie sticks for the session).
 
 ### Deploy recipe (do it exactly this way)
@@ -250,6 +272,66 @@ What exists and works now:
 
 ## 10. Changelog
 
+- **2026-07-27 — Wired up CRO wave 2 on the working-copy draft (`193438056731`).**
+  The 3 activation steps from `DEPLOY-ME.md` are done (2 of 3 fully; countdown
+  intentionally left inert pending owner input):
+  1. **Calm-kit quiz** — added `quiz` (`dog-nook-quiz`) to `templates/index.json`,
+     placed after `why`. Its 5 answer blocks point at real **ACTIVE** products:
+     Fireworks→Lick Mat · Just adopted→Settle-In Bundle · Left alone→Snuffle Mat ·
+     Mealtimes→Slow-Feeder Bowl · Grooming→Grooming Glove. The draft Fireworks SKUs
+     were deliberately avoided — a `product` setting pointing at an unpublished
+     product renders a blank result card on the storefront.
+  2. **PDP bundle upsell** — set `custom.bundle_handle` on Lick Mat, Snuffle Mat and
+     Donut Bed → `the-settle-in-bundle`; Slow-Feeder Bowl → `the-new-rescue-bundle-1`
+     (First Days Kit — the only active bundle containing it). Both bundles are ACTIVE
+     with `inventoryPolicy: CONTINUE`, so `bundle.available` is true and the snippet
+     renders. Grooming Glove / Nail Grinder / Car Boot Liner are in no active bundle →
+     left unset (snippet no-ops, no empty block). Each mapping is truthful ("X is
+     part of Y").
+  3. **Bonfire Night countdown** — added `countdown` (`dog-nook-countdown`) to
+     `index.json` (after `hero`). Owner confirmed the fireworks SKUs ship **China
+     direct / CJ (7–17 days)**, so `cutoff` is set to **`2026-10-15`** (not the
+     GB-warehouse default of 24 Oct) and the heading updated to match. Kept
+     **`enabled: false`** for now: the fireworks SKUs are still DRAFT, so enabling
+     it would promote a Bonfire Night deadline with no purchasable fireworks
+     products, and in July it is ~3 months early. **Owner action:** once the
+     fireworks range is active (aim early October), tick "Show the countdown" in
+     the theme editor and point its button at the live fireworks product/collection.
+  `index.json` redeployed to `193438056731` and checksum-verified
+  (`02ad221750e242634b8127ed99be68d5`, 12,123 B); repo file synced to match.
+  `dog-nook.js` / `dog-nook-cro.css` untouched (asset drift in §2 left for the owner
+  to resolve). Live `193140818203` and abandoned `193158119707` never touched.
+  Not visually verified (firewall) — owner to click through the preview.
+- **2026-07-25 — Deployed CRO wave 2 (15 files) to the draft theme.** Everything
+  listed in `DEPLOY-ME.md` is now on `193158119707` and checksum-verified: 5 new
+  snippets (jsonld, specs, bundle-upsell, pdp-gallery, quiz-steps), 4 assets
+  (cro2.css, cro3.css, gallery.js, quiz.js), 5 sections (product, quiz, countdown,
+  featured-bundle, collections-index) and `dog-nook-head.liquid` last, in that
+  order. `dog-nook.js` / `dog-nook.css` were not touched (checksums unchanged:
+  `fa7f38fe…` / `eda5e4f6…`). Theme is still UNPUBLISHED; the live theme
+  `193140818203` was never targeted.
+  ⚠️ **There were two independent blockers, not one.** `DEPLOY-ME.md`'s
+  lost-raw-GraphQL-grant diagnosis was correct for that session (its four-test
+  table is solid, and a fresh session did clear it — every call here worked).
+  But its closing claim *"there is nothing wrong with the files"* was wrong: two
+  of the 15 were rejected by Shopify's own validator and would have failed from
+  any session regardless of grant. The grant failure had masked them, because
+  nothing had ever reached the validator:
+  - `snippets/dog-nook-jsonld.liquid` — a literal `}` inside a `{{ … }}` output
+    tag (the `{search_term_string}` placeholder in the WebSite SearchAction).
+    Liquid scans an output tag non-greedily to the first closing brace, so the
+    tag terminated early and the whole file failed to parse. Fixed by building
+    the string in an `assign` (tag syntax has no such limitation); rendered
+    output is identical.
+  - `sections/dog-nook-countdown.liquid` — `{% stylesheet %}` was nested inside
+    the `{%- if s.enabled -%}` conditional. Shopify requires `stylesheet` to be a
+    top-level tag in a section file. Fixed by closing the `if` before the block;
+    the CSS is inert when the section is disabled.
+  Both fixes are committed. A repo-wide scan found no further instances of either
+  pattern. **Still inert until the owner does the 3 wiring steps in `DEPLOY-ME.md`**
+  (add the quiz section + point its 5 answer blocks at real products; add the
+  countdown and set `cutoff` from real CJ transit times; set `custom.bundle_handle`
+  on each single product).
 - **2026-07-20 — Deployed the per-product FAQ changes to the draft.** Another
   builder committed (at `00014fb`, already on `main` + `claude/hello-erxv6t`) two
   theme edits: `templates/page.faq.json` rebuilt as 15 trust-first Q&As (delivery,
@@ -293,3 +375,30 @@ What exists and works now:
 - **2026-07-16 — Session 1 (initial build).** Custom Horizon-layered theme:
   homepage sections, PDP, collections, legal pages, footer menu repair, continuous
   category marquee, product trust panel, free-ship bar.
+
+- **2026-07-25 — Overnight growth + CRO session.** Owner goal set: **£100k net profit
+  in ~12 months**, anchored to Bonfire Night (5 Nov 2026). Added `growth/` —
+  `GROWTH-PLAN.md` (unit economics for all 24 SKUs, a **bundle parcel-shipping trap
+  worth £14–28k/yr**, three 12-month simulations with UK dog-anxiety seasonality, and
+  a solver showing £100k needs ~2,600 orders at ~£80 AOV, i.e. ~7/day),
+  `dog-nook-model.xlsx` (live model), `model.py`, `marketing/LAUNCH-KIT.md`,
+  `content/SEO-PLAN-AND-ARTICLES.md` (5 publish-ready articles),
+  `OPS-RISK-AND-MEASUREMENT.md`, and `START-HERE.md` at the repo root.
+  **Key strategic finding: AOV and owned-traffic share decide the outcome; ad ROAS
+  saturates around £6–8k/month, so more budget does not fix it.**
+  Theme: fixed 4 real bugs (PDP gallery srcset, collections-index `.count` vs `.size`,
+  featured-bundle product lookup, PDP short-description gate) and added CRO wave 2 —
+  `dog-nook-bundle-upsell`, `dog-nook-quiz` (+`-steps`, `dog-nook-quiz.js`,
+  `dog-nook-cro3.css`), `dog-nook-specs`, `dog-nook-jsonld`, `dog-nook-countdown`,
+  `dog-nook-pdp-gallery`, `dog-nook-gallery.js`, `dog-nook-cro2.css`.
+  ⚠️ **NOT YET DEPLOYED to the draft theme** — session capacity ran out and a partial
+  upload would break the draft, because `dog-nook-head.liquid` renders the new
+  snippets. **Deploy order: snippets → assets → sections → `dog-nook-head.liquid`
+  LAST.** Files: snippets `dog-nook-jsonld`, `dog-nook-specs`, `dog-nook-bundle-upsell`,
+  `dog-nook-pdp-gallery`, `dog-nook-quiz-steps`; assets `dog-nook-cro2.css`,
+  `dog-nook-cro3.css`, `dog-nook-gallery.js`, `dog-nook-quiz.js`; sections
+  `dog-nook-product`, `dog-nook-quiz`, `dog-nook-countdown`, `dog-nook-featured-bundle`,
+  `dog-nook-collections-index`; then `snippets/dog-nook-head`. `dog-nook.js` and
+  `dog-nook.css` are UNCHANGED — do not redeploy them. All files verified under the
+  base64 size limit. Declined to build fake urgency/scarcity or invented compare-at
+  prices (DMCC 2024 / Meta policy); built real-deadline equivalents instead.

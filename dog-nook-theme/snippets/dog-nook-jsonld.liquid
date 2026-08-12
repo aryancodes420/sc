@@ -1,0 +1,119 @@
+{%- comment -%}
+  The Dog Nook — structured data (schema.org JSON-LD).
+
+  Earns rich results in Google (price, availability, star ratings) which lifts
+  organic CTR at no media cost — directly serving the "owned traffic" lever in
+  growth/GROWTH-PLAN.md.
+
+  Honesty rules that are enforced here, not just documented:
+    · aggregateRating is emitted ONLY when a real review count exists. Google
+      penalises fabricated review markup and UK law (DMCC 2024) prohibits it.
+    · priceValidUntil / availability reflect the real variant state.
+
+  Include once, near the end of dog-nook-head:  {% render 'dog-nook-jsonld' %}
+{%- endcomment -%}
+{%- liquid
+  assign shop_name = shop.name | default: 'The Dog Nook'
+  assign logo = 'https://cdn.shopify.com/s/files/1/1036/5452/3163/files/dn-main.png?width=512'
+-%}
+
+{%- if request.page_type == 'product' -%}
+  {%- liquid
+    assign v = product.selected_or_first_available_variant
+    assign rcount = product.metafields.reviews.rating_count.value | plus: 0
+    assign rval = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value
+  -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "description": {{ product.description | strip_html | truncate: 400 | json }},
+    {% if product.featured_media %}"image": [{{ product.featured_media | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
+    "brand": { "@type": "Brand", "name": {{ product.vendor | default: shop_name | json }} },
+    {% if product.type != blank %}"category": {{ product.type | json }},{% endif %}
+    "url": {{ shop.url | append: product.url | json }},
+    {%- if rcount > 0 and rval != blank -%}
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ rval | json }},
+      "reviewCount": {{ rcount }}
+    },
+    {%- endif -%}
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": {{ cart.currency.iso_code | default: 'GBP' | json }},
+      "price": {{ v.price | divided_by: 100.0 | json }},
+      "availability": "https://schema.org/{% if v.available %}InStock{% else %}OutOfStock{% endif %}",
+      "url": {{ shop.url | append: product.url | json }},
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": { "@type": "Organization", "name": {{ shop_name | json }} },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "GB",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 30,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      }
+    }
+  }
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'index' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop_name | json }},
+    "url": {{ shop.url | json }},
+    "logo": {{ logo | json }},
+    "description": "Calming beds, mats and enrichment chosen for anxious and rescue dogs. A small UK shop.",
+    "areaServed": "GB",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "hello@thedognook.co.uk",
+      "availableLanguage": "English"
+    }
+  }
+  </script>
+  {%- comment -%}
+    The search_term_string placeholder is built with assign rather than written
+    inline in the output tag below. Liquid scans an output tag non-greedily to the
+    first closing brace, so a literal closing brace inside the tag terminates it
+    early and the whole file fails to parse. Tag syntax has no such problem, and
+    the rendered result is identical.
+  {%- endcomment -%}
+  {%- assign search_url_template = shop.url | append: '/search?q=' | append: '{search_term_string}' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": {{ shop_name | json }},
+    "url": {{ shop.url | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": { "@type": "EntryPoint", "urlTemplate": {{ search_url_template | json }} },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+{%- endif -%}
+
+{%- if request.page_type == 'article' and article -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ article.title | json }},
+    "datePublished": {{ article.published_at | date: '%Y-%m-%d' | json }},
+    "dateModified": {{ article.updated_at | default: article.published_at | date: '%Y-%m-%d' | json }},
+    "author": { "@type": "Organization", "name": {{ shop_name | json }} },
+    "publisher": { "@type": "Organization", "name": {{ shop_name | json }}, "logo": { "@type": "ImageObject", "url": {{ logo | json }} } },
+    {% if article.image %}"image": [{{ article.image | image_url: width: 1200 | prepend: 'https:' | json }}],{% endif %}
+    "mainEntityOfPage": {{ shop.url | append: article.url | json }}
+  }
+  </script>
+{%- endif -%}

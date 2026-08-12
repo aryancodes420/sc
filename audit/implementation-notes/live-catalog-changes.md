@@ -1,3 +1,38 @@
+# Live catalogue changes (Shopify Admin API)
+
+## 2026-07-27 — CRO wave 2 wiring (draft theme `193438056731`)
+Activated the 3 inert wave-2 features (see `DEPLOY-ME.md` / `HANDOFF.md` §10).
+
+**Theme edit — `templates/index.json`** (redeployed, checksum `02ad221750e242634b8127ed99be68d5`, 12,123 B; repo synced):
+- Added `quiz` (`dog-nook-quiz`) after `why`; 5 answer blocks → ACTIVE products:
+  🎆 `lick-mat-1` · 🏠 `the-settle-in-bundle` · 🚪 `snuffle-mat-medium-1` · 🍽️ `slow-feeder-bowl-1` · ✂️ `grooming-glove-1`.
+- Added `countdown` (`dog-nook-countdown`) after `hero`. Owner confirmed **China/CJ shipping** → `cutoff` set to **`2026-10-15`** + heading updated. Kept **`enabled:false`** (fireworks SKUs still DRAFT + 3 months early); owner ticks "Show the countdown" once the fireworks range is active. (Redeploy checksum `339b431158a04fd8dc2576528726de72`.)
+
+**Metafields — `custom.bundle_handle` (single_line_text_field)** for the PDP bundle upsell:
+| Product | GID | value |
+|---|---|---|
+| The Lick Mat | 10311314768155 | `the-new-rescue-bundle-1` |
+| The Snuffle Mat | 10311317258523 | `the-new-rescue-bundle-1` |
+| The Calming Donut Bed | 10311318274331 | `the-settle-in-bundle` |
+| The Slow-Feeder Bowl | 10311321518363 | `the-new-rescue-bundle-1` |
+
+**Ladder rationale (updated 2026-07-27):** mats + feeder → First Days Kit (£34.99, believable
+jump from ~£12–15 items) rather than jumping straight to the £64.99 Settle-In. Bed → Settle-In
+(bed is £59.99, so the full kit is a genuine +£5 near-jump). This is rung 1 of an intended AOV
+ladder (single → entry bundle → premium → flagship). Bundle→bundle upsell is NOT yet wired —
+the upsell snippet renders only on the `dog-nook-product` PDP template, not the `dog-nook-bundle`
+template — so the on-site push currently stops at the first bundle. See strategy note.
+
+**Catalogue cleanups (2026-07-27):**
+- Fixed collection title `Home Alone &amp; Separation` → **`Home Alone & Separation`** (was double-encoded; handle unchanged).
+- Set `custom.faq` (type json, house-voice) on the 3 flagship bundles: Complete Calm System (10337505837339), Home-Alone Kit (10337506427163), Fireworks Survival Kit (10337506885915).
+- Set `templateSuffix=bundle` on Settle-In Bundle (10328065114395) + the 3 above, for consistent bundle-layout rendering (First Days Kit already had it). ⚠️ Live theme `193140818203` has **no** `product.bundle` template, so on live these fall back to the default product template (same as First Days already does — no live-visible change); the draft `193438056731` renders the proper bundle layout.
+
+Grooming Glove / Nail Grinder / Car Boot Liner left unset (in no active bundle; snippet no-ops).
+`dog-nook.js` / `dog-nook-cro.css` untouched. Live `193140818203` never touched. Not visually verified (firewall).
+
+---
+
 # Live catalogue changes (Shopify Admin API) — 2026-07-16
 
 ---
@@ -117,3 +152,96 @@ reviews, no fake urgency.
 - Donut Bed M/XL shipping re-quote if expanding beyond S/M/L.
 - Samples order (~£61) before going fully live.
 - SKUs are still null on all variants — add the CJ SKUs in admin for order routing.
+
+---
+
+## 2026-07-25 — CRO wave 2 deployed to the draft theme
+
+Theme-file only. **No catalogue changes** (no products, collections, discounts or
+metafields were created or edited in this session).
+
+- **Target:** `gid://shopify/OnlineStoreTheme/193158119707` — "The Dog Nook —
+  Design install", role `UNPUBLISHED`. Not published — that stays the owner's click.
+- **Live theme `193140818203` untouched.**
+- **Order used** (mandatory, per `DEPLOY-ME.md`): snippets → assets → sections →
+  `snippets/dog-nook-head.liquid` last, so head never renders a snippet that
+  isn't there yet.
+- **Not redeployed, as instructed:** `assets/dog-nook.js` (`fa7f38fe…`) and
+  `assets/dog-nook.css` (`eda5e4f6…`) — both confirmed byte-identical before and
+  after the deploy.
+
+All 15 upserted and `checksumMd5`-verified against local `md5sum`:
+
+| # | File | md5 |
+|---|---|---|
+| 1 | `snippets/dog-nook-jsonld.liquid` | `cf8d8ad123b04ab223f8bb207e5fa9df` |
+| 2 | `snippets/dog-nook-specs.liquid` | `9cc840b74229bca9f14ea4385cff3390` |
+| 3 | `snippets/dog-nook-bundle-upsell.liquid` | `052c72de1dbb92cc52f7d3938e36fb2f` |
+| 4 | `snippets/dog-nook-pdp-gallery.liquid` | `b84cfc02f1a5040735c3f64b92aad005` |
+| 5 | `snippets/dog-nook-quiz-steps.liquid` | `d29b8efdb1781ef1044d3688e360db8f` |
+| 6 | `assets/dog-nook-cro2.css` | `13e51256cd6cee978c3703fc447c2010` |
+| 7 | `assets/dog-nook-cro3.css` | `4cc44cda1f55df5e46739533da7c66da` |
+| 8 | `assets/dog-nook-gallery.js` | `ca4727f3abb575f5e0dcf2277773c253` |
+| 9 | `assets/dog-nook-quiz.js` | `fd9881644136efc5de8862f8a1b46490` |
+| 10 | `sections/dog-nook-product.liquid` | `9f9e6b14ac9aedb979028a624f37206d` |
+| 11 | `sections/dog-nook-quiz.liquid` | `e1276d123002c687bfaa17a40a56d37d` |
+| 12 | `sections/dog-nook-countdown.liquid` | `17c2fbea44f3bf1e1ede0ada2b99d8e1` |
+| 13 | `sections/dog-nook-featured-bundle.liquid` | `0af15fd85d71895044248d884bb518ab` |
+| 14 | `sections/dog-nook-collections-index.liquid` | `7fe92ad4e0829535aeefe602baded7de` |
+| 15 | `snippets/dog-nook-head.liquid` | `475eecb82d6895d6dd0efb94dd5faa3f` |
+
+### Two source bugs found during the deploy — correcting the record
+
+`DEPLOY-ME.md` blamed the earlier failure on a lost raw-GraphQL grant and stated
+"There is nothing wrong with the files." The grant was fine in this session; two
+files were genuinely invalid and Shopify's validator rejected them:
+
+1. `dog-nook-jsonld.liquid` — `FILE_VALIDATION_ERROR: Liquid syntax error (line 90)`.
+   A literal `}` sat inside a `{{ … }}` output tag (`'/search?q={search_term_string}'`).
+   Liquid scans an output tag non-greedily to the first closing brace, so the tag
+   terminated early. Moved the string into an `assign`; `{% … %}` tag syntax is not
+   affected. Rendered JSON-LD is unchanged.
+2. `dog-nook-countdown.liquid` — `'stylesheet' tag must not be nested inside other tags`.
+   The `{% stylesheet %}` block was inside `{%- if s.enabled -%}`. Moved the `endif`
+   above it. The rules are inert when the section is disabled, so no behaviour change.
+
+A scan of all 11 CRO Liquid files found no other stray `}` inside an output tag, and
+a nesting check across every file in `sections/` found no other misplaced
+`schema` / `stylesheet` / `javascript` block.
+
+### Not verified here
+The storefront is firewalled from this environment, so the preview was **not**
+loaded. Verification is checksum-level only — the owner should click through
+`https://kkeqih-jm.myshopify.com/?preview_theme_id=193158119707` (homepage + a PDP).
+
+### Also noticed
+A third theme exists that no doc mentions: `193438056731` — "The Dog Nook — Design
+install (CRO working copy)", `UNPUBLISHED`, updated 2026-07-25T03:16Z. Not touched.
+Worth confirming it isn't a parallel session's duplicate before it drifts.
+
+### Correction, same day — deployed again to the RIGHT theme (`193438056731`)
+
+The owner confirmed that the theme they actually edit is **"The Dog Nook — Design
+install (CRO working copy)" `193438056731`**, not `193158119707`. `DEPLOY-ME.md` and
+`HANDOFF.md` §2 both named the wrong one; both are now corrected.
+
+All 15 files were re-deployed to `193438056731` in the same mandated order
+(snippets → assets → sections → head last) and checksum-verified. Same md5s as the
+table above. Theme still UNPUBLISHED. Its own `dog-nook.js` (`2c583546…`) and
+`dog-nook.css` (`eda5e4f6…`) were not touched.
+
+**That theme was NOT a copy of `193158119707`.** Before this deploy it was running the
+pre-split monolithic `dog-nook-product.liquid` (12,975 bytes) and the old
+`dog-nook-head.liquid` — i.e. it was behind, not ahead. All four delegate snippets it
+now needs (`dog-nook-stars`, `dog-nook-pdp-form`, `dog-nook-trust-panel`,
+`dog-nook-pdp-extra`) were confirmed present before head was deployed.
+
+**`193158119707` was left as-is.** A clean revert wasn't possible: 9 of the 15 files
+were new there, and the prior contents of the other 6 were never captured (only their
+checksums). It should be treated as an abandoned branch of the theme.
+
+**Asset drift is the real open problem.** `dog-nook.js` and `dog-nook-cro.css` now
+exist in three mutually different versions across git and the two drafts, and git
+matches neither theme (table in `HANDOFF.md` §2). CRO wave 2 is therefore layered on
+top of two different JS baselines. Nobody has established which is correct — resolve
+before publishing.

@@ -1,0 +1,58 @@
+/* The Dog Nook — CRO wave 2: bundle upsell, PDP specs, size guide, quiz.
+   Kept as a separate small file so it can be redeployed without touching the
+   large token file (see HANDOFF §3 deploy-size trap). */
+
+/* ------------------------------------------------------------------
+   ⚠️ LINK-COLOUR TRAP (HANDOFF §5). dog-nook.css carries
+   `.tdn a:not(.tdn-btn):not(.tdn-chip)...` at specificity (0,7,1), which would
+   paint every new <a>-based component sage-on-sage and make it invisible.
+   Rather than redeploy the large token file to extend that :not() chain, the
+   colour is pinned here with !important. Any FUTURE <a> component must do the
+   same or be added to the chain.
+   ------------------------------------------------------------------ */
+.tdn a.tdn-upsell, .tdn a.tdn-upsell:hover,
+.tdn a.tdn-quiz__rcard, .tdn a.tdn-quiz__rcard:hover { color: var(--tdn-charcoal) !important; text-decoration: none !important; }
+
+/* ---------- bundle upsell (AOV lever) ---------- */
+.tdn-upsell {
+  display: flex; gap: 14px; align-items: center; margin: 18px 0 4px; padding: 12px;
+  background: var(--tdn-panel); border: 1px solid var(--tdn-card-border);
+  border-radius: 16px; transition: border-color .18s, box-shadow .18s;
+}
+.tdn-upsell:hover { border-color: var(--tdn-sage); box-shadow: 0 8px 22px rgba(46,42,34,.08); }
+.tdn-upsell__media { width: 76px; height: 76px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+.tdn-upsell__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tdn-upsell__body { flex: 1; min-width: 0; }
+.tdn-upsell__eyebrow { font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 700; color: var(--tdn-sage); }
+.tdn-upsell__title { font-weight: 600; font-size: 14.5px; margin: 3px 0; line-height: 1.35; }
+.tdn-upsell__contents { font-size: 12.5px; color: var(--tdn-muted); margin-bottom: 4px; }
+.tdn-upsell__price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+.tdn-upsell__now { font-family: var(--tdn-font-display); font-weight: 700; font-size: 17px; }
+.tdn-upsell__was { font-size: 13px; color: var(--tdn-faint-2); text-decoration: line-through; }
+.tdn-upsell__save { font-size: 11.5px; font-weight: 700; color: #9c5230; background: rgba(156,82,48,.12); padding: 2px 8px; border-radius: 999px; }
+.tdn-upsell__cta { font-size: 13px; font-weight: 600; color: var(--tdn-sage); }
+
+/* ---------- PDP specs + size guide ---------- */
+.tdn-specs { margin-top: 26px; }
+.tdn-specs__h { margin-top: 22px; }
+.tdn-specs__list { margin: 0; }
+.tdn-specs__row { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--tdn-warm-border); font-size: 14px; }
+.tdn-specs__row dt { flex: 0 0 38%; font-weight: 600; color: var(--tdn-charcoal); margin: 0; }
+.tdn-specs__row dd { flex: 1; margin: 0; color: var(--tdn-muted-2); }
+.tdn-specs__tip { font-size: 13.5px; line-height: 1.6; color: var(--tdn-muted); margin: 0 0 12px; }
+.tdn-specs__scroll { overflow-x: auto; }
+.tdn-sizes { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 420px; }
+.tdn-sizes th, .tdn-sizes td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--tdn-warm-border); }
+.tdn-sizes thead th { font-size: 11px; letter-spacing: .8px; text-transform: uppercase; color: var(--tdn-faint); font-weight: 700; }
+.tdn-sizes tbody th { font-weight: 600; white-space: nowrap; }
+.tdn-sizes tbody td { color: var(--tdn-muted-2); }
+
+.tdn-suit { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+.tdn-suit__col { border-radius: 14px; padding: 14px 16px; border: 1px solid var(--tdn-card-border); }
+.tdn-suit__col--yes { background: rgba(124,135,103,.07); }
+.tdn-suit__col--no { background: rgba(193,122,87,.07); }
+.tdn-suit__label { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+.tdn-suit__col--yes .tdn-suit__label { color: var(--tdn-sage); }
+.tdn-suit__col--no .tdn-suit__label { color: #9c5230; }
+.tdn-suit p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--tdn-muted-2); }
+@media (max-width: 620px) { .tdn-suit { grid-template-columns: 1fr; } }

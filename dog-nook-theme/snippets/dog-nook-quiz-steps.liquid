@@ -1,0 +1,55 @@
+{%- comment -%}
+  The Dog Nook — quiz steps 2–4 (size, email, result).
+  Split out of sections/dog-nook-quiz.liquid for the deploy-size limit
+  (HANDOFF §3). Behaviour: assets/dog-nook-quiz.js
+  Params: s (section.settings)
+{%- endcomment -%}
+
+{%- comment -%} STEP 2 — size. Personalises the result copy. {%- endcomment -%}
+<div class="tdn-quiz__step" data-tdn-step="2">
+  <div class="tdn-quiz__q">{{ s.q2 }}</div>
+  <div class="tdn-quiz__opts tdn-quiz__opts--3">
+    <button type="button" class="tdn-quiz__opt" data-tdn-size="a small dog">
+      <span class="tdn-quiz__opticon">🐕</span><span class="tdn-quiz__optlabel">Small</span>
+      <span class="tdn-quiz__optsub">Under 10kg</span></button>
+    <button type="button" class="tdn-quiz__opt" data-tdn-size="a medium dog">
+      <span class="tdn-quiz__opticon">🐕‍🦺</span><span class="tdn-quiz__optlabel">Medium</span>
+      <span class="tdn-quiz__optsub">10–25kg</span></button>
+    <button type="button" class="tdn-quiz__opt" data-tdn-size="a big dog">
+      <span class="tdn-quiz__opticon">🦮</span><span class="tdn-quiz__optlabel">Large</span>
+      <span class="tdn-quiz__optsub">25kg+</span></button>
+  </div>
+  <button type="button" class="tdn-quiz__back" data-tdn-back>← Back</button>
+</div>
+
+{%- comment -%} STEP 3 — email. Skippable by design; the result shows either way. {%- endcomment -%}
+<div class="tdn-quiz__step" data-tdn-step="3">
+  <div class="tdn-quiz__q">{{ s.q3 }}</div>
+  <p class="tdn-muted tdn-quiz__emailsub">{{ s.email_sub }}</p>
+  <form method="post" action="/contact#tdn-quiz" accept-charset="UTF-8" class="tdn-quiz__form" data-tdn-quiz-form>
+    <input type="hidden" name="form_type" value="customer">
+    <input type="hidden" name="utf8" value="&#x2713;">
+    <input type="hidden" name="contact[tags]" value="newsletter,quiz">
+    <input type="email" name="contact[email]" class="tdn-field" placeholder="you@email.com" required aria-label="Email address">
+    <button type="submit" class="tdn-btn tdn-btn--primary">{{ s.email_button }}</button>
+  </form>
+  <button type="button" class="tdn-quiz__skip" data-tdn-skip>{{ s.skip_label }}</button>
+  <button type="button" class="tdn-quiz__back" data-tdn-back>← Back</button>
+</div>
+
+{%- comment -%} STEP 4 — result {%- endcomment -%}
+<div class="tdn-quiz__step tdn-quiz__result" data-tdn-step="4">
+  <div class="tdn-eyebrow">Your match</div>
+  <h3 class="tdn-h2 tdn-quiz__rtitle" data-tdn-rec-title></h3>
+  <p class="tdn-quiz__rwhy" data-tdn-rec-why></p>
+  <a class="tdn-quiz__rcard" data-tdn-rec-link href="#">
+    <div class="tdn-quiz__rmedia" style="background: var(--tdn-grad-calm);">
+      <img data-tdn-rec-img alt="" loading="lazy">
+    </div>
+    <div class="tdn-quiz__rbody">
+      <span class="tdn-quiz__rprice tdn-price" data-tdn-rec-price></span>
+      <span class="tdn-btn tdn-btn--primary tdn-quiz__rbtn">{{ s.result_button }}</span>
+    </div>
+  </a>
+  <button type="button" class="tdn-quiz__restart" data-tdn-restart>Start again</button>
+</div>

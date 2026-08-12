@@ -3,8 +3,17 @@
   Pick a real product for live price / add-to-cart, or leave blank to use manual prices.
 {%- endcomment -%}
 {%- liquid
+  comment
+    A `product` setting resolves to a product object. Older data (and JSON
+    templates) can hold a handle string instead, so accept both — the previous
+    all_products[…] lookup returned nil for the object form and silently fell
+    back to the hardcoded manual prices.
+  endcomment
   assign s = section.settings
-  assign prod = all_products[s.product]
+  assign prod = s.product
+  if prod.id == blank
+    assign prod = all_products[s.product]
+  endif
   assign has_prod = false
   if prod != blank and prod.id
     assign has_prod = true

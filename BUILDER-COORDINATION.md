@@ -37,6 +37,15 @@ each other — hence this doc.
 ---
 
 ## 📋 Open items (single source of truth — update as these close)
+- [x] **🚀 DEPLOY CRO wave 2 to the draft theme** — ✅ **done 2026-07-25.** All 15
+  files upserted to the draft `193158119707` in the required order and
+  checksum-verified; `dog-nook.js` / `dog-nook.css` untouched; theme still
+  UNPUBLISHED. Two files (`dog-nook-jsonld.liquid`, `dog-nook-countdown.liquid`)
+  turned out to contain **real Liquid syntax errors** that Shopify rejected — the
+  earlier "requires approval" diagnosis in `DEPLOY-ME.md` was wrong. Both fixed and
+  committed. Details in `audit/implementation-notes/live-catalog-changes.md` and
+  `HANDOFF.md` §10. **Owner still has 3 wiring steps** (quiz blocks, countdown
+  `cutoff` from real transit times, `custom.bundle_handle`) — see `DEPLOY-ME.md`.
 - [x] **Retire A's `Rescue Essentials` collection** — ✅ **done** (confirmed deleted in the
   live store 2026-07-20; consolidated to B's "Settling a New Rescue").
 - [x] **Fireworks & Storms handle** → `fireworks-storms` — ✅ **done** (confirmed).
@@ -121,6 +130,7 @@ All created **DRAFT** on purpose (unsourced products; owner activates after sour
 | Session / branch | Working on | Since | Status |
 |---|---|---|---|
 | `claude/dog-book-product-analysis-ervhl9` | Range expansion (drafts) + coordination doc | 2026-07-20 | done, awaiting owner sourcing |
+| `claude/dog-nook-files-review-6w9kwr` | Growth model + CRO wave 2 (theme files only, no catalogue edits) | 2026-07-25 | **code done, DEPLOY OUTSTANDING — see `DEPLOY-ME.md`** |
 | _(other builder — please add yourself + your branch here)_ | Settle-In bundle, WELCOME10, theme CSS | 2026-07-20 | live |
 
 ---

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -8,60 +17,291 @@
         "heading": "Less anxious.<br>More at home.",
         "subheading": "Calming beds, mats and grooming tools for dogs who need a little extra reassurance.",
         "ticks": "30-day money-back guarantee | Free UK delivery over £35",
-        "button_1_label": "Shop the Rescue Bundle",
+        "button_1_label": "Shop the First Days Kit",
         "button_1_url": "/products/the-new-rescue-bundle-1",
         "button_2_label": "Shop all",
         "button_2_url": "/pages/shop",
+        "image_tone": "linear-gradient(140deg,#8a9472,#6f795c)",
+        "image_placeholder_label": "Calm dog on bed",
         "grad_from": "#6f795c",
         "grad_mid": "#8a9472",
         "grad_to": "#b98a67",
         "overlay_color": "#2e2a22"
       }
     },
+    "countdown": {
+      "type": "dog-nook-countdown",
+      "settings": {
+        "enabled": false,
+        "cutoff": "2026-10-15",
+        "heading": "Order by 15 October to have them ready for the 5th"
+      }
+    },
     "catbar": {
       "type": "dog-nook-category-bar",
       "blocks": {
-        "p0": { "type": "pill", "settings": { "label": "Shop all", "url": "/pages/shop", "accent": true } },
-        "p1": { "type": "pill", "settings": { "label": "Calming Essentials", "url": "/collections/calming-essentials" } },
-        "p2": { "type": "pill", "settings": { "label": "Grooming", "url": "/collections/grooming" } },
-        "p3": { "type": "pill", "settings": { "label": "Mealtime & Feeding", "url": "/collections/mealtime-feeding" } },
-        "p4": { "type": "pill", "settings": { "label": "Travel & Outdoor", "url": "/collections/travel-outdoor" } },
-        "p5": { "type": "pill", "settings": { "label": "The Rescue Bundle", "url": "/products/the-new-rescue-bundle-1" } }
+        "p0": {
+          "type": "pill",
+          "settings": {
+            "label": "Shop all",
+            "collection": "",
+            "url": "/pages/shop",
+            "accent": true
+          }
+        },
+        "p1": {
+          "type": "pill",
+          "settings": {
+            "label": "Calming Essentials",
+            "collection": "",
+            "url": "/collections/calming-essentials",
+            "accent": false
+          }
+        },
+        "p2": {
+          "type": "pill",
+          "settings": {
+            "label": "Grooming",
+            "collection": "",
+            "url": "/collections/grooming",
+            "accent": false
+          }
+        },
+        "p3": {
+          "type": "pill",
+          "settings": {
+            "label": "Mealtime & Feeding",
+            "collection": "",
+            "url": "/collections/mealtime-feeding",
+            "accent": false
+          }
+        },
+        "p4": {
+          "type": "pill",
+          "settings": {
+            "label": "Travel & Outdoor",
+            "collection": "",
+            "url": "/collections/travel-outdoor",
+            "accent": false
+          }
+        },
+        "p5": {
+          "type": "pill",
+          "settings": {
+            "label": "The First Days Kit",
+            "collection": "",
+            "url": "/products/the-new-rescue-bundle-1",
+            "accent": false
+          }
+        }
       },
-      "block_order": ["p0", "p1", "p2", "p3", "p4", "p5"]
+      "block_order": [
+        "p0",
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "settings": {}
     },
     "trust": {
       "type": "dog-nook-trust-strip",
       "blocks": {
-        "b1": { "type": "cell", "settings": { "icon": "🚚", "title": "Free UK delivery", "subtitle": "On orders over £35" } },
-        "b2": { "type": "cell", "settings": { "icon": "🛡️", "title": "30-day guarantee", "subtitle": "Money-back, no fuss" } },
-        "b3": { "type": "cell", "settings": { "icon": "🐾", "title": "For anxious & rescue dogs", "subtitle": "Chosen with care" } },
-        "b4": { "type": "cell", "settings": { "icon": "📦", "title": "Dispatched in 1–2 days", "subtitle": "Delivery about 4–7 days" } }
+        "b1": {
+          "type": "cell",
+          "settings": {
+            "icon": "🇬🇧",
+            "title": "A real UK business",
+            "subtitle": "Registered UK trader — a real person replies"
+          }
+        },
+        "b2": {
+          "type": "cell",
+          "settings": {
+            "icon": "🧼",
+            "title": "Non-toxic & washable",
+            "subtitle": "Food-grade, machine-washable materials"
+          }
+        },
+        "b3": {
+          "type": "cell",
+          "settings": {
+            "icon": "📦",
+            "title": "Dispatched in 1–2 days",
+            "subtitle": "About 4–7 days to your door"
+          }
+        },
+        "b4": {
+          "type": "cell",
+          "settings": {
+            "icon": "🔒",
+            "title": "Secure checkout",
+            "subtitle": "Encrypted — all major cards & wallets"
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3", "b4"]
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {}
     },
     "why": {
       "type": "dog-nook-why",
-      "settings": { "eyebrow": "Why The Dog Nook", "heading": "Comfort you can return with confidence" },
       "blocks": {
-        "w1": { "type": "card", "settings": { "icon": "🐕", "title": "Chosen for anxious & rescue dogs", "body": "Picked for dogs settling in — not a random catalogue. Everything here earns its place." } },
-        "w2": { "type": "card", "settings": { "icon": "🛡️", "title": "The risk is ours, not yours", "body": "A 30-day money-back guarantee on every order. If it doesn't help your dog settle, send it back." } },
-        "w3": { "type": "card", "settings": { "icon": "💬", "title": "A real person replies", "body": "A small UK team, usually with same-day answers. Ask us anything before you buy." } }
+        "w1": {
+          "type": "card",
+          "settings": {
+            "icon": "🐕",
+            "title": "Chosen for anxious & rescue dogs",
+            "body": "Picked for dogs settling in — not a random catalogue. Everything here earns its place."
+          }
+        },
+        "w2": {
+          "type": "card",
+          "settings": {
+            "icon": "🛡️",
+            "title": "The risk is ours, not yours",
+            "body": "A 30-day money-back guarantee on every order. If it doesn't help your dog settle, send it back."
+          }
+        },
+        "w3": {
+          "type": "card",
+          "settings": {
+            "icon": "💬",
+            "title": "A real person replies",
+            "body": "A small UK team, usually with same-day answers. Ask us anything before you buy."
+          }
+        }
       },
-      "block_order": ["w1", "w2", "w3"]
+      "block_order": [
+        "w1",
+        "w2",
+        "w3"
+      ],
+      "settings": {
+        "eyebrow": "Why The Dog Nook",
+        "heading": "Comfort you can return with confidence"
+      }
     },
-    "bundle": {
+    "quiz": {
+      "type": "dog-nook-quiz",
+      "blocks": {
+        "a1": {
+          "type": "answer",
+          "settings": {
+            "icon": "🎆",
+            "label": "Fireworks & storms",
+            "sub": "Bangs, flashes, hiding",
+            "product": "lick-mat-1",
+            "why": "Licking is a natural self-soother — a lick mat helps many dogs through a loud night. Freeze it to make it last longer."
+          }
+        },
+        "a2": {
+          "type": "answer",
+          "settings": {
+            "icon": "🏠",
+            "label": "Just adopted",
+            "sub": "Settling a new rescue",
+            "product": "the-settle-in-bundle",
+            "why": "A deep bed to burrow into, plus a lick mat and snuffle mat — the calm-down kit for the first unsettled weeks."
+          }
+        },
+        "a3": {
+          "type": "answer",
+          "settings": {
+            "icon": "🚪",
+            "label": "Being left alone",
+            "sub": "Pacing, whining, chewing",
+            "product": "snuffle-mat-medium-1",
+            "why": "A nose-led job to sink into when the house goes quiet — scatter their food and let sniffing do the settling."
+          }
+        },
+        "a4": {
+          "type": "answer",
+          "settings": {
+            "icon": "🍽️",
+            "label": "Mealtimes & boredom",
+            "sub": "Eats too fast, finds trouble",
+            "product": "slow-feeder-bowl-1",
+            "why": "Turns a bolted, eleven-second meal into twenty calm minutes of work."
+          }
+        },
+        "a5": {
+          "type": "answer",
+          "settings": {
+            "icon": "✂️",
+            "label": "Grooming & handling",
+            "sub": "Brushes, nails, bath time",
+            "product": "grooming-glove-1",
+            "why": "Makes brushing feel like being stroked rather than handled — good for nervous, hand-shy dogs."
+          }
+        }
+      },
+      "block_order": [
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5"
+      ],
+      "settings": {}
+    },
+    "bundle_intro": {
+      "type": "dog-nook-rich-text",
+      "blocks": {
+        "p1": {
+          "type": "paragraph",
+          "settings": {
+            "text": "<p>Just settling a new rescue, or want the full nose-to-tail set-up? Start small with the mats, or go all-in with the calming bed included — both save you money versus buying separately, and both are covered by our 30-day guarantee.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1"
+      ],
+      "settings": {
+        "eyebrow": "Two ways to start",
+        "heading": "Pick the kit that fits where your dog is",
+        "image_tone": "linear-gradient(140deg,#8a9472,#6f795c)",
+        "image_placeholder_label": ""
+      }
+    },
+    "bundle_premium": {
+      "type": "dog-nook-featured-bundle",
+      "settings": {
+        "product": "the-settle-in-bundle",
+        "eyebrow": "Our most complete kit",
+        "heading": "The Settle-In Bundle",
+        "body": "A deep calming bed to burrow into, plus a lick mat and snuffle mat — the full kit to help a nervous or newly-adopted dog feel safe and settle in.",
+        "badge": "BEST FOR NEW RESCUES",
+        "price": "£64.99",
+        "compare_price": "£72.97",
+        "save_label": "You save £7.98",
+        "button_label": "Add bundle to basket",
+        "button_url": "",
+        "link_label": "What's inside?",
+        "link_url": "/products/the-settle-in-bundle",
+        "image_tone": "linear-gradient(140deg,#8a9472,#6f795c)",
+        "image_placeholder_label": "Settle-In Bundle flat-lay"
+      }
+    },
+    "bundle_entry": {
       "type": "dog-nook-featured-bundle",
       "settings": {
         "product": "the-new-rescue-bundle-1",
-        "eyebrow": "Featured bundle",
-        "heading": "The New Rescue Bundle",
-        "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind.",
-        "badge": "BEST VALUE · SAVE £15",
+        "eyebrow": "Start small",
+        "heading": "The First Days Kit",
+        "body": "Lick mat + snuffle mat + slow-feeder bowl — three gentle essentials to help a nervous dog settle, sniff and unwind, without the bed.",
+        "badge": "GREAT STARTER KIT",
         "price": "£34.99",
         "compare_price": "£49.97",
-        "save_label": "You save £15",
+        "save_label": "You save £14.98",
         "button_label": "Add bundle to basket",
+        "button_url": "",
         "link_label": "What's inside?",
         "link_url": "/products/the-new-rescue-bundle-1",
         "image_tone": "linear-gradient(140deg,#c79079,#a86b4f)",
@@ -70,22 +310,70 @@
     },
     "collections": {
       "type": "dog-nook-collection-list",
-      "settings": { "eyebrow": "Shop by need", "heading": "Find what your dog needs", "view_all_label": "View all", "view_all_url": "/collections" },
       "blocks": {
-        "c1": { "type": "collection", "settings": { "collection": "calming-essentials", "title": "Calming Essentials", "tone": "#8B9578" } },
-        "c2": { "type": "collection", "settings": { "collection": "grooming", "title": "Grooming", "tone": "#9AA593" } },
-        "c3": { "type": "collection", "settings": { "collection": "mealtime-feeding", "title": "Mealtime & Feeding", "tone": "#C89178" } },
-        "c4": { "type": "collection", "settings": { "collection": "travel-outdoor", "title": "Travel & Outdoor", "tone": "#8B9578" } }
+        "c0": {
+          "type": "collection",
+          "settings": {
+            "collection": "settling-a-new-rescue",
+            "title": "Settling a New Rescue",
+            "tone": "#6f795c"
+          }
+        },
+        "c1": {
+          "type": "collection",
+          "settings": {
+            "collection": "calming-essentials",
+            "title": "Calming Essentials",
+            "tone": "#8b9578"
+          }
+        },
+        "c2": {
+          "type": "collection",
+          "settings": {
+            "collection": "grooming",
+            "title": "Grooming",
+            "tone": "#9aa593"
+          }
+        },
+        "c3": {
+          "type": "collection",
+          "settings": {
+            "collection": "mealtime-feeding",
+            "title": "Mealtime & Feeding",
+            "tone": "#c89178"
+          }
+        },
+        "c4": {
+          "type": "collection",
+          "settings": {
+            "collection": "travel-outdoor",
+            "title": "Travel & Outdoor",
+            "tone": "#8b9578"
+          }
+        }
       },
-      "block_order": ["c1", "c2", "c3", "c4"]
+      "block_order": [
+        "c0",
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "eyebrow": "Shop by need",
+        "heading": "Find what your dog needs",
+        "view_all_label": "View all",
+        "view_all_url": "/collections"
+      }
     },
     "reviews": {
       "type": "dog-nook-reviews-placeholder",
       "settings": {
         "eyebrow": "Kind words",
-        "heading": "Real reviews, coming soon",
-        "body": "We only show reviews once they're real. These spaces are ready for verified owner reviews.",
-        "placeholder_note": "Awaiting verified review"
+        "title": "Loved by dog owners",
+        "agg_rating": "4.8",
+        "agg_count": "from 80 real owner reviews",
+        "subtitle": "Collected from real owners in person and online. We never write our own."
       }
     },
     "newsletter": {
@@ -93,9 +381,25 @@
       "settings": {
         "eyebrow": "Join the pack",
         "heading": "Get 10% off your first order",
-        "body": "Join the pack for calm-dog tips and early access to new bundles. No spam."
+        "body": "Join the pack for calm-dog tips and early access to new bundles. No spam.",
+        "placeholder": "Your email address",
+        "button_label": "Join the pack",
+        "success_text": "Thanks — you’re on the list! Here’s 10% off your first order: use code WELCOME10 at checkout."
       }
     }
   },
-  "order": ["catbar", "hero", "trust", "why", "bundle", "collections", "reviews", "newsletter"]
+  "order": [
+    "hero",
+    "countdown",
+    "catbar",
+    "trust",
+    "why",
+    "quiz",
+    "bundle_intro",
+    "bundle_premium",
+    "bundle_entry",
+    "collections",
+    "reviews",
+    "newsletter"
+  ]
 }
