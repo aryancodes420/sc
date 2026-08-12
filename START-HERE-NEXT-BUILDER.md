@@ -82,6 +82,17 @@ no photos, so repricing is premature and the numbers will be stale by the time i
 After the plan is agreed, fix in order, deploy to the draft, verify by checksum, **and
 reload the page to confirm it renders**. Run #1 could never do that last part.
 
+**6. It splits the work definitively: yours vs mine.**
+The report is organised around one question — *can Claude do this, or must the owner?*
+**Default is Claude.** A task is only the owner's if it fails one of exactly five tests:
+`physical-world` (needs hands or a camera) · `third-party` (someone else must reply) ·
+`business-decision` (their money, brand or risk) · `admin-access` (a Shopify screen Claude
+is blocked from) · `money`.
+If you can't name one of those five, **it's your job — do it.** Never push work onto the
+owner because it's long or boring; they are one person on a phone and you are not.
+And where a task is *partly* theirs, split it explicitly: *"you take the photos → I upload,
+crop, write the alt text and wire them in."*
+
 ---
 
 ## Standing rules — non-negotiable

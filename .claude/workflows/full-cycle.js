@@ -71,11 +71,45 @@ const FINDING_SCHEMA = {
           impact: { type: 'string', enum: ['high', 'medium', 'low'] },
           effort: { type: 'string', enum: ['quick', 'medium', 'heavy'] },
           owner: { type: 'string', enum: ['claude', 'owner'] },
+          blocker: {
+            type: 'string',
+            enum: ['none', 'physical-world', 'third-party', 'business-decision', 'admin-access', 'money'],
+            description: 'REQUIRED when owner=owner. Why Claude cannot do it. "none" is only valid when owner=claude.',
+          },
+          blockerWhy: {
+            type: 'string',
+            description: 'REQUIRED when owner=owner. One sentence naming the exact capability that is missing.',
+          },
         },
       },
     },
   },
 }
+
+/* The ONLY legitimate reasons a task is owner-only. Anything else => Claude does it. */
+const OWNER_ONLY_TEST = `
+CLASSIFY EVERY FINDING: can Claude do it, or must the owner?
+
+**Default to CLAUDE.** Claude can read and write the catalogue, metafields, prices,
+descriptions, theme files, templates, SEO fields, and can deploy to the draft theme.
+Assume Claude does it unless one of these five barriers genuinely applies:
+
+  1. physical-world  — needs hands, a camera, or a physical object.
+                       (photographing products, measuring an item in the room)
+  2. third-party     — needs a human at another company to reply.
+                       (CJ transit times, a rescue charity agreeing to a partnership)
+  3. business-decision — only the owner can decide; it's their money/brand/risk.
+                       (what to source, whether to accept a margin, brand direction)
+  4. admin-access    — needs a Shopify screen Claude is blocked from.
+                       (publishing a theme, Settings > Shipping, installing an app,
+                        uploading an image to the CDN)
+  5. money           — requires spending.
+
+If you cannot name one of those five, it is CLAUDE'S JOB. Do not offload work onto the
+owner because it is tedious or long — they are one overwhelmed person and Claude is not.
+"The owner should write better product copy" is WRONG: Claude writes it.
+"The owner should photograph the products" is RIGHT: physical-world.
+`
 
 /* ---------------- PHASE 1 — GATE ---------------- */
 phase('Gate')
@@ -143,7 +177,9 @@ Also check it at a MOBILE width (375px) — nothing has ever been checked on a p
 that is where most traffic will land.
 
 Report what you SEE. Quote real text and real numbers off the page. If an element is
-missing, say it is missing. If you could not load it, say so and stop — do not infer.`,
+missing, say it is missing. If you could not load it, say so and stop — do not infer.
+
+${OWNER_ONLY_TEST}`,
       { label: `see:${p.key}`, phase: 'See', schema: FINDING_SCHEMA }
     ).then((r) => ({ source: `see:${p.key}`, findings: (r && r.findings) || [] }))
   )
@@ -176,7 +212,7 @@ const RESEARCH = [
 
 const researched = await parallel(
   RESEARCH.map((r) => () =>
-    agent(`${CONTEXT}\n\nRESEARCH TASK (${r.key}):\n${r.prompt}`, {
+    agent(`${CONTEXT}\n\nRESEARCH TASK (${r.key}):\n${r.prompt}\n\n${OWNER_ONLY_TEST}`, {
       label: `research:${r.key}`, phase: 'Research', schema: FINDING_SCHEMA,
     }).then((x) => ({ source: `research:${r.key}`, findings: (x && x.findings) || [] }))
   )
@@ -239,25 +275,38 @@ ${JSON.stringify(survivors.map((s) => Object.assign({}, s.finding, { corrected: 
 KILLED IN VERIFICATION (report these too — knowing what ISN'T wrong is valuable):
 ${JSON.stringify(killed.map((k) => ({ title: k.finding.title, why: k.verdict.why })), null, 1)}
 
+${OWNER_ONLY_TEST}
+
 Write markdown, in this order and nothing else:
 
-## Do this first
-ONE thing. The single highest-value action. Say why in two sentences.
+## ✅ I'm doing these — you don't need to touch them
+Everything classified claude. A plain table: what / how long. Then one sentence:
+"Say go and I'll work through these in order."
+This list should be LONG. Most things belong here.
 
-## Then these three
-Three items, ranked. Each: what, why it matters, who does it, how long.
+## 🙋 Only you can do these — and here's exactly why
+Everything classified owner. For EACH one give:
+  - what to do, in one plain sentence
+  - **why I can't**: name the barrier in plain English
+    (e.g. "I can't hold a camera", "CJ has to reply to you", "Shopify won't let me
+    publish a theme — that's deliberately your click")
+  - how long it'll take you
+Rank by what unblocks the most. If a task is only *partly* yours, split it:
+say what you do and what I do after. (e.g. "You take the photos → I upload,
+crop, write the alt text and wire them in.")
 
-## Everything else
-A plain table: item / who / effort. No essays.
+## ⏸️ Waiting on something else
+Anything that can't start until one of the above finishes. Say what it's waiting for.
 
-## What we checked that's actually fine
-The killed findings. Reassurance is useful.
+## 👍 Checked and actually fine
+The killed findings. Knowing what ISN'T broken is worth as much as knowing what is.
 
-## What we still don't know
-Anything unverified. Be honest.
+## ❓ Still not certain
+Anything unverified, and what it would take to be sure.
 
 Rules: plain English, no jargon, no consultant filler. Never contradict the standing rules.
-If something needs the owner (photos, sourcing), say so plainly rather than burying it.`,
+The owner is one person on a phone — if their list is long, you have classified lazily.
+Go back and check each owner item genuinely fails one of the five barriers.`,
   { label: 'plan', phase: 'Plan' }
 )
 
