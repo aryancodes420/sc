@@ -1,0 +1,10 @@
+# Playwright resolution shim — tools/agent-browser needs `playwright` importable.
+# Created on demand with:  ln -sfn /opt/node22/lib/node_modules ./node_modules
+# It's a symlink into the container image, never a real dependency tree.
+node_modules/
+node_modules
+
+# Local verification output (screenshots, scraped HTML, baselines).
+# Keep these in the scratchpad; commit only what a finding actually cites.
+*.local.png
+/scratch/
