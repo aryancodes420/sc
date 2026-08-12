@@ -1,7 +1,8 @@
 # PROBLEMS 1 — the working defect list
 
 > **Status: LOGGED, NOT STARTED.** Owner named this set "Problems 1" on 2026-08-12 and
-> asked to tackle it soon. Nothing here has been fixed yet. Nothing was changed in the
+> asked to tackle it soon. **P1-12 added 2026-08-12** (bundle false-savings, deferred by the
+> owner to after the audit). Nothing here has been fixed yet. Nothing was changed in the
 > theme, the store, or the catalogue when this list was made.
 >
 > Source: a full read of `dog-nook-theme/` (43 files), `audit/` (24 docs), `HANDOFF.md`
@@ -95,9 +96,13 @@ of claim (`audit/07`, `audit/08` C2), "team" is the odd one out.
 - [ ] Resolved
 
 ### P1-9 · Two surviving vague-delivery defaults
-Neither renders today, but both would resurrect a vague claim if used:
-- `sections/dog-nook-announcement.liquid:20` defaults to "Fast dispatch" (section isn't in
-  `index.json`, so currently inert)
+- `sections/dog-nook-announcement.liquid:20` defaults to "Fast dispatch".
+  ⚠️ **Correction (2026-08-12):** I originally logged this as inert because the section
+  isn't in `index.json`. **It is not inert — it renders on every page**, confirmed by
+  screenshot on draft `193438056731`: the announcement bar reads
+  *"Free UK delivery over £35 · Fast dispatch · Made for anxious & rescue dogs"*.
+  It's in the header group, not the index template. Promote this: it's a live vague
+  delivery claim on every page, not a dormant default.
 - `templates/product.bundle.json:13` carries `ticks: "Dispatched fast · …"`, and
   `sections/dog-nook-bundle.liquid:108` defines that `ticks` setting but **never renders
   it** — dead setting, delete it
@@ -130,6 +135,61 @@ Everything else was correctly preset-aligned in the P0-3 pass so old claims can'
 - **Consent can be set once and never changed.** The banner shows on first visit only
   (`assets/dog-nook.js:83-99`) with no way to reopen it. A real consent implementation
   needs a persistent "Cookie settings" entry point.
+- [ ] Resolved
+
+### P1-12 · Bundle pages state a saving that isn't true 🔴 COMPLIANCE
+**Added 2026-08-12. Deferred by the owner to after the audit.** This is TODO 1 from
+`START-HERE-NEXT-BUILDER.md` — parked here so it isn't lost while the audit runs.
+
+**Verified by loading the page**, not from source. Screenshots taken on draft
+`193438056731` (Shopify's own preview bar visible in-shot). Both bundle pages render
+pixel-identically apart from the price, which proves one hardcoded template serves both.
+
+`templates/product.bundle.json` hardcodes **The First Days Kit's** contents and totals into
+section settings, and **6 products share that template**. Every other bundle wears First
+Days Kit's numbers.
+
+**What `/products/the-settle-in-bundle` (£64.99) actually renders today:**
+
+| On the page | Truth |
+|---|---|
+| "WHAT'S INSIDE — Lick Mat, Snuffle Mat, Slow-Feeder Bowl" | It's **Donut Bed + Lick Mat + Snuffle Mat**. No slow-feeder. |
+| "Bought separately **£49.97**" | **£72.97** |
+| Badge "BEST VALUE · **SAVE £15**" | **£7.98** |
+| "You save £7.98" (price chip) | correct — so the page contradicts *itself* |
+
+Read literally, the page says the bundle costs more than its parts. False savings claim +
+misdescription of goods (DMCC 2024 / CMA). The 4 premium kits inherit the same panel — the
+£139.99 Complete Calm System would also claim its parts cost £49.97.
+
+**True figures, pulled live from the Admin API 2026-08-12:**
+Donut Bed **S £29.99 · M £37.99 · L £44.99** · Lick Mat £11.99 · Snuffle Mat £22.99 ·
+Slow-Feeder £14.99
+
+| Bundle | Contents | Separately | Price | True saving |
+|---|---|---|---|---|
+| First Days Kit (`the-new-rescue-bundle-1`) | Lick + Snuffle + Slow-Feeder | £49.97 | £34.99 | **£14.98** |
+| Settle-In (`the-settle-in-bundle`) | Bed (M £37.99) + Lick + Snuffle | £72.97 | £64.99 | **£7.98** |
+
+⚠️ **`START-HERE-NEXT-BUILDER.md`'s own arithmetic is wrong** — it writes £72.97 as
+"£44.99 + £11.99 + £22.99". £44.99 is the **Large** bed and that sums to **£79.97**. The
+£72.97 total is right; it uses the **Medium** at £37.99. Fix that line too, or the next
+builder publishes a fresh false number from it.
+
+**Also:** the First Days Kit badge says "SAVE £15" while its own chip says "You save
+£14.98" — same page, two numbers. The homepage already says £14.98. Rounded-up savings are
+exactly what the CMA challenges.
+
+**Fix options** (from START-HERE): blank `separately_total` + `badge` (~10 min, kills the
+exposure immediately), or drive contents/totals from per-product metafields so all 6
+bundles show their own real numbers (~1–2 h). Every total computed from real component
+prices — never rounded.
+
+**Blocked on:** Shopify MCP `graphql_query` + `graphql_mutation` approval. Theme files are
+unreachable through the built-in tools; only the raw Admin API can read/write them.
+
+**Verify after fixing:** `checksumMd5`, **then reload both pages** and confirm the numbers.
+Don't break First Days Kit — its hardcoded numbers are the ones that are currently right.
 - [ ] Resolved
 
 ---
