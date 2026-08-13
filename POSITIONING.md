@@ -27,9 +27,36 @@ The settling timeline every UK rescue teaches new adopters:
 | **3 weeks** | Settling. Learning the routine, testing boundaries, real personality appears. | "We're getting somewhere." |
 | **3 months** | At home. Properly relaxed, bonded, theirs. | "I can't imagine the house without them." |
 
-**Why it's ours to take:** every rescue teaches it, only charities rank for it, and **no
-retailer has claimed it commercially.** It's behavioural, not medical, so it carries no ASA
-risk. And it maps onto the range we already sell.
+**Why it's ours to take — CORRECTED 2026-08-13.**
+
+⚠️ The original version of this file said *"no retailer has claimed it commercially."*
+**That was false and is retracted.** At least eight UK commercial sites publish 3-3-3
+content, including **PetBuds**, a Shopify pet retailer whose January 2026 article maps
+products to the three stages with inline Add to Cart buttons.
+
+How the error happened: run #1 could not open any retail website (403 on every fetch) and
+inferred *nobody has claimed this* from *I could not check*. Absence of evidence became
+evidence of absence. The owner then decided on that basis in good faith.
+
+**The accurate claim, verified by loading the pages (2026-08-13):**
+
+> **3-3-3 is widely explained and nowhere merchandised.** Every brand using it writes an
+> article and then sells from an ordinary shop. Not one has stage-named bundles, a homepage
+> that asks which stage the dog is at, stage-based navigation, stage labels on products, a
+> quiz that routes by time-since-adoption, or a timeline email sequence.
+
+**So the moat is the STRUCTURE, not the term.** The vocabulary is commodity content and
+will not differentiate on its own. What differentiates is a shop *built* as the timeline.
+
+**And the stronger commercial argument, found in the same run:** UK retail has a proven,
+crowded market in **starter kits** — Lords & Labradors, Tuggs, Pawfix, Pets Take Away, The
+Pet Express, Natural Dog Food Company all sell them. **Every single one is a PUPPY kit.
+Not one rescue or adoption kit exists.** The format is proven, the trigger moment is
+identical, the emotional need is sharper — and nobody is serving it. We don't have to
+invent a buying behaviour, only redirect a proven one.
+
+It's behavioural, not medical, so it carries no ASA risk. And it maps onto the range we
+already sell.
 
 ⚠️ Say *"what many rescues tell adopters"*, never *"the rule"*. There is credible pushback
 against treating it as rigid — every dog differs, and saying so makes us more trustworthy,

@@ -75,7 +75,7 @@ displays First Days Kit's numbers.
 | Shown on page | Reality |
 |---|---|
 | Contents include a Slow-Feeder Bowl | It's Donut Bed + Lick Mat + Snuffle Mat — **no slow-feeder** |
-| "£49.97 bought separately" | **£72.97** (£44.99 + £11.99 + £22.99 at the bundle's Medium bed) |
+| "£49.97 bought separately" | **£72.97** = Donut Bed **Medium £37.99** + Lick Mat £11.99 + Snuffle Mat £22.99 |
 | Badge: "BEST VALUE · SAVE £15" | Real saving is **£7.98** |
 
 Read literally the page says the bundle costs **more** than its parts. It is a false
@@ -89,6 +89,11 @@ the same panel — the £139.99 Complete Calm System would also claim its parts 
   (e.g. `custom.bundle_contents`, `custom.bundle_separately_total`) so each bundle shows
   its own real numbers, then set those metafields on all 6 bundles. **Every total must be
   computed from the real component prices** — never rounded up, never invented.
+
+⚠️ **Use £37.99, not £44.99.** £44.99 is the *Large* bed; the bundle contains the *Medium*.
+An earlier version of this file wrote the breakdown with £44.99, which sums to £79.97 — the
+£72.97 total was right but the working was wrong. Corrected 2026-08-13. Always recompute
+from the live variant prices rather than trusting a total written down here.
 
 **Verify:** re-deploy, confirm `checksumMd5`, then **load the page** and read the numbers
 back. Also check the First Days Kit still reads correctly (its own numbers are the ones
