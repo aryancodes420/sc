@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AutoMod Preview</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0C0C0E;--surface:#141416;--shi:#1C1C1F;--border:#2A2A2E;--muted:#6B6B72;--accent:#F97316;--text:#F4F4F5}
+body{background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;min-height:100vh}
+.page{display:none}.page.active{display:flex;flex-direction:column;min-height:100vh}
+.nav-tabs{display:flex;gap:6px;padding:8px;background:#000;justify-content:center;flex-shrink:0}
+.nav-tab{padding:6px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;cursor:pointer;font-family:monospace;letter-spacing:.08em;transition:all .15s}
+.nav-tab.active,.nav-tab:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+header{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.14em;font-family:monospace}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:p 2s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.4}}
+.hlinks{display:flex;gap:16px}
+.hlink{font-size:11px;font-family:monospace;color:var(--muted);cursor:pointer}
+#page-landing{align-items:center;justify-content:center;padding:40px 20px}
+.hero{max-width:600px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-family:monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:24px}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:800;line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:36px}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{padding:14px 28px;background:var(--accent);color:#fff;font-weight:700;border-radius:12px;border:none;cursor:pointer;font-size:14px}
+.btn-secondary{padding:14px 28px;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-weight:600;border-radius:12px;cursor:pointer;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:48px;max-width:500px;width:100%}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:center}
+.stat-val{font-size:26px;font-weight:800;color:var(--accent);margin-bottom:4px}
+.stat-label{font-family:monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+#page-build{flex-direction:column}
+#page-build .inner{display:flex;flex:1;min-height:0;overflow:hidden}
+.viewer-area{flex:1;display:flex;flex-direction:column;gap:10px;padding:10px;min-width:0}
+.viewer-box{flex:1;background:#080810;border-radius:14px;position:relative;overflow:hidden;min-height:220px;display:flex;align-items:center;justify-content:center}
+.car-svg{width:92%;max-width:440px;height:auto}
+.viewer-hint{position:absolute;bottom:10px;left:12px;font-size:9px;color:var(--muted);opacity:.5;font-family:monospace}
+.viewer-reset{position:absolute;bottom:10px;right:12px;padding:5px 10px;background:rgba(20,20,22,.85);border:1px solid var(--border);border-radius:7px;font-size:9px;font-family:monospace;color:var(--muted);cursor:pointer}
+.sec-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;flex-shrink:0}
+.sec-tabs::-webkit-scrollbar{height:3px}
+.stab{flex-shrink:0;padding:8px 13px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.stab.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 10px rgba(249,115,22,.3)}
+.right-col{width:300px;flex-shrink:0;border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+.panel-hdr{padding:11px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-label{font-family:monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px}
+.panel-sub{font-size:11px;color:var(--muted)}
+.parts-list{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:7px}
+.pcard{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);cursor:pointer;transition:border-color .15s}
+.pcard:hover{border-color:var(--muted)}
+.pcard.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.pcard-thumb{height:56px;display:flex;align-items:center;justify-content:center;position:relative;background:var(--shi)}
+.pcard-body{padding:8px 10px}
+.pcard-brand{font-family:monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.pcard-name{font-size:11px;font-weight:600;margin:1px 0 5px}
+.pcard-price{font-size:12px;font-weight:700;color:var(--accent)}
+.swatch-circle{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,.15)}
+.check-badge{position:absolute;top:5px;right:5px;width:18px;height:18px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.summary-box{border-top:1px solid var(--border);padding:12px 14px;flex-shrink:0}
+.total-line{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.total-num{font-size:20px;font-weight:800;color:var(--accent)}
+.total-lbl{font-size:9px;font-family:monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.selected-items{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;max-height:80px;overflow-y:auto}
+.si{display:flex;justify-content:space-between;font-size:11px}
+.si-name{color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.si-price{color:var(--accent);font-weight:600;margin-left:8px}
+.save-full{width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer}
+#page-share{align-items:flex-start;padding:32px 20px;overflow-y:auto}
+.share-wrap{max-width:560px;width:100%;margin:0 auto}
+.share-badge{font-family:monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px}
+.share-title{font-size:32px;font-weight:800;margin-bottom:4px}
+.share-sub{color:var(--muted);font-size:13px;margin-bottom:24px}
+.share-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:16px}
+.share-total{display:flex;align-items:baseline;gap:10px;margin-bottom:18px}
+.share-total-num{font-size:38px;font-weight:800;color:var(--accent)}
+.share-total-lbl{font-family:monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.share-parts{display:flex;flex-direction:column}
+.sp{display:flex;justify-content:space-between;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border)}
+.sp:last-child{border-bottom:0}
+.sp-section{font-family:monospace;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px}
+.sp-brand{font-size:9px;color:var(--muted)}
+.sp-name{font-size:13px;font-weight:600}
+.sp-price{font-size:13px;font-weight:700;color:var(--accent)}
+.share-url-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;display:flex;gap:10px;align-items:center;margin-bottom:20px}
+.share-url{flex:1;font-family:monospace;font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer}
+.cta-link{display:block;text-align:center;padding:13px;background:var(--accent);color:#fff;border-radius:12px;font-weight:700;font-size:13px;cursor:pointer;border:none;width:100%}
+</style>
+</head>
+<body>
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="show('landing')">🏠 Landing</button>
+  <button class="nav-tab" onclick="show('build')">🏎 Builder</button>
+  <button class="nav-tab" onclick="show('share')">🔗 Share Page</button>
+</div>
+
+<!-- LANDING -->
+<div class="page active" id="page-landing">
+  <header>
+    <div class="logo"><div class="dot"></div>AUTOMOD</div>
+    <div class="hlinks"><span class="hlink">MY BUILDS</span><span class="hlink">SIGN IN</span></div>
+  </header>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px">
+    <div class="hero">
+      <div class="hero-badge"><div class="dot"></div>NOW IN BETA</div>
+      <h1>Build your<br><span>Astra.</span></h1>
+      <p>Visualise modifications on your 2011 Vauxhall Astra J in 3D.<br/>Pick parts, see prices, share your build.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="show('build')">Start Building →</button>
+        <button class="btn-secondary">Sign in to save builds</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-val">8</div><div class="stat-label">Mod categories</div></div>
+        <div class="stat"><div class="stat-val">20+</div><div class="stat-label">Curated parts</div></div>
+        <div class="stat"><div class="stat-val">∞</div><div class="stat-label">Shareable builds</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUILDER -->
+<div class="page" id="page-build">
+  <header>
+    <div class="logo"><div class="dot"></div>AUTOMOD</div>
+    <div style="font-size:12px;color:var(--muted)">2011 Vauxhall Astra Turbo 1.4</div>
+    <div class="hlinks"><span class="hlink">MY BUILDS</span><span class="hlink">SIGN IN</span></div>
+  </header>
+  <div class="inner">
+    <div class="viewer-area">
+      <div class="viewer-box">
+        <svg class="car-svg" viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="260" cy="190" rx="200" ry="7" fill="rgba(0,0,0,0.5)"/>
+          <rect x="60" y="118" width="400" height="52" rx="8" fill="#CC2222" id="carBody"/>
+          <path d="M140 118 L170 70 Q180 55 200 52 L340 52 Q360 52 370 68 L390 118 Z" fill="#CC2222" id="carCabin"/>
+          <path d="M178 116 L202 64 Q208 56 218 54 L310 54 Q320 54 326 62 L348 116 Z" fill="#0a0a30" opacity="0.8" id="carGlass"/>
+          <path d="M178 116 L202 64 Q208 56 218 54 L310 54 Q320 54 326 62 L348 116 Z" fill="#000020" opacity="0" id="tintOverlay"/>
+          <rect x="452" y="122" width="18" height="22" rx="4" fill="#ffffcc" opacity="0.9"/>
+          <rect x="50" y="122" width="16" height="22" rx="4" fill="#ff2222" opacity="0.8"/>
+          <rect x="456" y="144" width="20" height="26" rx="5" fill="#1a1a1a"/>
+          <rect x="44" y="144" width="20" height="26" rx="5" fill="#1a1a1a"/>
+          <rect x="456" y="168" width="22" height="7" rx="2" fill="#111" id="splitter" display="none"/>
+          <rect x="112" y="48" width="30" height="8" rx="3" fill="#1a1a1a" id="spoiler" display="none"/>
+          <g id="wing" display="none">
+            <rect x="74" y="40" width="52" height="6" rx="2" fill="#1a1a1a"/>
+            <rect x="78" y="40" width="4" height="20" fill="#1a1a1a"/>
+            <rect x="118" y="40" width="4" height="20" fill="#1a1a1a"/>
+          </g>
+          <rect x="88" y="167" width="314" height="9" rx="3" fill="#111" id="skirt" display="none"/>
+          <circle cx="148" cy="170" r="32" fill="#080810"/>
+          <circle cx="370" cy="170" r="32" fill="#080810"/>
+          <circle cx="148" cy="170" r="28" fill="#111"/>
+          <circle cx="370" cy="170" r="28" fill="#111"/>
+          <circle cx="148" cy="170" r="18" fill="#C0C0C0" id="rimL"/>
+          <circle cx="370" cy="170" r="18" fill="#C0C0C0" id="rimR"/>
+          <line x1="148" y1="152" x2="148" y2="188" stroke="#333" stroke-width="2.5"/>
+          <line x1="130" y1="170" x2="166" y2="170" stroke="#333" stroke-width="2.5"/>
+          <line x1="134" y1="156" x2="162" y2="184" stroke="#333" stroke-width="2"/>
+          <line x1="162" y1="156" x2="134" y2="184" stroke="#333" stroke-width="2"/>
+          <line x1="370" y1="152" x2="370" y2="188" stroke="#333" stroke-width="2.5"/>
+          <line x1="352" y1="170" x2="388" y2="170" stroke="#333" stroke-width="2.5"/>
+          <line x1="356" y1="156" x2="384" y2="184" stroke="#333" stroke-width="2"/>
+          <line x1="384" y1="156" x2="356" y2="184" stroke="#333" stroke-width="2"/>
+          <circle cx="68" cy="168" r="5" fill="#333" id="exStock"/>
+          <circle cx="68" cy="168" r="8" fill="#555" stroke="#777" stroke-width="1" id="exUp" display="none"/>
+        </svg>
+        <div class="viewer-hint">Select a category · Pick a part · See it live</div>
+        <div class="viewer-reset">RESET VIEW</div>
+      </div>
+      <div class="sec-tabs">
+        <button class="stab active" data-sec="paint">🎨 Paint & Wrap</button>
+        <button class="stab" data-sec="wheels">⭕ Wheels</button>
+        <button class="stab" data-sec="front_aero">🏎 Front Aero</button>
+        <button class="stab" data-sec="rear_aero">💨 Rear Aero</button>
+        <button class="stab" data-sec="side_skirts">⚡ Side Skirts</button>
+        <button class="stab" data-sec="window_tint">🌙 Window Tint</button>
+        <button class="stab" data-sec="suspension">📉 Suspension</button>
+        <button class="stab" data-sec="exhaust">🔥 Exhaust</button>
+      </div>
+    </div>
+    <div class="right-col">
+      <div class="panel-hdr">
+        <div class="panel-label" id="panelLabel">Paint & Wrap</div>
+        <div class="panel-sub" id="panelSub">6 options available</div>
+      </div>
+      <div class="parts-list" id="partsList"></div>
+      <div class="summary-box">
+        <div class="selected-items" id="selItems"><div style="color:var(--muted);font-size:11px;text-align:center;padding:4px">No parts selected yet</div></div>
+        <div class="total-line">
+          <span class="total-num" id="totalNum">£0.00</span>
+          <span class="total-lbl">Est. Total</span>
+        </div>
+        <button class="save-full" onclick="show('share')">Save &amp; Share Build</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE -->
+<div class="page" id="page-share">
+  <header>
+    <div class="logo"><div class="dot"></div>AUTOMOD</div>
+    <button class="btn-primary" style="font-size:12px;padding:8px 16px" onclick="show('build')">Build Your Own →</button>
+  </header>
+  <div style="flex:1;display:flex;align-items:flex-start;justify-content:center;padding:32px 20px;overflow-y:auto">
+    <div class="share-wrap">
+      <div class="share-badge">Shared Build</div>
+      <div class="share-title" id="shareTitle">My Astra Build</div>
+      <div class="share-sub">2011 Vauxhall Astra Turbo 1.4</div>
+      <div class="share-card">
+        <div class="share-total">
+          <span class="share-total-num" id="shareTotal">£0.00</span>
+          <span class="share-total-lbl">Estimated total</span>
+        </div>
+        <div class="share-parts" id="shareParts"><div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">No parts in this build yet — go add some!</div></div>
+      </div>
+      <div class="share-url-box">
+        <div class="share-url">automod.app/builds/my-astra-k7x2p4ab</div>
+        <button class="copy-btn" onclick="this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+      </div>
+      <button class="cta-link" onclick="show('build')">Start Your Own Build →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PARTS_DATA={
+  paint:[
+    {id:'pt1',brand:'Vauxhall OEM',name:'Flame Red',price:1800,swatch:'#CC2222',mod:{t:'paint',hex:'#CC2222'}},
+    {id:'pt2',brand:'Custom Wrap',name:'Midnight Black',price:950,swatch:'#111',mod:{t:'paint',hex:'#111'}},
+    {id:'pt3',brand:'Vauxhall OEM',name:'Arctic White',price:1750,swatch:'#F0F0F0',mod:{t:'paint',hex:'#F0F0F0'}},
+    {id:'pt4',brand:'Custom Wrap',name:'Steel Blue',price:975,swatch:'#2244AA',mod:{t:'paint',hex:'#2244AA'}},
+    {id:'pt5',brand:'Custom Wrap',name:'Racing Green',price:975,swatch:'#1B4D2E',mod:{t:'paint',hex:'#1B4D2E'}},
+    {id:'pt6',brand:'Custom Wrap',name:'Burnt Orange',price:1050,swatch:'#CC5500',mod:{t:'paint',hex:'#CC5500'}},
+  ],
+  wheels:[
+    {id:'wh1',brand:'OPC Line',name:'18" Gloss Black',price:699,swatch:'#1a1a1a',mod:{t:'wheels',hex:'#1a1a1a'}},
+    {id:'wh2',brand:'Ronal',name:'R10 Turbo 17" Silver',price:549,swatch:'#C0C0C0',mod:{t:'wheels',hex:'#C0C0C0'}},
+    {id:'wh3',brand:'BBS',name:'CH-R 18" Gold',price:1249,swatch:'#C9A227',mod:{t:'wheels',hex:'#C9A227'}},
+  ],
+  front_aero:[
+    {id:'fa1',brand:'Maxton Design',name:'Front Splitter V.1',price:89.99,emoji:'🔩',mod:{t:'splitter'}},
+    {id:'fa2',brand:'Maxton Design',name:'Front Splitter V.2',price:109.99,emoji:'🔩',mod:{t:'splitter'}},
+    {id:'fa3',brand:'ACS Motorsport',name:'Carbon Front Splitter',price:219,emoji:'🔩',mod:{t:'splitter'}},
+  ],
+  rear_aero:[
+    {id:'ra1',brand:'Maxton Design',name:'Rear Spoiler',price:79.99,emoji:'💨',mod:{t:'spoiler'}},
+    {id:'ra2',brand:'OPC Line',name:'High-Mount Rear Wing',price:189,emoji:'💨',mod:{t:'wing'}},
+    {id:'ra3',brand:'Votex',name:'Rear Diffuser',price:129.99,emoji:'💨',mod:{t:'diffuser'}},
+  ],
+  side_skirts:[
+    {id:'ss1',brand:'Maxton Design',name:'Side Skirts V.1',price:99.99,emoji:'⚡',mod:{t:'skirts'}},
+    {id:'ss2',brand:'OPC Line',name:'Side Sill Extensions',price:149,emoji:'⚡',mod:{t:'skirts'}},
+  ],
+  window_tint:[
+    {id:'wt1',brand:'Solar Gard',name:'Light Tint 35%',price:149,swatch:'#1a1a3a',mod:{t:'tint',op:.45}},
+    {id:'wt2',brand:'Solar Gard',name:'Dark Tint 20%',price:169,swatch:'#05050f',mod:{t:'tint',op:.72}},
+  ],
+  suspension:[
+    {id:'su1',brand:'Eibach',name:'Pro-Kit Springs',price:179,emoji:'🔧',mod:{t:'suspension'}},
+    {id:'su2',brand:'H&R',name:'Sport Springs',price:155,emoji:'🔧',mod:{t:'suspension'}},
+    {id:'su3',brand:'KW Suspension',name:'Coilovers V1',price:699,emoji:'🔧',mod:{t:'suspension'}},
+  ],
+  exhaust:[
+    {id:'ex1',brand:'Milltek Sport',name:'Cat-Back System',price:549,emoji:'💨',mod:{t:'exhaust'}},
+    {id:'ex2',brand:'Cobra Sport',name:'Cat-Back System',price:399,emoji:'💨',mod:{t:'exhaust'}},
+  ],
+};
+const SEC_LABELS={paint:'Paint & Wrap',wheels:'Wheels',front_aero:'Front Aero',rear_aero:'Rear Aero',side_skirts:'Side Skirts',window_tint:'Window Tint',suspension:'Suspension',exhaust:'Exhaust'};
+const selected=new Map();
+let activeSection='paint';
+function fmt(n){return'£'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function svgSet(id,attr,val){const el=document.getElementById(id);if(el)el.setAttribute(attr,val);}
+function applyToSvg(){
+  const paint=selected.get('paint');
+  const c=paint?.mod.hex||'#CC2222';
+  svgSet('carBody','fill',c);svgSet('carCabin','fill',c);
+  const wheels=selected.get('wheels');
+  const wc=wheels?.mod.hex||'#C0C0C0';
+  svgSet('rimL','fill',wc);svgSet('rimR','fill',wc);
+  const tint=selected.get('window_tint');
+  svgSet('tintOverlay','opacity',tint?tint.mod.op.toString():'0');
+  const fa=selected.get('front_aero');
+  svgSet('splitter','display',fa?'block':'none');
+  const ra=selected.get('rear_aero');
+  svgSet('spoiler','display',ra?.mod.t==='spoiler'?'block':'none');
+  svgSet('wing','display',ra?.mod.t==='wing'?'block':'none');
+  const ss=selected.get('side_skirts');
+  svgSet('skirt','display',ss?'block':'none');
+  const ex=selected.get('exhaust');
+  svgSet('exStock','display',ex?'none':'block');
+  svgSet('exUp','display',ex?'block':'none');
+}
+function renderParts(){
+  const parts=PARTS_DATA[activeSection]||[];
+  document.getElementById('panelLabel').textContent=SEC_LABELS[activeSection];
+  document.getElementById('panelSub').textContent=`${parts.length} option${parts.length!==1?'s':''} available`;
+  const cur=selected.get(activeSection);
+  document.getElementById('partsList').innerHTML=parts.map(p=>{
+    const isSel=cur?.id===p.id;
+    const thumb=p.swatch
+      ?`<div class="pcard-thumb"><div class="swatch-circle" style="background:${p.swatch}"></div>${isSel?'<div class="check-badge">✓</div>':''}</div>`
+      :`<div class="pcard-thumb" style="font-size:26px">${p.emoji||'🔩'}${isSel?'<div class="check-badge">✓</div>':''}</div>`;
+    return`<div class="pcard${isSel?' sel':''}" onclick="togglePart('${activeSection}','${p.id}')">
+      ${thumb}
+      <div class="pcard-body">
+        <div class="pcard-brand">${p.brand}</div>
+        <div class="pcard-name">${p.name}</div>
+        <div class="pcard-price">${fmt(p.price)}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function renderSummary(){
+  const parts=[...selected.values()];
+  const total=parts.reduce((s,p)=>s+p.price,0);
+  document.getElementById('totalNum').textContent=fmt(total);
+  document.getElementById('selItems').innerHTML=parts.length===0
+    ?'<div style="color:var(--muted);font-size:11px;text-align:center;padding:4px">No parts selected yet</div>'
+    :parts.map(p=>`<div class="si"><span class="si-name">${p.name}</span><span class="si-price">${fmt(p.price)}</span></div>`).join('');
+  document.getElementById('shareTotal').textContent=fmt(total);
+  document.getElementById('shareParts').innerHTML=parts.length===0
+    ?'<div style="color:var(--muted);font-size:13px;text-align:center;padding:20px">No parts yet — go add some!</div>'
+    :parts.map(p=>{
+      const sec=Object.keys(PARTS_DATA).find(k=>PARTS_DATA[k].some(x=>x.id===p.id))||'';
+      return`<div class="sp"><div><div class="sp-section">${SEC_LABELS[sec]||sec}</div><div class="sp-brand">${p.brand}</div><div class="sp-name">${p.name}</div></div><div class="sp-price">${fmt(p.price)}</div></div>`;
+    }).join('');
+}
+function renderTabs(){
+  document.querySelectorAll('.stab').forEach(b=>b.classList.toggle('active',b.dataset.sec===activeSection));
+}
+function render(){renderParts();renderSummary();renderTabs();applyToSvg();}
+window.togglePart=function(sec,id){
+  const part=PARTS_DATA[sec].find(p=>p.id===id);
+  if(selected.get(sec)?.id===id)selected.delete(sec);else selected.set(sec,part);
+  render();
+};
+document.querySelectorAll('.stab').forEach(b=>b.addEventListener('click',()=>{activeSection=b.dataset.sec;render();}));
+window.show=function(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach((t,i)=>{
+    const pages=['landing','build','share'];
+    t.classList.toggle('active',pages[i]===page);
+  });
+};
+render();
+</script>
+</body>
+</html>

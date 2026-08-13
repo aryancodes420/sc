@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none">
+  <rect width="200" height="120" rx="8" fill="#1C1C1F"/>
+  <rect x="20" y="70" width="160" height="18" rx="3" fill="#F97316" opacity="0.8"/>
+  <rect x="10" y="75" width="180" height="8" rx="2" fill="#F97316" opacity="0.4"/>
+  <text x="100" y="55" text-anchor="middle" fill="#6B6B72" font-family="monospace" font-size="10">FRONT SPLITTER</text>
+  <text x="100" y="100" text-anchor="middle" fill="#F97316" font-family="monospace" font-size="9">V.1</text>
+</svg>
