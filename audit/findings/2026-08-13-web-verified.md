@@ -97,6 +97,90 @@ re-ordering the cards. The git copy is stale; the theme is ahead. Ignore that it
 
 ---
 
+## 🚨 THE POSITIONING BET IS NOT WHAT WE THOUGHT — read before building 3-3-3
+
+`POSITIONING.md` rests on one load-bearing sentence: *"every rescue teaches it, only
+charities rank for it, and **no retailer has claimed it commercially**."*
+
+**That is false.** At least eight UK commercial sites already publish 3-3-3 content:
+
+| Who | What they do with it |
+|---|---|
+| **PetBuds** (petbuds.co.uk, Bradford) | **A Shopify pet retailer already mapping products to stages** — article 08 Jan 2026: chew-proof bed for the 3 days, chew-proof toys for the 3 weeks, lick mat for the 3 months, with inline Add to Cart / Quick Add buttons. This is precisely the plan in `POSITIONING.md`, already shipped. |
+| Gravitis Pet Supplies | UK retailer, article live since **16 Jun 2022** — content only, no product tie-in |
+| Animal Friends | UK pet insurer, FCA-regulated, uses "the 3-3-3 rule" explicitly |
+| Wagtails · Chase Canines · BarkSmart · Welly and Tails · Pound on Pastures | UK dog services publishing it |
+| UKUSCAdoggie (non-UK) | Ties **a snuffle mat and a lick mat** — our exact categories — to the stages |
+
+**How run #1 got it wrong, in its own words:** it recorded that "every retail domain
+returned 403 to direct fetch" and that competitor data was "search-snippet derived, not
+read off live pages." So it inferred *nobody has claimed this* from *I could not open any
+retail site*. Absence of evidence became evidence of absence, and the conclusion went
+into `POSITIONING.md` in good faith.
+
+**What this does and doesn't mean.** It does **not** kill the position — 3-3-3 is still a
+real customer need, still on-brand, and nobody in the UK owns it *well*. What dies is the
+"uncontested, no competitor has it" premise, and with it the claim that this alone is the
+moat. PetBuds is a live precedent to study, not a reason to stop. **But the owner decided
+in good faith on the strength of that premise and deserves to re-decide knowing it's wrong.**
+
+## Competitor prices — read off live product pages, not snippets
+
+Run #1 could not retrieve a single cave-bed price. These were read off the retailers' own
+product data (observed 2026-08-12, GBP inc VAT):
+
+| Retailer | Product | Price |
+|---|---|---|
+| Zooplus | Igloo Dog Den, 71×54×57cm | **£42.99** |
+| Collared Creatures | Luxury Dog Cave Bed | S 65cm **£87.98** · M 80cm **£109.98** · L 98cm **£129.99** · XL **£149.99** |
+| Collared Creatures | Luxury Snuggle Sack | XS **£63.79** → XXL **£178.49** |
+| Collared Creatures | Deluxe Comfort Cocoon | S **£99.98** · M **£135.98** · L **£154.98** · XL **£189.98** |
+| Charley Chau | Burrow Bag (cotton) | S **£100** · M **£120** · L **£180** |
+
+⚠️ **This contradicts run #1's "the Deep Nook could go to £99.99."** That was inference
+with no retrievable price behind it. £99.99 sits mid-table against genuine UK handmade
+brands with real photography and review counts in the thousands — a position we cannot
+currently support with zero product photos.
+
+## What competitors do on the product page that we don't
+
+`calmingdogbeds.co.uk/products/calming-donut-dog-bed`, loaded at 375px and 1440px, in order:
+photo carousel (5 real shots) → H1 → stars **+ "(1,193)"** → **two paragraphs of empathy
+copy** → price → colour swatches → size → quantity → Add to cart → Size Chart.
+
+**Empathy copy sits above the price.** `myanxiousdog.co.uk` does the same, with girth
+ranges right under the buy button.
+
+**Ours at 375px:** announcement bar → header → breadcrumb → a grey placeholder block
+reading "PRODUCT ON CLEAN BACKGROUND" → "CALMING ESSENTIALS" → H1 → "4.8 · 10 reviews".
+Price barely visible. **Zero words of selling copy on the entire first screen** — and the
+product copy is the strongest asset in the project.
+
+## Three more that survived, which I under-reported
+
+- **Mobile PDP overflows to 420px inside a 375px viewport — and the lost 45px cannot be
+  scrolled to.** A class collision: `.tdn-sizes` is used for both the size-guide *table*
+  (`min-width:420px` in `dog-nook-cro2.css`) and the size-*selector* pill row, and cro2
+  loads last. Result at 375px: "They stood in the doo", "Delivered in 4–7 work", and the
+  sticky Add to Cart button clipped. **This is worse than the gutter bug** and needs a
+  rename, not a padding tweak.
+- **The cart page has no free-delivery progress bar at all.** Three real carts built by
+  permalink (£34.98, £64.97, empty): zero progress elements, zero threshold text anywhere
+  in 306KB of HTML. The only mention of £35 on the page is the announcement bar.
+- **No privacy link at any of the three email-capture points** (newsletter, quiz, popup) —
+  though the page does carry privacy links in the footer, so this is a placement fix.
+
+## Two claims that need your judgement, not mine
+
+- **The hero says "Less anxious."** The standing rule is that the ASA treats anxiety as a
+  health condition — "reduces anxiety" prohibited, "for dogs who find fireworks hard"
+  permitted. "Less anxious." as the largest type on the site, directly above named
+  products, is an outcome claim on that state. Verifier's read; worth a decision.
+- **"Registered UK trader"** in the homepage trust strip. A verifier challenged it as
+  false and **that challenge failed** — sole traders *are* registered with HMRC, so the
+  phrase isn't provably untrue. But it's ambiguous and unsubstantiated in a trust strip.
+  Not a compliance item; a credibility one.
+
 ## Killed findings (22) — the most valuable part
 
 22 claims were investigated and **did not survive**. The recurring shape: *"the observation
