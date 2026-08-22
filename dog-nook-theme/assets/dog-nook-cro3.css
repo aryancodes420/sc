@@ -61,3 +61,35 @@
   .tdn-quiz__q { font-size: 20px; }
   .tdn-quiz__form { flex-direction: column; }
 }
+
+/* ------------------------------------------------------------------
+   2026-08-13 — two mobile bugs found by loading real pages at 375px.
+   Both are specificity collisions in earlier stylesheets. Fixed here
+   because cro3 loads last; dog-nook.css and cro.css are do-not-touch.
+   ------------------------------------------------------------------ */
+
+/* BUG 1 — no side gutters on any page.
+   dog-nook.css:58  .tdn-wrap    { padding: 0 var(--tdn-side-pad); }
+   dog-nook.css:59  .tdn-section { padding: 64px 0; }
+   Equal specificity (0,1,0); .tdn-section is declared second, so on any
+   element carrying BOTH classes it wins outright and the horizontal
+   padding is lost — text runs edge-to-edge. (0,2,0) here reinstates it,
+   and padding-inline leaves the vertical rhythm untouched. */
+.tdn-section.tdn-wrap { padding-inline: var(--tdn-side-pad); }
+
+/* BUG 2 — PDP renders 420px wide inside a 375px viewport, and the lost
+   45px cannot be scrolled to.
+   dog-nook-cro2.css:44  .tdn-sizes { min-width: 420px; }
+   That min-width is meant for the size-guide TABLE, but the same class is
+   also on the size-SELECTOR pill row, so the whole page is forced to
+   420px. Scope the min-width to the table only. */
+.tdn-sizes:not(table) { min-width: 0; }
+table.tdn-sizes { min-width: 420px; }
+/* ...and let the genuine table scroll inside its own box rather than
+   widening the page. */
+.tdn-sizes-scroll, .tdn-specs__sizes { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+
+/* Belt and braces: nothing should be able to widen the document. */
+@media (max-width: 760px) {
+  html, body { overflow-x: hidden; max-width: 100%; }
+}
