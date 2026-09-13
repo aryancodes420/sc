@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+<title>Catwalk Club</title>
+</head>
+<body>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway fastenings on every collar we sell</div>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="50" fill="#FF6B8A"/>
+        <path d="M26 42 L22 16 L45 31 Z M74 42 L78 16 L55 31 Z" fill="#fff"/>
+        <ellipse cx="50" cy="58" rx="30" ry="26" fill="#fff"/>
+        <circle cx="40" cy="55" r="4.5" fill="#3D2B4F"/><circle cx="60" cy="55" r="4.5" fill="#3D2B4F"/>
+        <path d="M46 66 h8 l-4 5 z" fill="#FF6B8A"/>
+      </svg>
+      Catwalk Club
+    </a>
+    <nav class="links">
+      <a href="shop.html">Shop</a>
+      <a href="sizing.html">Fit &amp; care</a>
+      <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <div id="pdp"></div>
+  <section id="also" style="padding-top:20px"></section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Catwalk Club</h4>
+        <p class="small muted">Costumes your cat will almost tolerate. Short wear, supervised, then straight back to being a cat.</p>
+      </div>
+      <div><h4>Shop</h4><ul>
+        <li><a href="shop.html?cat=holiday">Holiday &amp; seasonal</a></li>
+        <li><a href="shop.html?cat=everyday">Cute &amp; everyday</a></li>
+        <li><a href="shop.html?cat=novelty">Novelty &amp; funny</a></li>
+        <li><a href="shop.html?cat=bundle">Bundles</a></li>
+      </ul></div>
+      <div><h4>Help</h4><ul>
+        <li><a href="sizing.html">Size guide</a></li>
+        <li><a href="sizing.html#care">Fit &amp; care</a></li>
+        <li><a href="sizing.html#returns">Returns</a></li>
+      </ul></div>
+      <div><h4>Legal</h4><ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refund policy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© <span data-year>2026</span> Catwalk Club. Demo storefront — not yet trading.</span>
+      <span>Legal pages are placeholders and must be written before taking orders.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  var id = new URLSearchParams(location.search).get("id");
+  var p = byId(id);
+  var host = document.getElementById("pdp");
+
+  if(!p){
+    host.innerHTML = '<div class="empty"><h1>Can\'t find that one</h1>' +
+      '<p class="muted">It may have sold out or been renamed.</p>' +
+      '<a class="btn" href="shop.html">Back to the shop</a></div>';
+    document.getElementById("also").remove();
+  } else {
+    document.title = p.name + " — Catwalk Club";
+    var sizes = p.sizes.map(function(s,i){
+      return '<button type="button" aria-pressed="' + (i===0) + '" data-s="' + s + '">' + s + '</button>';
+    }).join("");
+    var garment = p.sizes.length > 2;
+
+    host.innerHTML =
+      '<div class="pdp">' +
+        '<div>' +
+          '<div class="art">' + catArt(p.motif, p.id) +
+            '<div class="ph-note">⚠️ Illustration — replace with real product photography before launch</div>' +
+          '</div>' +
+        '</div>' +
+        '<div>' +
+          '<p class="small muted" style="margin-bottom:.3em"><a href="shop.html?cat=' + p.cat + '">' +
+            CATEGORIES.find(function(c){return c.id===p.cat;}).label + '</a></p>' +
+          '<h1 style="margin-bottom:.2em">' + p.name + '</h1>' +
+          '<p class="price" style="font-size:1.7rem">' + money(p.price) +
+            (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' +
+          '<p class="muted" style="font-size:1.08rem">' + p.blurb + '</p>' +
+
+          '<div class="field"><label id="szl">Size</label>' +
+            '<div class="sizes" id="sizes" role="group" aria-labelledby="szl">' + sizes + '</div>' +
+            (garment ? '<p class="small muted" style="margin:.6em 0 0">Between sizes? Size up. ' +
+              '<a href="sizing.html">Measuring guide</a></p>' : '') +
+          '</div>' +
+
+          '<div class="buyrow">' +
+            '<div class="qty"><button type="button" id="minus" aria-label="Decrease quantity">−</button>' +
+            '<span id="q">1</span>' +
+            '<button type="button" id="plus" aria-label="Increase quantity">+</button></div>' +
+            '<button class="btn btn-block" id="add" type="button">Add to cart</button>' +
+          '</div>' +
+
+          '<div class="field"><h3>What you get</h3><ul class="deets">' +
+            p.details.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul></div>' +
+
+          '<div class="callout"><b>Short wear, supervised.</b> Take it off if your cat freezes, ' +
+            'flattens or tries to back out of it — that means no, and no is fine. ' +
+            'Never leave a costume on an unattended cat.</div>' +
+        '</div>' +
+      '</div>';
+
+    if(garment){
+      host.insertAdjacentHTML("beforeend",
+        '<section><h2>Will it fit?</h2><div class="tablewrap"><table>' +
+        '<thead><tr><th>Size</th><th>Neck</th><th>Chest girth</th><th>Back length</th><th>Typical cat</th></tr></thead><tbody>' +
+        SIZE_CHART.map(function(r){
+          return '<tr><td class="sz">' + r.size + '</td><td>' + r.neck + '</td><td><b>' + r.chest +
+            '</b></td><td>' + r.back + '</td><td class="muted">' + r.who + '</td></tr>';
+        }).join("") +
+        '</tbody></table></div>' +
+        '<p class="small muted">Chest girth is the number that matters. Measure at the widest point ' +
+        'behind the front legs and add two fingers of slack.</p></section>');
+    }
+
+    var size = p.sizes[0], qty = 1;
+    var sizesEl = document.getElementById("sizes");
+    sizesEl.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      size = b.dataset.s;
+      sizesEl.querySelectorAll("button").forEach(function(x){
+        x.setAttribute("aria-pressed", String(x === b));
+      });
+    });
+    var qEl = document.getElementById("q");
+    document.getElementById("plus").onclick  = function(){ qty = Math.min(qty + 1, 20); qEl.textContent = qty; };
+    document.getElementById("minus").onclick = function(){ qty = Math.max(qty - 1, 1);  qEl.textContent = qty; };
+    document.getElementById("add").onclick   = function(){
+      addToCart(p.id, size, qty);
+      toast(qty + " × " + p.name + " added");
+    };
+
+    var also = PRODUCTS.filter(function(x){ return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
+    if(also.length < 4){
+      also = also.concat(PRODUCTS.filter(function(x){
+        return x.id !== p.id && also.indexOf(x) < 0;
+      }).slice(0, 4 - also.length));
+    }
+    document.getElementById("also").innerHTML =
+      '<div class="sec-head"><div><h2>Goes well with</h2></div></div><div class="grid-p" id="ag"></div>';
+    renderGrid(document.getElementById("ag"), also);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+<title>Catwalk Club — cat costumes for cats who didn't ask for this</title>
+<meta name="description" content="Halloween, Christmas and everyday costumes sized for cats. Breakaway fastenings, chest-girth sizing, short supervised wear.">
+</head>
+<body>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway fastenings on every collar we sell</div>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="50" fill="#FF6B8A"/>
+        <path d="M26 42 L22 16 L45 31 Z M74 42 L78 16 L55 31 Z" fill="#fff"/>
+        <ellipse cx="50" cy="58" rx="30" ry="26" fill="#fff"/>
+        <circle cx="40" cy="55" r="4.5" fill="#3D2B4F"/><circle cx="60" cy="55" r="4.5" fill="#3D2B4F"/>
+        <path d="M46 66 h8 l-4 5 z" fill="#FF6B8A"/>
+      </svg>
+      Catwalk Club
+    </a>
+    <nav class="links">
+      <a href="shop.html">Shop</a>
+      <a href="sizing.html">Fit &amp; care</a>
+      <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap grid">
+      <div>
+        <span class="kicker">🎃 Halloween 2026 is in</span>
+        <h1>Costumes your cat will <em>almost</em> tolerate.</h1>
+        <p class="lede">Pumpkins, dinosaurs, tiny jumpers and one extremely undignified lion mane —
+          all cut to a cat's shape, all with fastenings that let go when they've had enough.</p>
+        <div class="cta">
+          <a class="btn" href="shop.html">Shop all costumes</a>
+          <a class="btn btn-ghost" href="sizing.html">Find their size</a>
+        </div>
+      </div>
+      <div class="heroart" id="heroart"></div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <div class="wrap">
+      <ul>
+        <li><span class="dot" style="background:#4ECDB4"></span> Free UK delivery over £30</li>
+        <li><span class="dot" style="background:#FF6B8A"></span> Breakaway fastenings as standard</li>
+        <li><span class="dot" style="background:#FFD166"></span> Sized by chest, not guesswork</li>
+        <li><span class="dot" style="background:#B79CED"></span> 30-day returns, worn or not</li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2>Pick your chaos</h2><p>Four ranges, one very patient cat.</p></div>
+        <a class="btn btn-ghost btn-sm" href="shop.html">See everything →</a>
+      </div>
+      <div class="cats" id="cats"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2>Most tolerated</h2><p>The ones that stay on longest.</p></div>
+      </div>
+      <div class="grid-p" id="best"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap two">
+      <div class="finder" id="finder">
+        <h2 style="margin-bottom:.2em">What size is your cat?</h2>
+        <p class="muted" style="margin:0">Measure the chest at its widest, just behind the front legs. That one
+          number decides fit better than weight or breed.</p>
+        <div class="row">
+          <input type="number" inputmode="decimal" min="15" max="70" step="0.5" placeholder="Chest in cm" aria-label="Chest girth in centimetres">
+          <button class="btn btn-mint" type="button">Size me up</button>
+        </div>
+        <div class="out muted">Pop a chest measurement in and we'll size it.</div>
+      </div>
+      <div class="panel">
+        <h3>🐈 Let's be honest about cats and clothes</h3>
+        <p>Plenty of cats will not wear anything, and that is a completely normal cat.
+          We'd rather say so than sell you something that ends up in a drawer.</p>
+        <p>So: everything here is built for <b>short, supervised wear</b> — a few photos, a visit, a party —
+          not all day. Nothing covers the face or ears. Nothing restricts the legs.
+          Collars break away under pressure.</p>
+        <p class="small muted" style="margin:0">If it doesn't work out, send it back within 30 days.
+          Worn is fine. We'd rather have the costume back than a miserable cat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="news">
+        <h2>Get first pick of the Halloween drop</h2>
+        <p>One email when a new range lands, and a heads-up before the October cut-off. Nothing else.</p>
+        <form onsubmit="event.preventDefault();this.reset();toast('Not wired up yet — connect an email tool');">
+          <input type="email" required placeholder="you@example.com" aria-label="Email address">
+          <button class="btn btn-mint" type="submit">Keep me posted</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Catwalk Club</h4>
+        <p class="small muted">Costumes your cat will almost tolerate. Short wear, supervised, then straight back to being a cat.</p>
+      </div>
+      <div><h4>Shop</h4><ul>
+        <li><a href="shop.html?cat=holiday">Holiday &amp; seasonal</a></li>
+        <li><a href="shop.html?cat=everyday">Cute &amp; everyday</a></li>
+        <li><a href="shop.html?cat=novelty">Novelty &amp; funny</a></li>
+        <li><a href="shop.html?cat=bundle">Bundles</a></li>
+      </ul></div>
+      <div><h4>Help</h4><ul>
+        <li><a href="sizing.html">Size guide</a></li>
+        <li><a href="sizing.html#care">Fit &amp; care</a></li>
+        <li><a href="sizing.html#returns">Returns</a></li>
+      </ul></div>
+      <div><h4>Legal</h4><ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refund policy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© <span data-year>2026</span> Catwalk Club. Demo storefront — not yet trading.</span>
+      <span>Legal pages are placeholders and must be written before taking orders.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("heroart").innerHTML = catArt("mane","lion-mane");
+  document.getElementById("cats").innerHTML = CATEGORIES.map(function(c,i){
+    var ic = ["#FFE3EA","#E4F5F0","#EDE7FF","#FFF3D6"][i];
+    var em = ["🎃","🎀","🦖","🎁"][i];
+    return '<a class="cat" href="shop.html?cat=' + c.id + '">' +
+      '<div class="ic" style="background:' + ic + '">' + em + '</div>' +
+      '<h3>' + c.label + '</h3><span>' + c.note + '</span></a>';
+  }).join("");
+  renderGrid(document.getElementById("best"),
+    ["lion-mane","knit-jumper","pumpkin-hat","halloween-kit","dino-hoodie","bandana-2pack","bow-tie","santa-set"].map(byId));
+  wireFinder(document.getElementById("finder"));
+</script>
+
+</body>
+</html>

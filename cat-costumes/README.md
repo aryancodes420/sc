@@ -1,7 +1,13 @@
 # Cat costumes store — launch pack
 
-Decisions and starting content for the new Shopify store. This is a **separate business
+Decisions and starting content for the cat costume shop. This is a **separate business
 from The Dog Nook** — nothing here shares its catalogue, theme, or positioning.
+
+> **The shop is built and working: [`site/`](site/).** Open `site/index.html` in a browser,
+> or `cd site && python3 -m http.server 8000`. See [`site/README.md`](site/README.md) for
+> what's verified and what must be replaced before it takes an order.
+>
+> Brand: **Catwalk Club** — *"Costumes your cat will almost tolerate."*
 
 > Prices are in GBP on the assumption this trades in the UK like The Dog Nook.
 > If the new store is set to another currency, re-point the ladder rather than
@@ -121,8 +127,20 @@ they are the reason not to build a Halloween-only shop.
 
 ## 6. Next steps
 
-1. Browse the previews, pick a theme, sign up through that link.
-2. Load the catalogue above, then replace every price with your real landed cost + margin.
-3. Get real photography. As with The Dog Nook, this is the blocker that decides launch date.
-4. Add the sizing chart to every product page.
-5. Set up shipping, refunds and legal pages before taking a single order.
+1. **Look at the site** — `cd site && python3 -m http.server 8000`.
+   Tell me what to change: name, colours, copy, products, prices.
+2. **Get real photography.** As with The Dog Nook, this is the blocker that decides the
+   launch date. The site currently draws illustrated placeholder cats so nothing appears
+   broken, but they are not sellable product images.
+3. **Replace every price** with your real landed cost + margin.
+4. **Connect payments and write the legal pages** before taking a single order.
+
+### On the Shopify route
+
+The store-preview tool was tried first and returned no viewable previews in this session —
+it reports `pending` and delivers finished storefronts to the Shopify interface, which
+didn't surface them here. The inputs in §1 are kept so it can be retried later.
+
+The site in `site/` is deliberately portable: the catalogue lives in one file
+(`site/assets/data.js`) and maps cleanly onto Shopify products, variants and collections
+if you go that way. Nothing here is wasted by switching.
