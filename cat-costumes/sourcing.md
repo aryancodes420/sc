@@ -144,21 +144,40 @@ not, and should be checked before money moves:
 Chosen by the owner. "Sold" is the per-listing figure shown on AliExpress's search page
 that day — see *How these were ranked* below for what that does and does not mean.
 
-| Product | Listing | Cost | Sold |
-|---|---|---|---|
-| Bow Tie Collar | https://www.aliexpress.com/item/3256803258255247.html | $1.09 | 5,000+ |
-| Flower Collar — **original sold out** | ~~3256812962525055~~ | — | — |
-| Flower Collar — replacement A | https://www.aliexpress.com/item/3256806810179121.html | $4.60 | 2,000+ (check photo: sun-flower bell collar) |
-| Flower Collar — replacement B | https://www.aliexpress.com/item/3256812288522586.html | $6.64 | 1,000+ (pink flower pendant, bell) |
-| Flower Collar — cheapest breakaway | https://www.aliexpress.com/item/3256808460220255.html | $3.62 | 61 (cotton daisy, breakaway, "wholesale") |
-| Lion Mane | https://www.aliexpress.com/item/3256805876802123.html | $4.20 | 700+ |
-| Bandana (UK stock) | https://www.aliexpress.com/item/3256809426900401.html | $2.37 | 1,000+ |
-| Birthday Hat + Bandana (UK stock) | https://www.aliexpress.com/item/3256805761442603.html | $3.65 | 283 |
-| Reindeer Antlers | https://www.aliexpress.com/item/3256805984691324.html | $8.16 | 187 |
-| Bat Cape | https://www.aliexpress.com/item/3256812487071410.html | $4.54 | 1,000+ |
-| Pumpkin Costume | https://peettt.com/products/funny-cat-halloween-cool-pumpkin-collar-and-hat | $5.00 | n/a |
-| Knitted Jumper | https://www.princeprincesspetwear.co.uk/products/cable-knit-sphynx-cat-jumper-sweater-cream | £8.00 retail | n/a |
-| Christmas Jumper | https://www.princeprincesspetwear.co.uk/products/scandi-christmas-knit-sphynx-cat-jumper-sweater | £11.50 retail | n/a |
+| Product | Listing | Cost | Sold | Rating | Choice |
+|---|---|---|---|---|---|
+| Bow Tie Collar | https://www.aliexpress.com/item/3256803258255247.html | $1.09 | 5,000+ | 4.8 | ✓ |
+| Flower Collar — **original sold out** | ~~3256812962525055~~ | — | — | — | — |
+| Flower Collar — A, most sold | https://www.aliexpress.com/item/3256806810179121.html | $4.60 | 2,000+ | 4.9 | ✓ |
+| Flower Collar — B, pink pendant | https://www.aliexpress.com/item/3256812288522586.html | ~$6.64 | 81 *(corrected — earlier "1,000+" was a mis-read)* | 5.0 | ✓ |
+| Flower Collar — C, states breakaway | https://www.aliexpress.com/item/3256808460220255.html | $3.62 | 61 | 5.0 | ✓ |
+| Lion Mane | https://www.aliexpress.com/item/3256805876802123.html | $4.20 | 700+ | 4.6 | ✓ |
+| Bandana (UK stock) | https://www.aliexpress.com/item/3256809426900401.html | $2.37 | 1,000+ | 4.7 | ✓ |
+| Birthday Hat + Bandana (UK stock) | https://www.aliexpress.com/item/3256805761442603.html | $3.65 | 283 | 5.0 | ✓ |
+| Reindeer Antlers | https://www.aliexpress.com/item/3256805984691324.html | $8.16 | 187 | 4.9 | ✓ |
+| Bat Cape | https://www.aliexpress.com/item/3256812487071410.html | $4.54–7.29 *(two price fields)* | 1,000+ | 4.6 | ✓ |
+| Pumpkin Costume | https://peettt.com/products/funny-cat-halloween-cool-pumpkin-collar-and-hat | $5.00 | n/a | n/a | n/a |
+| Knitted Jumper | https://www.princeprincesspetwear.co.uk/products/cable-knit-sphynx-cat-jumper-sweater-cream | £8.00 retail | n/a | n/a | n/a |
+| Christmas Jumper | https://www.princeprincesspetwear.co.uk/products/scandi-christmas-knit-sphynx-cat-jumper-sweater | £11.50 retail | n/a | n/a | n/a |
+
+**Rating** = the listing's product review average. **Choice ✓** = AliExpress Choice: AliExpress
+handles fulfilment and delivery guarantees, combined shipping applies, and returns run through
+AliExpress rather than the individual seller. All nine AliExpress picks are Choice listings —
+which matters, because it means the individual seller's reliability is largely underwritten
+by the platform.
+
+### What was checked, and how far it got
+
+- **Read from search pages (verified):** price, per-listing sold count, product star rating,
+  Choice status, UK-warehouse availability.
+- **Attempted, blocked:** the product-detail endpoint (`mtop.aliexpress.pdp.pc.query`) is
+  diverted to Alibaba's anti-bot challenge (`/_____tmd_____/punish?recaptcha=1`) for
+  automated browsers, even after resolving the proxy trust properly. That endpoint carries
+  store name, store positive-feedback %, store age, live stock and the UK delivery estimate.
+  **Those five fields were not read**, and no attempt was made to defeat the challenge.
+- **Practical consequence:** open each listing once by hand and confirm store feedback ≥ 95%,
+  store open > 1 year, and a UK delivery date. Ten minutes per listing. Choice status lowers
+  the stakes of that check but does not replace it.
 
 ### How these were ranked — and the limits of that
 
