@@ -26,6 +26,8 @@
     <nav class="links">
       <a href="shop.html">Shop</a>
       <a href="sizing.html">Fit &amp; care</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wishlist.html">Saved <span class="count" data-wish-count style="display:none">0</span></a>
       <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
     </nav>
   </div>
@@ -35,6 +37,15 @@
     <div class="wrap">
       <h1 style="margin-bottom:.15em">Everything we make</h1>
       <p class="muted" style="font-size:1.08rem">Sixteen ways to make your cat briefly furious.</p>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Search costumes…" aria-label="Search products">
+        <select id="sort" aria-label="Sort products">
+          <option value="featured">Featured</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+          <option value="az">Name: A–Z</option>
+        </select>
+      </div>
       <div class="filters" id="filters"></div>
       <div class="grid-p" id="grid"></div>
       <p id="none" class="empty muted" hidden>Nothing in that range yet.</p>
@@ -86,10 +97,24 @@
       (f.id === current) + '">' + f.label + '</button>';
   }).join("");
 
+  var qEl = document.getElementById("q");
+  var sortEl = document.getElementById("sort");
+
   function paint(){
     var list = current === "all" ? PRODUCTS : PRODUCTS.filter(function(p){ return p.cat === current; });
+    var term = (qEl.value || "").trim().toLowerCase();
+    if(term){
+      list = list.filter(function(p){
+        return (p.name + " " + p.blurb + " " + p.cat + " " + (p.badge || "")).toLowerCase().indexOf(term) >= 0;
+      });
+    }
+    var s = sortEl.value;
+    if(s === "low")  list = list.slice().sort(function(a,b){ return a.price - b.price; });
+    if(s === "high") list = list.slice().sort(function(a,b){ return b.price - a.price; });
+    if(s === "az")   list = list.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
     renderGrid(grid, list);
     none.hidden = list.length > 0;
+    none.textContent = term ? 'Nothing matches "' + qEl.value + '".' : "Nothing in that range yet.";
     filters.querySelectorAll(".chip").forEach(function(b){
       b.setAttribute("aria-pressed", String(b.dataset.f === current));
     });
@@ -100,6 +125,8 @@
     history.replaceState(null, "", current === "all" ? "shop.html" : "shop.html?cat=" + current);
     paint();
   });
+  qEl.addEventListener("input", paint);
+  sortEl.addEventListener("change", paint);
   paint();
 </script>
 

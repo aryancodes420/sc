@@ -26,6 +26,8 @@
     <nav class="links">
       <a href="shop.html">Shop</a>
       <a href="sizing.html">Fit &amp; care</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wishlist.html">Saved <span class="count" data-wish-count style="display:none">0</span></a>
       <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
     </nav>
   </div>
@@ -46,6 +48,7 @@
         <button class="btn btn-mint" type="button">Size me up</button>
       </div>
       <div class="out muted">Pop a chest measurement in and we'll size it.</div>
+      <div class="presets"></div>
     </div>
   </section>
 
@@ -75,10 +78,7 @@
 
   <section>
     <h2>Size chart</h2>
-    <div class="tablewrap"><table>
-      <thead><tr><th>Size</th><th>Neck</th><th>Chest girth</th><th>Back length</th><th>Typical cat</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table></div>
+    <div id="rows"></div>
     <p class="small muted">Bandanas, bow ties and flower collars tie or adjust, so they fit almost any cat
       without measuring.</p>
   </section>
@@ -152,10 +152,7 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  document.getElementById("rows").innerHTML = SIZE_CHART.map(function(r){
-    return '<tr><td class="sz">' + r.size + '</td><td>' + r.neck + '</td><td><b>' + r.chest +
-      '</b></td><td>' + r.back + '</td><td class="muted">' + r.who + '</td></tr>';
-  }).join("");
+  mountSizeTable(document.getElementById("rows"));
   wireFinder(document.getElementById("finder"));
 </script>
 

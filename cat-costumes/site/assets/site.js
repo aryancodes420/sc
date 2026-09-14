@@ -12,8 +12,10 @@ const PALETTES = [
 ];
 function hash(s){ let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))|0; return Math.abs(h); }
 
-function catArt(motif, key){
+function catArt(motif, key, view){
   const p = PALETTES[hash(key||motif) % PALETTES.length];
+  if(view === "measure") return measureArt(p);
+  if(view === "safety")  return safetyArt(p);
   const face = `
     <ellipse cx="124" cy="158" rx="9" ry="11" fill="#3D2B4F"/>
     <ellipse cx="176" cy="158" rx="9" ry="11" fill="#3D2B4F"/>
@@ -128,6 +130,131 @@ function catArt(motif, key){
   </svg>`;
 }
 
+/* Diagrams, not fake photographs. Competitors publish 10+ product photos; we cannot
+   invent those, but we can publish views that carry information a photo doesn't. */
+function measureArt(p){
+  return `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing where to measure a cat: neck, chest and back length">
+    <rect width="300" height="300" fill="#FFFDF8"/>
+    <g fill="${p.fur}" opacity=".45">
+      <path d="M70 128 L64 82 L104 108 Z"/><path d="M146 128 L152 82 L112 108 Z"/>
+      <ellipse cx="108" cy="150" rx="46" ry="42"/>
+      <path d="M118 186 q86 -6 96 52 q4 34 -18 40 h-96 q-16 -20 -10 -50 z"/>
+    </g>
+    <g stroke="#FF6B8A" stroke-width="3" stroke-dasharray="7 5" fill="none">
+      <ellipse cx="108" cy="188" rx="40" ry="12"/>
+      <ellipse cx="166" cy="212" rx="34" ry="46"/>
+    </g>
+    <path d="M120 176 L224 258" stroke="#4ECDB4" stroke-width="3" stroke-dasharray="7 5"/>
+    <g font-family="Nunito,sans-serif" font-size="14" font-weight="700">
+      <text x="14" y="176" fill="#E84E70">1 · Neck</text>
+      <text x="196" y="170" fill="#E84E70">2 · Chest</text>
+      <text x="150" y="288" fill="#2FA98F">3 · Back</text>
+    </g>
+    <text x="196" y="188" font-family="Nunito,sans-serif" font-size="11" fill="#7A6A88">widest point</text>
+  </svg>`;
+}
+function safetyArt(p){
+  return `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a breakaway buckle separating under pressure">
+    <rect width="300" height="300" fill="#FFFDF8"/>
+    <rect x="16" y="130" width="104" height="40" rx="12" fill="#5B4C8A"/>
+    <rect x="180" y="130" width="104" height="40" rx="12" fill="#5B4C8A"/>
+    <path d="M120 138 h26 v24 h-26 z" fill="#B79CED"/>
+    <path d="M180 138 h-26 v24 h26 z" fill="#B79CED"/>
+    <g stroke="#FF6B8A" stroke-width="5" stroke-linecap="round">
+      <path d="M138 104 v-22 M162 104 v-22"/>
+      <path d="M128 92 l-16 -14 M172 92 l16 -14"/>
+    </g>
+    <text x="150" y="210" text-anchor="middle" font-family="Fredoka,sans-serif" font-size="19" fill="#3D2B4F">Breakaway buckle</text>
+    <text x="150" y="236" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#7A6A88">Separates under pressure so a snagged</text>
+    <text x="150" y="254" text-anchor="middle" font-family="Nunito,sans-serif" font-size="13" fill="#7A6A88">collar cannot trap your cat.</text>
+  </svg>`;
+}
+
+/* ------------------------------------------------------------------ units --- */
+const UNIT_KEY = "catwalk.unit";
+function getUnit(){ try{ return localStorage.getItem(UNIT_KEY) === "in" ? "in" : "cm"; }catch(e){ return "cm"; } }
+function setUnit(u){ try{ localStorage.setItem(UNIT_KEY, u); }catch(e){} }
+const toIn = cm => Math.round((cm / 2.54) * 4) / 4;      /* nearest quarter inch */
+function fmtRange(v, unit){
+  const n = x => unit === "in" ? String(toIn(x)) : String(x);
+  const suffix = unit === "in" ? '"' : "cm";
+  return (Array.isArray(v) ? n(v[0]) + "\u2013" + n(v[1]) : n(v)) + suffix;
+}
+function sizeTableHTML(unit){
+  return '<thead><tr><th>Size</th><th>Neck</th><th>Chest girth</th><th>Waist</th><th>Back length</th><th>Typical cat</th></tr></thead><tbody>' +
+    SIZE_CHART.map(r =>
+      '<tr><td class="sz">' + r.size + '</td><td>' + fmtRange(r.neck, unit) +
+      '</td><td><b>' + fmtRange(r.chest, unit) + '</b></td><td>' + fmtRange(r.waist, unit) +
+      '</td><td>' + fmtRange(r.back, unit) + '</td><td class="muted">' + r.who + '</td></tr>'
+    ).join("") + '</tbody>';
+}
+/* Renders a size table plus a cm/inch toggle, and keeps them in sync. */
+function mountSizeTable(host){
+  const paint = () => {
+    const u = getUnit();
+    host.innerHTML =
+      '<div class="unitrow"><span class="small muted">Measurements in</span>' +
+      '<div class="unittoggle"><button type="button" data-u="cm" aria-pressed="' + (u==="cm") + '">cm</button>' +
+      '<button type="button" data-u="in" aria-pressed="' + (u==="in") + '">inches</button></div></div>' +
+      '<div class="tablewrap"><table>' + sizeTableHTML(u) + '</table></div>';
+    host.querySelectorAll(".unittoggle button").forEach(b => {
+      b.onclick = () => { setUnit(b.dataset.u); paint(); };
+    });
+  };
+  paint();
+}
+
+/* -------------------------------------------------------------- wishlist --- */
+const WISH_KEY = "catwalk.wish.v1";
+function getWish(){
+  try{ const v = JSON.parse(localStorage.getItem(WISH_KEY)); return Array.isArray(v) ? v : []; }
+  catch(e){ return []; }
+}
+function toggleWish(id){
+  const w = getWish();
+  const i = w.indexOf(id);
+  if(i < 0) w.push(id); else w.splice(i, 1);
+  try{ localStorage.setItem(WISH_KEY, JSON.stringify(w)); }catch(e){}
+  paintWish();
+  return i < 0;
+}
+function paintWish(){
+  const w = getWish();
+  document.querySelectorAll("[data-wish-count]").forEach(el => {
+    el.textContent = w.length;
+    el.style.display = w.length ? "inline-block" : "none";
+  });
+  document.querySelectorAll("[data-wish]").forEach(b => {
+    const on = w.indexOf(b.dataset.wish) >= 0;
+    b.setAttribute("aria-pressed", String(on));
+    b.textContent = on ? "♥" : "♡";
+    b.setAttribute("aria-label", on ? "Remove from wishlist" : "Save to wishlist");
+  });
+}
+
+/* --------------------------------------------------------------- reviews --- */
+/* There are no reviews because nothing has been sold yet. The component renders that
+   honestly rather than shipping invented testimonials. Wire REVIEWS to a real
+   provider (Judge.me, Loox) once orders exist — both competitors use Judge.me. */
+const REVIEWS = {};
+function reviewsHTML(productId){
+  const list = REVIEWS[productId] || [];
+  if(!list.length){
+    return '<section class="reviews"><h2>Reviews</h2>' +
+      '<div class="panel center"><p style="font-size:2rem;margin:0">☆</p>' +
+      '<p><b>No reviews yet.</b></p>' +
+      '<p class="muted small" style="max-width:46ch;margin-inline:auto">This shop has not sold ' +
+      'anything yet, so there is nothing honest to show here. Reviews will appear once real ' +
+      'customers leave them — we will not be writing our own.</p></div></section>';
+  }
+  const avg = (list.reduce((n,r) => n + r.stars, 0) / list.length).toFixed(1);
+  return '<section class="reviews"><h2>Reviews</h2>' +
+    '<p class="muted">' + avg + ' out of 5 · ' + list.length + ' review' + (list.length>1?"s":"") + '</p>' +
+    list.map(r => '<div class="panel" style="margin-bottom:12px"><b>' + "★".repeat(r.stars) +
+      '</b> <b>' + r.name + '</b><p style="margin:.4em 0 0">' + r.text + '</p></div>').join("") +
+    '</section>';
+}
+
 /* ----------------------------------------------------------------- misc --- */
 const money = n => "£" + n.toFixed(2);
 const byId  = id => PRODUCTS.find(p => p.id === id);
@@ -175,6 +302,8 @@ function productCard(p){
     ? `<span class="badge ${p.was ? "save" : ""}">${p.badge}</span>` : "";
   return `<a class="pcard" href="product.html?id=${p.id}">
     ${badge}
+    <button class="wish" type="button" data-wish="${p.id}" aria-pressed="false"
+      onclick="event.preventDefault();event.stopPropagation();toast(toggleWish('${p.id}')?'Saved to wishlist':'Removed from wishlist');">&#9825;</button>
     <div class="art">${catArt(p.motif, p.id)}</div>
     <div class="body">
       <h3>${p.name}</h3>
@@ -183,7 +312,7 @@ function productCard(p){
     </div>
   </a>`;
 }
-const renderGrid = (el, list) => { el.innerHTML = list.map(productCard).join(""); };
+const renderGrid = (el, list) => { el.innerHTML = list.map(productCard).join(""); paintWish(); };
 
 /* ----------------------------------------------------------- size finder --- */
 function recommendSize(chestCm){
@@ -213,12 +342,28 @@ function wireFinder(root){
     }
   };
   input.addEventListener("input", go);
-  root.querySelector("button").addEventListener("click", go);
+  root.querySelector(".btn").addEventListener("click", go);
+
+  /* Breed shortcuts: most people do not have a tape measure to hand. */
+  const presets = root.querySelector(".presets");
+  if(presets){
+    presets.innerHTML = '<span class="small muted">No tape measure? Start from a typical:</span> ' +
+      BREED_PRESETS.map(b => '<button class="chip chip-sm" type="button" data-c="' + b.chest + '">' +
+        b.name + '</button>').join("");
+    presets.addEventListener("click", e => {
+      const b = e.target.closest("button"); if(!b) return;
+      input.value = b.dataset.c;
+      go();
+      const o = root.querySelector(".out");
+      o.innerHTML += ' <span class="small muted">(typical for that breed — measure to be sure)</span>';
+    });
+  }
 }
 
 /* ----------------------------------------------------------------- chrome -- */
 function initChrome(){
   paintCount();
+  paintWish();
   const here = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".links a").forEach(a => {
     if(a.getAttribute("href") === here) a.classList.add("active");

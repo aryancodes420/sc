@@ -15,7 +15,9 @@ python3 -m http.server 8000     # then open http://localhost:8000
 | `shop.html` | All 16 products with category filters. Deep-links via `?cat=holiday` etc. |
 | `product.html` | Per-product page via `?id=<product-id>`. Size picker, quantity, add to cart, size chart, related items |
 | `cart.html` | Line items, quantity controls, remove, free-delivery progress, totals |
-| `sizing.html` | Size finder, how to measure, full chart, safe-wear guidance, returns |
+| `sizing.html` | Size finder with breed presets, how to measure, full chart, safe-wear guidance, returns |
+| `faq.html` | Ten honest answers, including "will my cat actually wear this?" |
+| `wishlist.html` | Saved items (per-browser, localStorage) |
 
 ## Where things live
 
@@ -25,12 +27,35 @@ python3 -m http.server 8000     # then open http://localhost:8000
 - **`assets/site.css`** — design system. Colours and radii are CSS custom properties at the top.
 - **`assets/fonts/`** — self-hosted Fredoka + Nunito. See `NOTICE.md`.
 
+## Built against the competition
+
+See [`../competitors.md`](../competitors.md) for the measured analysis. Features adopted from
+**Clothes for Cats** (the UK category owner) and **PIKAPIKA** (the premium benchmark):
+
+- One-line **fit statement** on every product
+- **Four measurements** — neck, chest, waist, back — in **cm and inches** with a live toggle
+- **Materials & care** and a **delivery & returns** table, per product, in accordions
+- **Multi-view gallery**, **reviews** section, **wishlist**, **search and sort**, trust badges
+
+Where this site goes further: an interactive **size finder** (they publish static tables
+only), **seven breed presets** for people without a tape measure, and a gallery that shows
+*where to measure* and *how the breakaway buckle works* rather than ten photos of the same
+jumper.
+
+The reviews section renders an honest empty state. No invented testimonials — wire it to
+Judge.me or Loox (both competitors use Judge.me) once real orders exist.
+
 ## Verified
 
 Checked in headless Chromium: all 16 products render, category filters work, size selection
 and quantity work, cart maths are correct (including the £30 free-delivery threshold and the
 £3.95 charge below it), removal works, an unknown product id shows a proper not-found state,
 no console errors, brand fonts load, and there is no horizontal overflow at 390px wide.
+
+Re-verified after the competitor upgrade: 3 gallery views switch, 4 product accordions open,
+the size table carries a waist column, the cm→inch toggle converts (`28–33cm` → `11–13"`),
+search and price sort work, all 7 breed presets resolve to a size, the wishlist persists
+across pages, the FAQ renders 10 entries, and cart maths still reconcile.
 
 ## The artwork is not real
 

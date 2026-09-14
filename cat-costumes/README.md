@@ -8,6 +8,8 @@ from The Dog Nook** — nothing here shares its catalogue, theme, or positioning
 > what's verified and what must be replaced before it takes an order.
 >
 > Brand: **Catwalk Club** — *"Costumes your cat will almost tolerate."*
+>
+> Competitor analysis (measured from their live catalogues): [`competitors.md`](competitors.md).
 
 > Prices are in GBP on the assumption this trades in the UK like The Dog Nook.
 > If the new store is set to another currency, re-point the ladder rather than

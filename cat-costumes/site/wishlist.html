@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+<title>Saved — Catwalk Club</title>
+<meta name="description" content="Costumes you have saved for later.">
+</head>
+<body>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway fastenings on every collar we sell</div>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="50" fill="#FF6B8A"/>
+        <path d="M26 42 L22 16 L45 31 Z M74 42 L78 16 L55 31 Z" fill="#fff"/>
+        <ellipse cx="50" cy="58" rx="30" ry="26" fill="#fff"/>
+        <circle cx="40" cy="55" r="4.5" fill="#3D2B4F"/><circle cx="60" cy="55" r="4.5" fill="#3D2B4F"/>
+        <path d="M46 66 h8 l-4 5 z" fill="#FF6B8A"/>
+      </svg>
+      Catwalk Club
+    </a>
+    <nav class="links">
+      <a href="shop.html">Shop</a>
+      <a href="sizing.html">Fit &amp; care</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wishlist.html">Saved <span class="count" data-wish-count style="display:none">0</span></a>
+      <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <section>
+    <h1>Saved for later</h1>
+    <p class="muted">Kept in this browser only — nothing is sent anywhere.</p>
+    <div id="host"></div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>Catwalk Club</h4>
+        <p class="small muted">Costumes your cat will almost tolerate. Short wear, supervised, then straight back to being a cat.</p>
+      </div>
+      <div><h4>Shop</h4><ul>
+        <li><a href="shop.html?cat=holiday">Holiday &amp; seasonal</a></li>
+        <li><a href="shop.html?cat=everyday">Cute &amp; everyday</a></li>
+        <li><a href="shop.html?cat=novelty">Novelty &amp; funny</a></li>
+        <li><a href="shop.html?cat=bundle">Bundles</a></li>
+      </ul></div>
+      <div><h4>Help</h4><ul>
+        <li><a href="sizing.html">Size guide</a></li>
+        <li><a href="sizing.html#care">Fit &amp; care</a></li>
+        <li><a href="sizing.html#returns">Returns</a></li>
+      </ul></div>
+      <div><h4>Legal</h4><ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Refund policy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© <span data-year>2026</span> Catwalk Club. Demo storefront — not yet trading.</span>
+      <span>Legal pages are placeholders and must be written before taking orders.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  var host = document.getElementById("host");
+  function render(){
+    var list = getWish().map(byId).filter(Boolean);
+    if(!list.length){
+      host.innerHTML = '<div class="empty"><p style="font-size:3rem;margin:0">\u2661</p>' +
+        '<h2>Nothing saved yet</h2>' +
+        '<p class="muted">Tap the heart on any costume to keep it here.</p>' +
+        '<a class="btn" href="shop.html">Browse the shop</a></div>';
+      return;
+    }
+    host.innerHTML = '<div class="grid-p" id="g"></div>';
+    renderGrid(document.getElementById("g"), list);
+  }
+  host.addEventListener("click", function(e){
+    if(e.target.closest("[data-wish]")) setTimeout(render, 0);
+  });
+  render();
+</script>
+</body>
+</html>

@@ -25,12 +25,15 @@
     <nav class="links">
       <a href="shop.html">Shop</a>
       <a href="sizing.html">Fit &amp; care</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wishlist.html">Saved <span class="count" data-wish-count style="display:none">0</span></a>
       <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
     </nav>
   </div>
 </header>
 <main class="wrap">
   <div id="pdp"></div>
+  <div id="extra"></div>
   <section id="also" style="padding-top:20px"></section>
 </main>
 <footer class="site">
@@ -66,6 +69,8 @@
 </footer>
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
+
+
 <script>
   var id = new URLSearchParams(location.search).get("id");
   var p = byId(id);
@@ -76,62 +81,116 @@
       '<p class="muted">It may have sold out or been renamed.</p>' +
       '<a class="btn" href="shop.html">Back to the shop</a></div>';
     document.getElementById("also").remove();
+    document.getElementById("extra").remove();
   } else {
-    document.title = p.name + " — Catwalk Club";
-    var sizes = p.sizes.map(function(s,i){
-      return '<button type="button" aria-pressed="' + (i===0) + '" data-s="' + s + '">' + s + '</button>';
-    }).join("");
+    document.title = p.name + " \u2014 Catwalk Club";
     var garment = p.sizes.length > 2;
+    var views = [
+      { v: "worn",    cap: "On a cat" },
+      { v: "measure", cap: "Where to measure" },
+      { v: "safety",  cap: "Fastening" }
+    ];
 
     host.innerHTML =
       '<div class="pdp">' +
-        '<div>' +
-          '<div class="art">' + catArt(p.motif, p.id) +
-            '<div class="ph-note">⚠️ Illustration — replace with real product photography before launch</div>' +
+        '<div class="gallery">' +
+          '<div class="main" id="gmain">' + catArt(p.motif, p.id, "worn") +
+            '<div class="ph-note">\u26a0\ufe0f Illustration, not a photograph \u2014 replace with real product photography before launch</div>' +
+          '</div>' +
+          '<div class="thumbs" id="gthumbs">' +
+            views.map(function(x,i){
+              return '<button type="button" data-v="' + x.v + '" aria-pressed="' + (i===0) + '">' +
+                catArt(p.motif, p.id, x.v === "worn" ? undefined : x.v) +
+                '<span class="cap">' + x.cap + '</span></button>';
+            }).join("") +
           '</div>' +
         '</div>' +
+
         '<div>' +
           '<p class="small muted" style="margin-bottom:.3em"><a href="shop.html?cat=' + p.cat + '">' +
-            CATEGORIES.find(function(c){return c.id===p.cat;}).label + '</a></p>' +
+            CATEGORIES.find(function(c){ return c.id === p.cat; }).label + '</a></p>' +
           '<h1 style="margin-bottom:.2em">' + p.name + '</h1>' +
           '<p class="price" style="font-size:1.7rem">' + money(p.price) +
             (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' +
           '<p class="muted" style="font-size:1.08rem">' + p.blurb + '</p>' +
+          '<p><span class="fitline">\u21d4 ' + p.fit + '</span></p>' +
 
           '<div class="field"><label id="szl">Size</label>' +
-            '<div class="sizes" id="sizes" role="group" aria-labelledby="szl">' + sizes + '</div>' +
+            '<div class="sizes" id="sizes" role="group" aria-labelledby="szl">' +
+              p.sizes.map(function(s,i){
+                return '<button type="button" aria-pressed="' + (i===0) + '" data-s="' + s + '">' + s + '</button>';
+              }).join("") +
+            '</div>' +
             (garment ? '<p class="small muted" style="margin:.6em 0 0">Between sizes? Size up. ' +
               '<a href="sizing.html">Measuring guide</a></p>' : '') +
           '</div>' +
 
           '<div class="buyrow">' +
-            '<div class="qty"><button type="button" id="minus" aria-label="Decrease quantity">−</button>' +
+            '<div class="qty"><button type="button" id="minus" aria-label="Decrease quantity">\u2212</button>' +
             '<span id="q">1</span>' +
             '<button type="button" id="plus" aria-label="Increase quantity">+</button></div>' +
             '<button class="btn btn-block" id="add" type="button">Add to cart</button>' +
+            '<button class="wish wish-lg btn-ghost" type="button" data-wish="' + p.id + '">\u2661</button>' +
           '</div>' +
+
+          '<div class="badges"><span>\ud83d\udd12 Secure checkout</span><span>\ud83d\udce6 Free UK delivery over \u00a330</span>' +
+            '<span>\u21a9\ufe0f 30-day returns</span><span>\ud83d\udc31 Breakaway fastenings</span></div>' +
 
           '<div class="field"><h3>What you get</h3><ul class="deets">' +
             p.details.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul></div>' +
 
-          '<div class="callout"><b>Short wear, supervised.</b> Take it off if your cat freezes, ' +
-            'flattens or tries to back out of it — that means no, and no is fine. ' +
-            'Never leave a costume on an unattended cat.</div>' +
+          '<div class="acc">' +
+            '<details><summary>Size &amp; how to measure</summary><div class="inner">' +
+              '<p>Measure the chest at its widest point, just behind the front legs, and add two ' +
+              'fingers of slack. Chest girth decides fit more reliably than weight or breed.</p>' +
+              '<div id="accsize"></div>' +
+              '<p class="small muted" style="margin-top:.6em">Between two sizes? Size up.</p>' +
+            '</div></details>' +
+            '<details><summary>Materials &amp; care</summary><div class="inner">' +
+              '<p><b>Made from:</b> ' + p.materials + '</p>' +
+              '<p><b>Care:</b> ' + p.care + '</p>' +
+            '</div></details>' +
+            '<details><summary>Delivery &amp; returns</summary><div class="inner">' +
+              '<div class="tablewrap"><table><thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead>' +
+              '<tbody><tr><td>UK standard, tracked</td><td>2\u20134 working days</td><td>\u00a33.95</td></tr>' +
+              '<tr><td>UK standard over \u00a330</td><td>2\u20134 working days</td><td><b>Free</b></td></tr></tbody></table></div>' +
+              '<p style="margin-top:.7em">30 days to return, worn or not. If your cat refused it, that is ' +
+              'exactly what this policy is for.</p>' +
+              '<p class="small muted">Placeholder terms \u2014 confirm before trading.</p>' +
+            '</div></details>' +
+            '<details><summary>Wearing it safely</summary><div class="inner">' +
+              '<p>Short, supervised wear only \u2014 minutes, not hours. Never leave a costume on a cat ' +
+              'who is alone.</p>' +
+              '<p>Take it off if your cat freezes, flattens, walks backwards or tries to bite it off. ' +
+              'That is a no, and a no is fine.</p>' +
+              '<p class="small muted">We do not claim a costume calms or comforts a cat.</p>' +
+            '</div></details>' +
+          '</div>' +
         '</div>' +
       '</div>';
 
-    if(garment){
-      host.insertAdjacentHTML("beforeend",
-        '<section><h2>Will it fit?</h2><div class="tablewrap"><table>' +
-        '<thead><tr><th>Size</th><th>Neck</th><th>Chest girth</th><th>Back length</th><th>Typical cat</th></tr></thead><tbody>' +
-        SIZE_CHART.map(function(r){
-          return '<tr><td class="sz">' + r.size + '</td><td>' + r.neck + '</td><td><b>' + r.chest +
-            '</b></td><td>' + r.back + '</td><td class="muted">' + r.who + '</td></tr>';
-        }).join("") +
-        '</tbody></table></div>' +
+    /* gallery switching */
+    var gmain = document.getElementById("gmain");
+    var gthumbs = document.getElementById("gthumbs");
+    gthumbs.addEventListener("click", function(e){
+      var b = e.target.closest("button"); if(!b) return;
+      var v = b.dataset.v;
+      gmain.innerHTML = catArt(p.motif, p.id, v === "worn" ? undefined : v) +
+        (v === "worn" ? '<div class="ph-note">\u26a0\ufe0f Illustration, not a photograph \u2014 replace with real product photography before launch</div>' : '');
+      gthumbs.querySelectorAll("button").forEach(function(x){
+        x.setAttribute("aria-pressed", String(x === b));
+      });
+    });
+
+    mountSizeTable(document.getElementById("accsize"));
+
+    var extra = document.getElementById("extra");
+    extra.innerHTML = (garment
+      ? '<section><h2>Will it fit?</h2><div id="bigsize"></div>' +
         '<p class="small muted">Chest girth is the number that matters. Measure at the widest point ' +
-        'behind the front legs and add two fingers of slack.</p></section>');
-    }
+        'behind the front legs and add two fingers of slack.</p></section>'
+      : '') + reviewsHTML(p.id);
+    if(garment) mountSizeTable(document.getElementById("bigsize"));
 
     var size = p.sizes[0], qty = 1;
     var sizesEl = document.getElementById("sizes");
@@ -147,8 +206,13 @@
     document.getElementById("minus").onclick = function(){ qty = Math.max(qty - 1, 1);  qEl.textContent = qty; };
     document.getElementById("add").onclick   = function(){
       addToCart(p.id, size, qty);
-      toast(qty + " × " + p.name + " added");
+      toast(qty + " \u00d7 " + p.name + " added");
     };
+    host.addEventListener("click", function(e){
+      var w = e.target.closest("[data-wish]"); if(!w) return;
+      toast(toggleWish(w.dataset.wish) ? "Saved to wishlist" : "Removed from wishlist");
+    });
+    paintWish();
 
     var also = PRODUCTS.filter(function(x){ return x.cat === p.cat && x.id !== p.id; }).slice(0, 4);
     if(also.length < 4){
@@ -159,8 +223,8 @@
     document.getElementById("also").innerHTML =
       '<div class="sec-head"><div><h2>Goes well with</h2></div></div><div class="grid-p" id="ag"></div>';
     renderGrid(document.getElementById("ag"), also);
+    paintWish();
   }
 </script>
-
 </body>
 </html>
