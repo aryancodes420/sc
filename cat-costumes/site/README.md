@@ -42,8 +42,10 @@ only), **seven breed presets** for people without a tape measure, and a gallery 
 *where to measure* and *how the breakaway buckle works* rather than ten photos of the same
 jumper.
 
-The reviews section renders an honest empty state. No invented testimonials — wire it to
-Judge.me or Loox (both competitors use Judge.me) once real orders exist.
+The reviews section renders an empty state until real reviews exist. Wire it to Judge.me or
+Loox (both competitors use Judge.me) once orders start. **Do not populate it by hand** —
+fake reviews are banned outright by the DMCC Act 2024 and Trading Standards enforces it
+with fines of up to 10% of global turnover.
 
 ## Verified
 
@@ -76,8 +78,8 @@ The Dog Nook, and it will decide your launch date here too.
    The Dog Nook's versions are a good starting point but must be rewritten for this business.
 5. **Policy claims.** "Free UK delivery over £30", "30-day returns, worn or not" and "£3.95
    delivery" are placeholders in `data.js` and the page copy. Make them true or change them.
-6. **Product claims.** The copy deliberately avoids saying a costume calms, comforts or settles
-   a cat — those are health claims and the ASA treats them as such. Keep it that way.
+6. **Product claims.** The copy does not say a costume calms, comforts or settles a cat.
+   Those are health claims and the ASA treats them as such, so don't add them later.
 
 ## Porting to Shopify
 

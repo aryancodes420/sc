@@ -86,12 +86,18 @@ range depth justify it.
 3. **Informational gallery.** They show 10 photos of the same jumper. We show *where to
    measure* and *how the breakaway buckle works* — views that answer the questions that
    actually cause returns.
-4. **Honesty as positioning.** Nobody in this category admits some cats won't wear
-   anything. Against an RSPCA warning and 59% public disapproval, that candour is the
-   only defensible stance — and it is unfair to copy.
+4. **Fit confidence.** Four measurements in two units, a fit statement per product and a
+   "size up if between sizes" rule stated everywhere sizing appears. Sizing is what drives
+   returns in this category, and we answer it harder than either competitor.
 
-**Deliberately not copied:** invented reviews. The reviews section renders an honest
-empty state until real customers leave real feedback.
+**Deliberately not copied:** invented reviews. The reviews section stays empty until real
+customers leave feedback — fake reviews are illegal under the DMCC Act 2024.
+
+> **Voice note (14 Sep 2026):** the site originally led on candour about cats refusing to
+> wear things. The owner removed it as off-putting, and the copy now sells on fit, safety
+> features and delivery instead. Nothing removed was legally required. The RSPCA position
+> and 59% public disapproval in §"The finding" are unchanged and still worth watching if
+> the brand ever attracts press attention.
 
 ---
 

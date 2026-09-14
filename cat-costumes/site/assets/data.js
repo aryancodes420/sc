@@ -57,7 +57,7 @@ const PRODUCTS = [
   {
     id: "birthday-set", name: "Birthday Hat + Bandana Set", price: 8.99, cat: "holiday",
     motif: "party", sizes: SIZE_SETS.oneSize, badge: "Gift",
-    blurb: "A cone hat and matching bandana for the annual photo nobody regrets.",
+    blurb: "A cone hat and matching bandana for the birthday photo.",
     fit: "Hat adjusts; bandana ties to fit.", care: "Bandana: machine wash 30°C. Hat: spot clean.", materials: "Cotton bandana, card-free fabric cone",
     details: [
       "Two pieces, one price",
@@ -114,7 +114,7 @@ const PRODUCTS = [
   {
     id: "flower-collar", name: "Flower Collar", price: 9.99, cat: "everyday",
     motif: "flower", sizes: SIZE_SETS.adjustable,
-    blurb: "A ring of soft fabric petals. Deeply undignified. Very photogenic.",
+    blurb: "A ring of soft fabric petals. Ridiculously photogenic.",
     fit: "Adjustable 20–30cm. Breakaway buckle.", care: "Hand wash cold. Reshape petals damp.", materials: "Polyester petals, nylon webbing",
     details: [
       "Fabric petals, no wire or plastic",
@@ -127,7 +127,7 @@ const PRODUCTS = [
   {
     id: "lion-mane", name: "Lion Mane", price: 11.99, cat: "novelty",
     motif: "mane", sizes: SIZE_SETS.twoWay, badge: "Bestseller",
-    blurb: "The classic. Slips over the head in one motion and comes off just as fast.",
+    blurb: "The classic, and still the best. Slips over the head in one easy motion.",
     fit: "Stretch ring, pulls on. Very forgiving fit.", care: "Hand wash cold. Air dry flat.", materials: "Polyester faux fur on elastic band",
     details: [
       "Stretch fabric ring, pulls on and off",
@@ -160,7 +160,7 @@ const PRODUCTS = [
   {
     id: "cape", name: "Superhero Cape", price: 10.99, cat: "novelty",
     motif: "cape", sizes: SIZE_SETS.oneSize,
-    blurb: "One cape, endless nonsense. Fastens at the chest, not the throat.",
+    blurb: "Every hero needs one. Fastens at the chest, not the throat.",
     fit: "One size. Chest fastening, not neck.", care: "Machine wash 30°C. Cool iron if needed.", materials: "Lightweight polyester satin",
     details: [
       "Chest fastening with breakaway velcro",
@@ -186,12 +186,12 @@ const PRODUCTS = [
   {
     id: "first-costume-kit", name: "First Costume Kit", price: 17.99, was: 20.98,
     cat: "bundle", motif: "bowtie", sizes: SIZE_SETS.twoWay, badge: "Save £2.99",
-    blurb: "The gentle way in: two bandanas and a bow tie, nothing that goes over the head.",
+    blurb: "The perfect starter set: two bandanas and a bow tie, all tie-to-fit.",
     fit: "Both pieces tie or adjust. No sizing needed.", care: "Machine wash 30°C.", materials: "Cotton bandanas, polyester bow",
     details: [
       "Reversible Bandana 2-pack (£11.99)",
       "Bow Tie Collar (£8.99)",
-      "Best starting point for a cat that's never worn anything"
+      "The easiest place to start"
     ],
     contains: ["bandana-2pack", "bow-tie"]
   }

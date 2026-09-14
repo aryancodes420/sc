@@ -233,19 +233,18 @@ function paintWish(){
 }
 
 /* --------------------------------------------------------------- reviews --- */
-/* There are no reviews because nothing has been sold yet. The component renders that
-   honestly rather than shipping invented testimonials. Wire REVIEWS to a real
-   provider (Judge.me, Loox) once orders exist — both competitors use Judge.me. */
+/* REVIEWS stays empty until real customer reviews exist. Wire it to a real provider
+   (Judge.me, Loox) once orders start — both competitors use Judge.me. Do not populate
+   it by hand: fake reviews breach the DMCC Act 2024 and Trading Standards enforces it. */
 const REVIEWS = {};
 function reviewsHTML(productId){
   const list = REVIEWS[productId] || [];
   if(!list.length){
     return '<section class="reviews"><h2>Reviews</h2>' +
       '<div class="panel center"><p style="font-size:2rem;margin:0">☆</p>' +
-      '<p><b>No reviews yet.</b></p>' +
-      '<p class="muted small" style="max-width:46ch;margin-inline:auto">This shop has not sold ' +
-      'anything yet, so there is nothing honest to show here. Reviews will appear once real ' +
-      'customers leave them — we will not be writing our own.</p></div></section>';
+      '<p><b>No reviews yet — be the first.</b></p>' +
+      '<p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here ' +
+      'once customers leave them.</p></div></section>';
   }
   const avg = (list.reduce((n,r) => n + r.stars, 0) / list.length).toFixed(1);
   return '<section class="reviews"><h2>Reviews</h2>' +

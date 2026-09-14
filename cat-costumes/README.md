@@ -7,7 +7,7 @@ from The Dog Nook** — nothing here shares its catalogue, theme, or positioning
 > or `cd site && python3 -m http.server 8000`. See [`site/README.md`](site/README.md) for
 > what's verified and what must be replaced before it takes an order.
 >
-> Brand: **Catwalk Club** — *"Costumes your cat will almost tolerate."*
+> Brand: **Catwalk Club** — *"Seriously cute costumes for cats."*
 >
 > Competitor analysis (measured from their live catalogues): [`competitors.md`](competitors.md).
 
