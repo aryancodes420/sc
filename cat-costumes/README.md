@@ -11,6 +11,8 @@ from The Dog Nook** — nothing here shares its catalogue, theme, or positioning
 >
 > Competitor analysis (measured from their live catalogues): [`competitors.md`](competitors.md).
 >
+> Supplier research for the launch 10 (live listings + supplier sites, 14 Sep 2026): [`sourcing.md`](sourcing.md).
+>
 > **Shopify theme: [`theme/`](theme/)** — a complete standalone theme carrying this design.
 > Passes Shopify's own `theme-check` with 0 offenses. `shopify theme push --unpublished`.
 
