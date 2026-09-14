@@ -10,6 +10,9 @@ from The Dog Nook** — nothing here shares its catalogue, theme, or positioning
 > Brand: **Catwalk Club** — *"Seriously cute costumes for cats."*
 >
 > Competitor analysis (measured from their live catalogues): [`competitors.md`](competitors.md).
+>
+> **Shopify theme: [`theme/`](theme/)** — a complete standalone theme carrying this design.
+> Passes Shopify's own `theme-check` with 0 offenses. `shopify theme push --unpublished`.
 
 > Prices are in GBP on the assumption this trades in the UK like The Dog Nook.
 > If the new store is set to another currency, re-point the ladder rather than

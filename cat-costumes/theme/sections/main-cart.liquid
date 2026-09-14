@@ -1,0 +1,64 @@
+{%- assign threshold = settings.free_shipping_threshold | times: 1 -%}
+{%- assign total_pounds = cart.total_price | divided_by: 100.0 -%}
+<div class="wrap">
+  <section>
+    <h1>{{ 'cart.general.title' | t }}</h1>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="empty">
+        <p style="font-size:3rem;margin:0">🐈</p>
+        <h2>{{ 'cart.general.empty' | t }}</h2>
+        <p class="muted">Your cat is, for now, undressed and content.</p>
+        <a class="btn" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" novalidate>
+        <div class="two" style="grid-template-columns:1.6fr 1fr;align-items:start">
+          <div>
+            {%- for item in cart.items -%}
+              <div class="cartrow">
+                <div class="art">
+                  {%- if item.image -%}
+                    <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" width="96" height="96">
+                  {%- else -%}
+                    <div data-cat-art="{{ item.product.handle }}" data-art-motif="{{ item.product.metafields.custom.motif }}"></div>
+                  {%- endif -%}
+                </div>
+                <div>
+                  <h3><a href="{{ item.url }}" style="color:inherit;text-decoration:none">{{ item.product.title }}</a></h3>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <p class="small muted" style="margin:0 0 .35em">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+                  <a class="linkbtn" href="{{ item.url_to_remove }}">{{ 'cart.general.remove' | t }}</a>
+                </div>
+                <div style="text-align:right">
+                  <div class="qty" style="margin-bottom:.4em">
+                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | minus: 1 }}" aria-label="Decrease">−</a>
+                    <span>{{ item.quantity }}</span>
+                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ item.quantity | plus: 1 }}" aria-label="Increase">+</a>
+                  </div>
+                  <b>{{ item.final_line_price | money }}</b>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div class="summary">
+            <h3>Summary</h3>
+            <div class="sumline"><span>{{ 'cart.general.subtotal' | t }}</span><b>{{ cart.total_price | money }}</b></div>
+            {%- if threshold > 0 -%}
+              <div class="progress" data-cart-progress data-total="{{ total_pounds }}" data-target="{{ threshold }}"><i></i></div>
+              <p class="small muted" style="margin:0 0 .6em" data-msg></p>
+            {%- endif -%}
+            <div class="sumline total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
+            <p class="small muted" style="margin:.2em 0 .8em">Delivery calculated at checkout.</p>
+            <button class="btn btn-block" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+          </div>
+        </div>
+      </form>
+    {%- endif -%}
+  </section>
+</div>
+{% schema %}
+{ "name": "Cart", "settings": [] }
+{% endschema %}

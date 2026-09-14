@@ -1,0 +1,94 @@
+{
+  "sections": {
+    "main": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "How do I know what size to order?",
+            "answer": "<p>Measure the chest at its widest point, just behind the front legs, and add two fingers of slack. That single number predicts fit better than weight or breed. Our size finder turns it into a size in seconds.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "What if they're between two sizes?",
+            "answer": "<p>Size up, every time. A slightly loose costume sits comfortably and looks better in photos; a slightly tight one never gets worn twice.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "No tape measure — can I still order?",
+            "answer": "<p>Yes. The size finder has seven one-tap breed presets, from kitten through to Maine Coon. A piece of string held against a ruler works too.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "What makes them safe?",
+            "answer": "<p>Every collar uses a breakaway buckle that separates under pressure. Nothing covers the face, ears or eyes, nothing restricts the legs, and there are no wires or small loose parts.</p>"
+          }
+        },
+        "q5": {
+          "type": "qa",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>UK standard tracked delivery is 2–4 working days, and free on orders over £30.</p>"
+          }
+        },
+        "q6": {
+          "type": "qa",
+          "settings": {
+            "question": "How do I wash them?",
+            "answer": "<p>Most garments machine wash at 30°C and should be hang dried. Hats, faux fur and anything foam-filled are spot clean or hand wash only. Exact instructions are on every product page.</p>"
+          }
+        },
+        "q7": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I return it?",
+            "answer": "<p>Yes — thirty days, worn or not. Tell us the size you tried and we'll sort the swap.</p>"
+          }
+        },
+        "q8": {
+          "type": "qa",
+          "settings": {
+            "question": "Which costume should I start with?",
+            "answer": "<p>A bandana or a bow tie collar. Both tie or adjust, so there's no sizing to get wrong, and they look great in photos.</p>"
+          }
+        },
+        "q9": {
+          "type": "qa",
+          "settings": {
+            "question": "When should I order for Halloween?",
+            "answer": "<p>Earlier than you think. Pet costume buying concentrates in the two weeks before 31 October and popular sizes go first. Order by mid-October to be safe.</p>"
+          }
+        },
+        "q10": {
+          "type": "qa",
+          "settings": {
+            "question": "Do you ship outside the UK?",
+            "answer": "<p>Not yet — UK only for now. Join the mailing list and we'll let you know when that changes.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

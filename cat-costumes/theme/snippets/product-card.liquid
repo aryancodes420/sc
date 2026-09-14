@@ -1,0 +1,35 @@
+{%- comment -%}
+  Product card. Falls back to an illustration when a product has no photograph,
+  so the grid never renders as empty placeholder boxes.
+  Params: product
+{%- endcomment -%}
+{%- assign motif = product.metafields.custom.motif | default: '' -%}
+<div class="pcard-wrap" style="position:relative">
+  <a class="pcard" href="{{ product.url }}">
+    {%- if product.compare_at_price > product.price -%}
+      <span class="badge save">Save {{ product.compare_at_price | minus: product.price | money }}</span>
+    {%- elsif product.metafields.custom.badge != blank -%}
+      <span class="badge">{{ product.metafields.custom.badge }}</span>
+    {%- endif -%}
+
+    <div class="art">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 600 }}"
+             alt="{{ product.featured_image.alt | default: product.title | escape }}"
+             width="600" height="600" loading="lazy">
+      {%- else -%}
+        <div data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"></div>
+      {%- endif -%}
+    </div>
+
+    <div class="body">
+      <h3>{{ product.title }}</h3>
+      <p class="blurb">{{ product.description | strip_html | truncatewords: 16 }}</p>
+      <span class="price">
+        {{ product.price | money }}
+        {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+      </span>
+    </div>
+  </a>
+  <button class="wish" type="button" data-wish="{{ product.handle }}" aria-pressed="false" aria-label="Save to wishlist">&#9825;</button>
+</div>

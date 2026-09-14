@@ -1,0 +1,36 @@
+<div class="wrap">
+  <section style="padding-bottom:20px">
+    <h1 style="margin-bottom:.15em">{{ page.title | default: 'Frequently asked' }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">{{ section.settings.intro }}</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="acc">
+      {%- for block in section.blocks -%}
+        <details {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="inner">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+    {%- if page.content != blank -%}<div style="margin-top:26px">{{ page.content }}</div>{%- endif -%}
+  </section>
+</div>
+{% schema %}
+{
+  "name": "FAQ page",
+  "settings": [
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Sizing, delivery, care and returns — answered in one place." }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How do I know what size to order?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Measure the chest at its widest point, just behind the front legs, and add two fingers of slack.</p>" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "FAQ page" } ]
+}
+{% endschema %}

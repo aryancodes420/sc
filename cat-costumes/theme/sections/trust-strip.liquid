@@ -1,0 +1,35 @@
+<div class="strip">
+  <div class="wrap">
+    <ul>
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <span class="dot" style="background:{{ block.settings.colour }}"></span> {{ block.settings.text }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Trust strip",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Point",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free UK delivery over £30" },
+        { "type": "color", "id": "colour", "label": "Dot colour", "default": "#4ECDB4" }
+      ]
+    }
+  ],
+  "presets": [ {
+    "name": "Trust strip",
+    "blocks": [
+      { "type": "item", "settings": { "text": "Free UK delivery over £30", "colour": "#4ECDB4" } },
+      { "type": "item", "settings": { "text": "Breakaway fastenings as standard", "colour": "#FF6B8A" } },
+      { "type": "item", "settings": { "text": "Sized by chest, not guesswork", "colour": "#FFD166" } },
+      { "type": "item", "settings": { "text": "30-day returns", "colour": "#B79CED" } }
+    ] } ]
+}
+{% endschema %}

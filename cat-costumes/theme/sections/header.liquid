@@ -1,0 +1,35 @@
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        <img class="mark" src="{{ settings.logo | image_url: width: 76 }}" alt="{{ shop.name | escape }}" width="38" height="38">
+      {%- else -%}
+        <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="50" fill="#FF6B8A"/>
+          <path d="M26 42 L22 16 L45 31 Z M74 42 L78 16 L55 31 Z" fill="#fff"/>
+          <ellipse cx="50" cy="58" rx="30" ry="26" fill="#fff"/>
+          <circle cx="40" cy="55" r="4.5" fill="#3D2B4F"/><circle cx="60" cy="55" r="4.5" fill="#3D2B4F"/>
+          <path d="M46 66 h8 l-4 5 z" fill="#FF6B8A"/>
+        </svg>
+      {%- endif -%}
+      {{ shop.name }}
+    </a>
+    <nav class="links">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+      <a href="{{ routes.cart_url }}" class="cartlink">
+        {{ 'layout.cart.title' | t }}
+        <span class="count" data-cart-count {% if cart.item_count == 0 %}style="display:none"{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </nav>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

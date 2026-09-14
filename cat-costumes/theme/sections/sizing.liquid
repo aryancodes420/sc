@@ -1,0 +1,85 @@
+<div class="wrap">
+  <section style="padding-bottom:26px">
+    <h1 style="margin-bottom:.15em">{{ page.title | default: 'Fit &amp; care' }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:60ch">{{ section.settings.intro }}</p>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="finder" data-size-finder>
+      <h2 style="margin-bottom:.2em">Size finder</h2>
+      <p class="muted" style="margin:0">Enter your cat's chest girth and we'll tell you which size to order.</p>
+      <div class="row">
+        <input type="number" id="sizing-chest" inputmode="decimal" min="15" max="70" step="0.5"
+               placeholder="Chest in cm" aria-label="Chest girth in centimetres">
+        <button class="btn btn-mint" type="button">Size me up</button>
+      </div>
+      <div class="out muted">Pop a chest measurement in and we'll size it.</div>
+      <div class="presets"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:34px">
+    <h2>How to measure</h2>
+    <div class="two">
+      <div class="panel">
+        <h3>1 · Chest girth <span class="small muted">— the important one</span></h3>
+        <p>Wrap a soft tape all the way around the chest at its widest point, just behind the front legs.
+          Snug, not tight — you should get two fingers underneath.</p>
+        <h3>2 · Neck</h3>
+        <p>Around the base of the neck, where a collar would sit.</p>
+        <h3>3 · Back length</h3>
+        <p>Base of the neck to the base of the tail. Only matters for jumpers and hoodies.</p>
+      </div>
+      <div class="panel">
+        <h3>No tape measure?</h3>
+        <p>Use a piece of string, mark it, then hold it against a ruler. A phone charging cable works too.</p>
+        <h3>Between two sizes?</h3>
+        <p><b>Always size up.</b> A costume that's slightly loose gets worn; one that's slightly tight doesn't.</p>
+        <h3>Long-haired cat?</h3>
+        <p>Measure to the body, not the floof — press the tape gently through the coat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Size chart</h2>
+    <div data-size-table></div>
+    <p class="small muted">Bandanas, bow ties and flower collars tie or adjust, so they fit almost any cat
+      without measuring.</p>
+  </section>
+
+  <section>
+    <h2>Fit &amp; care</h2>
+    <div class="two">
+      <div class="panel">
+        <h3>✅ What we build in</h3>
+        <ul class="deets">
+          <li>Breakaway buckles on every collar</li>
+          <li>Faces, ears and eyes always left clear</li>
+          <li>No wire, no hard plastic, no small parts that come loose</li>
+          <li>Legs and shoulders free to move</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>🧺 Keeping them looking new</h3>
+        <p>Most garments machine wash at 30°C and should be hang dried. Hats, faux fur and anything
+          foam-filled are spot clean or hand wash only.</p>
+        <p style="margin:0">Exact instructions are on every product page under <b>Materials &amp; care</b>.
+          Supervise your cat while they are wearing it.</p>
+      </div>
+    </div>
+  </section>
+
+  {%- if page.content != blank -%}
+    <section>{{ page.content }}</section>
+  {%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Fit & care page",
+  "settings": [
+    { "type": "textarea", "id": "intro", "label": "Intro",
+      "default": "Almost every bad costume experience is a sizing problem. Two minutes with a tape measure fixes most of them." }
+  ]
+}
+{% endschema %}

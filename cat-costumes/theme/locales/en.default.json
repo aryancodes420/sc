@@ -1,0 +1,20 @@
+{
+  "general": {
+    "search": { "placeholder": "Search costumes…", "title": "Search results" },
+    "404": { "title": "Page not found", "body": "That page has wandered off.", "link": "Back to the shop" },
+    "pagination": { "previous": "Previous", "next": "Next" }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "size": "Size"
+    }
+  },
+  "cart": {
+    "general": { "title": "Your cart", "empty": "Nothing in here yet", "checkout": "Checkout", "subtotal": "Subtotal", "remove": "Remove" }
+  },
+  "layout": { "cart": { "title": "Cart" } }
+}

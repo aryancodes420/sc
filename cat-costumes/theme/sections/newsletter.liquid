@@ -1,0 +1,28 @@
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="news">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.body }}</p>
+      {%- form 'customer' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input type="email" id="newsletter-email" name="contact[email]" required
+               placeholder="you@example.com" aria-label="Email address">
+        <button class="btn btn-mint" type="submit">{{ section.settings.button }}</button>
+        {%- if form.posted_successfully? -%}
+          <p class="small" style="width:100%;margin-top:.8em">Thanks — you're on the list.</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get first pick of the Halloween drop" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "One email when a new range lands, and a heads-up before the October cut-off. Nothing else." },
+    { "type": "text", "id": "button", "label": "Button", "default": "Keep me posted" }
+  ],
+  "presets": [ { "name": "Newsletter" } ]
+}
+{% endschema %}

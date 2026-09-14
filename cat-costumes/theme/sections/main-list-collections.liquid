@@ -1,0 +1,19 @@
+<div class="wrap">
+  <section>
+    <h1>Shop by range</h1>
+    <div class="cats">
+      {%- for col in collections -%}
+        {%- unless col.handle == 'all' -%}
+          <a class="cat" href="{{ col.url }}">
+            <div class="ic" style="background:#FFE3EA">🐾</div>
+            <h3>{{ col.title }}</h3>
+            <span>{{ col.products_count }} product{% if col.products_count != 1 %}s{% endif %}</span>
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}

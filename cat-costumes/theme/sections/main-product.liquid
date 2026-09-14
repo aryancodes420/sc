@@ -1,0 +1,216 @@
+{%- assign motif = product.metafields.custom.motif | default: '' -%}
+{%- assign has_photos = false -%}
+{%- if product.images.size > 0 -%}{%- assign has_photos = true -%}{%- endif -%}
+
+<div class="wrap">
+  <div class="pdp">
+    <div class="gallery" data-gallery>
+      <div class="main" data-gallery-main data-key="{{ product.handle }}" data-motif="{{ motif }}"
+           {% unless has_photos %}data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"{% endunless %}>
+        {%- if has_photos -%}
+          <img src="{{ product.featured_image | image_url: width: 1000 }}"
+               alt="{{ product.featured_image.alt | default: product.title | escape }}"
+               width="1000" height="1000" loading="eager">
+        {%- endif -%}
+      </div>
+      {%- unless has_photos -%}
+        <div class="ph-note">⚠️ Illustration, not a photograph — add real product photography before launch</div>
+      {%- endunless -%}
+
+      <div class="thumbs" data-gallery-thumbs>
+        {%- if has_photos -%}
+          {%- for image in product.images limit: 5 -%}
+            <button type="button" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                    data-full="{{ image | image_url: width: 1000 }}" data-alt="{{ image.alt | escape }}">
+              <img src="{{ image | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
+            </button>
+          {%- endfor -%}
+        {%- else -%}
+          <button type="button" aria-pressed="true" data-view="worn">
+            <div data-cat-art="{{ product.handle }}-t1" data-art-motif="{{ motif }}"></div>
+            <span class="cap">On a cat</span>
+          </button>
+          <button type="button" aria-pressed="false" data-view="measure">
+            <div data-cat-art="{{ product.handle }}-t2" data-art-motif="{{ motif }}" data-art-view="measure"></div>
+            <span class="cap">Where to measure</span>
+          </button>
+          <button type="button" aria-pressed="false" data-view="safety">
+            <div data-cat-art="{{ product.handle }}-t3" data-art-motif="{{ motif }}" data-art-view="safety"></div>
+            <span class="cap">Fastening</span>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div>
+      {%- if collection -%}
+        <p class="small muted" style="margin-bottom:.3em"><a href="{{ collection.url }}">{{ collection.title }}</a></p>
+      {%- endif -%}
+      <h1 style="margin-bottom:.2em">{{ product.title }}</h1>
+
+      <p class="price" style="font-size:1.7rem" id="price">
+        {{ product.selected_or_first_available_variant.price | money }}
+        {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+      </p>
+
+      {%- if product.metafields.custom.blurb != blank -%}
+        <p class="muted" style="font-size:1.08rem">{{ product.metafields.custom.blurb }}</p>
+      {%- endif -%}
+
+      {%- if product.metafields.custom.fit != blank -%}
+        <p><span class="fitline">⇔ {{ product.metafields.custom.fit }}</span></p>
+      {%- endif -%}
+
+      {%- form 'product', product, id: 'product-form' -%}
+        {%- unless product.has_only_default_variant -%}
+          <div class="field">
+            <label for="variant-select">{{ product.options.first }}</label>
+            <div class="sizes" role="group">
+              {%- for variant in product.variants -%}
+                <button type="button" class="szbtn" data-variant="{{ variant.id }}"
+                        aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
+                        {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
+              {%- endfor -%}
+            </div>
+            <select id="variant-select" name="id" class="visually-hidden" aria-hidden="true" tabindex="-1">
+              {%- for variant in product.variants -%}
+                <option value="{{ variant.id }}"
+                  {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %}
+                  {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>
+              {%- endfor -%}
+            </select>
+            {%- if product.variants.size > 2 -%}
+              <p class="small muted" style="margin:.6em 0 0">Between sizes? Size up.
+                <a href="{{ section.settings.size_guide_url | default: '/pages/fit-and-care' }}">Measuring guide</a></p>
+            {%- endif -%}
+          </div>
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {%- endunless -%}
+
+        <div class="buyrow">
+          <div class="qty">
+            <button type="button" id="qty-minus" aria-label="Decrease quantity">−</button>
+            <span id="qty-value">1</span>
+            <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+          <input type="hidden" name="quantity" id="quantity" value="1">
+          <button class="btn btn-block" type="submit" {% unless product.available %}disabled{% endunless %}>
+            {%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+          </button>
+          <button class="wish wish-lg btn-ghost" type="button" data-wish="{{ product.handle }}">&#9825;</button>
+        </div>
+      {%- endform -%}
+
+      <div class="badges">
+        <span>🔒 Secure checkout</span>
+        <span>📦 Free UK delivery over £{{ settings.free_shipping_threshold }}</span>
+        <span>↩️ {{ settings.returns_days }}-day returns</span>
+        <span>🐱 Breakaway fastenings</span>
+      </div>
+
+      {%- if product.description != blank -%}
+        <div class="field"><h3>What you get</h3>{{ product.description }}</div>
+      {%- endif -%}
+
+      <div class="acc">
+        <details>
+          <summary>Size &amp; how to measure</summary>
+          <div class="inner">
+            <p>Measure the chest at its widest point, just behind the front legs, and add two fingers
+              of slack. Chest girth decides fit more reliably than weight or breed.</p>
+            <div data-size-table></div>
+            <p class="small muted" style="margin-top:.6em">Between two sizes? Size up.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Materials &amp; care</summary>
+          <div class="inner">
+            {%- if product.metafields.custom.materials != blank -%}
+              <p><b>Made from:</b> {{ product.metafields.custom.materials }}</p>
+            {%- endif -%}
+            {%- if product.metafields.custom.care != blank -%}
+              <p><b>Care:</b> {{ product.metafields.custom.care }}</p>
+            {%- else -%}
+              <p>Machine wash at 30°C and hang dry unless the product says otherwise.</p>
+            {%- endif -%}
+          </div>
+        </details>
+        <details>
+          <summary>Delivery &amp; returns</summary>
+          <div class="inner">
+            <div class="tablewrap"><table>
+              <thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead>
+              <tbody>
+                <tr><td>UK standard, tracked</td><td>2–4 working days</td><td>{{ settings.shipping_cost }}</td></tr>
+                <tr><td>UK standard over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days</td><td><b>Free</b></td></tr>
+              </tbody>
+            </table></div>
+            <p style="margin-top:.7em">Not right? Send it back within {{ settings.returns_days }} days, worn or not.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Wear &amp; care tips</summary>
+          <div class="inner">
+            <p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take
+              it off when you are done.</p>
+            <p>Every collar uses a breakaway buckle, and nothing covers the face, ears or legs.</p>
+            <p class="small muted">Supervise your cat while they are wearing it.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.show_related -%}
+    {%- assign rel = product.collections.first -%}
+    {%- if rel -%}
+      <section>
+        <div class="sec-head"><div><h2>Goes well with</h2></div></div>
+        <div class="grid-p">
+          {%- assign shown = 0 -%}
+          {%- for p in rel.products -%}
+            {%- if p.id != product.id and shown < 4 -%}
+              {% render 'product-card', product: p %}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </section>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+<script>
+  (function(){
+    var form = document.getElementById("product-form");
+    if(!form) return;
+    var select = document.getElementById("variant-select");
+    var qty = document.getElementById("quantity");
+    var qtyVal = document.getElementById("qty-value");
+    var n = 1;
+
+    form.addEventListener("click", function(e){
+      var b = e.target.closest(".szbtn");
+      if(b && select){
+        select.value = b.dataset.variant;
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+        form.querySelectorAll(".szbtn").forEach(function(x){
+          x.setAttribute("aria-pressed", String(x === b));
+        });
+      }
+      if(e.target.closest("#qty-plus"))  { n = Math.min(n + 1, 20); qty.value = n; qtyVal.textContent = n; }
+      if(e.target.closest("#qty-minus")) { n = Math.max(n - 1, 1);  qty.value = n; qtyVal.textContent = n; }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
+    { "type": "url", "id": "size_guide_url", "label": "Size guide link" }
+  ]
+}
+{% endschema %}

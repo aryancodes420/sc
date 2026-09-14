@@ -1,0 +1,49 @@
+<div class="wrap">
+  <section style="padding-bottom:24px">
+    <h1 style="margin-bottom:.15em">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="muted" style="font-size:1.08rem;max-width:62ch">{{ collection.description }}</div>
+    {%- endif -%}
+
+    <div class="toolbar">
+      <form method="get" action="{{ collection.url }}" style="display:contents">
+        <select name="sort_by" id="sort-by" aria-label="Sort products" onchange="this.form.submit()">
+          {%- assign current = collection.sort_by | default: collection.default_sort_by -%}
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == current %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </form>
+    </div>
+
+    <div class="filters">
+      <a class="chip" href="{{ routes.all_products_collection_url }}"
+         aria-pressed="{% if collection.handle == 'all' %}true{% else %}false{% endif %}">Everything</a>
+      {%- for col in collections -%}
+        {%- unless col.handle == 'all' or col.products_count == 0 -%}
+          <a class="chip" href="{{ col.url }}"
+             aria-pressed="{% if col.handle == collection.handle %}true{% else %}false{% endif %}">{{ col.title }}</a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+
+    {%- paginate collection.products by 24 -%}
+      <div class="grid-p">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product %}
+        {%- else -%}
+          <p class="empty muted">Nothing in this range yet.</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <div class="filters" style="margin-top:26px;justify-content:center">
+          {%- if paginate.previous -%}<a class="chip" href="{{ paginate.previous.url }}">← Previous</a>{%- endif -%}
+          {%- if paginate.next -%}<a class="chip" href="{{ paginate.next.url }}">Next →</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </section>
+</div>
+{% schema %}
+{ "name": "Collection", "settings": [] }
+{% endschema %}

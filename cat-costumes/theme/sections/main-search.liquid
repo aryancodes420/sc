@@ -1,0 +1,23 @@
+<div class="wrap">
+  <section>
+    <h1>{{ 'general.search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" class="toolbar">
+      <input type="search" id="search-q" name="q" value="{{ search.terms | escape }}"
+             placeholder="{{ 'general.search.placeholder' | t }}" aria-label="Search">
+      <button class="btn" type="submit">Search</button>
+    </form>
+    {%- if search.performed -%}
+      <p class="muted">{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %}</p>
+      <div class="grid-p">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- endif -%}
+        {%- else -%}
+          <p class="empty muted">Nothing matches that.</p>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+</div>
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

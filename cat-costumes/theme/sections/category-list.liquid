@@ -1,0 +1,45 @@
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.subheading }}</p>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="{{ routes.all_products_collection_url }}">See everything &rarr;</a>
+    </div>
+    <div class="cats">
+      {%- for block in section.blocks -%}
+        {%- assign col = collections[block.settings.collection] -%}
+        <a class="cat" href="{{ col.url | default: '#' }}" {{ block.shopify_attributes }}>
+          <div class="ic" style="background:{{ block.settings.tint }}">{{ block.settings.emoji }}</div>
+          <h3>{{ block.settings.title | default: col.title }}</h3>
+          <span>{{ block.settings.note }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Category tiles",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pick your look" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Four ranges, endless photo opportunities." }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title override" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Halloween, Christmas, birthdays" },
+        { "type": "text", "id": "emoji", "label": "Emoji", "default": "🎃" },
+        { "type": "color", "id": "tint", "label": "Tint", "default": "#FFE3EA" }
+      ]
+    }
+  ],
+  "presets": [ { "name": "Category tiles", "blocks": [ { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" } ] } ]
+}
+{% endschema %}
