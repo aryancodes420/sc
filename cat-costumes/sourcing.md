@@ -136,3 +136,52 @@ not, and should be checked before money moves:
 3. **Place one AliExpress bulk order this week** — bow tie, flower collar, lion mane, bat cape, antlers at 20 units a variant — so it lands before October.
 4. **Set the two UK-stocked dropship items live first.** They can take orders while the bulk stock is in transit.
 5. **Email Pedigree Wholesale** one question: cat dress-up range, and do you dropship.
+
+---
+
+## Locked listings (14 Sep 2026)
+
+Chosen by the owner. "Sold" is the per-listing figure shown on AliExpress's search page
+that day — see *How these were ranked* below for what that does and does not mean.
+
+| Product | Listing | Cost | Sold |
+|---|---|---|---|
+| Bow Tie Collar | https://www.aliexpress.com/item/3256803258255247.html | $1.09 | 5,000+ |
+| Flower Collar — **original sold out** | ~~3256812962525055~~ | — | — |
+| Flower Collar — replacement A | https://www.aliexpress.com/item/3256806810179121.html | $4.60 | 2,000+ (check photo: sun-flower bell collar) |
+| Flower Collar — replacement B | https://www.aliexpress.com/item/3256812288522586.html | $6.64 | 1,000+ (pink flower pendant, bell) |
+| Flower Collar — cheapest breakaway | https://www.aliexpress.com/item/3256808460220255.html | $3.62 | 61 (cotton daisy, breakaway, "wholesale") |
+| Lion Mane | https://www.aliexpress.com/item/3256805876802123.html | $4.20 | 700+ |
+| Bandana (UK stock) | https://www.aliexpress.com/item/3256809426900401.html | $2.37 | 1,000+ |
+| Birthday Hat + Bandana (UK stock) | https://www.aliexpress.com/item/3256805761442603.html | $3.65 | 283 |
+| Reindeer Antlers | https://www.aliexpress.com/item/3256805984691324.html | $8.16 | 187 |
+| Bat Cape | https://www.aliexpress.com/item/3256812487071410.html | $4.54 | 1,000+ |
+| Pumpkin Costume | https://peettt.com/products/funny-cat-halloween-cool-pumpkin-collar-and-hat | $5.00 | n/a |
+| Knitted Jumper | https://www.princeprincesspetwear.co.uk/products/cable-knit-sphynx-cat-jumper-sweater-cream | £8.00 retail | n/a |
+| Christmas Jumper | https://www.princeprincesspetwear.co.uk/products/scandi-christmas-knit-sphynx-cat-jumper-sweater | £11.50 retail | n/a |
+
+### How these were ranked — and the limits of that
+
+**Method:** one AliExpress search per product, read the per-listing "sold" count from the
+first results page, pick the highest that matched the product. Filtered to "ships from UK"
+where that returned real results (bandana, birthday set only).
+
+**What that measures:** which single listing, out of ~48 on one page, for one search
+phrase, on one day, has sold the most units.
+
+**What it does not measure:**
+- **Seller quality.** Listing pages are behind AliExpress's login wall from this
+  environment, so store rating, positive-feedback %, dispatch time and return rate were
+  **not** read. A 5,000-sold listing can still be a bad seller.
+- **The whole platform.** Only page one of one search phrase per product.
+- **The "sold" figure itself.** It is approximate, varies by region and metric (the UK
+  app shows "100K+ similar items sold" — a category aggregate — where the search page
+  showed "1,000+ sold" for the same listing), and can be inflated.
+- **CJDropshipping at all** — requires login.
+- **Live stock.** The original flower collar showed "only 1 left" within a day.
+
+**Confidence, honestly:** high that these are *real, currently selling* listings at
+*real* prices. Not high that each is the single best supplier on the platform, and no
+evidence at all on seller reliability. Before ordering, on each listing check: store
+positive feedback ≥ 95%, store open > 1 year, shipping to UK with a delivery estimate,
+and read the most recent negative reviews.
