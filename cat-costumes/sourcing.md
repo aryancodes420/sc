@@ -234,3 +234,57 @@ phrase, on one day, has sold the most units.
 evidence at all on seller reliability. Before ordering, on each listing check: store
 positive feedback ≥ 95%, store open > 1 year, shipping to UK with a delivery estimate,
 and read the most recent negative reviews.
+
+---
+
+## Social & trend signals (15 Sep 2026)
+
+**What could be read:** Google Trends via MetLife's 2025 report, 2026 retailer lineups
+(Target, Petco, Chewy), TikTok Shop public keyword pages (expose per-product sold counts),
+press coverage of TikTok trends.
+**What could not:** Reddit (blocks automated access, both new and old domains), TikTok
+hashtag pages (login wall — no view counts exposed), Instagram and Facebook (login walls,
+not attempted). No workaround was tried.
+
+### Demand ranking — Google Trends, cats, Sep 2024–Sep 2025 (MetLife / Fractl)
+1. **Pumpkin** 2. **Lion** 3. Mario (licensed — avoid) · then **bat, witch, vampire**.
+"Cat costume for Halloween" searches **+64%** in the month before the report.
+**1 in 4 owners bought a costume specifically for an Instagram/social post** (Gen Z 31%,
+millennials 29%). 53% of pet owners buy a Halloween costume.
+
+### What retailers stocked for cats in 2026
+- **Bat Wings** — Target *and* Petco ($12). The only theme at two retailers.
+- Petco: Dracula/Vampire, Witch 2-piece, Fishbowl headpiece, Pickle ($12 each)
+- Target: Glitter Wings, Gnome headpiece, Alien headpiece, Candy Corn sweater
+- Chewy: Pumpkin ride-on ($15.99)
+- Industry note: "most dog-and-cat full-body costumes are dogs first" — headpieces and
+  two-piece sets are what actually get built for cats.
+
+### TikTok Shop (US) — cat costume sold counts
+Effectively **no cat-costume market on TikTok Shop**: keyword pages return unrelated goods.
+Genuine cat items found: bandana 6-pack **174 sold**, "nun" gag costume **165**, spider **10**,
+bat wings **2**, pumpkin (a toy) 9. Cat costume volume lives on AliExpress and Amazon, not
+TikTok Shop.
+
+### TikTok trends (press)
+- **Batman cat mask** (Spirit Halloween) — viral; licensed IP, not sourceable.
+- "Cat in the Hat" — a human costume trend, not a pet one.
+- The **nun/priest gag costume** recurs everywhere (AliExpress 1,000+ ★4.9; TikTok Shop 165).
+  Trending, but a religious gag carries brand risk — still recommend skipping.
+
+### What this says about the six
+| Product | Trend backing |
+|---|---|
+| Lion Mane | **Strong** — #2 most-searched cat costume |
+| Bat Cape | **Strong** — bat in top tier; bat wings stocked by two national retailers |
+| Bandana | Good — the only cat item with real TikTok Shop volume (174) |
+| Bow Tie Collar | n/a (not a costume; volume proven on AliExpress) |
+| Santa Hat & Scarf | n/a (Christmas; no Halloween data) |
+| **Spider** | **Weakest** — absent from every trend list; 10 sold on TikTok Shop |
+
+**Gap:** **Pumpkin is the #1 searched cat costume and is not in the lineup.** It was cut
+because the Peettt listing had no sales data. AliExpress alternatives with data:
+https://www.aliexpress.com/item/3256807081347725.html (pumpkin hat + scarf set, $6.48, 77 sold)
+· https://www.aliexpress.com/item/3256812938477702.html ($8.15, 42 sold).
+**Suggested:** swap Spider → Pumpkin, or add Pumpkin as a seventh. Witch and vampire also
+out-signal spider if a second swap is wanted.
