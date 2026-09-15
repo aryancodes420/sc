@@ -139,10 +139,11 @@ not, and should be checked before money moves:
 
 ---
 
-## FINAL LINEUP — six products (locked 15 Sep 2026)
+## FINAL LINEUP — seven products (locked 15 Sep 2026)
 
-Narrowed from ten to six by the owner. Every item is one-size or adjustable, so
-**six products = six stock lines**. All AliExpress Choice, all rated 4.6+.
+Narrowed from ten to six, then pumpkin added back on trend data (#1 most-searched cat
+costume). Every item is one-size or adjustable, so **seven products = seven stock lines**.
+All AliExpress Choice, all rated 4.6+.
 
 | # | Product | Listing | Cost | Sold | Rating | Season |
 |---|---|---|---|---|---|---|
@@ -151,17 +152,20 @@ Narrowed from ten to six by the owner. Every item is one-size or adjustable, so
 | 3 | **Lion Mane** | https://www.aliexpress.com/item/3256805876802123.html | $4.20 | 700+ | 4.6 | Novelty |
 | 4 | **Bat Cape** | https://www.aliexpress.com/item/3256812487071410.html | $4.54–7.29 | 1,000+ | 4.6 | Halloween |
 | 5 | **Spider Costume** | https://www.aliexpress.com/item/3256805889809397.html | $4.93 | 500+ | 4.6 | Halloween |
-| 6 | **Santa Hat & Scarf** | https://www.aliexpress.com/item/3256807594807087.html | $2.18 | 1,000+ | 4.9 | Christmas |
+| 6 | **Pumpkin Hat & Scarf Set** | https://www.aliexpress.com/item/3256807081347725.html | $6.48 | 77 | 4.6 | Halloween |
+| 7 | **Santa Hat & Scarf** | https://www.aliexpress.com/item/3256807594807087.html | $2.18 | 1,000+ | 4.9 | Christmas |
 
 **Held for a later wave (not launching):** Flower Collar C (3256808460220255), Birthday Hat +
-Bandana (3256805761442603), Reindeer Antlers (loss-making at $8.16), Pumpkin Costume
-(Peettt, no sales data), both Prince & Princess jumpers (no trade price yet).
+Bandana (3256805761442603), Reindeer Antlers (loss-making at $8.16), both Prince & Princess
+jumpers (no trade price yet). The Peettt pumpkin was replaced by the AliExpress set above,
+which has sales and rating data.
 
 **Parked for the pricing conversation:** the Lion Mane retails from £3.61 on Amazon UK
 against a ~£5.17 landed cost here. Owner has asked to revisit pricing separately.
 
 ### Suggested bundles from the six
 - **Halloween Pair** — Bat Cape + Spider Costume
+- **Pumpkin Patch** — Pumpkin Set + Bow Tie Collar
 - **First Costume Kit** — Bow Tie Collar + Bandana (both tie/adjust, no sizing)
 - **Festive Pair** — Santa Hat & Scarf + Bow Tie Collar
 
