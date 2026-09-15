@@ -139,7 +139,37 @@ not, and should be checked before money moves:
 
 ---
 
-## Locked listings (14 Sep 2026)
+## FINAL LINEUP — six products (locked 15 Sep 2026)
+
+Narrowed from ten to six by the owner. Every item is one-size or adjustable, so
+**six products = six stock lines**. All AliExpress Choice, all rated 4.6+.
+
+| # | Product | Listing | Cost | Sold | Rating | Season |
+|---|---|---|---|---|---|---|
+| 1 | **Bow Tie Collar** | https://www.aliexpress.com/item/3256803258255247.html | $1.09 | 5,000+ | 4.8 | Everyday |
+| 2 | **Bandana** (UK stock) | https://www.aliexpress.com/item/3256809426900401.html | $2.37 | 1,000+ | 4.7 | Everyday |
+| 3 | **Lion Mane** | https://www.aliexpress.com/item/3256805876802123.html | $4.20 | 700+ | 4.6 | Novelty |
+| 4 | **Bat Cape** | https://www.aliexpress.com/item/3256812487071410.html | $4.54–7.29 | 1,000+ | 4.6 | Halloween |
+| 5 | **Spider Costume** | https://www.aliexpress.com/item/3256805889809397.html | $4.93 | 500+ | 4.6 | Halloween |
+| 6 | **Santa Hat & Scarf** | https://www.aliexpress.com/item/3256807594807087.html | $2.18 | 1,000+ | 4.9 | Christmas |
+
+**Held for a later wave (not launching):** Flower Collar C (3256808460220255), Birthday Hat +
+Bandana (3256805761442603), Reindeer Antlers (loss-making at $8.16), Pumpkin Costume
+(Peettt, no sales data), both Prince & Princess jumpers (no trade price yet).
+
+**Parked for the pricing conversation:** the Lion Mane retails from £3.61 on Amazon UK
+against a ~£5.17 landed cost here. Owner has asked to revisit pricing separately.
+
+### Suggested bundles from the six
+- **Halloween Pair** — Bat Cape + Spider Costume
+- **First Costume Kit** — Bow Tie Collar + Bandana (both tie/adjust, no sizing)
+- **Festive Pair** — Santa Hat & Scarf + Bow Tie Collar
+
+---
+
+## Earlier shortlist (superseded — kept for reference)
+
+
 
 Chosen by the owner. "Sold" is the per-listing figure shown on AliExpress's search page
 that day — see *How these were ranked* below for what that does and does not mean.
