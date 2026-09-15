@@ -1,88 +1,81 @@
 # Catwalk Club — storefront
 
-A working cat-costume shop. Plain HTML, CSS and JavaScript — no build step, no framework,
-no dependencies. Open `index.html` in a browser, or serve the folder:
+A working cat-costume shop for the seven launch products. Plain HTML, CSS and JavaScript —
+no build step, no framework, no dependencies.
 
 ```bash
 python3 -m http.server 8000     # then open http://localhost:8000
 ```
 
+## The seven
+
+| Product | Retail | Sizes | Supplier cost | Sold | Rating |
+|---|---|---|---|---|---|
+| **Bow Tie Collar** | £8.99 | One size / adjustable | $1.09 | 5,000+ | 4.8 |
+| **Bandana Collar** | £7.99 *(placeholder)* | S/M/L | $2.37 | 1,000+ | 4.7 |
+| **Lion Mane** | £11.99 | S/M/L | $4.20 | 700+ | 4.6 |
+| **Devil Bat Cape** | £10.99 | S/M/L | $4.54 | 1,000+ | 4.6 |
+| **Spider Costume** | £12.99 *(placeholder)* | S/M | $4.93 | 500+ | 4.6 |
+| **Pumpkin Hat & Ruffle Collar** | £9.99 *(placeholder)* | One size / adjustable | $6.48 | 77 | 4.6 |
+| **Santa Hat & Scarf Set** | £17.99 *(placeholder)* | One size / adjustable | $10.73 | 106 | 4.7 |
+
+Every spec bullet, size figure and "in the box" line on the site was read from the
+supplier listing's own title or its product photos (the size-chart images). Nothing is
+invented. The full record — including supplier IDs, costs and what still needs confirming —
+is `assets/data.js`.
+
+### Bundles
+- **Halloween Pair** — Devil Bat Cape + Spider Costume → £21.99 (from £23.98)
+- **Pumpkin Patch** — Pumpkin Hat & Ruffle Collar + Bow Tie Collar → £16.99 (from £18.98)
+- **First Costume Kit** — Bow Tie Collar + Bandana Collar → £14.99 (from £16.98)
+- **Festive Pair** — Santa Hat & Scarf Set + Bow Tie Collar → £24.99 (from £26.98)
+
+## Photography
+
+`assets/img/` holds **six real product photos per product (42 total, 3.1 MB)**, pulled from
+each supplier listing at 800px. These are the supplier's own listing images, used the way
+every dropship store uses them; replace them with your own photography over time, and don't
+use them anywhere the supplier could object to (paid ads with their watermark, etc.).
+The bat cape's lead image was reordered so a clean cat photo shows first — one of the
+supplier's shots has their own text baked in.
+
+## Before ordering — confirm these on the listings
+
+- **Bow Tie Collar** — Exact adjustable neck range (cm)
+- **Bow Tie Collar** — Which plaid colourways to stock
+- **Bandana Collar** — Whether the buckle is a breakaway type — listing photos show a standard side-release buckle
+- **Bandana Collar** — Listing photos are of dogs; consider a cat-specific bandana later
+- **Lion Mane** — Colour options (listing shows a natural tan)
+- **Devil Bat Cape** — Size-chart figures were read from a small photo — confirm S/M/L length, width and neck on the listing before printing them
+- **Pumpkin Hat & Ruffle Collar** — The same listing offers a Christmas-tree hat with red/green ruffle — a candidate for the Christmas slot
+- **Santa Hat & Scarf Set** — Hat and scarf dimensions (cm)
+
 ## Pages
 
 | File | What it does |
 |---|---|
-| `index.html` | Hero, four category tiles, eight bestsellers, size finder, honesty panel, newsletter |
-| `shop.html` | All 16 products with category filters. Deep-links via `?cat=holiday` etc. |
-| `product.html` | Per-product page via `?id=<product-id>`. Size picker, quantity, add to cart, size chart, related items |
-| `cart.html` | Line items, quantity controls, remove, free-delivery progress, totals |
-| `sizing.html` | Size finder with breed presets, how to measure, full chart, safe-wear guidance, returns |
-| `faq.html` | Ten honest answers, including "will my cat actually wear this?" |
-| `wishlist.html` | Saved items (per-browser, localStorage) |
-
-## Where things live
-
-- **`assets/data.js`** — the entire catalogue, size chart and free-delivery threshold.
-  Edit this one file to change products or prices; every page reads from it.
-- **`assets/site.js`** — SVG artwork generator, cart (localStorage), rendering, size finder.
-- **`assets/site.css`** — design system. Colours and radii are CSS custom properties at the top.
-- **`assets/fonts/`** — self-hosted Fredoka + Nunito. See `NOTICE.md`.
-
-## Built against the competition
-
-See [`../competitors.md`](../competitors.md) for the measured analysis. Features adopted from
-**Clothes for Cats** (the UK category owner) and **PIKAPIKA** (the premium benchmark):
-
-- One-line **fit statement** on every product
-- **Four measurements** — neck, chest, waist, back — in **cm and inches** with a live toggle
-- **Materials & care** and a **delivery & returns** table, per product, in accordions
-- **Multi-view gallery**, **reviews** section, **wishlist**, **search and sort**, trust badges
-
-Where this site goes further: an interactive **size finder** (they publish static tables
-only), **seven breed presets** for people without a tape measure, and a gallery that shows
-*where to measure* and *how the breakaway buckle works* rather than ten photos of the same
-jumper.
-
-The reviews section renders an empty state until real reviews exist. Wire it to Judge.me or
-Loox (both competitors use Judge.me) once orders start. **Do not populate it by hand** —
-fake reviews are banned outright by the DMCC Act 2024 and Trading Standards enforces it
-with fines of up to 10% of global turnover.
+| `index.html` | Hero (real photo), four tiles, all seven, four bundles, fit + why panels, newsletter |
+| `shop.html` | Everything with filters (Everyday / Halloween / Christmas / Bundles), search and sort |
+| `product.html` | `?id=<id>` — six-photo gallery, size picker with per-size neck note, what you get, in the box, size & fit, materials & care, delivery & returns, wear tips, related |
+| `cart.html` | Lines carry size; free-delivery progress; totals |
+| `sizing.html` | Fit & care — how to measure, every size we sell in one table, care per product, returns |
+| `faq.html` | Ten questions for this range |
+| `wishlist.html` | Saved items (per-browser) |
 
 ## Verified
 
-Checked in headless Chromium: all 16 products render, category filters work, size selection
-and quantity work, cart maths are correct (including the £30 free-delivery threshold and the
-£3.95 charge below it), removal works, an unknown product id shows a proper not-found state,
-no console errors, brand fonts load, and there is no horizontal overflow at 390px wide.
+Headless Chromium, after the rebuild: 7 products and 4 bundles render on the homepage,
+all 42 images load (no broken `<img>` on any page), Halloween filter returns 4, search
+finds the three velcro products, price sort ascends, the lion mane gallery switches between
+its six photos, S/M/L buttons show the right neck note, add-to-cart carries the size, cart
+totals reconcile (£43.97 then £31.98 after a removal), one-size products show no size
+picker, bundles with sized components offer S/M, unknown ids show a not-found page,
+wishlist persists across pages, Fit & care renders 14 size rows and 7 care rows, FAQ has
+10 entries, no console errors, no horizontal overflow on five pages at 390px.
 
-Re-verified after the competitor upgrade: 3 gallery views switch, 4 product accordions open,
-the size table carries a waist column, the cm→inch toggle converts (`28–33cm` → `11–13"`),
-search and price sort work, all 7 breed presets resolve to a size, the wishlist persists
-across pages, the FAQ renders 10 entries, and cart maths still reconcile.
+## Still to do before this sells anything
 
-## The artwork is not real
-
-Every product image is a **generated SVG cat**, drawn by `catArt()` in `site.js`. It exists so
-the site doesn't render as a grid of broken images while you have no photographs.
-
-**It is not a substitute for product photography.** Replace it before you show this to a
-customer — swap the `.art` blocks for `<img>` tags. This is the same blocker that has held up
-The Dog Nook, and it will decide your launch date here too.
-
-## Before this takes a single order
-
-1. **Photography.** As above. Nothing else matters until this is done.
-2. **Prices.** Every price is invented. Replace with landed cost + margin.
-3. **Payments.** The checkout button is deliberately inert — it says so rather than faking a
-   flow. Connect Shopify, Stripe or similar.
-4. **Legal pages.** Shipping, refunds, terms, privacy and cookies are all `#` placeholders.
-   The Dog Nook's versions are a good starting point but must be rewritten for this business.
-5. **Policy claims.** "Free UK delivery over £30", "30-day returns, worn or not" and "£3.95
-   delivery" are placeholders in `data.js` and the page copy. Make them true or change them.
-6. **Product claims.** The copy does not say a costume calms, comforts or settles a cat.
-   Those are health claims and the ASA treats them as such, so don't add them later.
-
-## Porting to Shopify
-
-The structure maps over directly: `PRODUCTS` becomes products with size variants, `CATEGORIES`
-become collections, the two bundles become bundle products, and `sizing.html` becomes a page
-linked from every product. The CSS is portable as-is.
+1. **Pricing.** Every price marked *placeholder* is a guess; the rest carry over from the
+   first draft. The lion mane vs Amazon (£3.61) question is unresolved.
+2. **Confirm the list above** on each listing before placing the bulk order.
+3. **Payments, legal pages, reviews app.** Unchanged.

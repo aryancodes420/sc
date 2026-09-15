@@ -5,81 +5,97 @@
   </section>
 
   <section style="padding-top:0">
-    <div class="finder" data-size-finder>
-      <h2 style="margin-bottom:.2em">Size finder</h2>
-      <p class="muted" style="margin:0">Enter your cat's chest girth and we'll tell you which size to order.</p>
-      <div class="row">
-        <input type="number" id="sizing-chest" inputmode="decimal" min="15" max="70" step="0.5"
-               placeholder="Chest in cm" aria-label="Chest girth in centimetres">
-        <button class="btn btn-mint" type="button">Size me up</button>
-      </div>
-      <div class="out muted">Pop a chest measurement in and we'll size it.</div>
-      <div class="presets"></div>
-    </div>
-  </section>
-
-  <section style="padding-top:34px">
     <h2>How to measure</h2>
     <div class="two">
       <div class="panel">
-        <h3>1 · Chest girth <span class="small muted">— the important one</span></h3>
-        <p>Wrap a soft tape all the way around the chest at its widest point, just behind the front legs.
-          Snug, not tight — you should get two fingers underneath.</p>
-        <h3>2 · Neck</h3>
-        <p>Around the base of the neck, where a collar would sit.</p>
-        <h3>3 · Back length</h3>
-        <p>Base of the neck to the base of the tail. Only matters for jumpers and hoodies.</p>
+        <h3>1 · Neck <span class="small muted">— the one that matters</span></h3>
+        <p>{{ section.settings.neck }}</p>
+        <h3>2 · Chest <span class="small muted">— Spider Costume only</span></h3>
+        <p>{{ section.settings.chest }}</p>
       </div>
       <div class="panel">
         <h3>No tape measure?</h3>
         <p>Use a piece of string, mark it, then hold it against a ruler. A phone charging cable works too.</p>
         <h3>Between two sizes?</h3>
-        <p><b>Always size up.</b> A costume that's slightly loose gets worn; one that's slightly tight doesn't.</p>
-        <h3>Long-haired cat?</h3>
-        <p>Measure to the body, not the floof — press the tape gently through the coat.</p>
+        <p>{{ section.settings.between }}</p>
+        <h3>The two-finger rule</h3>
+        <p style="margin:0">{{ section.settings.rule }}</p>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>Size chart</h2>
-    <div data-size-table></div>
-    <p class="small muted">Bandanas, bow ties and flower collars tie or adjust, so they fit almost any cat
-      without measuring.</p>
+    <h2>Every size we sell</h2>
+    <p class="muted">Read straight from each product's own size chart.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Product</th><th>Sizing</th><th>Neck / notes</th></tr></thead>
+      <tbody>
+        {%- for product in collections[section.settings.collection].products -%}
+          {%- if product.has_only_default_variant -%}
+            <tr><td class="sz"><a href="{{ product.url }}">{{ product.title }}</a></td><td>One size</td><td>{{ product.metafields.custom.fit }}</td></tr>
+          {%- else -%}
+            {%- assign notes = product.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}
+            {%- for variant in product.variants -%}
+              <tr>
+                {%- if forloop.first -%}<td class="sz" rowspan="{{ product.variants.size }}"><a href="{{ product.url }}">{{ product.title }}</a></td>{%- endif -%}
+                <td>{{ variant.title }}</td>
+                <td>{{ notes[forloop.index0] | strip }}</td>
+              </tr>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </tbody>
+    </table></div>
   </section>
 
   <section>
-    <h2>Fit &amp; care</h2>
+    <h2>Care, piece by piece</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Product</th><th>How to wash it</th></tr></thead>
+      <tbody>
+        {%- for product in collections[section.settings.collection].products -%}
+          <tr><td class="sz"><a href="{{ product.url }}">{{ product.title }}</a></td><td>{{ product.metafields.custom.care | default: 'See product page' }}</td></tr>
+        {%- endfor -%}
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="care-tips">
+    <h2>Wearing it well</h2>
     <div class="two">
       <div class="panel">
         <h3>✅ What we build in</h3>
         <ul class="deets">
-          <li>Breakaway buckles on every collar</li>
           <li>Faces, ears and eyes always left clear</li>
+          <li>Velcro or breakaway fastenings — nothing that needs untying</li>
           <li>No wire, no hard plastic, no small parts that come loose</li>
           <li>Legs and shoulders free to move</li>
         </ul>
       </div>
       <div class="panel">
-        <h3>🧺 Keeping them looking new</h3>
-        <p>Most garments machine wash at 30°C and should be hang dried. Hats, faux fur and anything
-          foam-filled are spot clean or hand wash only.</p>
-        <p style="margin:0">Exact instructions are on every product page under <b>Materials &amp; care</b>.
-          Supervise your cat while they are wearing it.</p>
+        <h3>🎃 Dress-up moments</h3>
+        <p>Everything here is built for photos, parties and visits. Pop it on, get the shot, and take it off when you're done.</p>
+        <p style="margin:0">Supervise your cat while they are wearing it.</p>
       </div>
     </div>
   </section>
 
-  {%- if page.content != blank -%}
-    <section>{{ page.content }}</section>
-  {%- endif -%}
+  <section id="returns" style="padding-top:0">
+    <h2>Returns</h2>
+    <p style="max-width:62ch">{{ settings.returns_days }} days, worn or not. Tell us the size you tried and we'll sort the swap.</p>
+  </section>
+  {%- if page.content != blank -%}<section>{{ page.content }}</section>{%- endif -%}
 </div>
 {% schema %}
 {
   "name": "Fit & care page",
   "settings": [
-    { "type": "textarea", "id": "intro", "label": "Intro",
-      "default": "Almost every bad costume experience is a sizing problem. Two minutes with a tape measure fixes most of them." }
+    { "type": "collection", "id": "collection", "label": "Products to list (use the All collection)" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "One measurement covers almost everything we sell. Here's how to take it, and what every size means." },
+    { "type": "textarea", "id": "neck", "label": "Neck guidance", "default": "Wrap a soft tape around the neck where a collar sits and add two fingers of slack. That number is the neck size — it's what every size on this site is based on." },
+    { "type": "textarea", "id": "chest", "label": "Chest guidance", "default": "For the Spider Costume only: measure around the widest part of the chest, just behind the front legs." },
+    { "type": "textarea", "id": "between", "label": "Between sizes", "default": "Take the larger. A slightly loose costume gets worn; a tight one comes straight off." },
+    { "type": "textarea", "id": "rule", "label": "Two-finger rule", "default": "If you can slide two fingers under a collar, it's right. Tighter than that is too tight." }
   ]
 }
 {% endschema %}

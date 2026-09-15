@@ -28,7 +28,7 @@ Push as **unpublished** first and preview it before making it the live theme.
 | | |
 |---|---|
 | `layout/theme.liquid` | Document shell, fonts, skip link |
-| `sections/` | 17 sections — header, footer, hero, trust strip, category tiles, featured products, size finder, newsletter, plus `main-*` for product, collection, cart, page, search and collection list, and full FAQ and Fit & care page sections |
+| `sections/` | 17 sections — header, footer, hero, trust strip, category tiles, featured products, size finder, newsletter, plus `main-*` for product, collection, cart, page, search and collection list, a fit & why panel, and full FAQ and Fit & care page sections |
 | `snippets/product-card.liquid` | Product card with illustrated fallback |
 | `snippets/catwalk-fonts.liquid` | Self-hosted Fredoka + Nunito via `asset_url` |
 | `templates/` | JSON templates for every page type, plus `404.liquid` |
@@ -59,17 +59,23 @@ sections read whichever menus you pick in the editor.
 
 The FAQ ships with all ten questions pre-filled as editable blocks.
 
-**4. Product metafields** — all optional; the theme degrades gracefully without them.
-Create these under Settings → Custom data → Products, namespace **`custom`**:
+**4. Product metafields** — namespace **`custom`**, Settings → Custom data → Products. The
+theme degrades gracefully without them, but the product pages are built to show them:
 
 | Key | Type | Used for |
 |---|---|---|
-| `fit` | Single line text | The green fit pill — *"Close fit with stretch. Size up if between sizes."* |
-| `materials` | Single line text | Materials & care accordion |
-| `care` | Single line text | Materials & care accordion |
+| `fit` | Single line text | The green fit pill, and the one-size row on the Fit & care page |
+| `specs` | List of single line text | "What you get" bullets (falls back to the description) |
+| `box` | List of single line text | "In the box" accordion |
+| `care` | Single line text | Materials & care accordion, and the care table |
+| `size_notes` | Multi-line text | One line per variant, in variant order — shown under the size picker and in every size table (e.g. `neck 28cm / 11in · Cap 24cm`) |
 | `blurb` | Single line text | Short line under the title |
 | `badge` | Single line text | Card badge (e.g. `Bestseller`) |
-| `motif` | Single line text | Which illustration to use — see below |
+| `badge_uk` | True/false | Shows the "UK stock" badge |
+| `motif` | Single line text | Illustration fallback if a product has no photo |
+
+Sizes are ordinary Shopify **variants** (option `Size`: S / M / L). The launch catalogue and
+every value for these fields is in `../site/assets/data.js`.
 
 **5. Theme settings** — set the free-delivery threshold, delivery cost and returns window
 under Theme settings. These feed the product page table and the cart progress bar, so

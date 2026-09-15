@@ -38,67 +38,35 @@ existing one, and signing up through a preview link creates a real store.
 
 ---
 
-## 2. Starter catalogue
+## 2. The launch seven
 
-Fourteen SKUs across the three categories chosen, priced as an impulse-friendly ladder
-(most items £9–17) so a two-item order clears ~£25.
+The original fourteen-SKU draft was replaced by seven sourced, photographed, verified
+products. The site and the Shopify theme are built around exactly these.
 
-### Holiday & seasonal — the volume driver
-| Product | Price | Sizes |
-|---|---|---|
-| Pumpkin Hat | £9.99 | One size |
-| Bat Wings Harness | £12.99 | XS–L |
-| Santa Hat & Cape Set | £14.99 | XS–L |
-| Reindeer Antlers | £9.99 | One size |
-| Birthday Hat + Bandana Set | £8.99 | One size |
+| Product | Retail | Sizes | Supplier cost | Sold | Rating |
+|---|---|---|---|---|---|
+| **Bow Tie Collar** | £8.99 | One size / adjustable | $1.09 | 5,000+ | 4.8 |
+| **Bandana Collar** | £7.99 *(placeholder)* | S/M/L | $2.37 | 1,000+ | 4.7 |
+| **Lion Mane** | £11.99 | S/M/L | $4.20 | 700+ | 4.6 |
+| **Devil Bat Cape** | £10.99 | S/M/L | $4.54 | 1,000+ | 4.6 |
+| **Spider Costume** | £12.99 *(placeholder)* | S/M | $4.93 | 500+ | 4.6 |
+| **Pumpkin Hat & Ruffle Collar** | £9.99 *(placeholder)* | One size / adjustable | $6.48 | 77 | 4.6 |
+| **Santa Hat & Scarf Set** | £17.99 *(placeholder)* | One size / adjustable | $10.73 | 106 | 4.7 |
 
-### Cute & everyday — the year-round base
-| Product | Price | Sizes |
-|---|---|---|
-| Knitted Jumper | £16.99 | XS–L |
-| Reversible Bandana (2-pack) | £11.99 | S/M, L |
-| Bow Tie Collar | £8.99 | Adjustable |
-| Tiny Hoodie | £18.99 | XS–L |
-| Flower Collar | £9.99 | Adjustable |
+Bundles:
+- **Halloween Pair** — Devil Bat Cape + Spider Costume → £21.99 (from £23.98)
+- **Pumpkin Patch** — Pumpkin Hat & Ruffle Collar + Bow Tie Collar → £16.99 (from £18.98)
+- **First Costume Kit** — Bow Tie Collar + Bandana Collar → £14.99 (from £16.98)
+- **Festive Pair** — Santa Hat & Scarf Set + Bow Tie Collar → £24.99 (from £26.98)
 
-### Novelty & funny — the shareable stuff
-| Product | Price | Sizes |
-|---|---|---|
-| Lion Mane | £11.99 | S/M, L |
-| Dinosaur Hoodie | £16.99 | XS–L |
-| Shark Costume | £15.99 | XS–L |
-| Superhero Cape | £10.99 | One size |
+Full record with supplier IDs: `site/assets/data.js`. Sourcing history: `sourcing.md`.
 
-### Bundles (raise average order value)
-| Bundle | Contents | Price |
-|---|---|---|
-| Halloween Kit | Pumpkin hat + bat wings + bandana | £27.99 |
-| First Costume Kit | Bandana 2-pack + bow tie collar | £17.99 |
+## 3. Sizing
 
-> Only advertise a bundle as a saving if it genuinely undercuts buying the items
-> separately. Check the arithmetic before publishing — a bundle that "saves" nothing
-> is a live misleading-price problem.
-
----
-
-## 3. Sizing chart
-
-Cat costume returns are overwhelmingly a sizing problem. Put this on **every** product
-page, not just a linked size guide, and ask for chest girth — it is the measurement
-that actually decides fit.
-
-| Size | Neck | Chest girth | Back length | Typical cat |
-|---|---|---|---|---|
-| **XS** | 18–22 cm | 28–33 cm | 20 cm | Kittens, small adults (2–3 kg) |
-| **S** | 22–26 cm | 33–38 cm | 25 cm | Average adult (3–4 kg) |
-| **M** | 26–30 cm | 38–43 cm | 30 cm | Large adult (4–5.5 kg) |
-| **L** | 30–34 cm | 43–50 cm | 35 cm | Maine Coon, Ragdoll (5.5–7 kg) |
-
-Measure the chest at its widest point, just behind the front legs, and add two fingers'
-slack. **Size up when a cat falls between sizes** — a tight costume is the single most
-common cause of a bad review.
-
----
+Everything in the launch range is a collar, a hat, a mane or a short cape, so sizing is a
+**neck measurement**, not chest girth. The lion mane, bat cape, spider and bandana collar
+come in S/M/L (spider S/M); the rest adjust. Every size, read from each product's own size
+chart, is on the site's Fit & care page.
 
 ## 4. Welfare copy — get this right before launch
 

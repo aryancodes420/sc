@@ -1,0 +1,24 @@
+<section>
+  <div class="wrap two">
+    <div class="panel">
+      <h3>{{ section.settings.fit_heading }}</h3>
+      {{ section.settings.fit_body }}
+    </div>
+    <div class="panel">
+      <h3>{{ section.settings.why_heading }}</h3>
+      {{ section.settings.why_body }}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Fit & why",
+  "settings": [
+    { "type": "text", "id": "fit_heading", "label": "Fit heading", "default": "📏 Getting the size right" },
+    { "type": "richtext", "id": "fit_body", "label": "Fit body", "default": "<p>Every size on this site is a <strong>neck measurement</strong>. Wrap a soft tape around the neck where a collar sits, add two fingers of slack, and that's your number.</p><p>Collars adjust. Hats and manes come in S/M/L by neck. The spider needs a chest measurement too.</p>" },
+    { "type": "text", "id": "why_heading", "label": "Why heading", "default": "🎀 Why Catwalk Club" },
+    { "type": "richtext", "id": "why_body", "label": "Why body", "default": "<p><strong>Built for cats.</strong> Sized from cat neck measurements, with faces, eyes and ears always left clear.</p><p><strong>Real photos, real specs.</strong> What's in the box, what it's made of, how to wash it — on every page.</p><p><strong>Fast, free delivery.</strong> Free UK delivery over £30, and 30 days to change your mind.</p>" }
+  ],
+  "presets": [ { "name": "Fit & why" } ]
+}
+{% endschema %}

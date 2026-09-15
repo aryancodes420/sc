@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
 <title>Fit &amp; care — Catwalk Club</title>
-<meta name="description" content="How to measure a cat for a costume, our full size chart in cm and inches, and care guidance.">
+<meta name="description" content="How to measure your cat's neck, every size we sell in one table, and how to wash each piece.">
 </head>
 <body>
-<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway fastenings on every collar we sell</div>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
 <header class="site">
   <div class="wrap nav">
     <a class="logo" href="index.html">
@@ -35,106 +35,90 @@
 <main class="wrap">
   <section style="padding-bottom:26px">
     <h1 style="margin-bottom:.15em">Fit &amp; care</h1>
-    <p class="muted" style="font-size:1.1rem;max-width:60ch">Almost every bad costume experience is a
-      sizing problem. Two minutes with a tape measure fixes most of them.</p>
+    <p class="muted" style="font-size:1.1rem;max-width:60ch">One measurement covers almost everything we sell.
+      Here's how to take it, and what every size means.</p>
   </section>
 
   <section style="padding-top:0">
-    <div class="finder" id="finder">
-      <h2 style="margin-bottom:.2em">Size finder</h2>
-      <p class="muted" style="margin:0">Enter your cat's chest girth and we'll tell you which size to order.</p>
-      <div class="row">
-        <input type="number" inputmode="decimal" min="15" max="70" step="0.5" placeholder="Chest in cm" aria-label="Chest girth in centimetres">
-        <button class="btn btn-mint" type="button">Size me up</button>
-      </div>
-      <div class="out muted">Pop a chest measurement in and we'll size it.</div>
-      <div class="presets"></div>
-    </div>
-  </section>
-
-  <section style="padding-top:34px">
     <h2>How to measure</h2>
     <div class="two">
       <div class="panel">
-        <h3>1 · Chest girth <span class="small muted">— the important one</span></h3>
-        <p>Wrap a soft tape all the way around the chest at its widest point, just behind the front legs.
-          Snug, not tight — you should get two fingers underneath.</p>
-        <h3>2 · Neck</h3>
-        <p>Around the base of the neck, where a collar would sit.</p>
-        <h3>3 · Back length</h3>
-        <p>Base of the neck to the base of the tail. Only matters for jumpers and hoodies.</p>
+        <h3>1 · Neck <span class="small muted">— the one that matters</span></h3>
+        <p id="g-neck"></p>
+        <h3>2 · Chest <span class="small muted">— Spider Costume only</span></h3>
+        <p id="g-chest"></p>
       </div>
       <div class="panel">
         <h3>No tape measure?</h3>
         <p>Use a piece of string, mark it, then hold it against a ruler. A phone charging cable works too.</p>
         <h3>Between two sizes?</h3>
-        <p><b>Always size up.</b> A costume that's slightly loose gets worn. One that's slightly tight
-          gets fought off in ten seconds and returned.</p>
-        <h3>Long-haired cat?</h3>
-        <p>Measure to the body, not the floof — press the tape gently through the coat.</p>
+        <p id="g-between"></p>
+        <h3>The two-finger rule</h3>
+        <p id="g-rule" style="margin:0"></p>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>Size chart</h2>
-    <div id="rows"></div>
-    <p class="small muted">Bandanas, bow ties and flower collars tie or adjust, so they fit almost any cat
-      without measuring.</p>
+    <h2>Every size we sell</h2>
+    <p class="muted">Read straight from each product's own size chart.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Product</th><th>Sizing</th><th>Neck</th><th>Notes</th></tr></thead>
+      <tbody id="sizes"></tbody>
+    </table></div>
   </section>
 
-  <section id="care">
-    <h2>Fit &amp; care</h2>
+  <section>
+    <h2>Care, piece by piece</h2>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Product</th><th>How to wash it</th></tr></thead>
+      <tbody id="care"></tbody>
+    </table></div>
+  </section>
+
+  <section id="care-tips">
+    <h2>Wearing it well</h2>
     <div class="two">
       <div class="panel">
         <h3>✅ What we build in</h3>
         <ul class="deets">
-          <li>Breakaway buckles on every collar</li>
           <li>Faces, ears and eyes always left clear</li>
+          <li>Velcro or breakaway fastenings — nothing that needs untying</li>
           <li>No wire, no hard plastic, no small parts that come loose</li>
           <li>Legs and shoulders free to move</li>
         </ul>
       </div>
       <div class="panel">
-        <h3>🧺 Keeping them looking new</h3>
-        <p>Most garments machine wash at 30°C and should be hang dried. Hats, faux fur and
-          anything foam-filled are spot clean or hand wash only.</p>
-        <p style="margin:0">Exact instructions are on every product page under
-          <b>Materials &amp; care</b>. Supervise your cat while they are wearing it.</p>
+        <h3>🎃 Dress-up moments</h3>
+        <p>Everything here is built for photos, parties and visits. Pop it on, get the shot, and take it off when you're done.</p>
+        <p style="margin:0">Supervise your cat while they are wearing it.</p>
       </div>
     </div>
   </section>
 
   <section id="returns" style="padding-top:0">
     <h2>Returns</h2>
-    <p style="max-width:62ch">Thirty days, worn or not. Tell us the size you tried and we'll sort
-      the swap.</p>
+    <p style="max-width:62ch">Thirty days, worn or not. Tell us the size you tried and we'll sort the swap.</p>
     <p class="small muted">Placeholder policy. Confirm the real terms and write proper legal pages before trading.</p>
   </section>
 </main>
 <footer class="site">
   <div class="wrap">
     <div class="fgrid">
-      <div>
-        <h4>Catwalk Club</h4>
-        <p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p>
-      </div>
+      <div><h4>Catwalk Club</h4><p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p></div>
       <div><h4>Shop</h4><ul>
-        <li><a href="shop.html?cat=holiday">Holiday &amp; seasonal</a></li>
-        <li><a href="shop.html?cat=everyday">Cute &amp; everyday</a></li>
-        <li><a href="shop.html?cat=novelty">Novelty &amp; funny</a></li>
+        <li><a href="shop.html?cat=everyday">Everyday</a></li>
+        <li><a href="shop.html?cat=halloween">Halloween</a></li>
+        <li><a href="shop.html?cat=christmas">Christmas</a></li>
         <li><a href="shop.html?cat=bundle">Bundles</a></li>
       </ul></div>
       <div><h4>Help</h4><ul>
-        <li><a href="sizing.html">Size guide</a></li>
-        <li><a href="sizing.html#care">Fit &amp; care</a></li>
+        <li><a href="sizing.html">Fit &amp; care</a></li>
+        <li><a href="faq.html">FAQ</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Refund policy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
       </ul></div>
     </div>
     <div class="legal">
@@ -146,9 +130,23 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  mountSizeTable(document.getElementById("rows"));
-  wireFinder(document.getElementById("finder"));
+  document.getElementById("g-neck").textContent = FIT_GUIDE.neck;
+  document.getElementById("g-chest").textContent = FIT_GUIDE.chest;
+  document.getElementById("g-between").textContent = FIT_GUIDE.between;
+  document.getElementById("g-rule").textContent = FIT_GUIDE.rule;
+  var items = PRODUCTS.filter(function(p){ return !p.hold && p.cat !== "bundle"; });
+  document.getElementById("sizes").innerHTML = items.map(function(p){
+    if(p.sizes){
+      return p.sizes.map(function(s,i){
+        return '<tr>' + (i===0 ? '<td class="sz" rowspan="' + p.sizes.length + '"><a href="product.html?id=' + p.id + '">' + p.name + '</a></td>' : '') +
+          '<td>' + s.label + '</td><td><b>' + s.neck + '</b></td><td class="muted">' + s.note + '</td></tr>';
+      }).join("");
+    }
+    return '<tr><td class="sz"><a href="product.html?id=' + p.id + '">' + p.name + '</a></td><td>One size</td><td colspan="2">' + p.fit + '</td></tr>';
+  }).join("");
+  document.getElementById("care").innerHTML = items.map(function(p){
+    return '<tr><td class="sz"><a href="product.html?id=' + p.id + '">' + p.name + '</a></td><td>' + p.care + '</td></tr>';
+  }).join("");
 </script>
-
 </body>
 </html>

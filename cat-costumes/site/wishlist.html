@@ -7,10 +7,9 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
 <title>Saved — Catwalk Club</title>
-<meta name="description" content="Costumes you have saved for later.">
 </head>
 <body>
-<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway fastenings on every collar we sell</div>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
 <header class="site">
   <div class="wrap nav">
     <a class="logo" href="index.html">
@@ -42,26 +41,20 @@
 <footer class="site">
   <div class="wrap">
     <div class="fgrid">
-      <div>
-        <h4>Catwalk Club</h4>
-        <p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p>
-      </div>
+      <div><h4>Catwalk Club</h4><p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p></div>
       <div><h4>Shop</h4><ul>
-        <li><a href="shop.html?cat=holiday">Holiday &amp; seasonal</a></li>
-        <li><a href="shop.html?cat=everyday">Cute &amp; everyday</a></li>
-        <li><a href="shop.html?cat=novelty">Novelty &amp; funny</a></li>
+        <li><a href="shop.html?cat=everyday">Everyday</a></li>
+        <li><a href="shop.html?cat=halloween">Halloween</a></li>
+        <li><a href="shop.html?cat=christmas">Christmas</a></li>
         <li><a href="shop.html?cat=bundle">Bundles</a></li>
       </ul></div>
       <div><h4>Help</h4><ul>
-        <li><a href="sizing.html">Size guide</a></li>
-        <li><a href="sizing.html#care">Fit &amp; care</a></li>
+        <li><a href="sizing.html">Fit &amp; care</a></li>
+        <li><a href="faq.html">FAQ</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Refund policy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
       </ul></div>
     </div>
     <div class="legal">
@@ -75,20 +68,16 @@
 <script>
   var host = document.getElementById("host");
   function render(){
-    var list = getWish().map(byId).filter(Boolean);
+    var list = getWish().map(byId).filter(function(p){ return p && !p.hold; });
     if(!list.length){
-      host.innerHTML = '<div class="empty"><p style="font-size:3rem;margin:0">\u2661</p>' +
-        '<h2>Nothing saved yet</h2>' +
-        '<p class="muted">Tap the heart on any costume to keep it here.</p>' +
-        '<a class="btn" href="shop.html">Browse the shop</a></div>';
+      host.innerHTML = '<div class="empty"><p style="font-size:3rem;margin:0">♡</p><h2>Nothing saved yet</h2>' +
+        '<p class="muted">Tap the heart on any costume to keep it here.</p><a class="btn" href="shop.html">Browse the shop</a></div>';
       return;
     }
     host.innerHTML = '<div class="grid-p" id="g"></div>';
     renderGrid(document.getElementById("g"), list);
   }
-  host.addEventListener("click", function(e){
-    if(e.target.closest("[data-wish]")) setTimeout(render, 0);
-  });
+  host.addEventListener("click", function(e){ if(e.target.closest("[data-wish]")) setTimeout(render, 0); });
   render();
 </script>
 </body>

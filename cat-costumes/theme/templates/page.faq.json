@@ -7,70 +7,70 @@
           "type": "qa",
           "settings": {
             "question": "How do I know what size to order?",
-            "answer": "<p>Measure the chest at its widest point, just behind the front legs, and add two fingers of slack. That single number predicts fit better than weight or breed. Our size finder turns it into a size in seconds.</p>"
+            "answer": "<p>Measure the neck: wrap a soft tape where a collar sits and add two fingers of slack. The Bow Tie Collar, Pumpkin set and Santa set adjust to fit. The Lion Mane, Devil Bat Cape, Spider Costume and Bandana Collar come in sizes, and every size is a neck measurement.</p>"
           }
         },
         "q2": {
           "type": "qa",
           "settings": {
-            "question": "What if they're between two sizes?",
-            "answer": "<p>Size up, every time. A slightly loose costume sits comfortably and looks better in photos; a slightly tight one never gets worn twice.</p>"
+            "question": "What if my cat's between two sizes?",
+            "answer": "<p>Take the larger one. A slightly loose costume sits comfortably and photographs better; a tight one comes straight off.</p>"
           }
         },
         "q3": {
           "type": "qa",
           "settings": {
-            "question": "No tape measure — can I still order?",
-            "answer": "<p>Yes. The size finder has seven one-tap breed presets, from kitten through to Maine Coon. A piece of string held against a ruler works too.</p>"
+            "question": "Which one should I start with?",
+            "answer": "<p>The Bow Tie Collar — it adjusts, nothing goes over the head, and it's our bestseller. The First Costume Kit pairs it with the Bandana Collar for less than buying both.</p>"
           }
         },
         "q4": {
           "type": "qa",
           "settings": {
-            "question": "What makes them safe?",
-            "answer": "<p>Every collar uses a breakaway buckle that separates under pressure. Nothing covers the face, ears or eyes, nothing restricts the legs, and there are no wires or small loose parts.</p>"
+            "question": "Do the hats stay on?",
+            "answer": "<p>The Pumpkin hat has an adjustable chin strap. The Lion Mane and Santa hat fasten with velcro under the chin. None of them rely on balance.</p>"
           }
         },
         "q5": {
           "type": "qa",
           "settings": {
-            "question": "How long does delivery take?",
-            "answer": "<p>UK standard tracked delivery is 2–4 working days, and free on orders over £30.</p>"
+            "question": "Is anything covering the face?",
+            "answer": "<p>No. Every piece leaves the face, eyes and ears clear.</p>"
           }
         },
         "q6": {
           "type": "qa",
           "settings": {
-            "question": "How do I wash them?",
-            "answer": "<p>Most garments machine wash at 30°C and should be hang dried. Hats, faux fur and anything foam-filled are spot clean or hand wash only. Exact instructions are on every product page.</p>"
+            "question": "How long does delivery take?",
+            "answer": "<p>UK standard tracked delivery is 2–4 working days at £3.95, and free on orders over £30. The Bandana Collar ships from UK stock.</p>"
           }
         },
         "q7": {
+          "type": "qa",
+          "settings": {
+            "question": "How do I wash them?",
+            "answer": "<p>Satin and faux fur are hand-wash cold, the Spider Costume is spot-clean only, the Bandana Collar goes in the machine. Every product page says exactly what to do.</p>"
+          }
+        },
+        "q8": {
           "type": "qa",
           "settings": {
             "question": "Can I return it?",
             "answer": "<p>Yes — thirty days, worn or not. Tell us the size you tried and we'll sort the swap.</p>"
           }
         },
-        "q8": {
-          "type": "qa",
-          "settings": {
-            "question": "Which costume should I start with?",
-            "answer": "<p>A bandana or a bow tie collar. Both tie or adjust, so there's no sizing to get wrong, and they look great in photos.</p>"
-          }
-        },
         "q9": {
           "type": "qa",
           "settings": {
             "question": "When should I order for Halloween?",
-            "answer": "<p>Earlier than you think. Pet costume buying concentrates in the two weeks before 31 October and popular sizes go first. Order by mid-October to be safe.</p>"
+            "answer": "<p>Order by mid-October. Pet costume buying concentrates in the two weeks before 31 October and popular sizes go first.</p>"
           }
         },
         "q10": {
           "type": "qa",
           "settings": {
             "question": "Do you ship outside the UK?",
-            "answer": "<p>Not yet — UK only for now. Join the mailing list and we'll let you know when that changes.</p>"
+            "answer": "<p>Not yet — UK only for now.</p>"
           }
         }
       },

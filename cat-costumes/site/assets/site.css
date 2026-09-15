@@ -312,3 +312,9 @@ footer a:hover{color:var(--pink-dk)}
   background:#fff;border:2px solid var(--line);border-radius:var(--r-pill);
   padding:.4em .9em;font-size:.82rem;font-weight:700;color:var(--muted)
 }
+
+/* ---------- product card wrapper (heart anchors to its own card) ---------- */
+.pcard-wrap{display:flex;position:relative}
+.pcard-wrap > .pcard{flex:1}
+.pcard .art img,.gallery .main img,.thumbs img,.heroart img,.cartrow .art img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery .main img,.heroart img{height:auto;aspect-ratio:1/1}

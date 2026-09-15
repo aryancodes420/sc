@@ -6,11 +6,11 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-<title>Shop all cat costumes — Catwalk Club</title>
-<meta name="description" content="Every cat costume we make: Halloween, Christmas, everyday knitwear, novelty and bundles.">
+<title>Shop — Catwalk Club</title>
+<meta name="description" content="All seven Catwalk Club cat costumes and collars, plus bundles.">
 </head>
 <body>
-<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway fastenings on every collar we sell</div>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
 <header class="site">
   <div class="wrap nav">
     <a class="logo" href="index.html">
@@ -36,9 +36,9 @@
   <section style="padding-bottom:24px">
     <div class="wrap">
       <h1 style="margin-bottom:.15em">Everything we make</h1>
-      <p class="muted" style="font-size:1.08rem">Sixteen ways to make your cat the best-dressed on the street.</p>
+      <p class="muted" style="font-size:1.08rem">Seven pieces and four bundles. All sized for cats.</p>
       <div class="toolbar">
-        <input type="search" id="q" placeholder="Search costumes…" aria-label="Search products">
+        <input type="search" id="q" placeholder="Search…" aria-label="Search products">
         <select id="sort" aria-label="Sort products">
           <option value="featured">Featured</option>
           <option value="low">Price: low to high</option>
@@ -48,33 +48,27 @@
       </div>
       <div class="filters" id="filters"></div>
       <div class="grid-p" id="grid"></div>
-      <p id="none" class="empty muted" hidden>Nothing in that range yet.</p>
+      <p id="none" class="empty muted" hidden>Nothing matches that.</p>
     </div>
   </section>
 </main>
 <footer class="site">
   <div class="wrap">
     <div class="fgrid">
-      <div>
-        <h4>Catwalk Club</h4>
-        <p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p>
-      </div>
+      <div><h4>Catwalk Club</h4><p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p></div>
       <div><h4>Shop</h4><ul>
-        <li><a href="shop.html?cat=holiday">Holiday &amp; seasonal</a></li>
-        <li><a href="shop.html?cat=everyday">Cute &amp; everyday</a></li>
-        <li><a href="shop.html?cat=novelty">Novelty &amp; funny</a></li>
+        <li><a href="shop.html?cat=everyday">Everyday</a></li>
+        <li><a href="shop.html?cat=halloween">Halloween</a></li>
+        <li><a href="shop.html?cat=christmas">Christmas</a></li>
         <li><a href="shop.html?cat=bundle">Bundles</a></li>
       </ul></div>
       <div><h4>Help</h4><ul>
-        <li><a href="sizing.html">Size guide</a></li>
-        <li><a href="sizing.html#care">Fit &amp; care</a></li>
+        <li><a href="sizing.html">Fit &amp; care</a></li>
+        <li><a href="faq.html">FAQ</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Refund policy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
       </ul></div>
     </div>
     <div class="legal">
@@ -86,38 +80,24 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  var grid = document.getElementById("grid");
-  var filters = document.getElementById("filters");
-  var none = document.getElementById("none");
-  var all = [{id:"all",label:"Everything"}].concat(CATEGORIES.map(function(c){return {id:c.id,label:c.label};}));
+  var grid = document.getElementById("grid"), filters = document.getElementById("filters"), none = document.getElementById("none");
+  var qEl = document.getElementById("q"), sortEl = document.getElementById("sort");
+  var all = [{id:"all",label:"Everything"}].concat(CATEGORIES.map(function(c){ return {id:c.id,label:c.label}; }));
   var current = new URLSearchParams(location.search).get("cat") || "all";
-
   filters.innerHTML = all.map(function(f){
-    return '<button class="chip" type="button" data-f="' + f.id + '" aria-pressed="' +
-      (f.id === current) + '">' + f.label + '</button>';
+    return '<button class="chip" type="button" data-f="' + f.id + '" aria-pressed="' + (f.id === current) + '">' + f.label + '</button>';
   }).join("");
-
-  var qEl = document.getElementById("q");
-  var sortEl = document.getElementById("sort");
-
   function paint(){
-    var list = current === "all" ? PRODUCTS : PRODUCTS.filter(function(p){ return p.cat === current; });
+    var list = PRODUCTS.filter(function(p){ return !p.hold && (current === "all" || p.cat === current); });
     var term = (qEl.value || "").trim().toLowerCase();
-    if(term){
-      list = list.filter(function(p){
-        return (p.name + " " + p.blurb + " " + p.cat + " " + (p.badge || "")).toLowerCase().indexOf(term) >= 0;
-      });
-    }
+    if(term) list = list.filter(function(p){ return (p.name + " " + p.blurb + " " + p.cat + " " + (p.badge||"") + " " + p.specs.join(" ")).toLowerCase().indexOf(term) >= 0; });
     var s = sortEl.value;
     if(s === "low")  list = list.slice().sort(function(a,b){ return a.price - b.price; });
     if(s === "high") list = list.slice().sort(function(a,b){ return b.price - a.price; });
     if(s === "az")   list = list.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
     renderGrid(grid, list);
     none.hidden = list.length > 0;
-    none.textContent = term ? 'Nothing matches "' + qEl.value + '".' : "Nothing in that range yet.";
-    filters.querySelectorAll(".chip").forEach(function(b){
-      b.setAttribute("aria-pressed", String(b.dataset.f === current));
-    });
+    filters.querySelectorAll(".chip").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.f === current)); });
   }
   filters.addEventListener("click", function(e){
     var b = e.target.closest(".chip"); if(!b) return;
@@ -125,10 +105,8 @@
     history.replaceState(null, "", current === "all" ? "shop.html" : "shop.html?cat=" + current);
     paint();
   });
-  qEl.addEventListener("input", paint);
-  sortEl.addEventListener("change", paint);
+  qEl.addEventListener("input", paint); sortEl.addEventListener("change", paint);
   paint();
 </script>
-
 </body>
 </html>

@@ -292,3 +292,43 @@ https://www.aliexpress.com/item/3256807081347725.html (pumpkin hat + scarf set, 
 · https://www.aliexpress.com/item/3256812938477702.html ($8.15, 42 sold).
 **Suggested:** swap Spider → Pumpkin, or add Pumpkin as a seventh. Witch and vampire also
 out-signal spider if a second swap is wanted.
+
+
+---
+
+## Corrections from the photo review (15 Sep 2026)
+
+Pulling all six listing photos per product and reading them changed the record:
+
+- **Santa Hat & Scarf 3256807594807087 — REMOVED.** Photos show finger-puppet / bottle-top
+  sized hats sold in 20-packs. Not a cat costume. Replaced by
+  **3256809759699003** (Santa hat + scarf set, soft polycotton, adjustable velcro,
+  photographed on cats) — $10.73, 106 sold, ★4.7, Choice. Retail placeholder £17.99.
+- **Sizes exist on four products** that the titles didn't mention: lion mane S/M/L (neck
+  28/32/38 cm, velcro), bat cape S/M/L (devil-horn hood included), spider S/M (neck 20–32 /
+  30–40 cm, felt body, velcro), bandana collar S/M/L (neck 24–40 / 29–45 / 33–55 cm).
+- **The bandana is a buckle-collar bandana photographed on dogs**, not a tie-on. Kept for
+  UK-stock dispatch; consider a cat-specific bandana later.
+- **The pumpkin "scarf" is a tulle ruffle collar** (neck 25–40 cm) with a chin-strap hat
+  (15 × 12 cm). The same listing sells a Christmas-tree variant.
+
+### Confirm on the listings before the bulk order
+- **Bow Tie Collar** — Exact adjustable neck range (cm)
+- **Bow Tie Collar** — Which plaid colourways to stock
+- **Bandana Collar** — Whether the buckle is a breakaway type — listing photos show a standard side-release buckle
+- **Bandana Collar** — Listing photos are of dogs; consider a cat-specific bandana later
+- **Lion Mane** — Colour options (listing shows a natural tan)
+- **Devil Bat Cape** — Size-chart figures were read from a small photo — confirm S/M/L length, width and neck on the listing before printing them
+- **Pumpkin Hat & Ruffle Collar** — The same listing offers a Christmas-tree hat with red/green ruffle — a candidate for the Christmas slot
+- **Santa Hat & Scarf Set** — Hat and scarf dimensions (cm)
+
+### Final lineup as built
+| Product | Retail | Sizes | Supplier cost | Sold | Rating |
+|---|---|---|---|---|---|
+| **Bow Tie Collar** | £8.99 | One size / adjustable | $1.09 | 5,000+ | 4.8 |
+| **Bandana Collar** | £7.99 *(placeholder)* | S/M/L | $2.37 | 1,000+ | 4.7 |
+| **Lion Mane** | £11.99 | S/M/L | $4.20 | 700+ | 4.6 |
+| **Devil Bat Cape** | £10.99 | S/M/L | $4.54 | 1,000+ | 4.6 |
+| **Spider Costume** | £12.99 *(placeholder)* | S/M | $4.93 | 500+ | 4.6 |
+| **Pumpkin Hat & Ruffle Collar** | £9.99 *(placeholder)* | One size / adjustable | $6.48 | 77 | 4.6 |
+| **Santa Hat & Scarf Set** | £17.99 *(placeholder)* | One size / adjustable | $10.73 | 106 | 4.7 |

@@ -1,229 +1,225 @@
 /* Catwalk Club — catalogue.
-   Prices in GBP. Placeholder pricing: replace with landed cost + margin before trading. */
+   Every `specs` bullet and every size figure below was read from the supplier listing's
+   own title or its product photos (size-chart images). Nothing is invented. Anything only
+   the listing page can confirm is under `confirm` — it is never shown to customers.
 
-const SIZE_SETS = {
-  full:       ["XS", "S", "M", "L"],
-  twoWay:     ["S/M", "L"],
-  oneSize:    ["One size"],
-  adjustable: ["Adjustable"]
-};
+   `sizes` is present only where the listing sells sizes; the value is what the customer
+   picks. Retail prices are placeholders pending the pricing decision. `source` is the
+   supplier record and is never rendered. Items with `hold: true` are not shown. */
 
 const PRODUCTS = [
-  /* ---------- Holiday & seasonal ---------- */
+  /* ---------- Everyday ---------- */
   {
-    id: "pumpkin-hat", name: "Pumpkin Hat", price: 9.99, cat: "holiday",
-    motif: "pumpkin", sizes: SIZE_SETS.oneSize, badge: "Halloween",
-    blurb: "A soft little pumpkin that sits between the ears on a chin strap.",
-    fit: "Sits on top of the head. Adjustable strap.", care: "Spot clean only. Do not machine wash.", materials: "Brushed polyester felt, cotton lining",
-    details: [
-      "Elasticated chin strap with a breakaway clasp",
-      "Brushed felt outer, cotton lining",
-      "Ears stay completely free"
-    ]
-  },
-  {
-    id: "bat-wings", name: "Bat Wings Harness", price: 12.99, cat: "holiday",
-    motif: "bat", sizes: SIZE_SETS.full, badge: "Halloween",
-    blurb: "Wings on an adjustable harness, so nothing pulls on the neck.",
-    fit: "Loose fit over the shoulders. No stretch.", care: "Machine wash 30°C. Hang dry.", materials: "Polyester wing panels, nylon webbing straps",
-    details: [
-      "Adjustable chest and belly straps",
-      "Wings are stitched flat — no wire",
-      "Legs and shoulders unrestricted"
-    ]
-  },
-  {
-    id: "santa-set", name: "Santa Hat & Cape Set", price: 14.99, cat: "holiday",
-    motif: "santa", sizes: SIZE_SETS.full, badge: "Christmas",
-    blurb: "The full Father Christmas, in two pieces you can use separately.",
-    fit: "Relaxed fit. Slight stretch in the cape.", care: "Machine wash 30°C. Hang dry. Do not bleach.", materials: "Polyester plush, cotton-blend trim",
-    details: [
-      "Hat and cape sold together, wearable apart",
-      "Velcro cape fastening that pulls free under pressure",
-      "Machine washable at 30°C"
-    ]
-  },
-  {
-    id: "antlers", name: "Reindeer Antlers", price: 9.99, cat: "holiday",
-    motif: "antlers", sizes: SIZE_SETS.oneSize, badge: "Christmas",
-    blurb: "Squashy fabric antlers. No hard plastic anywhere near the head.",
-    fit: "Sits between the ears. Adjustable strap.", care: "Spot clean only.", materials: "Foam-filled polyester",
-    details: [
-      "Foam-filled fabric antlers",
-      "Elasticated strap, breakaway clasp",
-      "Weighs under 30g"
-    ]
-  },
-  {
-    id: "birthday-set", name: "Birthday Hat + Bandana Set", price: 8.99, cat: "holiday",
-    motif: "party", sizes: SIZE_SETS.oneSize, badge: "Gift",
-    blurb: "A cone hat and matching bandana for the birthday photo.",
-    fit: "Hat adjusts; bandana ties to fit.", care: "Bandana: machine wash 30°C. Hat: spot clean.", materials: "Cotton bandana, card-free fabric cone",
-    details: [
-      "Two pieces, one price",
-      "Bandana ties — no collar needed",
-      "Reusable, not paper"
-    ]
-  },
-
-  /* ---------- Cute & everyday ---------- */
-  {
-    id: "knit-jumper", name: "Knitted Jumper", price: 16.99, cat: "everyday",
-    motif: "jumper", sizes: SIZE_SETS.full, badge: "Bestseller",
-    blurb: "A proper little jumper for cats who feel the cold.",
-    fit: "Close fit with stretch. Size up if between sizes.", care: "Machine wash 30°C. Hang dry. Do not tumble dry.", materials: "60% acrylic, 40% cotton knit",
-    details: [
-      "Soft acrylic-cotton knit, no itch",
-      "Wide neck opening, stretchy ribbed cuffs",
-      "Cut short at the belly to keep litter trips easy"
-    ]
-  },
-  {
-    id: "bandana-2pack", name: "Reversible Bandana (2-pack)", price: 11.99, cat: "everyday",
-    motif: "bandana", sizes: SIZE_SETS.twoWay,
-    blurb: "Four looks in two bandanas — each one is a different print per side.",
-    fit: "Ties to fit — no sizing needed.", care: "Machine wash 40°C. Tumble dry low.", materials: "100% cotton, double-sided print",
-    details: [
-      "100% cotton, double-sided prints",
-      "Ties to fit, so no sizing guesswork",
-      "Washes without fading"
-    ]
-  },
-  {
-    id: "bow-tie", name: "Bow Tie Collar", price: 8.99, cat: "everyday",
-    motif: "bowtie", sizes: SIZE_SETS.adjustable,
-    blurb: "A smart bow on a safety collar that releases under pressure.",
-    fit: "Adjustable 20–30cm. Breakaway buckle.", care: "Spot clean. Bow detaches for washing.", materials: "Polyester bow, nylon collar webbing",
-    details: [
-      "Breakaway safety buckle",
-      "Bow detaches from the collar",
-      "Adjustable 20–30cm"
-    ]
-  },
-  {
-    id: "tiny-hoodie", name: "Tiny Hoodie", price: 18.99, cat: "everyday",
-    motif: "hoodie", sizes: SIZE_SETS.full,
-    blurb: "A hoodie that actually fits a cat's shape, hood optional.",
-    fit: "Relaxed fit with stretch. Harness slot at the back.", care: "Machine wash 30°C. Hang dry.", materials: "Brushed cotton-blend fleece",
-    details: [
-      "Brushed fleece inner",
-      "Hood sits back off the ears when down",
-      "Harness slot at the back"
-    ]
-  },
-  {
-    id: "flower-collar", name: "Flower Collar", price: 9.99, cat: "everyday",
-    motif: "flower", sizes: SIZE_SETS.adjustable,
-    blurb: "A ring of soft fabric petals. Ridiculously photogenic.",
-    fit: "Adjustable 20–30cm. Breakaway buckle.", care: "Hand wash cold. Reshape petals damp.", materials: "Polyester petals, nylon webbing",
-    details: [
-      "Fabric petals, no wire or plastic",
-      "Breakaway safety buckle",
-      "Adjustable 20–30cm"
-    ]
-  },
-
-  /* ---------- Novelty & funny ---------- */
-  {
-    id: "lion-mane", name: "Lion Mane", price: 11.99, cat: "novelty",
-    motif: "mane", sizes: SIZE_SETS.twoWay, badge: "Bestseller",
-    blurb: "The classic, and still the best. Slips over the head in one easy motion.",
-    fit: "Stretch ring, pulls on. Very forgiving fit.", care: "Hand wash cold. Air dry flat.", materials: "Polyester faux fur on elastic band",
-    details: [
-      "Stretch fabric ring, pulls on and off",
-      "Ears and eyes stay clear",
-      "Two sizes, both adjustable"
-    ]
-  },
-  {
-    id: "dino-hoodie", name: "Dinosaur Hoodie", price: 16.99, cat: "novelty",
-    motif: "dino", sizes: SIZE_SETS.full,
-    blurb: "Soft spines down the back, hood with little dinosaur eyes.",
-    fit: "Relaxed fit. Hood folds back.", care: "Machine wash 30°C. Hang dry.", materials: "Polyester fleece, stitched fabric spines",
-    details: [
-      "Fleece body with stitched fabric spines",
-      "Hood pushes back without removing the costume",
-      "Machine washable at 30°C"
-    ]
-  },
-  {
-    id: "shark", name: "Shark Costume", price: 15.99, cat: "novelty",
-    motif: "shark", sizes: SIZE_SETS.full,
-    blurb: "Your cat, but a shark. The fin stands up on its own.",
-    fit: "Loose fit, open belly. Adjustable side straps.", care: "Machine wash 30°C. Hang dry. Fin holds shape.", materials: "Polyester fleece, padded fin",
-    details: [
-      "Padded fin holds its shape",
-      "Open belly, adjustable side straps",
-      "Face completely uncovered"
-    ]
-  },
-  {
-    id: "cape", name: "Superhero Cape", price: 10.99, cat: "novelty",
-    motif: "cape", sizes: SIZE_SETS.oneSize,
-    blurb: "Every hero needs one. Fastens at the chest, not the throat.",
-    fit: "One size. Chest fastening, not neck.", care: "Machine wash 30°C. Cool iron if needed.", materials: "Lightweight polyester satin",
-    details: [
-      "Chest fastening with breakaway velcro",
-      "Lightweight satin, 22cm drop",
-      "Comes off in one pull"
-    ]
-  },
-
-  /* ---------- Bundles ---------- */
-  {
-    id: "halloween-kit", name: "Halloween Kit", price: 27.99, was: 34.97,
-    cat: "bundle", motif: "pumpkin", sizes: SIZE_SETS.full, badge: "Save £6.98",
-    blurb: "Pumpkin hat, bat wings and a reversible bandana — the whole night sorted.",
-    fit: "Mixed — see each item. Sized by the harness.", care: "Wash per item. Hat is spot clean only.", materials: "See individual products",
-    details: [
-      "Pumpkin Hat (£9.99)",
-      "Bat Wings Harness (£12.99)",
-      "Reversible Bandana 2-pack (£11.99)",
-      "Ships as one parcel"
+    id: "bow-tie-collar", name: "Bow Tie Collar", price: 8.99, cat: "everyday",
+    badge: "Bestseller", motif: "bowtie",
+    images: ["bow-tie-1.webp","bow-tie-2.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-5.webp","bow-tie-6.webp"],
+    blurb: "A plaid bow tie on a proper safety collar — breakaway buckle, bell, and an elastic adjustable strap.",
+    fit: "Adjustable elastic strap. Fits most adult cats.",
+    sizes: null,
+    specs: [
+      "Breakaway safety buckle — releases under pressure",
+      "Plaid bow tie with bell",
+      "Elastic, adjustable neck strap",
+      "Available in a range of plaid colourways (red, blue, green, pink, white and more)",
+      "Made for cats and small dogs"
     ],
-    contains: ["pumpkin-hat", "bat-wings", "bandana-2pack"]
+    box: ["1 × collar with bow tie and bell"],
+    care: "Spot clean. Wipe the buckle; do not machine wash.",
+    confirm: ["Exact adjustable neck range (cm)", "Which plaid colourways to stock"],
+    source: { platform: "AliExpress", id: "3256803258255247", cost: 1.09, sold: "5,000+", rating: 4.8, choice: true }
   },
   {
-    id: "first-costume-kit", name: "First Costume Kit", price: 17.99, was: 20.98,
-    cat: "bundle", motif: "bowtie", sizes: SIZE_SETS.twoWay, badge: "Save £2.99",
-    blurb: "The perfect starter set: two bandanas and a bow tie, all tie-to-fit.",
-    fit: "Both pieces tie or adjust. No sizing needed.", care: "Machine wash 30°C.", materials: "Cotton bandanas, polyester bow",
-    details: [
-      "Reversible Bandana 2-pack (£11.99)",
-      "Bow Tie Collar (£8.99)",
-      "The easiest place to start"
+    id: "bandana", name: "Bandana Collar", price: 7.99, priceNote: "placeholder", cat: "everyday",
+    badge: "UK stock", motif: "bandana",
+    images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
+    blurb: "A paisley bandana mounted on a buckle collar — no tying, just clip it on. Dispatched from UK stock.",
+    fit: "Buckle collar with three sizes. Size S suits most cats.",
+    sizes: [
+      { label: "S", neck: "24–40cm", note: "Most cats" },
+      { label: "M", neck: "29–45cm", note: "Large cats, small dogs" },
+      { label: "L", neck: "33–55cm", note: "Small–medium dogs" }
     ],
-    contains: ["bandana-2pack", "bow-tie"]
+    specs: [
+      "Bandana fixed to an adjustable buckle collar",
+      "Paisley print — pink, red, blue or black",
+      "Washable",
+      "Dispatched from UK stock",
+      "Made for cats and small dogs"
+    ],
+    box: ["1 × bandana collar"],
+    care: "Machine wash cool inside a wash bag. Hang dry.",
+    confirm: ["Whether the buckle is a breakaway type — listing photos show a standard side-release buckle", "Listing photos are of dogs; consider a cat-specific bandana later"],
+    source: { platform: "AliExpress (UK warehouse)", id: "3256809426900401", cost: 2.37, sold: "1,000+", rating: 4.7, choice: true }
+  },
+
+  /* ---------- Halloween ---------- */
+  {
+    id: "lion-mane", name: "Lion Mane", price: 11.99, cat: "halloween",
+    badge: "Bestseller", motif: "mane",
+    images: ["lion-mane-1.webp","lion-mane-2.webp","lion-mane-3.webp","lion-mane-4.webp","lion-mane-5.webp","lion-mane-6.webp"],
+    blurb: "The classic. A full faux-fur mane with little round ears that turns any cat into the king of the living room.",
+    fit: "Three sizes, fastened with velcro under the chin. Measure the neck.",
+    sizes: [
+      { label: "S", neck: "28cm / 11in",   note: "Cap 24cm" },
+      { label: "M", neck: "32cm / 12.6in", note: "Cap 26cm" },
+      { label: "L", neck: "38cm / 15in",   note: "Cap 30cm" }
+    ],
+    specs: [
+      "Full lion mane with round ears",
+      "Faux fur (imitation hair) — no real fur",
+      "Velcro fastening",
+      "Face, eyes and mouth stay completely clear",
+      "Made for cats and small dogs; for Halloween, Christmas and parties"
+    ],
+    box: ["1 × lion mane"],
+    care: "Hand wash cold. Air dry flat. Do not tumble dry.",
+    confirm: ["Colour options (listing shows a natural tan)"],
+    source: { platform: "AliExpress", id: "3256805876802123", cost: 4.20, sold: "700+", rating: 4.6, choice: true }
+  },
+  {
+    id: "bat-cape", name: "Devil Bat Cape", price: 10.99, cat: "halloween",
+    badge: "Halloween", motif: "cape",
+    images: ["bat-cape-5.webp","bat-cape-4.webp","bat-cape-3.webp","bat-cape-2.webp","bat-cape-1.webp","bat-cape-6.webp"],
+    blurb: "A red-and-black satin cape with bat wings, a bow at the collar, and a little devil-horn hood to match.",
+    fit: "Three sizes. Adjustable at the neck.",
+    sizes: [
+      { label: "S", neck: "approx. 29cm", note: "Length approx. 30cm" },
+      { label: "M", neck: "approx. 33cm", note: "Length approx. 40cm" },
+      { label: "L", neck: "approx. 40cm", note: "Length approx. 42cm" }
+    ],
+    specs: [
+      "Double-layer satin — soft against the skin",
+      "Red-winged bat cape with devil-theme trim",
+      "Matching devil-horn hood included",
+      "Bow tie at the collar",
+      "Adjustable neck fastening; wear-resistant fabric"
+    ],
+    box: ["1 × winged cape", "1 × devil-horn hood"],
+    care: "Hand wash cold. Hang dry. Cool iron on the reverse if needed.",
+    confirm: ["Size-chart figures were read from a small photo — confirm S/M/L length, width and neck on the listing before printing them"],
+    source: { platform: "AliExpress", id: "3256812487071410", cost: 4.54, sold: "1,000+", rating: 4.6, choice: true }
+  },
+  {
+    id: "spider-costume", name: "Spider Costume", price: 12.99, priceNote: "placeholder", cat: "halloween",
+    badge: "Halloween", motif: "bat",
+    images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
+    blurb: "Eight furry legs on a soft felt body that fastens under the chest. The costume that gets the most double-takes at the door.",
+    fit: "Two sizes, velcro fastening. Measure the neck and chest.",
+    sizes: [
+      { label: "S", neck: "20–32cm", note: "Chest 32–42cm — most cats" },
+      { label: "M", neck: "30–40cm", note: "Chest 40–55cm — large cats, small dogs" }
+    ],
+    specs: [
+      "Eight plush spider legs — soft, nothing rigid",
+      "3mm felt body",
+      "Velcro fastening",
+      "Made for cats and small–medium dogs",
+      "NONOR brand"
+    ],
+    box: ["1 × spider costume"],
+    care: "Spot clean. Do not machine wash.",
+    confirm: [],
+    source: { platform: "AliExpress", id: "3256805889809397", cost: 4.93, sold: "500+", rating: 4.6, choice: true }
+  },
+  {
+    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 9.99, priceNote: "placeholder", cat: "halloween",
+    badge: "Halloween", motif: "pumpkin",
+    images: ["pumpkin-1.webp","pumpkin-2.webp","pumpkin-3.webp","pumpkin-4.webp","pumpkin-5.webp","pumpkin-6.webp"],
+    blurb: "A witch-style pumpkin hat on a chin strap, with a matching orange tulle ruffle collar. The most-searched cat costume there is, as a two-piece set.",
+    fit: "One size. Hat on an adjustable chin strap; collar fits necks 25–40cm.",
+    sizes: null,
+    specs: [
+      "Two-piece set — pumpkin hat and tulle ruffle collar",
+      "Hat approx. 15cm wide × 12cm tall, with adjustable chin strap",
+      "Ruffle collar fits neck 25–40cm; ruffle approx. 10cm deep",
+      "Ears stay free",
+      "Made for cats and small dogs"
+    ],
+    box: ["1 × pumpkin hat", "1 × ruffle collar"],
+    care: "Spot clean the hat. Hand wash the collar cold; do not wring.",
+    confirm: ["The same listing offers a Christmas-tree hat with red/green ruffle — a candidate for the Christmas slot"],
+    source: { platform: "AliExpress", id: "3256807081347725", cost: 6.48, sold: "77", rating: 4.6, choice: true }
+  },
+
+  /* ---------- Christmas ---------- */
+  {
+    id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, priceNote: "placeholder", cat: "christmas",
+    badge: "Christmas", motif: "santa",
+    images: ["santa-1.webp","santa-2.webp","santa-3.webp","santa-4.webp","santa-5.webp","santa-6.webp"],
+    blurb: "A proper cat-sized Santa hat with a matching scarf — soft polycotton, white trim, and velcro so it goes on in seconds.",
+    fit: "Adjustable velcro on both pieces. One size, made for cats and small dogs.",
+    sizes: null,
+    specs: [
+      "Two-piece set — Santa hat and scarf",
+      "Soft polycotton fabric with plush white trim",
+      "Adjustable velcro fastening on hat and scarf",
+      "Made for cats and small dogs",
+      "Photographed on cats — sized for a cat's head"
+    ],
+    box: ["1 × Santa hat", "1 × scarf"],
+    care: "Hand wash cold. Reshape and air dry. Do not tumble dry.",
+    confirm: ["Hat and scarf dimensions (cm)"],
+    source: { platform: "AliExpress", id: "3256809759699003", cost: 10.73, sold: "106", rating: 4.7, choice: true }
+  },
+
+  /* ---------- Bundles (draw on component stock) ---------- */
+  {
+    id: "halloween-pair", name: "Halloween Pair", price: 21.99, was: 23.98, cat: "bundle",
+    badge: "Save £1.99", motif: "cape", contains: ["bat-cape", "spider-costume"],
+    images: ["bat-cape-5.webp","spider-1.webp","bat-cape-2.webp","spider-2.webp"],
+    blurb: "Devil Bat Cape and Spider Costume together — two looks for the one night that matters.",
+    fit: "Pick one size for both. S suits most cats.",
+    sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", note: "Large cats" } ],
+    specs: ["Devil Bat Cape (£10.99)", "Spider Costume (£12.99)", "Ships as one parcel"],
+    box: ["1 × Devil Bat Cape with hood", "1 × Spider Costume"],
+    care: "See each product.", confirm: [], source: null
+  },
+  {
+    id: "pumpkin-patch", name: "Pumpkin Patch", price: 16.99, was: 18.98, cat: "bundle",
+    badge: "Save £1.99", motif: "pumpkin", contains: ["pumpkin-set", "bow-tie-collar"],
+    images: ["pumpkin-1.webp","bow-tie-1.webp","pumpkin-6.webp","bow-tie-4.webp"],
+    blurb: "The #1 searched cat costume plus the bestselling collar.",
+    fit: "Both one size / adjustable.", sizes: null,
+    specs: ["Pumpkin Hat & Ruffle Collar (£9.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
+    box: ["1 × Pumpkin Hat & Ruffle Collar", "1 × Bow Tie Collar"],
+    care: "See each product.", confirm: [], source: null
+  },
+  {
+    id: "first-costume-kit", name: "First Costume Kit", price: 14.99, was: 16.98, cat: "bundle",
+    badge: "Save £1.99", motif: "bowtie", contains: ["bow-tie-collar", "bandana"],
+    images: ["bow-tie-1.webp","bandana-2.webp","bow-tie-3.webp","bandana-1.webp"],
+    blurb: "The easiest place to start: a bow tie collar and a bandana collar — nothing goes over the head.",
+    fit: "Bow tie adjusts; pick the bandana size. S suits most cats.",
+    sizes: [ { label: "S", neck: "24–40cm", note: "Most cats" }, { label: "M", neck: "29–45cm", note: "Large cats" }, { label: "L", neck: "33–55cm", note: "Small dogs" } ],
+    specs: ["Bow Tie Collar (£8.99)", "Bandana Collar (£7.99)", "Ships as one parcel"],
+    box: ["1 × Bow Tie Collar", "1 × Bandana Collar"],
+    care: "See each product.", confirm: [], source: null
+  },
+  {
+    id: "festive-pair", name: "Festive Pair", price: 24.99, was: 26.98, cat: "bundle",
+    badge: "Save £1.99", motif: "santa", contains: ["santa-set", "bow-tie-collar"],
+    images: ["santa-1.webp","bow-tie-1.webp","santa-3.webp","bow-tie-6.webp"],
+    blurb: "Santa hat and scarf with a plaid bow tie collar — the Christmas card, sorted.",
+    fit: "Both adjustable. No sizing needed.", sizes: null,
+    specs: ["Santa Hat & Scarf Set (£17.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
+    box: ["1 × Santa Hat & Scarf Set", "1 × Bow Tie Collar"],
+    care: "See each product.", confirm: [], source: null
   }
 ];
 
 const CATEGORIES = [
-  { id: "holiday",  label: "Holiday & seasonal", note: "Halloween, Christmas, birthdays" },
-  { id: "everyday", label: "Cute & everyday",    note: "Bandanas, collars, knitwear" },
-  { id: "novelty",  label: "Novelty & funny",    note: "Manes, dinos, capes" },
-  { id: "bundle",   label: "Bundles",            note: "Cheaper together, genuinely" }
+  { id: "everyday",  label: "Everyday",  note: "Collars and bandanas, year-round", emoji: "🎀", tint: "#E4F5F0" },
+  { id: "halloween", label: "Halloween", note: "Lion, bat, spider, pumpkin",        emoji: "🎃", tint: "#FFE3EA" },
+  { id: "christmas", label: "Christmas", note: "Santa hat and scarf set",                       emoji: "🎄", tint: "#EDE7FF" },
+  { id: "bundle",    label: "Bundles",   note: "Cheaper together, genuinely",       emoji: "🎁", tint: "#FFF3D6" }
 ];
 
-/* Fit data — chest girth is the measurement that decides fit. */
-/* Four measurements in cm and inches. Competitors publish neck/chest/waist/back in both
-   units; anything less pushes the sizing guesswork back onto the customer. */
-const SIZE_CHART = [
-  { size: "XS", neck: [18,22], chest: [28,33], waist: [26,31], back: 20, who: "Kittens, small adults (2–3kg)",  min: 28, max: 33 },
-  { size: "S",  neck: [22,26], chest: [33,38], waist: [31,36], back: 25, who: "Average adult (3–4kg)",          min: 33, max: 38 },
-  { size: "M",  neck: [26,30], chest: [38,43], waist: [36,41], back: 30, who: "Large adult (4–5.5kg)",          min: 38, max: 43 },
-  { size: "L",  neck: [30,34], chest: [43,50], waist: [41,48], back: 35, who: "Maine Coon, Ragdoll (5.5–7kg)",  min: 43, max: 50 }
-];
-
-/* Breed shortcuts — a faster path than finding a tape measure. Ranges are typical
-   adult chest girth; they are a starting point, not a substitute for measuring. */
-const BREED_PRESETS = [
-  { name: "Kitten (4–6 months)", chest: 30 },
-  { name: "Average moggy",       chest: 36 },
-  { name: "British Shorthair",   chest: 41 },
-  { name: "Ragdoll",             chest: 45 },
-  { name: "Maine Coon",          chest: 47 },
-  { name: "Sphynx",              chest: 34 },
-  { name: "Siamese / Bengal",    chest: 35 }
-];
+/* Fit guidance for a range where most things are collars, hats and short capes. */
+const FIT_GUIDE = {
+  neck: "Wrap a soft tape around the neck where a collar sits and add two fingers of slack. That number is the neck size — it's what every size on this site is based on.",
+  chest: "For the Spider Costume only: measure around the widest part of the chest, just behind the front legs.",
+  between: "Between two sizes? Take the larger. A slightly loose costume gets worn; a tight one comes straight off.",
+  rule: "If you can slide two fingers under a collar, it's right. Tighter than that is too tight."
+};
 
 const FREE_SHIPPING_AT = 30;

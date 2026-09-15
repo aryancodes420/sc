@@ -61,7 +61,7 @@
         <p><span class="fitline">⇔ {{ product.metafields.custom.fit }}</span></p>
       {%- endif -%}
 
-      {%- form 'product', product, id: 'product-form' -%}
+      {%- form 'product', product, id: 'product-form', data-size-notes: product.metafields.custom.size_notes -%}
         {%- unless product.has_only_default_variant -%}
           <div class="field">
             <label for="variant-select">{{ product.options.first }}</label>
@@ -72,6 +72,7 @@
                         {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
               {%- endfor -%}
             </div>
+            <p class="small" data-size-note style="margin:.6em 0 0"></p>
             <select id="variant-select" name="id" class="visually-hidden" aria-hidden="true" tabindex="-1">
               {%- for variant in product.variants -%}
                 <option value="{{ variant.id }}"
@@ -79,10 +80,8 @@
                   {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>
               {%- endfor -%}
             </select>
-            {%- if product.variants.size > 2 -%}
-              <p class="small muted" style="margin:.6em 0 0">Between sizes? Size up.
-                <a href="{{ section.settings.size_guide_url | default: '/pages/fit-and-care' }}">Measuring guide</a></p>
-            {%- endif -%}
+            <p class="small muted" style="margin:.4em 0 0">Sizes are neck measurements.
+              <a href="{{ section.settings.size_guide_url | default: '/pages/fit-and-care' }}">How to measure</a></p>
           </div>
         {%- else -%}
           <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
@@ -106,34 +105,43 @@
         <span>🔒 Secure checkout</span>
         <span>📦 Free UK delivery over £{{ settings.free_shipping_threshold }}</span>
         <span>↩️ {{ settings.returns_days }}-day returns</span>
-        <span>🐱 Breakaway fastenings</span>
+        {%- if product.metafields.custom.badge_uk == true -%}<span>🇬🇧 UK stock</span>{%- endif -%}
       </div>
 
-      {%- if product.description != blank -%}
+      {%- if product.metafields.custom.specs != blank -%}
+        <div class="field"><h3>What you get</h3><ul class="deets">
+          {%- for item in product.metafields.custom.specs.value -%}<li>{{ item }}</li>{%- endfor -%}
+        </ul></div>
+      {%- elsif product.description != blank -%}
         <div class="field"><h3>What you get</h3>{{ product.description }}</div>
       {%- endif -%}
 
       <div class="acc">
+        <details open>
+          <summary>In the box</summary>
+          <div class="inner"><ul class="deets">
+            {%- for item in product.metafields.custom.box.value -%}<li>{{ item }}</li>{%- endfor -%}
+          </ul></div>
+        </details>
         <details>
-          <summary>Size &amp; how to measure</summary>
+          <summary>Size &amp; fit</summary>
           <div class="inner">
-            <p>Measure the chest at its widest point, just behind the front legs, and add two fingers
-              of slack. Chest girth decides fit more reliably than weight or breed.</p>
-            <div data-size-table></div>
-            <p class="small muted" style="margin-top:.6em">Between two sizes? Size up.</p>
+            {%- unless product.has_only_default_variant -%}
+              {%- assign notes = product.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}
+              <div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck / notes</th></tr></thead><tbody>
+                {%- for variant in product.variants -%}<tr><td class="sz">{{ variant.title }}</td><td>{{ notes[forloop.index0] | strip }}</td></tr>{%- endfor -%}
+              </tbody></table></div>
+            {%- else -%}
+              <p><b>{{ product.metafields.custom.fit }}</b></p>
+            {%- endunless -%}
+            <p style="margin-top:.7em">Wrap a soft tape around the neck where a collar sits and add two fingers of slack. That number is the neck size.</p>
+            <p class="small muted">Between two sizes? Take the larger.</p>
           </div>
         </details>
         <details>
           <summary>Materials &amp; care</summary>
           <div class="inner">
-            {%- if product.metafields.custom.materials != blank -%}
-              <p><b>Made from:</b> {{ product.metafields.custom.materials }}</p>
-            {%- endif -%}
-            {%- if product.metafields.custom.care != blank -%}
-              <p><b>Care:</b> {{ product.metafields.custom.care }}</p>
-            {%- else -%}
-              <p>Machine wash at 30°C and hang dry unless the product says otherwise.</p>
-            {%- endif -%}
+            <p>{{ product.metafields.custom.care | default: 'Hand wash cold and air dry unless the product says otherwise.' }}</p>
           </div>
         </details>
         <details>
@@ -154,8 +162,7 @@
           <div class="inner">
             <p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take
               it off when you are done.</p>
-            <p>Every collar uses a breakaway buckle, and nothing covers the face, ears or legs.</p>
-            <p class="small muted">Supervise your cat while they are wearing it.</p>
+            <p>Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>
           </div>
         </details>
       </div>

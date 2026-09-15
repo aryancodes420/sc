@@ -1,25 +1,128 @@
 {
   "sections": {
-    "hero":       { "type": "hero" },
-    "trust":      { "type": "trust-strip",
+    "hero": {
+      "type": "hero"
+    },
+    "trust": {
+      "type": "trust-strip",
       "blocks": {
-        "b1": { "type": "item", "settings": { "text": "Free UK delivery over £30", "colour": "#4ECDB4" } },
-        "b2": { "type": "item", "settings": { "text": "Breakaway fastenings as standard", "colour": "#FF6B8A" } },
-        "b3": { "type": "item", "settings": { "text": "Sized by chest, not guesswork", "colour": "#FFD166" } },
-        "b4": { "type": "item", "settings": { "text": "30-day returns", "colour": "#B79CED" } }
+        "b1": {
+          "type": "item",
+          "settings": {
+            "text": "Free UK delivery over £30",
+            "colour": "#4ECDB4"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "text": "Sized for cats, not dogs",
+            "colour": "#FF6B8A"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "text": "Faces and eyes always clear",
+            "colour": "#FFD166"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "text": "30-day returns",
+            "colour": "#B79CED"
+          }
+        }
       },
-      "block_order": ["b1","b2","b3","b4"] },
-    "categories": { "type": "category-list",
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "categories": {
+      "type": "category-list",
       "blocks": {
-        "c1": { "type": "tile", "settings": { "note": "Halloween, Christmas, birthdays", "emoji": "🎃", "tint": "#FFE3EA" } },
-        "c2": { "type": "tile", "settings": { "note": "Bandanas, collars, knitwear", "emoji": "🎀", "tint": "#E4F5F0" } },
-        "c3": { "type": "tile", "settings": { "note": "Manes, dinos, capes", "emoji": "🦖", "tint": "#EDE7FF" } },
-        "c4": { "type": "tile", "settings": { "note": "Cheaper together", "emoji": "🎁", "tint": "#FFF3D6" } }
+        "c1": {
+          "type": "tile",
+          "settings": {
+            "note": "Collars and bandanas, year-round",
+            "emoji": "🎀",
+            "tint": "#E4F5F0",
+            "title": "Everyday"
+          }
+        },
+        "c2": {
+          "type": "tile",
+          "settings": {
+            "note": "Lion, bat, spider, pumpkin",
+            "emoji": "🎃",
+            "tint": "#FFE3EA",
+            "title": "Halloween"
+          }
+        },
+        "c3": {
+          "type": "tile",
+          "settings": {
+            "note": "Santa hat and scarf set",
+            "emoji": "🎄",
+            "tint": "#EDE7FF",
+            "title": "Christmas"
+          }
+        },
+        "c4": {
+          "type": "tile",
+          "settings": {
+            "note": "Cheaper together, genuinely",
+            "emoji": "🎁",
+            "tint": "#FFF3D6",
+            "title": "Bundles"
+          }
+        }
       },
-      "block_order": ["c1","c2","c3","c4"] },
-    "featured":   { "type": "featured-products" },
-    "finder":     { "type": "size-finder" },
-    "newsletter": { "type": "newsletter" }
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "heading": "Pick your look",
+        "subheading": "Three seasons, one very well-dressed cat."
+      }
+    },
+    "featured": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "The seven",
+        "subheading": "Everything we sell, in one row.",
+        "count": 8
+      }
+    },
+    "newsletter": {
+      "type": "newsletter"
+    },
+    "bundles": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "Cheaper together",
+        "subheading": "Bundles ship as one parcel and save against buying separately.",
+        "count": 4
+      }
+    },
+    "fitwhy": {
+      "type": "why-fit"
+    }
   },
-  "order": ["hero","trust","categories","featured","finder","newsletter"]
+  "order": [
+    "hero",
+    "trust",
+    "categories",
+    "featured",
+    "bundles",
+    "fitwhy",
+    "newsletter"
+  ]
 }
