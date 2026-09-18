@@ -332,3 +332,38 @@ Pulling all six listing photos per product and reading them changed the record:
 | **Spider Costume** | £12.99 *(placeholder)* | S/M | $4.93 | 500+ | 4.6 |
 | **Pumpkin Hat & Ruffle Collar** | £9.99 *(placeholder)* | One size / adjustable | $6.48 | 77 | 4.6 |
 | **Santa Hat & Scarf Set** | £17.99 *(placeholder)* | One size / adjustable | $10.73 | 106 | 4.7 |
+
+
+---
+
+## Pricing decision (18 Sep 2026)
+
+**Position:** top of the mainstream tier — level with Pets at Home (£7 plain collar) and
+Petco/Target (~£9.50 per cat costume), 1.5–2.5× the Amazon/Temu commodity floor (lion mane
+£3.61–6.40 on Amazon UK), below specialists (Clothes for Cats median £12.50, Furmily to £29).
+What justifies the gap over Amazon: cat-sized fit with real size charts, six photos,
+in-the-box and care on every page, UK returns, bundles.
+
+| Product | Retail | Landed | Gross | Margin | Sizes |
+|---|---|---|---|---|---|
+| **Bow Tie Collar** | £8.99 | £1.82 | £7.17 | 80% | One size |
+| **Bandana Collar** | £7.99 | £2.88 | £5.11 | 64% | S/M/L |
+| **Lion Mane** | £9.99 | £5.17 | £4.82 | 48% | S/M/L |
+| **Devil Bat Cape** | £12.99 | £5.49 | £7.50 | 58% | S/M/L |
+| **Spider Costume** | £12.99 | £5.86 | £7.13 | 55% | S/M |
+| **Pumpkin Hat & Ruffle Collar** | £11.99 | £7.33 | £4.66 | 39% | One size |
+| **Santa Hat & Scarf Set** | £17.99 | £10.96 | £7.03 | 39% | One size |
+
+Landed = supplier price × 1.2 (UK VAT collected at checkout) + shipping share, at 0.79 £/$.
+
+Bundles (each saves £1.99 against components):
+- **Halloween Pair** — £23.99 (components £25.98, saves £1.99)
+- **Pumpkin Patch** — £18.99 (components £20.98, saves £1.99)
+- **First Costume Kit** — £14.99 (components £16.98, saves £1.99)
+- **Festive Pair** — £24.99 (components £26.98, saves £1.99)
+
+Notes: Santa set kept at £17.99 at the owner's direction — no UK anchor exists for a
+two-piece cat-sized set, so it carries the higher price; it remains the thinnest margin and
+the first candidate for re-sourcing (the pumpkin listing's Christmas-tree variant at $6.48).
+Bat cape cost is uncertain ($4.54 or $7.29 depending on listing field); £12.99 holds
+38–58% either way. Free UK delivery at £30: two costumes plus a collar clears it.

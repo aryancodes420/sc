@@ -9,15 +9,15 @@ python3 -m http.server 8000     # then open http://localhost:8000
 
 ## The seven
 
-| Product | Retail | Sizes | Supplier cost | Sold | Rating |
+| Product | Retail | Landed | Gross | Margin | Sizes |
 |---|---|---|---|---|---|
-| **Bow Tie Collar** | £8.99 | One size / adjustable | $1.09 | 5,000+ | 4.8 |
-| **Bandana Collar** | £7.99 *(placeholder)* | S/M/L | $2.37 | 1,000+ | 4.7 |
-| **Lion Mane** | £11.99 | S/M/L | $4.20 | 700+ | 4.6 |
-| **Devil Bat Cape** | £10.99 | S/M/L | $4.54 | 1,000+ | 4.6 |
-| **Spider Costume** | £12.99 *(placeholder)* | S/M | $4.93 | 500+ | 4.6 |
-| **Pumpkin Hat & Ruffle Collar** | £9.99 *(placeholder)* | One size / adjustable | $6.48 | 77 | 4.6 |
-| **Santa Hat & Scarf Set** | £17.99 *(placeholder)* | One size / adjustable | $10.73 | 106 | 4.7 |
+| **Bow Tie Collar** | £8.99 | £1.82 | £7.17 | 80% | One size |
+| **Bandana Collar** | £7.99 | £2.88 | £5.11 | 64% | S/M/L |
+| **Lion Mane** | £9.99 | £5.17 | £4.82 | 48% | S/M/L |
+| **Devil Bat Cape** | £12.99 | £5.49 | £7.50 | 58% | S/M/L |
+| **Spider Costume** | £12.99 | £5.86 | £7.13 | 55% | S/M |
+| **Pumpkin Hat & Ruffle Collar** | £11.99 | £7.33 | £4.66 | 39% | One size |
+| **Santa Hat & Scarf Set** | £17.99 | £10.96 | £7.03 | 39% | One size |
 
 Every spec bullet, size figure and "in the box" line on the site was read from the
 supplier listing's own title or its product photos (the size-chart images). Nothing is
@@ -25,10 +25,10 @@ invented. The full record — including supplier IDs, costs and what still needs
 is `assets/data.js`.
 
 ### Bundles
-- **Halloween Pair** — Devil Bat Cape + Spider Costume → £21.99 (from £23.98)
-- **Pumpkin Patch** — Pumpkin Hat & Ruffle Collar + Bow Tie Collar → £16.99 (from £18.98)
-- **First Costume Kit** — Bow Tie Collar + Bandana Collar → £14.99 (from £16.98)
-- **Festive Pair** — Santa Hat & Scarf Set + Bow Tie Collar → £24.99 (from £26.98)
+- **Halloween Pair** — £23.99 (components £25.98, saves £1.99)
+- **Pumpkin Patch** — £18.99 (components £20.98, saves £1.99)
+- **First Costume Kit** — £14.99 (components £16.98, saves £1.99)
+- **Festive Pair** — £24.99 (components £26.98, saves £1.99)
 
 ## Photography
 
@@ -75,7 +75,7 @@ wishlist persists across pages, Fit & care renders 14 size rows and 7 care rows,
 
 ## Still to do before this sells anything
 
-1. **Pricing.** Every price marked *placeholder* is a guess; the rest carry over from the
-   first draft. The lion mane vs Amazon (£3.61) question is unresolved.
+1. **Pricing is set** (18 Sep 2026) at the top of the mainstream tier — level with Pets at Home /
+   Petco, 1.5–2.5× Amazon, below specialists. Rationale and anchors in `../sourcing.md`.
 2. **Confirm the list above** on each listing before placing the bulk order.
 3. **Payments, legal pages, reviews app.** Unchanged.

@@ -4,7 +4,7 @@
    the listing page can confirm is under `confirm` — it is never shown to customers.
 
    `sizes` is present only where the listing sells sizes; the value is what the customer
-   picks. Retail prices are placeholders pending the pricing decision. `source` is the
+   picks. Retail prices were set on 18 Sep 2026 against UK competitor anchors (see ../sourcing.md). `source` is the
    supplier record and is never rendered. Items with `hold: true` are not shown. */
 
 const PRODUCTS = [
@@ -29,7 +29,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256803258255247", cost: 1.09, sold: "5,000+", rating: 4.8, choice: true }
   },
   {
-    id: "bandana", name: "Bandana Collar", price: 7.99, priceNote: "placeholder", cat: "everyday",
+    id: "bandana", name: "Bandana Collar", price: 7.99, cat: "everyday",
     badge: "UK stock", motif: "bandana",
     images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
     blurb: "A paisley bandana mounted on a buckle collar — no tying, just clip it on. Dispatched from UK stock.",
@@ -54,7 +54,7 @@ const PRODUCTS = [
 
   /* ---------- Halloween ---------- */
   {
-    id: "lion-mane", name: "Lion Mane", price: 11.99, cat: "halloween",
+    id: "lion-mane", name: "Lion Mane", price: 9.99, cat: "halloween",
     badge: "Bestseller", motif: "mane",
     images: ["lion-mane-1.webp","lion-mane-2.webp","lion-mane-3.webp","lion-mane-4.webp","lion-mane-5.webp","lion-mane-6.webp"],
     blurb: "The classic. A full faux-fur mane with little round ears that turns any cat into the king of the living room.",
@@ -77,7 +77,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256805876802123", cost: 4.20, sold: "700+", rating: 4.6, choice: true }
   },
   {
-    id: "bat-cape", name: "Devil Bat Cape", price: 10.99, cat: "halloween",
+    id: "bat-cape", name: "Devil Bat Cape", price: 12.99, cat: "halloween",
     badge: "Halloween", motif: "cape",
     images: ["bat-cape-5.webp","bat-cape-4.webp","bat-cape-3.webp","bat-cape-2.webp","bat-cape-1.webp","bat-cape-6.webp"],
     blurb: "A red-and-black satin cape with bat wings, a bow at the collar, and a little devil-horn hood to match.",
@@ -100,7 +100,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256812487071410", cost: 4.54, sold: "1,000+", rating: 4.6, choice: true }
   },
   {
-    id: "spider-costume", name: "Spider Costume", price: 12.99, priceNote: "placeholder", cat: "halloween",
+    id: "spider-costume", name: "Spider Costume", price: 12.99, cat: "halloween",
     badge: "Halloween", motif: "bat",
     images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
     blurb: "Eight furry legs on a soft felt body that fastens under the chest. The costume that gets the most double-takes at the door.",
@@ -122,7 +122,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256805889809397", cost: 4.93, sold: "500+", rating: 4.6, choice: true }
   },
   {
-    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 9.99, priceNote: "placeholder", cat: "halloween",
+    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 11.99, cat: "halloween",
     badge: "Halloween", motif: "pumpkin",
     images: ["pumpkin-1.webp","pumpkin-2.webp","pumpkin-3.webp","pumpkin-4.webp","pumpkin-5.webp","pumpkin-6.webp"],
     blurb: "A witch-style pumpkin hat on a chin strap, with a matching orange tulle ruffle collar. The most-searched cat costume there is, as a two-piece set.",
@@ -143,7 +143,7 @@ const PRODUCTS = [
 
   /* ---------- Christmas ---------- */
   {
-    id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, priceNote: "placeholder", cat: "christmas",
+    id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, cat: "christmas",
     badge: "Christmas", motif: "santa",
     images: ["santa-1.webp","santa-2.webp","santa-3.webp","santa-4.webp","santa-5.webp","santa-6.webp"],
     blurb: "A proper cat-sized Santa hat with a matching scarf — soft polycotton, white trim, and velcro so it goes on in seconds.",
@@ -164,23 +164,23 @@ const PRODUCTS = [
 
   /* ---------- Bundles (draw on component stock) ---------- */
   {
-    id: "halloween-pair", name: "Halloween Pair", price: 21.99, was: 23.98, cat: "bundle",
+    id: "halloween-pair", name: "Halloween Pair", price: 23.99, was: 25.98, cat: "bundle",
     badge: "Save £1.99", motif: "cape", contains: ["bat-cape", "spider-costume"],
     images: ["bat-cape-5.webp","spider-1.webp","bat-cape-2.webp","spider-2.webp"],
     blurb: "Devil Bat Cape and Spider Costume together — two looks for the one night that matters.",
     fit: "Pick one size for both. S suits most cats.",
     sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", note: "Large cats" } ],
-    specs: ["Devil Bat Cape (£10.99)", "Spider Costume (£12.99)", "Ships as one parcel"],
+    specs: ["Devil Bat Cape (£12.99)", "Spider Costume (£12.99)", "Ships as one parcel"],
     box: ["1 × Devil Bat Cape with hood", "1 × Spider Costume"],
     care: "See each product.", confirm: [], source: null
   },
   {
-    id: "pumpkin-patch", name: "Pumpkin Patch", price: 16.99, was: 18.98, cat: "bundle",
+    id: "pumpkin-patch", name: "Pumpkin Patch", price: 18.99, was: 20.98, cat: "bundle",
     badge: "Save £1.99", motif: "pumpkin", contains: ["pumpkin-set", "bow-tie-collar"],
     images: ["pumpkin-1.webp","bow-tie-1.webp","pumpkin-6.webp","bow-tie-4.webp"],
     blurb: "The #1 searched cat costume plus the bestselling collar.",
     fit: "Both one size / adjustable.", sizes: null,
-    specs: ["Pumpkin Hat & Ruffle Collar (£9.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
+    specs: ["Pumpkin Hat & Ruffle Collar (£11.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
     box: ["1 × Pumpkin Hat & Ruffle Collar", "1 × Bow Tie Collar"],
     care: "See each product.", confirm: [], source: null
   },
