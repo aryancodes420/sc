@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-<title>Saved — Catwalk Club</title>
+<title>About — Catwalk Club</title>
+<meta name="description" content="Catwalk Club is a small UK shop selling seven cat costumes and collars, all sized for cats.">
+<meta name="description" content="All seven Catwalk Club cat costumes and collars, plus bundles.">
 </head>
 <body>
 <div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
@@ -32,10 +34,38 @@
   </div>
 </header>
 <main class="wrap">
-  <section>
-    <h1>Saved for later</h1>
-    <p class="muted">Kept in this browser only — nothing is sent anywhere.</p>
-    <div id="host"></div>
+  <section style="padding-bottom:20px">
+    <div class="about-grid">
+      <div>
+        <span class="kicker">About</span>
+        <h1 style="margin-top:14px">Costumes made for cats, chosen by someone who has actually tried to dress one.</h1>
+        <p class="lede muted" style="font-size:1.12rem">Catwalk Club is a small UK shop selling seven pieces we would put on our own cats: two everyday collars,
+          four Halloween looks and a Christmas set. Every one is sized from a cat's neck, leaves the face and eyes clear, and comes with
+          the measurements, materials and washing instructions on the page — not in a leaflet you find afterwards.</p>
+        <div class="cta" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+          <a class="btn" href="shop.html">Shop the seven</a>
+          <a class="btn btn-ghost" href="contact.html">Say hello</a>
+        </div>
+      </div>
+      <img src="assets/img/santa-2.webp" alt="A cat in a Santa hat and scarf" width="800" height="800">
+    </div>
+  </section>
+  <section style="padding-top:20px">
+    <div class="two">
+      <div class="panel"><h3>🐱 Why only seven</h3><p style="margin:0">Because seven good ones beat forty average ones. Each was picked from a supplier with a long
+        sales record and photos on real cats, then sized, priced and written up from the listing itself. When one earns its place, we add it. When one doesn't sell, it goes.</p></div>
+      <div class="panel"><h3>📦 How orders work</h3><p style="margin:0">Stock is held in the UK and dispatched tracked within one working day. Standard delivery is £3.95
+        and free over £30. If it isn't right, send it back within 30 days, worn or not.</p></div>
+      <div class="panel"><h3>📏 The sizing promise</h3><p style="margin:0">Every size on this site is a neck measurement. If you measure, it fits. If it doesn't, the swap is on us.</p></div>
+      <div class="panel"><h3>📸 Your cats</h3><p style="margin:0">Tag <b>@catwalkclub</b> or send us the photo. The best ones go on the site, with your permission and credit.</p></div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="callout">
+      <h3 style="margin-top:0">Business details</h3>
+      <p class="small muted" style="margin:0">Trader name, registered address and email go here before trading — a legal requirement for UK distance selling.
+        Email: <a href="mailto:hello@catwalkclub.co.uk">hello@catwalkclub.co.uk</a> (placeholder until the domain is live).</p>
+    </div>
   </section>
 </main>
 <footer class="site">
@@ -68,20 +98,5 @@
 </footer>
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
-<script>
-  var host = document.getElementById("host");
-  function render(){
-    var list = getWish().map(byId).filter(function(p){ return p && !p.hold; });
-    if(!list.length){
-      host.innerHTML = '<div class="empty"><p style="font-size:3rem;margin:0">♡</p><h2>Nothing saved yet</h2>' +
-        '<p class="muted">Tap the heart on any costume to keep it here.</p><a class="btn" href="shop.html">Browse the shop</a></div>';
-      return;
-    }
-    host.innerHTML = '<div class="grid-p" id="g"></div>';
-    renderGrid(document.getElementById("g"), list);
-  }
-  host.addEventListener("click", function(e){ if(e.target.closest("[data-wish]")) setTimeout(render, 0); });
-  render();
-</script>
 </body>
 </html>

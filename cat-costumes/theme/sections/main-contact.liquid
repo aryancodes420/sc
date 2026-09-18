@@ -1,0 +1,54 @@
+<div class="wrap">
+  {% render 'breadcrumbs' %}
+  <section style="padding:20px 0">
+    <h1 style="margin-bottom:.15em">{{ page.title }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">{{ section.settings.lede }} We reply {{ settings.reply_time | default: 'within one working day' }}.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="two">
+      <div class="panel">
+        <h3>✉️ Send a message</h3>
+        {%- form 'contact', class: 'form' -%}
+          {%- if form.posted_successfully? -%}
+            <p style="color:#227A66"><b>Sent.</b> We'll get back to you {{ settings.reply_time | default: 'within one working day' }}.</p>
+          {%- endif -%}
+          {%- if form.errors -%}<p style="color:var(--pink-dk)">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <div><label for="c-name">Name</label><input id="c-name" type="text" name="contact[name]" required autocomplete="name" value="{{ form.name }}"></div>
+          <div><label for="c-email">Email</label><input id="c-email" type="email" name="contact[email]" required autocomplete="email" value="{{ form.email }}"></div>
+          <div><label for="c-topic">What's it about?</label>
+            <select id="c-topic" name="contact[topic]">
+              <option>Which size or costume to pick</option><option>An order I've placed</option><option>A return or exchange</option><option>Something else</option>
+            </select></div>
+          <div><label for="c-msg">Message</label><textarea id="c-msg" name="contact[body]" required placeholder="If it's about sizing, tell us the neck measurement and your cat's breed.">{{ form.body }}</textarea></div>
+          <button class="btn" type="submit">Send</button>
+        {%- endform -%}
+      </div>
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>💬 Quicker ways</h3>
+          {%- if settings.whatsapp_number != blank -%}<p><b>WhatsApp:</b> <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}">+{{ settings.whatsapp_number | remove: '+' }}</a></p>{%- endif -%}
+          {%- if settings.contact_email != blank -%}<p><b>Email:</b> <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>{%- endif -%}
+          <p style="margin:0"><b>Hours:</b> {{ settings.contact_hours | default: 'Mon–Fri, 9am–6pm UK time' }}</p>
+        </div>
+        <div class="panel">
+          <h3>🔎 Before you write</h3>
+          <ul class="deets">
+            <li><a href="{{ section.settings.track_url | default: '/pages/track-your-order' }}">Track your order</a></li>
+            <li><a href="{{ settings.size_guide_page | default: '/pages/fit-and-care' }}">How to measure your cat</a></li>
+            <li><a href="{{ section.settings.faq_url | default: '/pages/faq' }}">Delivery, returns and washing</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    { "type": "text", "id": "lede", "label": "Intro", "default": "Sizing questions, order queries, a photo of your cat looking unfairly good — all welcome." },
+    { "type": "url", "id": "track_url", "label": "Track your order page" },
+    { "type": "url", "id": "faq_url", "label": "FAQ page" }
+  ]
+}
+{% endschema %}

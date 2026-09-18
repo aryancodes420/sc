@@ -14,6 +14,7 @@
   {% render 'catwalk-fonts' %}
   {{ 'catwalk.css' | asset_url | stylesheet_tag }}
 
+  {% render 'structured-data' %}
   {{ content_for_header }}
   <script src="{{ 'catwalk.js' | asset_url }}" defer></script>
 </head>
@@ -25,5 +26,7 @@
     {{ content_for_layout }}
   </main>
   {% section 'footer' %}
+  {% section 'offer-popup' %}
+  {% render 'chat-fab' %}
 </body>
 </html>

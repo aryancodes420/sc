@@ -6,7 +6,8 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-<title>Shop — Catwalk Club</title>
+<title>Contact — Catwalk Club</title>
+<meta name="description" content="Contact Catwalk Club — sizing help, order queries and returns. We reply within one working day.">
 <meta name="description" content="All seven Catwalk Club cat costumes and collars, plus bundles.">
 </head>
 <body>
@@ -32,23 +33,41 @@
     </nav>
   </div>
 </header>
-<main>
-  <section style="padding-bottom:24px">
-    <div class="wrap">
-      <h1 style="margin-bottom:.15em">Everything we make</h1>
-      <p class="muted" style="font-size:1.08rem">Seven pieces and four bundles. All sized for cats.</p>
-      <div class="toolbar">
-        <input type="search" id="q" placeholder="Search…" aria-label="Search products">
-        <select id="sort" aria-label="Sort products">
-          <option value="featured">Featured</option>
-          <option value="low">Price: low to high</option>
-          <option value="high">Price: high to low</option>
-          <option value="az">Name: A–Z</option>
-        </select>
+<main class="wrap">
+  <section style="padding-bottom:20px">
+    <h1 style="margin-bottom:.15em">Get in touch</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">Sizing questions, order queries, a photo of your cat looking unfairly good — all welcome. We reply <span data-reply></span>.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="two">
+      <div class="panel">
+        <h3>✉️ Send a message</h3>
+        <form class="form" id="contact-form">
+          <div><label for="c-name">Name</label><input id="c-name" name="name" required autocomplete="name"></div>
+          <div><label for="c-email">Email</label><input id="c-email" name="email" type="email" required autocomplete="email"></div>
+          <div><label for="c-topic">What's it about?</label>
+            <select id="c-topic" name="topic"><option>Which size or costume to pick</option><option>An order I've placed</option><option>A return or exchange</option><option>Something else</option></select></div>
+          <div><label for="c-msg">Message</label><textarea id="c-msg" name="message" required placeholder="If it's about sizing, tell us the neck measurement and your cat's breed."></textarea></div>
+          <button class="btn" type="submit">Send</button>
+          <p class="small muted" style="margin:0">On Shopify this form posts straight to the store's contact email.</p>
+        </form>
       </div>
-      <div class="filters" id="filters"></div>
-      <div class="grid-p" id="grid"></div>
-      <p id="none" class="empty muted" hidden>Nothing matches that.</p>
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>💬 Quicker ways</h3>
+          <p><b>WhatsApp:</b> <span data-wa>number to be added</span></p>
+          <p><b>Email:</b> <a href="mailto:hello@catwalkclub.co.uk" data-email>hello@catwalkclub.co.uk</a></p>
+          <p style="margin:0"><b>Hours:</b> <span data-hours></span></p>
+        </div>
+        <div class="panel">
+          <h3>🔎 Before you write</h3>
+          <ul class="deets">
+            <li><a href="track-order.html">Track your order</a></li>
+            <li><a href="sizing.html">How to measure your cat</a></li>
+            <li><a href="faq.html">Delivery, returns and washing</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -83,33 +102,11 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  var grid = document.getElementById("grid"), filters = document.getElementById("filters"), none = document.getElementById("none");
-  var qEl = document.getElementById("q"), sortEl = document.getElementById("sort");
-  var all = [{id:"all",label:"Everything"}].concat(CATEGORIES.map(function(c){ return {id:c.id,label:c.label}; }));
-  var current = new URLSearchParams(location.search).get("cat") || "all";
-  filters.innerHTML = all.map(function(f){
-    return '<button class="chip" type="button" data-f="' + f.id + '" aria-pressed="' + (f.id === current) + '">' + f.label + '</button>';
-  }).join("");
-  function paint(){
-    var list = PRODUCTS.filter(function(p){ return !p.hold && (current === "all" || p.cat === current); });
-    var term = (qEl.value || "").trim().toLowerCase();
-    if(term) list = list.filter(function(p){ return (p.name + " " + p.blurb + " " + p.cat + " " + (p.badge||"") + " " + p.specs.join(" ")).toLowerCase().indexOf(term) >= 0; });
-    var s = sortEl.value;
-    if(s === "low")  list = list.slice().sort(function(a,b){ return a.price - b.price; });
-    if(s === "high") list = list.slice().sort(function(a,b){ return b.price - a.price; });
-    if(s === "az")   list = list.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
-    renderGrid(grid, list);
-    none.hidden = list.length > 0;
-    filters.querySelectorAll(".chip").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.f === current)); });
-  }
-  filters.addEventListener("click", function(e){
-    var b = e.target.closest(".chip"); if(!b) return;
-    current = b.dataset.f;
-    history.replaceState(null, "", current === "all" ? "shop.html" : "shop.html?cat=" + current);
-    paint();
-  });
-  qEl.addEventListener("input", paint); sortEl.addEventListener("change", paint);
-  paint();
+  document.querySelector("[data-reply]").textContent = CONTACT.reply;
+  document.querySelector("[data-hours]").textContent = CONTACT.hours;
+  document.querySelector("[data-email]").textContent = CONTACT.email; document.querySelector("[data-email]").href = "mailto:" + CONTACT.email;
+  if(CONTACT.whatsapp) document.querySelector("[data-wa]").innerHTML = '<a href="https://wa.me/' + CONTACT.whatsapp + '">+' + CONTACT.whatsapp + '</a>';
+  document.getElementById("contact-form").onsubmit = function(e){ e.preventDefault(); this.reset(); toast("Sent — well, it will be, once this is on Shopify"); };
 </script>
 </body>
 </html>

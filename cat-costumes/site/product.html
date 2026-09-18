@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
 <title>Catwalk Club</title>
+<meta name="description" content="Cat costumes and collars sized for cats. Free UK delivery over £30, 30-day returns.">
 </head>
 <body>
 <div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
@@ -46,6 +47,9 @@
         <li><a href="sizing.html">Fit &amp; care</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
+        <li><a href="track-order.html">Track your order</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
         <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
@@ -74,19 +78,23 @@
     var videos = Array.isArray(p.videos) ? p.videos : [];
 
     host.innerHTML =
-      /* 1 · hero gallery */
+      breadcrumbs([{ label: "Home", href: "index.html" }, { label: catOf(p.cat).label, href: "shop.html?cat=" + p.cat }, { label: p.name }]) +
+
+      /* 1 · hero gallery, and the three questions every buyer has */
       '<div class="gallery" id="gallery"></div>' +
+      objectionCards(p) +
 
       /* 2 · product */
       '<div class="pdp-head">' +
-        '<p class="small muted" style="margin-bottom:.3em"><a href="shop.html?cat=' + p.cat + '">' + catOf(p.cat).label + '</a></p>' +
-        '<h1 style="margin-bottom:.2em">' + p.name + '</h1>' +
-        '<p class="price" style="font-size:1.7rem">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' +
-        '<p class="muted" style="font-size:1.08rem">' + p.blurb + '</p>' +
+        '<h1 style="margin-bottom:.15em">' + p.name + '</h1>' +
+        ratingLine(p.id) +
+        '<div class="headrow"><p class="price" style="font-size:1.7rem;margin:0">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' + stockPill(p) + '</div>' +
+        '<p class="muted" style="font-size:1.08rem;margin-top:.5em">' + p.blurb + '</p>' +
+        tickList(p) +
         '<p><span class="fitline">⇔ ' + p.fit + '</span></p>' +
       '</div>' +
 
-      /* 3 · add to cart + pay now */
+      /* 3 · add to cart + express checkout + trust */
       '<div class="pdp-buy">' +
         (hasSizes ?
           '<div class="field"><label id="szl">Size</label>' +
@@ -100,11 +108,13 @@
           '<button class="btn btn-block" id="add" type="button">Add to cart</button>' +
           '<button class="wish wish-lg btn-ghost" type="button" data-wish="' + p.id + '">♡</button>' +
         '</div>' +
-        '<div class="paynow"><button class="btn btn-block btn-dark" type="button" id="paynow">Buy now · <span class="applepay">Pay</span> / Shop Pay / Google Pay</button>' +
-          '<p class="small muted center" style="margin:.5em 0 0">Express checkout goes live on Shopify once payments are enabled.</p></div>' +
-        '<div class="badges"><span>🔒 Secure checkout</span><span>📦 Free UK delivery over £30</span><span>↩️ 30-day returns</span>' +
-          (p.id === "bandana" ? '<span>🇬🇧 UK stock</span>' : '') + '</div>' +
+        expressRow() +
+        trustRow(p) +
+        paymentIcons() +
       '</div>' +
+
+      /* 3b · who it suits */
+      forMeIf(p) +
 
       /* 4 · lifestyle videos */
       '<section class="videos"><h2>See it on a cat</h2>' +
@@ -114,10 +124,10 @@
       '</section>' +
 
       /* 5 · reviews */
-      reviewsHTML(p.id) +
+      '<div id="reviews"></div>' + reviewsHTML(p.id) +
 
       /* 6 · description & dimensions */
-      '<section class="details"><h2>Details</h2>' +
+      '<section class="details" id="fit"><h2>Details</h2>' +
         '<h3>What you get</h3><ul class="deets">' + p.specs.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul>' +
         '<h3>In the box</h3><ul class="deets">' + p.box.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul>' +
         '<h3>Dimensions &amp; fit</h3>' +
@@ -136,6 +146,8 @@
         '<h3>Wear &amp; care tips</h3><p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done. Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>' +
       '</section>' +
 
+      /* 7 · cross-sell with the saving spelled out, then related */
+      crossSell(p) +
       '<section id="also" style="padding-top:20px"></section>';
 
     mountGallery(document.getElementById("gallery"), p);
@@ -160,7 +172,9 @@
     document.getElementById("plus").onclick  = function(){ qty = Math.min(qty + 1, 20); qEl.textContent = qty; };
     document.getElementById("minus").onclick = function(){ qty = Math.max(qty - 1, 1);  qEl.textContent = qty; };
     document.getElementById("add").onclick   = function(){ addToCart(p.id, size, qty); toast(qty + " × " + p.name + (size ? " (" + size + ")" : "") + " added"); };
-    document.getElementById("paynow").onclick = function(){ toast("Express checkout activates on Shopify"); };
+    document.getElementById("paynow").addEventListener("click", function(e){ var b = e.target.closest("[data-ex]"); if(b) toast(b.dataset.ex + " activates on Shopify once payments are enabled"); });
+    stickyATC(p, function(){ return { size: size, qty: qty }; });
+    productJsonLd(p);
     host.addEventListener("click", function(e){
       var w = e.target.closest("[data-wish]"); if(!w) return;
       toast(toggleWish(w.dataset.wish) ? "Saved to wishlist" : "Removed from wishlist");

@@ -1,0 +1,53 @@
+{%- comment -%}
+  Shopify has no public order lookup, so this page does one of two things:
+  - with a tracking app installed (Parcel Panel, Track123, AfterShip), the form sends the
+    order number to the app's page (set its URL and query parameter in theme settings);
+  - without one, it points to the account login and the Shop app, which both show live tracking.
+{%- endcomment -%}
+<div class="wrap">
+  {% render 'breadcrumbs' %}
+  <section style="padding:20px 0">
+    <h1 style="margin-bottom:.15em">{{ page.title }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">{{ section.settings.lede }}</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="two">
+      <div class="panel">
+        <h3>📦 Look up an order</h3>
+        {%- if settings.tracking_url != blank -%}
+          <form class="form" method="get" action="{{ settings.tracking_url }}">
+            <div><label for="t-order">Order number</label><input id="t-order" type="text" name="{{ settings.tracking_param | default: 'nums' }}" required placeholder="#1042" inputmode="numeric"></div>
+            <button class="btn" type="submit">Find my order</button>
+          </form>
+        {%- else -%}
+          <p>Your dispatch email has a <b>Track my order</b> button that opens the live courier tracking. Two other places to find it:</p>
+          <p><a class="btn btn-ghost btn-sm" href="{{ routes.account_login_url }}">Log in to see your orders</a></p>
+          <p style="margin:0"><a class="btn btn-ghost btn-sm" href="https://shop.app" rel="noopener">Open the Shop app</a></p>
+        {%- endif -%}
+      </div>
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>⏱️ What to expect</h3>
+          <div class="tablewrap"><table style="min-width:0"><tbody>
+            <tr><td>Dispatch</td><td>Within 1 working day</td></tr>
+            <tr><td>UK standard, tracked</td><td>2–4 working days · {{ settings.shipping_cost }}</td></tr>
+            <tr><td>Orders over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days · <b>free</b></td></tr>
+          </tbody></table></div>
+          <p class="small muted" style="margin:.8em 0 0">Order today and it should arrive <b data-delivery-window data-min="2" data-max="4">in 2–4 working days</b>.</p>
+        </div>
+        <div class="panel">
+          <h3>🤔 Still nothing?</h3>
+          <p style="margin:0">If the tracking hasn't moved for three working days, <a href="{{ settings.contact_page | default: '/pages/contact' }}">message us</a> with the order number and we'll chase the courier for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Track your order",
+  "settings": [
+    { "type": "text", "id": "lede", "label": "Intro", "default": "Every order ships tracked. Your dispatch email has a live tracking link; if you can't find it, look it up here." }
+  ]
+}
+{% endschema %}

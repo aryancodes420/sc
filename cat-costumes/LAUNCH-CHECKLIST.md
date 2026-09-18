@@ -28,16 +28,18 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [x] Theme built and passing `theme-check` (`theme/`).
 - [ ] `cd cat-costumes/theme && shopify theme push --unpublished`, then preview it.
 - [ ] **Theme settings:** free-delivery threshold `30`, delivery cost `£3.95`, returns `30`, footer tagline, logo, favicon.
-- [ ] **Menus:** `main-menu` (Shop, Fit & care, FAQ) and `footer` (Everyday, Halloween, Christmas, Bundles, Fit & care, FAQ, legal pages).
+- [ ] **Menus:** `main-menu` (Shop, Fit & care, FAQ) and `footer` (Everyday, Halloween, Christmas, Bundles, Fit & care, FAQ, Track your order, Contact, About, legal pages).
 - [ ] **Collections:** `everyday`, `halloween`, `christmas`, `bundles`, plus Shopify's built-in *All*. Point the four homepage tiles and the two featured-product sections at them in the editor.
-- [ ] **Pages:** *Fit & care* (template `page.sizing`, collection setting → All) and *FAQ* (template `page.faq`, ten questions pre-filled).
+- [ ] **Pages:** *Fit & care* (`page.sizing`), *FAQ* (`page.faq`), *Contact* (`page.contact`), *Track your order* (`page.track-order`), *About* (`page.about`). All pre-filled.
+- [ ] **Theme settings → Contact & chat:** contact email, WhatsApp number if you want the WhatsApp button, hours. Point the contact and size-guide links at the pages above.
 - [ ] Publish the theme when the products are in.
 
 ## D · Products — the seven
 
 - [x] Catalogue, specs, sizes, care, in-the-box and 42 photos are all in `site/assets/data.js` and `site/assets/img/`.
 - [ ] Create the seven products. For each: title, blurb → description, **variants** (option `Size`: S/M/L, or S/M) with the launch prices, upload its six photos, set inventory tracking on.
-- [ ] Metafields (namespace `custom`): `fit`, `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `blurb`, `badge`, `badge_uk` (bandana only). Values are all in `data.js`.
+- [ ] Metafields (namespace `custom`): `fit`, `blurb`, `ticks` (list), `for_me_if` (list), `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `badge`, `badge_uk` (bandana only). Values are all in `data.js` (`ticks`, `forMeIf`).
+- [ ] Cross-sell metafields: on each product, `bundles` → the bundle products it sits in; on each bundle, `contains` → its two components. That is what draws the "Cheaper together" cards with the saving.
 - [ ] Assign each product to its collection.
 - [ ] **Lifestyle videos:** film a 10–20 second clip of each product on a cat and add it as product media. The product page shows videos automatically when they exist. No videos exist yet — this is the one content item still to be made.
 
@@ -48,22 +50,26 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 ## F · Apps
 
-- [ ] **Judge.me** (reviews) — add its app block to the product page's *Reviews* slot in the theme editor. Never seed reviews by hand (DMCC Act 2024).
+- [ ] **Judge.me or Loox** (reviews) — add its app block to the product page's *Reviews* slot in the theme editor. Photo reviews (Loox) suit this shop best. The rating line under the title fills itself once real reviews exist. Never seed reviews by hand (DMCC Act 2024).
 - [ ] **Shopify Bundles** — above.
-- [ ] Shopify Email or Klaviyo — connect the newsletter form.
+- [ ] **First-order offer:** Discounts → create code `WELCOME10`, 10% off, once per customer, new customers only. Then Shopify Email → Automations → *Welcome new subscriber*, sending the code to customers tagged `welcome10`. The pop-up is already in the theme.
+- [ ] **Shopify Inbox** (free) for chat — then turn off the theme's "Help me choose" button in Theme settings; or keep the theme button and add a WhatsApp Business number instead.
+- [ ] Optional: a tracking app (Parcel Panel or Track123, free tiers) and paste its page URL into Theme settings → Orders & stock, so the Track your order page looks orders up directly.
 
 ## G · Legal & policy
 
 - [ ] Generate **Refund, Privacy, Terms, Shipping** policies from Settings → Policies (Shopify provides UK templates), then link them in the footer menu.
 - [ ] Put the returns window and shipping terms in the policies exactly as the site states them (30 days, £3.95 / free over £30).
-- [ ] Business details in the footer / contact page (trader name, address, email) — a UK legal requirement for distance selling.
+- [ ] Business details on the About page's *Business details* box and the contact page (trader name, address, email) — a UK legal requirement for distance selling.
 - [ ] Cookie consent banner (Shopify's built-in, Settings → Customer privacy).
 
 ## H · Before flipping the switch
 
 - [ ] Place a **test order** with Shopify's Bogus Gateway, then a real £1 order and refund it.
 - [ ] Test Apple Pay on an iPhone and Shop Pay on desktop.
-- [ ] Check every product page on a phone: gallery, size picker, Buy now button, videos, reviews slot, details.
+- [ ] Check every product page on a phone: gallery, objection cards, size picker + stock pill, express checkout buttons, sticky add-to-cart, videos, reviews slot, details, cross-sell.
+- [ ] Test the offer pop-up end to end: sign up, check the customer appears tagged `welcome10`, check the welcome email arrives with a working code.
+- [ ] Send a test message through the Contact page and confirm it lands in the store email.
 - [ ] Connect Google Analytics 4 and the Meta pixel (Settings → Customer events / channels).
 - [ ] Remove the password page. Set the launch date to the day the stock lands.
 

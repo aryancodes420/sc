@@ -6,7 +6,9 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-<title>Saved — Catwalk Club</title>
+<title>Track your order — Catwalk Club</title>
+<meta name="description" content="Track a Catwalk Club order. Every parcel ships tracked; dispatch within one working day.">
+<meta name="description" content="All seven Catwalk Club cat costumes and collars, plus bundles.">
 </head>
 <body>
 <div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
@@ -32,10 +34,37 @@
   </div>
 </header>
 <main class="wrap">
-  <section>
-    <h1>Saved for later</h1>
-    <p class="muted">Kept in this browser only — nothing is sent anywhere.</p>
-    <div id="host"></div>
+  <section style="padding-bottom:20px">
+    <h1 style="margin-bottom:.15em">Track your order</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">Every order ships tracked. Your dispatch email has a live tracking link; if you can't find it, look it up here.</p>
+  </section>
+  <section style="padding-top:0">
+    <div class="two">
+      <div class="panel">
+        <h3>📦 Look up an order</h3>
+        <form class="form" id="track-form">
+          <div><label for="t-order">Order number</label><input id="t-order" name="order" required placeholder="#1042" inputmode="numeric"></div>
+          <div><label for="t-email">Email used at checkout</label><input id="t-email" name="email" type="email" required autocomplete="email"></div>
+          <button class="btn" type="submit">Find my order</button>
+          <p class="small muted" style="margin:0">On Shopify this opens the order's status page, which shows the courier's live tracking.</p>
+        </form>
+      </div>
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <h3>⏱️ What to expect</h3>
+          <div class="tablewrap"><table style="min-width:0"><tbody>
+            <tr><td>Dispatch</td><td>Within 1 working day</td></tr>
+            <tr><td>UK standard, tracked</td><td>2–4 working days · £3.95</td></tr>
+            <tr><td>Orders over £30</td><td>2–4 working days · <b>free</b></td></tr>
+          </tbody></table></div>
+          <p class="small muted" style="margin:.8em 0 0">Order today and it should arrive <b data-window></b>.</p>
+        </div>
+        <div class="panel">
+          <h3>🤔 Still nothing?</h3>
+          <p style="margin:0">If the tracking hasn't moved for three working days, <a href="contact.html">message us</a> with the order number and we'll chase the courier for you.</p>
+        </div>
+      </div>
+    </div>
   </section>
 </main>
 <footer class="site">
@@ -69,19 +98,8 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  var host = document.getElementById("host");
-  function render(){
-    var list = getWish().map(byId).filter(function(p){ return p && !p.hold; });
-    if(!list.length){
-      host.innerHTML = '<div class="empty"><p style="font-size:3rem;margin:0">♡</p><h2>Nothing saved yet</h2>' +
-        '<p class="muted">Tap the heart on any costume to keep it here.</p><a class="btn" href="shop.html">Browse the shop</a></div>';
-      return;
-    }
-    host.innerHTML = '<div class="grid-p" id="g"></div>';
-    renderGrid(document.getElementById("g"), list);
-  }
-  host.addEventListener("click", function(e){ if(e.target.closest("[data-wish]")) setTimeout(render, 0); });
-  render();
+  document.querySelector("[data-window]").textContent = deliveryWindow();
+  document.getElementById("track-form").onsubmit = function(e){ e.preventDefault(); toast("On Shopify this opens your order status page"); };
 </script>
 </body>
 </html>

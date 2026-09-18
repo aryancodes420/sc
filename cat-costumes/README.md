@@ -104,10 +104,10 @@ they are the reason not to build a Halloween-only shop.
 
 1. **Look at the site** — `cd site && python3 -m http.server 8000`.
    Tell me what to change: name, colours, copy, products, prices.
-2. **Get real photography.** As with The Dog Nook, this is the blocker that decides the
-   launch date. The site currently draws illustrated placeholder cats so nothing appears
-   broken, but they are not sellable product images.
-3. **Replace every price** with your real landed cost + margin.
+2. **Work through `LAUNCH-CHECKLIST.md`** — stock first, then the Shopify account, theme,
+   products, bundles, apps, legal, tests.
+3. **Own photography and lifestyle videos** once stock lands. Supplier photos are in place
+   for launch; your own are what the ads need.
 4. **Connect payments and write the legal pages** before taking a single order.
 
 ### On the Shopify route

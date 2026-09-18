@@ -112,3 +112,52 @@ function init(){
 }
 document.addEventListener("DOMContentLoaded", init);
 document.addEventListener("shopify:section:load", e => { hydrateArt(e.target); paintWish(); paintCartProgress(); e.target.querySelectorAll("[data-gallery]").forEach(wireGallery); e.target.querySelectorAll("[data-size-notes]").forEach(wireVariantNotes); });
+
+/* ================================================================ tier 1 ==== */
+/* delivery window: "arrives Tue 22 – Thu 24 Sept", N working days from tomorrow */
+function addWorkingDays(from, n){ const d = new Date(from); let k = 0; while(k < n){ d.setDate(d.getDate() + 1); if(d.getDay() !== 0 && d.getDay() !== 6) k++; } return d; }
+function paintDeliveryWindows(root){
+  const f = d => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  (root || document).querySelectorAll("[data-delivery-window]").forEach(el => {
+    const min = parseInt(el.dataset.min, 10) || 2, max = parseInt(el.dataset.max, 10) || 4, now = new Date();
+    const win = f(addWorkingDays(now, min)) + " – " + f(addWorkingDays(now, max));
+    el.textContent = el.closest(".objections") ? "Order today: arrives " + win + ". Free over £" + (el.dataset.free || "30") + "." : win;
+  });
+}
+/* sticky add-to-cart: appears once the buy box has scrolled off the top */
+function wireStickyATC(root){
+  const bar = (root || document).querySelector("[data-sticky-atc]"), form = document.getElementById("product-form");
+  if(!bar || !form || !("IntersectionObserver" in window)) return;
+  bar.querySelector("[data-s-add]").addEventListener("click", () => { form.requestSubmit ? form.requestSubmit() : form.submit(); });
+  const cur = form.querySelector('.szbtn[aria-pressed="true"]'), ss = bar.querySelector("[data-s-size]");
+  if(cur && ss) ss.textContent = "Size " + cur.textContent.trim();
+  new IntersectionObserver(es => {
+    const past = es.some(e => !e.isIntersecting && e.boundingClientRect.top < 0);
+    bar.hidden = !past; document.body.classList.toggle("has-sticky", past);
+  }, { threshold: 0 }).observe(form);
+}
+/* first-order offer: tab + one-time pop-up; the form itself is Shopify's */
+function wireOffer(){
+  const tab = document.querySelector("[data-offer-tab]"), modal = document.querySelector("[data-offer-modal]"); if(!tab || !modal) return;
+  const KEY = "catwalk.offer.v1"; let st = {}; try{ st = JSON.parse(localStorage.getItem(KEY)) || {}; }catch(e){}
+  const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} };
+  const open = () => { modal.hidden = false; st.seen = true; save(); const i = modal.querySelector("input[type=email]"); if(i) setTimeout(() => i.focus(), 50); };
+  const close = () => { modal.hidden = true; };
+  tab.addEventListener("click", open);
+  modal.querySelector("[data-offer-close]").addEventListener("click", close);
+  modal.addEventListener("click", e => { if(e.target === modal) close(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") close(); });
+  const posted = /customer_posted=true/.test(location.search);
+  if(posted){ st.claimed = true; save(); open(); return; }
+  if(st.claimed) return;
+  const quiet = /\/products\/|\/cart/.test(location.pathname);
+  if(!st.seen && !quiet) setTimeout(open, parseInt(modal.dataset.delay, 10) || 7000);
+}
+/* chat panel toggle */
+function wireChat(){
+  const fab = document.querySelector("[data-chat]"); if(!fab) return;
+  const b = fab.querySelector(".chat-btn"), pnl = fab.querySelector(".chat-panel");
+  b.addEventListener("click", () => { pnl.hidden = !pnl.hidden; b.setAttribute("aria-expanded", String(!pnl.hidden)); });
+}
+document.addEventListener("DOMContentLoaded", () => { paintDeliveryWindows(); wireStickyATC(); wireOffer(); wireChat(); });
+document.addEventListener("shopify:section:load", e => { paintDeliveryWindows(e.target); wireStickyATC(e.target); });

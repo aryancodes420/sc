@@ -1,0 +1,46 @@
+{%- comment -%}
+  First-order offer: a small tab in the corner, and a one-time pop-up with an email form.
+  The form is Shopify's customer (newsletter) form, so signups land in Customers with the
+  tag below and Shopify Email / Klaviyo can send the code automatically. Create the discount
+  first: Discounts → Create → code {{ section.settings.code }}, {{ section.settings.percent }}% off, once per customer.
+{%- endcomment -%}
+{%- if section.settings.enabled -%}
+  <button type="button" class="offer-tab" data-offer-tab>🎁 <b>{{ section.settings.percent }}% off</b> your first order</button>
+  <div class="modal" data-offer-modal data-delay="{{ section.settings.delay | times: 1000 }}" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="offer-h">
+      <button class="modal-x" type="button" aria-label="Close" data-offer-close>&times;</button>
+      {%- form 'customer', data-offer-form: true -%}
+        {%- if form.posted_successfully? -%}
+          <p class="kicker" style="margin:0 0 10px">You're in</p>
+          <h2 id="offer-h">Your code</h2>
+          <p class="code">{{ section.settings.code }}</p>
+          <p class="small muted">Use it at checkout on your first order. It's also on its way to your inbox.</p>
+          <a class="btn" href="{{ routes.all_products_collection_url }}">Shop the seven</a>
+        {%- else -%}
+          <p class="kicker" style="margin:0 0 10px">First order</p>
+          <h2 id="offer-h">{{ section.settings.heading }}</h2>
+          <p class="muted">{{ section.settings.body }}</p>
+          {%- if form.errors -%}<p class="small" style="color:var(--pink-dk)">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,{{ section.settings.tag }}">
+          <input type="email" name="contact[email]" required placeholder="you@example.com" aria-label="Email address" autocomplete="email">
+          <button class="btn btn-mint" type="submit">Send my code</button>
+          <p class="small muted" style="margin:.8em 0 0">By signing up you agree to receive emails from {{ shop.name }}. Unsubscribe any time.</p>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "First-order offer",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show the offer", "default": true },
+    { "type": "text", "id": "percent", "label": "Discount (%)", "default": "10" },
+    { "type": "text", "id": "code", "label": "Discount code", "default": "WELCOME10", "info": "Create this code under Discounts first." },
+    { "type": "text", "id": "tag", "label": "Customer tag on signup", "default": "welcome10", "info": "Use it to trigger the welcome email in Shopify Email or Klaviyo." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "10% off, and first pick of the Halloween drop" },
+    { "type": "textarea", "id": "body", "label": "Text", "default": "Pop your email in and we'll send a code for 10% off your first order. One email when new pieces land, and a heads-up before the October cut-off. Nothing else." },
+    { "type": "range", "id": "delay", "label": "Pop-up delay (seconds)", "min": 3, "max": 30, "step": 1, "default": 7, "info": "Shown once per visitor. Never on product or cart pages." }
+  ]
+}
+{% endschema %}

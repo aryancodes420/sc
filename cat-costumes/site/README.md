@@ -56,11 +56,16 @@ supplier's shots has their own text baked in.
 |---|---|
 | `index.html` | Hero (real photo), four tiles, all seven, four bundles, fit + why panels, newsletter |
 | `shop.html` | Everything with filters (Everyday / Halloween / Christmas / Bundles), search and sort |
-| `product.html` | `?id=<id>` — six-photo gallery, size picker with per-size neck note, what you get, in the box, size & fit, materials & care, delivery & returns, wear tips, related |
+| `product.html` | `?id=<id>` — breadcrumbs, six-photo gallery, three objection cards (fit / real delivery dates / keep it on), rating line (honest empty state), price + stock pill, three ticks, size picker with per-size neck note, express checkout row, four-icon trust row, payment icons, sticky add-to-cart, "This is for you if…", videos slot, reviews, details, "Cheaper together" cross-sell with the saving, related. Emits Product + BreadcrumbList JSON-LD |
+| `about.html` | Story, four panels, business-details box (fill before trading) |
+| `contact.html` | Form (demo), WhatsApp/email/hours from `CONTACT` in `data.js` |
+| `track-order.html` | Order lookup (demo), delivery expectations with real dates |
 | `cart.html` | Lines carry size; free-delivery progress; totals |
 | `sizing.html` | Fit & care — how to measure, every size we sell in one table, care per product, returns |
 | `faq.html` | Ten questions for this range |
 | `wishlist.html` | Saved items (per-browser) |
+
+On every page: a "10% off your first order" tab with a one-time pop-up (code `WELCOME10`, demo until the discount exists on Shopify) and a "Help me choose" chat button (WhatsApp when `CONTACT.whatsapp` is set, otherwise the contact page).
 
 ## Verified
 
@@ -71,7 +76,9 @@ its six photos, S/M/L buttons show the right neck note, add-to-cart carries the 
 totals reconcile (£43.97 then £31.98 after a removal), one-size products show no size
 picker, bundles with sized components offer S/M, unknown ids show a not-found page,
 wishlist persists across pages, Fit & care renders 14 size rows and 7 care rows, FAQ has
-10 entries, no console errors, no horizontal overflow on five pages at 390px.
+10 entries, no console errors, no horizontal overflow on eight pages at 390px.
+
+Tier 1 additions (18 Sep 2026): breadcrumbs (3), objection cards (3) with a computed delivery window, honest rating line, stock pill, 3 ticks, 4 express buttons, 4 trust cells, 7 payment icons, 3 "for you if" lines, Product/BreadcrumbList JSON-LD with 3 offers and no fake rating, sticky bar hidden on load and visible after scrolling past the buy box, chat panel opens, offer pop-up opens from the tab and shows the code after signup, bat cape cross-sells the Halloween Pair with "Save £1.99", bundle lists its two contents, About/Contact/Track pages render, homepage Organization JSON-LD, footer links present.
 
 ## Still to do before this sells anything
 

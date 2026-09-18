@@ -3,6 +3,12 @@
     "tagline": "Seriously cute costumes for cats. Free UK delivery over £30.",
     "free_shipping_threshold": "30",
     "shipping_cost": "£3.95",
-    "returns_days": "30"
+    "returns_days": "30",
+    "contact_hours": "Mon–Fri, 9am–6pm UK time",
+    "reply_time": "within one working day",
+    "show_chat": true,
+    "chat_label": "Help me choose",
+    "tracking_param": "nums",
+    "low_stock_threshold": 5
   }
 }

@@ -1,0 +1,23 @@
+{%- comment -%} Home › collection › product, or Home › page. {%- endcomment -%}
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ routes.root_url }}">Home</a></li>
+    {%- case template.name -%}
+      {%- when 'product' -%}
+        {%- if collection -%}
+          <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+        {%- elsif product.collections.first -%}
+          <li><a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a></li>
+        {%- endif -%}
+        <li aria-current="page">{{ product.title }}</li>
+      {%- when 'collection' -%}
+        <li aria-current="page">{{ collection.title }}</li>
+      {%- when 'page' -%}
+        <li aria-current="page">{{ page.title }}</li>
+      {%- when 'search' -%}
+        <li aria-current="page">Search</li>
+      {%- when 'cart' -%}
+        <li aria-current="page">Cart</li>
+    {%- endcase -%}
+  </ol>
+</nav>

@@ -154,6 +154,8 @@ function mountGallery(host, p){
 function initChrome(){
   paintCount();
   paintWish();
+  initOffer();
+  initChat();
   const here = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".links a").forEach(a => {
     if(a.getAttribute("href") === here) a.classList.add("active");
@@ -162,3 +164,212 @@ function initChrome(){
   if(y) y.textContent = new Date().getFullYear();
 }
 document.addEventListener("DOMContentLoaded", initChrome);
+
+/* ================================================================ tier 1 ==== */
+/* Blocks borrowed from the best-performing UK pet stores: objection cards, rating
+   line, stock pill, express-checkout row, trust row, "this is for me if", sticky
+   add-to-cart, breadcrumbs, cross-sell savings, structured data, first-order offer
+   and a chat button. Nothing below invents a number: no review counts, no timers. */
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const abs = rel => new URL(rel, location.href).href;
+
+/* ----- breadcrumbs ----- */
+function breadcrumbs(items){
+  return '<nav class="crumbs" aria-label="Breadcrumb"><ol>' +
+    items.map((it, i) => i === items.length - 1
+      ? '<li aria-current="page">' + esc(it.label) + '</li>'
+      : '<li><a href="' + it.href + '">' + esc(it.label) + '</a></li>').join("") +
+    '</ol></nav>';
+}
+
+/* ----- rating line under the title: honest until real reviews exist ----- */
+function ratingLine(id){
+  const list = REVIEWS[id] || [];
+  if(!list.length) return '<a class="rating" href="#reviews"><span class="stars" aria-hidden="true">☆☆☆☆☆</span> No reviews yet — be the first</a>';
+  const avg = list.reduce((n,r) => n + r.stars, 0) / list.length;
+  return '<a class="rating" href="#reviews"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg)) + '</span> ' +
+    avg.toFixed(1) + ' · ' + list.length + ' review' + (list.length > 1 ? "s" : "") + '</a>';
+}
+
+/* ----- stock pill ----- */
+function stockPill(p){
+  const uk = p.id === "bandana" || (p.contains || []).indexOf("bandana") >= 0;
+  return '<span class="stockpill"><i></i>In stock' + (uk ? ' · dispatched from UK stock' : ' · ready to ship') + '</span>';
+}
+
+/* ----- delivery window: N working days from tomorrow ----- */
+function addWorkingDays(from, n){
+  const d = new Date(from); let k = 0;
+  while(k < n){ d.setDate(d.getDate() + 1); if(d.getDay() !== 0 && d.getDay() !== 6) k++; }
+  return d;
+}
+function deliveryWindow(){
+  const f = d => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  const now = new Date();
+  return f(addWorkingDays(now, DELIVERY.min)) + " – " + f(addWorkingDays(now, DELIVERY.max));
+}
+
+/* ----- the three questions every buyer has, answered before they ask ----- */
+function objectionCards(p){
+  const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
+  const fitA = hasSizes ? "Sizes are neck measurements. Two fingers of slack, and if in doubt go up." : p.fit;
+  const keep = {
+    "bow-tie-collar": "It's a collar — most cats forget it's there.",
+    "bandana": "It's a collar — most cats forget it's there.",
+    "lion-mane": "Velcro under the chin, nothing over the face. Put it on, get the shot, take it off.",
+    "bat-cape": "Sits on the shoulders, nothing over the face. Put it on, get the shot, take it off.",
+    "spider-costume": "Fastens under the chest like a harness. Best for cats already used to one.",
+    "pumpkin-set": "Chin strap on the hat, ruffle on the collar. A minute or two is all the photo needs.",
+    "santa-set": "Velcro on both pieces, nothing over the face. A minute or two is all the photo needs."
+  }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.";
+  return '<div class="objections">' +
+    '<a href="#fit"><b>Will it fit my cat?</b><span>' + esc(fitA) + '</span></a>' +
+    '<a href="faq.html"><b>When will it arrive?</b><span>Order today: arrives ' + deliveryWindow() + '. Free over £' + FREE_SHIPPING_AT + '.</span></a>' +
+    '<a href="faq.html"><b>Will my cat keep it on?</b><span>' + esc(keep) + '</span></a>' +
+  '</div>';
+}
+
+/* ----- express checkout row (Shopify renders the real buttons via payment_button) ----- */
+function expressRow(){
+  return '<div class="express" id="paynow" role="group" aria-label="Express checkout">' +
+    '<button type="button" class="ex shoppay" data-ex="Shop Pay"><b>shop</b> Pay</button>' +
+    '<button type="button" class="ex paypal" data-ex="PayPal"><b>Pay</b><i>Pal</i></button>' +
+    '<button type="button" class="ex apple" data-ex="Apple Pay"><span class="applepay">Pay</span></button>' +
+    '<button type="button" class="ex gpay" data-ex="Google Pay"><b>G</b> Pay</button>' +
+  '</div><p class="small muted center" style="margin:.5em 0 0">Express checkout goes live on Shopify once payments are enabled.</p>';
+}
+function paymentIcons(){
+  return '<ul class="payicons" aria-label="Payment methods accepted">' +
+    ["Visa","Mastercard","Amex","Apple Pay","Google Pay","Shop Pay","PayPal"].map(n => '<li>' + n + '</li>').join("") + '</ul>';
+}
+
+/* ----- four-icon trust row ----- */
+function trustRow(p){
+  const uk = p.id === "bandana";
+  return '<div class="trust4">' +
+    '<div><i>📦</i><b>Free UK delivery</b><span>on orders over £' + FREE_SHIPPING_AT + '</span></div>' +
+    '<div><i>↩️</i><b>30-day returns</b><span>worn or not</span></div>' +
+    '<div><i>🐱</i><b>Sized for cats</b><span>faces and eyes clear</span></div>' +
+    '<div><i>' + (uk ? "🇬🇧" : "🔒") + '</i><b>' + (uk ? "UK stock" : "Secure checkout") + '</b><span>' + (uk ? "dispatched here" : "Shopify Payments") + '</span></div>' +
+  '</div>';
+}
+
+/* ----- ticks + "this is for me if" ----- */
+const tickList = p => '<ul class="ticks">' + (p.ticks || []).map(t => '<li>' + esc(t) + '</li>').join("") + '</ul>';
+function forMeIf(p){
+  if(!p.forMeIf || !p.forMeIf.length) return "";
+  return '<section class="forme"><h2>This is for you if…</h2><ul>' + p.forMeIf.map(t => '<li>' + esc(t) + '</li>').join("") + '</ul></section>';
+}
+
+/* ----- cross-sell: the bundles this product sits in, with the saving spelled out ----- */
+function crossSell(p){
+  const live = PRODUCTS.filter(x => !x.hold);
+  let cards = [];
+  if(p.cat === "bundle"){
+    cards = (p.contains || []).map(byId).filter(Boolean).map(c => ({ img: c.images[0], title: c.name, line: "Included in this bundle", price: money(c.price), href: "product.html?id=" + c.id, save: "" }));
+  } else {
+    cards = live.filter(b => b.cat === "bundle" && (b.contains || []).indexOf(p.id) >= 0).map(b => {
+      const partner = byId((b.contains || []).find(id => id !== p.id));
+      return { img: partner ? partner.images[0] : b.images[0], title: b.name, line: "Add the " + (partner ? partner.name : "pair") + " as a bundle",
+        price: money(b.price), href: "product.html?id=" + b.id, save: b.was ? "Save " + money(b.was - b.price) : "" };
+    });
+  }
+  if(!cards.length) return "";
+  return '<section class="xsell"><h2>' + (p.cat === "bundle" ? "What's in it" : "Cheaper together") + '</h2><div class="xgrid">' +
+    cards.map(c => '<a class="xcard" href="' + c.href + '"><img src="' + IMG + c.img + '" alt="" width="200" height="200" loading="lazy"><div>' +
+      '<b>' + esc(c.title) + '</b><span class="muted small">' + esc(c.line) + '</span><span class="price">' + c.price + (c.save ? ' <em class="save">' + c.save + '</em>' : '') + '</span></div></a>').join("") +
+  '</div></section>';
+}
+
+/* ----- structured data ----- */
+function jsonLd(obj){
+  const s = document.createElement("script"); s.type = "application/ld+json"; s.textContent = JSON.stringify(obj); document.head.appendChild(s);
+}
+const ORG = { "@type": "Organization", "name": "Catwalk Club", "url": abs("index.html"), "email": CONTACT.email, "logo": abs("assets/img/lion-mane-2.webp"),
+  "contactPoint": { "@type": "ContactPoint", "contactType": "customer service", "email": CONTACT.email, "areaServed": "GB", "availableLanguage": "en" } };
+function orgJsonLd(){ jsonLd(Object.assign({ "@context": "https://schema.org" }, ORG)); }
+function productJsonLd(p){
+  const offer = (size) => ({
+    "@type": "Offer", "price": p.price.toFixed(2), "priceCurrency": "GBP", "availability": "https://schema.org/InStock",
+    "url": abs("product.html?id=" + p.id) + (size ? "#" + size.label : ""), "itemCondition": "https://schema.org/NewCondition",
+    "shippingDetails": { "@type": "OfferShippingDetails", "shippingRate": { "@type": "MonetaryAmount", "value": DELIVERY.cost.toFixed(2), "currency": "GBP" },
+      "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" },
+      "deliveryTime": { "@type": "ShippingDeliveryTime", "transitTime": { "@type": "QuantitativeValue", "minValue": DELIVERY.min, "maxValue": DELIVERY.max, "unitCode": "DAY" } } },
+    "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "GB", "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow", "merchantReturnDays": 30, "returnMethod": "https://schema.org/ReturnByMail", "returnFees": "https://schema.org/FreeReturn" }
+  });
+  const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
+  jsonLd({ "@context": "https://schema.org", "@type": "Product", "name": p.name, "sku": p.id, "description": p.blurb,
+    "image": (p.images || []).map(f => abs(IMG + f)), "brand": { "@type": "Brand", "name": "Catwalk Club" },
+    "category": catOf(p.cat).label, "audience": { "@type": "PeopleAudience", "suggestedGender": "unisex" },
+    "offers": hasSizes ? p.sizes.map(offer) : offer(null) });
+  jsonLd({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": abs("index.html") },
+    { "@type": "ListItem", "position": 2, "name": catOf(p.cat).label, "item": abs("shop.html?cat=" + p.cat) },
+    { "@type": "ListItem", "position": 3, "name": p.name } ] });
+}
+
+/* ----- sticky add-to-cart: appears once the buy box scrolls out of view ----- */
+function stickyATC(p, state){
+  const bar = document.createElement("div"); bar.className = "sticky-atc"; bar.hidden = true;
+  bar.innerHTML = '<img src="' + IMG + p.images[0] + '" alt="" width="48" height="48"><div class="s-meta"><b>' + esc(p.name) + '</b><span class="small muted" data-s-size></span></div>' +
+    '<span class="price">' + money(p.price) + '</span><button class="btn btn-sm" type="button" data-s-add>Add to cart</button>';
+  document.body.appendChild(bar);
+  bar.querySelector("[data-s-add]").onclick = () => document.getElementById("add").click();
+  const buy = document.querySelector(".pdp-buy"); if(!buy || !("IntersectionObserver" in window)) return;
+  let past = false;
+  new IntersectionObserver(es => {
+    es.forEach(e => { past = !e.isIntersecting && e.boundingClientRect.top < 0; });
+    bar.hidden = !past; document.body.classList.toggle("has-sticky", past);
+    const sz = bar.querySelector("[data-s-size]"); if(sz) sz.textContent = state().size ? "Size " + state().size : "";
+  }, { threshold: 0 }).observe(buy);
+}
+
+/* ----- first-order offer: a tab, and a one-time pop-up. Code is a placeholder until
+   the discount exists in Shopify (Discounts → Create → WELCOME10, 10% off, once per customer). ----- */
+const OFFER = { code: "WELCOME10", pct: 10, key: "catwalk.offer.v1", delay: 7000 };
+function initOffer(){
+  if(document.querySelector(".offer-tab")) return;
+  let st = {}; try{ st = JSON.parse(localStorage.getItem(OFFER.key)) || {}; }catch(e){}
+  const save = () => { try{ localStorage.setItem(OFFER.key, JSON.stringify(st)); }catch(e){} };
+  const tab = document.createElement("button"); tab.type = "button"; tab.className = "offer-tab";
+  tab.innerHTML = '🎁 <b>' + OFFER.pct + '% off</b> your first order'; document.body.appendChild(tab);
+  const modal = document.createElement("div"); modal.className = "modal"; modal.hidden = true;
+  modal.innerHTML = '<div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="offer-h">' +
+    '<button class="modal-x" type="button" aria-label="Close">×</button>' +
+    '<p class="kicker" style="margin:0 0 10px">First order</p><h2 id="offer-h">' + OFFER.pct + '% off, and first pick of the Halloween drop</h2>' +
+    '<p class="muted">Pop your email in and we\'ll send a code for ' + OFFER.pct + '% off your first order. One email when new pieces land, and a heads-up before the October cut-off. Nothing else.</p>' +
+    '<form data-offer-form><input type="email" required placeholder="you@example.com" aria-label="Email address"><button class="btn btn-mint" type="submit">Send my code</button></form>' +
+    '<p class="small muted" style="margin:.8em 0 0">By signing up you agree to receive emails from Catwalk Club. Unsubscribe any time.</p>' +
+    '<div class="offer-done" hidden><p style="font-size:1.05rem"><b>Your code:</b></p><p class="code" data-code>' + OFFER.code + '</p><p class="small muted">Use it at checkout. On Shopify the email tool sends this automatically.</p><a class="btn" href="shop.html">Shop the seven</a></div>' +
+  '</div>';
+  document.body.appendChild(modal);
+  const open = () => { modal.hidden = false; st.seen = true; save(); modal.querySelector("input") && setTimeout(() => modal.querySelector("input").focus(), 50); };
+  const close = () => { modal.hidden = true; };
+  tab.onclick = open; modal.querySelector(".modal-x").onclick = close;
+  modal.addEventListener("click", e => { if(e.target === modal) close(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") close(); });
+  modal.querySelector("[data-offer-form]").onsubmit = e => {
+    e.preventDefault(); st.claimed = true; save();
+    modal.querySelector("[data-offer-form]").hidden = true; modal.querySelector(".offer-done").hidden = false;
+    tab.innerHTML = '🎁 Your code: <b>' + OFFER.code + '</b>';
+  };
+  if(st.claimed) tab.innerHTML = '🎁 Your code: <b>' + OFFER.code + '</b>';
+  if(!st.seen && !/product\.html|cart\.html/.test(location.pathname)) setTimeout(open, OFFER.delay);
+}
+
+/* ----- chat: WhatsApp when a number exists, otherwise the contact page. Shopify Inbox
+   adds its own button once installed — hide this one then. ----- */
+function initChat(){
+  if(document.querySelector(".chat-fab")) return;
+  const wa = CONTACT.whatsapp ? "https://wa.me/" + CONTACT.whatsapp + "?text=" + encodeURIComponent("Hi! Can you help me choose a costume for my cat?") : "";
+  const fab = document.createElement("div"); fab.className = "chat-fab";
+  fab.innerHTML = '<button type="button" class="chat-btn" aria-expanded="false" aria-controls="chat-panel">💬 Help me choose</button>' +
+    '<div class="chat-panel" id="chat-panel" hidden><b>Not sure which one?</b><p class="small muted" style="margin:.3em 0 .8em">Tell us your cat\'s neck size and what the occasion is. We reply ' + CONTACT.reply + '.</p>' +
+    (wa ? '<a class="btn btn-mint btn-sm btn-block" href="' + wa + '" target="_blank" rel="noopener">WhatsApp us</a>' : '') +
+    '<a class="btn btn-ghost btn-sm btn-block" href="contact.html" style="margin-top:8px">Send a message</a>' +
+    '<a class="btn btn-ghost btn-sm btn-block" href="sizing.html" style="margin-top:8px">Size guide</a></div>';
+  document.body.appendChild(fab);
+  const b = fab.querySelector(".chat-btn"), pnl = fab.querySelector(".chat-panel");
+  b.onclick = () => { pnl.hidden = !pnl.hidden; b.setAttribute("aria-expanded", String(!pnl.hidden)); };
+}

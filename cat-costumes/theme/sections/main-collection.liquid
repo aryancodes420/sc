@@ -1,5 +1,6 @@
 <div class="wrap">
   <section style="padding-bottom:24px">
+    {% render 'breadcrumbs' %}
     <h1 style="margin-bottom:.15em">{{ collection.title }}</h1>
     {%- if collection.description != blank -%}
       <div class="muted" style="font-size:1.08rem;max-width:62ch">{{ collection.description }}</div>

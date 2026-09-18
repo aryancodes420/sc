@@ -11,8 +11,14 @@
 {%- assign videos = product.media | where: 'media_type', 'video' -%}
 {%- assign ext_videos = product.media | where: 'media_type', 'external_video' -%}
 {%- assign size_notes = product.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}
+{%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+{%- assign rating_val = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}
+{%- assign rating_round = rating_val | round -%}
+{%- assign cv = product.selected_or_first_available_variant -%}
+{%- assign low = settings.low_stock_threshold | default: 5 | times: 1 -%}
 
 <div class="wrap pdp-stack">
+  {% render 'breadcrumbs' %}
 
   {%- comment -%} 1 · hero gallery {%- endcomment -%}
   <div class="gallery" data-gallery>
@@ -36,15 +42,41 @@
     {%- endif -%}
   </div>
 
+  {%- comment -%} 1b · the three questions every buyer has {%- endcomment -%}
+  <div class="objections">
+    <a href="#fit"><b>{{ section.settings.q1_title }}</b><span>{% if product.metafields.custom.fit != blank and product.has_only_default_variant %}{{ product.metafields.custom.fit }}{% else %}{{ section.settings.q1_text }}{% endif %}</span></a>
+    <a href="{{ section.settings.q2_url | default: '/pages/faq' }}"><b>{{ section.settings.q2_title }}</b><span data-delivery-window data-min="2" data-max="4">{{ section.settings.q2_text }}</span></a>
+    <a href="{{ section.settings.q3_url | default: '/pages/faq' }}"><b>{{ section.settings.q3_title }}</b><span>{{ product.metafields.custom.keep_on | default: section.settings.q3_text }}</span></a>
+  </div>
+
   {%- comment -%} 2 · product {%- endcomment -%}
   <div class="pdp-head">
-    {%- if collection -%}<p class="small muted" style="margin-bottom:.3em"><a href="{{ collection.url }}">{{ collection.title }}</a></p>{%- endif -%}
-    <h1 style="margin-bottom:.2em">{{ product.title }}</h1>
-    <p class="price" style="font-size:1.7rem" id="price">
-      {{ product.selected_or_first_available_variant.price | money }}
-      {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
-    </p>
-    {%- if product.metafields.custom.blurb != blank -%}<p class="muted" style="font-size:1.08rem">{{ product.metafields.custom.blurb }}</p>{%- endif -%}
+    <h1 style="margin-bottom:.15em">{{ product.title }}</h1>
+    <a class="rating" href="#reviews">
+      {%- if rating_count > 0 -%}
+        <span class="stars has" aria-hidden="true">{%- for i in (1..5) -%}{%- if i <= rating_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span>
+        {{ rating_val | round: 1 }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
+      {%- else -%}
+        <span class="stars" aria-hidden="true">☆☆☆☆☆</span> No reviews yet — be the first
+      {%- endif -%}
+    </a>
+    <div class="headrow">
+      <p class="price" style="font-size:1.7rem;margin:0" id="price">
+        {{ cv.price | money }}
+        {%- if cv.compare_at_price > cv.price -%}<s>{{ cv.compare_at_price | money }}</s>{%- endif -%}
+      </p>
+      <span class="stockpill" data-stock-pill data-low="{{ low }}">
+        <i></i>
+        {%- if cv.available -%}
+          {%- if cv.inventory_management == 'shopify' and cv.inventory_quantity > 0 and cv.inventory_quantity <= low -%}Only {{ cv.inventory_quantity }} left
+          {%- else -%}In stock{% if product.metafields.custom.badge_uk == true %} · dispatched from UK stock{% else %} · ready to ship{% endif %}{%- endif -%}
+        {%- else -%}Sold out{%- endif -%}
+      </span>
+    </div>
+    {%- if product.metafields.custom.blurb != blank -%}<p class="muted" style="font-size:1.08rem;margin-top:.5em">{{ product.metafields.custom.blurb }}</p>{%- endif -%}
+    {%- if product.metafields.custom.ticks != blank -%}
+      <ul class="ticks">{%- for t in product.metafields.custom.ticks.value -%}<li>{{ t }}</li>{%- endfor -%}</ul>
+    {%- endif -%}
     {%- if product.metafields.custom.fit != blank -%}<p><span class="fitline">⇔ {{ product.metafields.custom.fit }}</span></p>{%- endif -%}
   </div>
 
@@ -56,6 +88,8 @@
         <div class="sizes" role="group">
           {%- for variant in product.variants -%}
             <button type="button" class="szbtn" data-variant="{{ variant.id }}"
+                    data-available="{{ variant.available }}" data-qty="{% if variant.inventory_management == 'shopify' %}{{ variant.inventory_quantity }}{% endif %}"
+                    data-price="{{ variant.price | money }}"
                     aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
                     {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
           {%- endfor -%}
@@ -90,14 +124,38 @@
     {%- if section.settings.show_dynamic_checkout -%}
       <div class="paynow">{{ form | payment_button }}</div>
     {%- endif -%}
+
+    <div class="trust4">
+      <div><i>📦</i><b>Free UK delivery</b><span>on orders over £{{ settings.free_shipping_threshold }}</span></div>
+      <div><i>↩️</i><b>{{ settings.returns_days }}-day returns</b><span>worn or not</span></div>
+      <div><i>🐱</i><b>Sized for cats</b><span>faces and eyes clear</span></div>
+      {%- if product.metafields.custom.badge_uk == true -%}
+        <div><i>🇬🇧</i><b>UK stock</b><span>dispatched here</span></div>
+      {%- else -%}
+        <div><i>🔒</i><b>Secure checkout</b><span>Shopify Payments</span></div>
+      {%- endif -%}
+    </div>
+    {%- if shop.enabled_payment_types.size > 0 -%}
+      <ul class="payicons svg" aria-label="Payment methods accepted">
+        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'payicon' }}</li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
   {%- endform -%}
 
-  <div class="badges">
-    <span>🔒 Secure checkout</span>
-    <span>📦 Free UK delivery over £{{ settings.free_shipping_threshold }}</span>
-    <span>↩️ {{ settings.returns_days }}-day returns</span>
-    {%- if product.metafields.custom.badge_uk == true -%}<span>🇬🇧 UK stock</span>{%- endif -%}
+  {%- comment -%} sticky add-to-cart: shown by catwalk.js once the buy box scrolls off screen {%- endcomment -%}
+  <div class="sticky-atc" data-sticky-atc hidden>
+    {%- if has_photos -%}<img src="{{ product.featured_image | image_url: width: 96 }}" alt="" width="48" height="48">{%- endif -%}
+    <div class="s-meta"><b>{{ product.title }}</b><span class="small muted" data-s-size></span></div>
+    <span class="price" data-s-price>{{ cv.price | money }}</span>
+    <button class="btn btn-sm" type="button" data-s-add {% unless product.available %}disabled{% endunless %}>{{ 'products.product.add_to_cart' | t }}</button>
   </div>
+
+  {%- if product.metafields.custom.for_me_if != blank -%}
+    <section class="forme">
+      <h2>This is for you if…</h2>
+      <ul>{%- for t in product.metafields.custom.for_me_if.value -%}<li>{{ t }}</li>{%- endfor -%}</ul>
+    </section>
+  {%- endif -%}
 
   {%- comment -%} 4 · lifestyle videos — product media of type video / external video {%- endcomment -%}
   {%- if videos.size > 0 or ext_videos.size > 0 -%}
@@ -117,8 +175,8 @@
   {%- endif -%}
 
   {%- comment -%} 5 · reviews — an app block (Judge.me, Loox) dropped in via the theme editor {%- endcomment -%}
-  <section class="reviews">
-    <h2>Reviews</h2>
+  <section class="reviews" id="reviews">
+    <h2>{% if rating_count > 0 %}{{ section.settings.reviews_heading }}{% else %}Reviews{% endif %}</h2>
     {%- assign has_app_block = false -%}
     {%- for block in section.blocks -%}
       {%- if block.type == '@app' -%}
@@ -136,7 +194,7 @@
   </section>
 
   {%- comment -%} 6 · description & dimensions {%- endcomment -%}
-  <section class="details">
+  <section class="details" id="fit">
     <h2>Details</h2>
 
     {%- if product.metafields.custom.specs != blank -%}
@@ -180,6 +238,42 @@
       Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>
   </section>
 
+  {%- comment -%} 7 · cross-sell: bundles this product sits in (custom.bundles), or a bundle's contents (custom.contains) {%- endcomment -%}
+  {%- assign bundles = product.metafields.custom.bundles.value -%}
+  {%- assign contents = product.metafields.custom.contains.value -%}
+  {%- if contents.size > 0 -%}
+    <section class="xsell">
+      <h2>What's in it</h2>
+      <div class="xgrid">
+        {%- for item in contents -%}
+          <a class="xcard" href="{{ item.url }}">
+            {%- if item.featured_image -%}<img src="{{ item.featured_image | image_url: width: 200 }}" alt="" width="84" height="84" loading="lazy">{%- else -%}<div data-cat-art="{{ item.handle }}"></div>{%- endif -%}
+            <div><b>{{ item.title }}</b><span class="muted small">Included in this bundle</span><span class="price">{{ item.price | money }}</span></div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- elsif bundles.size > 0 -%}
+    <section class="xsell">
+      <h2>Cheaper together</h2>
+      <div class="xgrid">
+        {%- for b in bundles -%}
+          {%- assign partner = nil -%}
+          {%- for c in b.metafields.custom.contains.value -%}{%- if c.id != product.id and partner == nil -%}{%- assign partner = c -%}{%- endif -%}{%- endfor -%}
+          {%- assign pic = partner.featured_image | default: b.featured_image -%}
+          <a class="xcard" href="{{ b.url }}">
+            {%- if pic -%}<img src="{{ pic | image_url: width: 200 }}" alt="" width="84" height="84" loading="lazy">{%- else -%}<div data-cat-art="{{ b.handle }}"></div>{%- endif -%}
+            <div>
+              <b>{{ b.title }}</b>
+              <span class="muted small">{% if partner %}Add the {{ partner.title }} as a bundle{% else %}Bundle{% endif %}</span>
+              <span class="price">{{ b.price | money }}{% if b.compare_at_price > b.price %} <em class="save">Save {{ b.compare_at_price | minus: b.price | money }}</em>{% endif %}</span>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
   {%- if section.settings.show_related -%}
     {%- assign rel = product.collections.first -%}
     {%- if rel -%}
@@ -208,6 +302,14 @@
       if(b && select){
         select.value = b.dataset.variant; select.dispatchEvent(new Event("change", { bubbles: true }));
         form.querySelectorAll(".szbtn").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+        var pill = document.querySelector("[data-stock-pill]"), price = document.getElementById("price"), sp = document.querySelector("[data-s-price]"), ss = document.querySelector("[data-s-size]");
+        if(pill){
+          var q = parseInt(b.dataset.qty, 10), low = parseInt(pill.dataset.low, 10) || 5, avail = b.dataset.available === "true";
+          pill.innerHTML = "<i></i>" + (!avail ? "Sold out" : (q > 0 && q <= low) ? "Only " + q + " left" : "In stock");
+        }
+        if(price && b.dataset.price) price.firstChild.textContent = " " + b.dataset.price + " ";
+        if(sp && b.dataset.price) sp.textContent = b.dataset.price;
+        if(ss) ss.textContent = "Size " + b.textContent.trim();
       }
       if(e.target.closest("#qty-plus"))  { n = Math.min(n + 1, 20); qty.value = n; qtyVal.textContent = n; }
       if(e.target.closest("#qty-minus")) { n = Math.max(n - 1, 1);  qty.value = n; qtyVal.textContent = n; }
@@ -223,7 +325,17 @@
       "info": "Buttons appear once accelerated checkouts are enabled under Settings → Payments." },
     { "type": "text", "id": "videos_heading", "label": "Videos heading", "default": "See it on a cat" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
-    { "type": "url", "id": "size_guide_url", "label": "Size guide link" }
+    { "type": "url", "id": "size_guide_url", "label": "Size guide link" },
+    { "type": "text", "id": "reviews_heading", "label": "Reviews heading (once reviews exist)", "default": "Real cats, real results" },
+    { "type": "header", "content": "Objection cards (under the gallery)" },
+    { "type": "text", "id": "q1_title", "label": "Card 1 title", "default": "Will it fit my cat?" },
+    { "type": "text", "id": "q1_text", "label": "Card 1 text (sized products)", "default": "Sizes are neck measurements. Two fingers of slack, and if in doubt go up." },
+    { "type": "text", "id": "q2_title", "label": "Card 2 title", "default": "When will it arrive?" },
+    { "type": "text", "id": "q2_text", "label": "Card 2 text", "default": "Order today: dispatched within one working day, 2–4 working days tracked. Free over £30.", "info": "The theme replaces this with real dates (e.g. 'arrives Tue 22 – Thu 24 Sept') when JavaScript is on." },
+    { "type": "url", "id": "q2_url", "label": "Card 2 link" },
+    { "type": "text", "id": "q3_title", "label": "Card 3 title", "default": "Will my cat keep it on?" },
+    { "type": "text", "id": "q3_text", "label": "Card 3 text", "default": "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.", "info": "Override per product with the custom.keep_on metafield." },
+    { "type": "url", "id": "q3_url", "label": "Card 3 link" }
   ],
   "blocks": [
     { "type": "@app" }

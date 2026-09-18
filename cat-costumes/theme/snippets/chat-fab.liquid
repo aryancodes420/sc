@@ -1,0 +1,19 @@
+{%- comment -%}
+  "Help me choose" button. WhatsApp deep link when a number is set in theme settings;
+  always a link to the contact page and the size guide. If you install Shopify Inbox,
+  turn this off in theme settings so the two buttons don't overlap.
+{%- endcomment -%}
+{%- if settings.show_chat -%}
+  <div class="chat-fab" data-chat>
+    <button type="button" class="chat-btn" aria-expanded="false" aria-controls="chat-panel">💬 {{ settings.chat_label | default: 'Help me choose' }}</button>
+    <div class="chat-panel" id="chat-panel" hidden>
+      <b>Not sure which one?</b>
+      <p class="small muted" style="margin:.3em 0 .8em">Tell us your cat's neck size and the occasion. We reply {{ settings.reply_time | default: 'within one working day' }}.</p>
+      {%- if settings.whatsapp_number != blank -%}
+        <a class="btn btn-mint btn-sm btn-block" href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}?text=Hi!%20Can%20you%20help%20me%20choose%20a%20costume%20for%20my%20cat%3F" target="_blank" rel="noopener">WhatsApp us</a>
+      {%- endif -%}
+      <a class="btn btn-ghost btn-sm btn-block" href="{{ settings.contact_page | default: '/pages/contact' }}" style="margin-top:8px">Send a message</a>
+      <a class="btn btn-ghost btn-sm btn-block" href="{{ settings.size_guide_page | default: '/pages/fit-and-care' }}" style="margin-top:8px">Size guide</a>
+    </div>
+  </div>
+{%- endif -%}

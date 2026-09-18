@@ -133,6 +133,9 @@
         <li><a href="sizing.html">Fit &amp; care</a></li>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
+        <li><a href="track-order.html">Track your order</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
         <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
@@ -152,6 +155,7 @@
       '<div class="ic" style="background:' + c.tint + '">' + c.emoji + '</div>' +
       '<h3>' + c.label + '</h3><span>' + c.note + '</span></a>';
   }).join("");
+  orgJsonLd();
   var live = PRODUCTS.filter(function(p){ return !p.hold; });
   renderGrid(document.getElementById("all"), live.filter(function(p){ return p.cat !== "bundle"; }));
   renderGrid(document.getElementById("bundles"), live.filter(function(p){ return p.cat === "bundle"; }));

@@ -1,11 +1,9 @@
 # Catwalk Club — Shopify theme
 
-A complete, standalone Shopify theme carrying the Catwalk Club design. Not a Dawn overlay —
-it has its own `layout/`, `config/` and `locales/`, so it can be uploaded to an empty store
-and work on its own. (`../../dog-nook-theme/` is the other pattern: files that drop *into*
-Dawn. This one replaces it.)
+A complete, standalone Shopify theme carrying the Catwalk Club design: its own `layout/`,
+`config/` and `locales/`, so it uploads to an empty store and works on its own.
 
-**Validated with Shopify's own `@shopify/theme-check`: 33 files, 84 checks, 0 offenses.**
+**Validated with Shopify's own `@shopify/theme-check`: 54 files, 0 offenses.**
 
 ---
 
@@ -27,92 +25,94 @@ Push as **unpublished** first and preview it before making it the live theme.
 
 | | |
 |---|---|
-| `layout/theme.liquid` | Document shell, fonts, skip link |
-| `sections/` | 17 sections — header, footer, hero, trust strip, category tiles, featured products, size finder, newsletter, plus `main-*` for product, collection, cart, page, search and collection list, a fit & why panel, and full FAQ and Fit & care page sections |
-| `snippets/product-card.liquid` | Product card with illustrated fallback |
-| `snippets/catwalk-fonts.liquid` | Self-hosted Fredoka + Nunito via `asset_url` |
+| `layout/theme.liquid` | Document shell, fonts, skip link, structured data, first-order offer, chat button |
+| `sections/` | 21 sections — header, footer, announcement, hero, trust strip, category tiles, featured products, why-fit, newsletter, first-order offer, About, plus `main-*` for product, collection, cart, page, contact, track-order, search and collection list, and the FAQ and Fit & care page sections |
+| `snippets/` | `product-card`, `breadcrumbs`, `structured-data` (JSON-LD), `chat-fab`, `catwalk-fonts` |
 | `templates/` | JSON templates for every page type, plus `404.liquid` |
-| `assets/catwalk.css` | The full design system |
-| `assets/catwalk.js` | Size finder, cm/inch toggle, wishlist, illustrated fallbacks |
+| `assets/catwalk.css` | The full design system (same file as the static site, plus theme-only rules) |
+| `assets/catwalk.js` | Gallery, wishlist, variant size notes, stock pill, sticky add-to-cart, delivery dates, offer pop-up, chat toggle |
 
-Cart, checkout, inventory, search and pagination are **Shopify's** — this theme doesn't
-reimplement them. What it adds is everything Shopify doesn't give you: the interactive size
-finder, breed presets, the unit toggle, and the informational gallery.
+Cart, checkout, inventory, search, pagination, the contact form and the newsletter form are
+**Shopify's** — this theme doesn't reimplement them.
 
 ---
 
-## Product page order
+## Product page, top to bottom
 
-Hero gallery → title, price, size → add to cart + **Buy now** (Shop Pay / Apple Pay /
-Google Pay via `payment_button`, once enabled under Settings → Payments) → lifestyle
-videos (any **video media** on the product renders automatically) → reviews (an **app
-block** slot for Judge.me or Loox; shows "No reviews yet" until one is added) →
-description & dimensions (what you get, in the box, size table, care, delivery).
+1. Breadcrumbs
+2. **Hero gallery** (six photos, thumbnails)
+3. Three **objection cards**: *Will it fit my cat?* · *When will it arrive?* (real dates) · *Will my cat keep it on?*
+4. Title · **rating line** (honest "No reviews yet" until a reviews app writes real numbers) · price · **stock pill** ("In stock", "Only 3 left", "Sold out", follows the chosen size) · blurb · three **ticks**
+5. Size picker · quantity · **Add to cart** · **Shop Pay / PayPal / Apple Pay / Google Pay** (`payment_button`, appears once enabled under Settings → Payments) · four-icon trust row · **payment icons** (`shop.enabled_payment_types`)
+6. **Sticky add-to-cart bar** once the buy box scrolls off screen
+7. *This is for you if…* (`custom.for_me_if`)
+8. Lifestyle **videos** (any video media on the product)
+9. **Reviews** — app block slot for Judge.me or Loox; heading becomes "Real cats, real results" once reviews exist
+10. **Details**: what you get, in the box, dimensions & fit, materials & care, delivery & returns
+11. **Cheaper together** — the bundles this product sits in, with the saving spelled out (`custom.bundles`)
+12. Related products
 
 ## Store setup after pushing
 
-**1. Collections** — create four, matching the catalogue in `../README.md`:
-`holiday-seasonal`, `cute-everyday`, `novelty-funny`, `bundles`.
-Then open the theme editor and point each homepage category tile at one.
+**1. Collections** — `everyday`, `halloween`, `christmas`, `bundles`. Point the homepage tiles
+and featured sections at them in the editor.
 
-**2. Menus** — `main-menu` (Shop, Fit & care, FAQ) and `footer`. The header and footer
-sections read whichever menus you pick in the editor.
+**2. Menus** — `main-menu` (Shop, Fit & care, FAQ) and `footer` (the four collections, Fit & care,
+FAQ, Track your order, Contact, About, legal pages).
 
-**3. Pages** — create two pages and assign their templates in the page's Online Store settings:
+**3. Pages** — create these and assign the template in the page's *Online Store* settings:
 
-| Page | Template to assign |
-|---|---|
-| Fit & care | `page.sizing` |
-| FAQ | `page.faq` |
+| Page | Template | Notes |
+|---|---|---|
+| Fit & care | `page.sizing` | Handle `fit-and-care` |
+| FAQ | `page.faq` | Ten questions pre-filled |
+| Contact | `page.contact` | Shopify's contact form; posts to the store email |
+| Track your order | `page.track-order` | Links to account login + Shop app, or to a tracking app if you set one |
+| About | `page.about` | Pre-filled; edit in the theme editor |
 
-The FAQ ships with all ten questions pre-filled as editable blocks.
+Then set **Theme settings → Contact & chat**: contact email, WhatsApp number (optional),
+hours, the contact and size-guide page links.
 
-**4. Product metafields** — namespace **`custom`**, Settings → Custom data → Products. The
-theme degrades gracefully without them, but the product pages are built to show them:
+**4. Product metafields** — namespace **`custom`**, Settings → Custom data → Products. Values
+for every product are in `../site/assets/data.js`.
 
 | Key | Type | Used for |
 |---|---|---|
-| `fit` | Single line text | The green fit pill, and the one-size row on the Fit & care page |
-| `specs` | List of single line text | "What you get" bullets (falls back to the description) |
-| `box` | List of single line text | "In the box" accordion |
-| `care` | Single line text | Materials & care accordion, and the care table |
-| `size_notes` | Multi-line text | One line per variant, in variant order — shown under the size picker and in every size table (e.g. `neck 28cm / 11in · Cap 24cm`) |
-| `blurb` | Single line text | Short line under the title |
-| `badge` | Single line text | Card badge (e.g. `Bestseller`) |
-| `badge_uk` | True/false | Shows the "UK stock" badge |
+| `fit` | Single line text | Green fit pill; the fit card for one-size products |
+| `blurb` | Single line text | Line under the title |
+| `ticks` | List of single line text | Three ticks under the blurb |
+| `for_me_if` | List of single line text | "This is for you if…" block |
+| `keep_on` | Single line text | Per-product answer to "Will my cat keep it on?" (falls back to the section default) |
+| `specs` | List of single line text | "What you get" |
+| `box` | List of single line text | "In the box" |
+| `care` | Single line text | Materials & care |
+| `size_notes` | Multi-line text | One line per variant, in variant order |
+| `badge` | Single line text | Card badge |
+| `badge_uk` | True/false | "UK stock" in the trust row and stock pill |
+| `bundles` | List of products | Bundles this product belongs to → "Cheaper together" |
+| `contains` | List of products | On a bundle: its components → "What's in it" and the partner shown in cross-sell |
 | `motif` | Single line text | Illustration fallback if a product has no photo |
 
-Sizes are ordinary Shopify **variants** (option `Size`: S / M / L). The launch catalogue and
-every value for these fields is in `../site/assets/data.js`.
+Reviews apps (Judge.me, Loox) write to the standard `reviews.rating` and `reviews.rating_count`
+metafields. The rating line, the reviews heading and the JSON-LD `aggregateRating` read those and
+show nothing until they exist. **Never fill them by hand** (DMCC Act 2024).
 
-**5. Theme settings** — set the free-delivery threshold, delivery cost and returns window
-under Theme settings. These feed the product page table and the cart progress bar, so
-**make them match your real shipping settings**.
+**5. Theme settings** — free-delivery threshold, delivery cost, returns window (they feed the
+product page, cart bar and structured data, so match your real shipping settings); *Orders &
+stock* for the low-stock threshold and an optional tracking app URL.
 
----
+**6. First-order offer** — the pop-up's form is Shopify's newsletter form, so signups land in
+Customers tagged `welcome10`. Create the discount first (Discounts → code `WELCOME10`, 10% off,
+once per customer), then a Shopify Email automation "Welcome" that sends it. Text, code, delay
+and on/off are in the *First-order offer* section in the editor.
 
-## About the illustrations
-
-Products without a photograph render a generated SVG cat instead of an empty grey box, and
-the product page shows a visible "Illustration, not a photograph" banner.
-
-Set `custom.motif` to pick which one: `pumpkin`, `bat`, `santa`, `antlers`, `party`,
-`jumper`, `bandana`, `bowtie`, `hoodie`, `flower`, `mane`, `dino`, `shark`, `cape`.
-Left blank, one is chosen deterministically from the product handle.
-
-**This is scaffolding, not a feature.** The moment a product has real photographs the theme
-uses them and the banner disappears. Delete `hydrateArt` from `catwalk.js` once every
-product is photographed.
+**7. Chat** — the "Help me choose" button links to WhatsApp (if a number is set) and the contact
+page. If you install **Shopify Inbox** instead, turn this button off in Theme settings.
 
 ---
 
-## Still to do before this sells anything
+## Illustrated fallback
 
-1. **Photography.** Unchanged, and still the blocker.
-2. **Products.** The theme is empty until you create them — catalogue and prices are in
-   `../README.md`, and every price there is a placeholder.
-3. **Payments, taxes and shipping.** Shopify's, not the theme's.
-4. **Legal pages.** Shipping, refunds, terms, privacy. Create as pages and link from the
-   footer menu.
-5. **Reviews.** Install Judge.me or Loox — both competitors use Judge.me. Never write your
-   own: fake reviews are banned by the DMCC Act 2024.
+Any product without a photograph renders a generated SVG cat instead of an empty box. Every
+launch product has six photos, so this only matters for new products before their photos land.
+`custom.motif` picks the illustration: `bowtie`, `bandana`, `mane`, `cape`, `bat`, `pumpkin`, `santa`.

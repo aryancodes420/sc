@@ -14,6 +14,8 @@ const PRODUCTS = [
     badge: "Bestseller", motif: "bowtie",
     images: ["bow-tie-1.webp","bow-tie-2.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-5.webp","bow-tie-6.webp"],
     blurb: "A plaid bow tie on a proper safety collar — breakaway buckle, bell, and an elastic adjustable strap.",
+    ticks: ["Breakaway buckle releases under pressure", "Elastic strap adjusts to most adult cats", "Bell and plaid bow — on in seconds"],
+    forMeIf: ["Your cat has never worn anything before", "You want something that stays on all day, not just for a photo", "You'd rather adjust a strap than pick a size"],
     fit: "Adjustable elastic strap. Fits most adult cats.",
     sizes: null,
     specs: [
@@ -33,6 +35,8 @@ const PRODUCTS = [
     badge: "UK stock", motif: "bandana",
     images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
     blurb: "A paisley bandana mounted on a buckle collar — no tying, just clip it on. Dispatched from UK stock.",
+    ticks: ["Clips on with a buckle — no tying", "Dispatched from UK stock", "Machine washable"],
+    forMeIf: ["You want it this week, not in a fortnight", "Your cat tolerates a collar but not a hat", "You want a wash-and-wear everyday look"],
     fit: "Buckle collar with three sizes. Size S suits most cats.",
     sizes: [
       { label: "S", neck: "24–40cm", note: "Most cats" },
@@ -58,6 +62,8 @@ const PRODUCTS = [
     badge: "Bestseller", motif: "mane",
     images: ["lion-mane-1.webp","lion-mane-2.webp","lion-mane-3.webp","lion-mane-4.webp","lion-mane-5.webp","lion-mane-6.webp"],
     blurb: "The classic. A full faux-fur mane with little round ears that turns any cat into the king of the living room.",
+    ticks: ["Full faux-fur mane with round ears", "Velcro under the chin — on in one go", "Face, eyes and mouth stay clear"],
+    forMeIf: ["You want the photo that gets the most likes", "Your cat already wears a collar happily", "You've measured the neck (S 28cm · M 32cm · L 38cm)"],
     fit: "Three sizes, fastened with velcro under the chin. Measure the neck.",
     sizes: [
       { label: "S", neck: "28cm / 11in",   note: "Cap 24cm" },
@@ -81,6 +87,8 @@ const PRODUCTS = [
     badge: "Halloween", motif: "cape",
     images: ["bat-cape-5.webp","bat-cape-4.webp","bat-cape-3.webp","bat-cape-2.webp","bat-cape-1.webp","bat-cape-6.webp"],
     blurb: "A red-and-black satin cape with bat wings, a bow at the collar, and a little devil-horn hood to match.",
+    ticks: ["Double-layer satin, soft against the fur", "Cape plus a matching devil-horn hood", "Adjustable at the neck"],
+    forMeIf: ["Your cat wears a collar but not something over the body", "You want two looks — cape alone, or cape and hood", "Halloween photos are the goal"],
     fit: "Three sizes. Adjustable at the neck.",
     sizes: [
       { label: "S", neck: "approx. 29cm", note: "Length approx. 30cm" },
@@ -104,6 +112,8 @@ const PRODUCTS = [
     badge: "Halloween", motif: "bat",
     images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
     blurb: "Eight furry legs on a soft felt body that fastens under the chest. The costume that gets the most double-takes at the door.",
+    ticks: ["Eight plush legs — nothing rigid", "Soft felt body, velcro under the chest", "The one that gets double-takes at the door"],
+    forMeIf: ["Your cat is relaxed about a harness or jumper", "You've measured neck and chest", "You want the full costume, not just a hat"],
     fit: "Two sizes, velcro fastening. Measure the neck and chest.",
     sizes: [
       { label: "S", neck: "20–32cm", note: "Chest 32–42cm — most cats" },
@@ -126,6 +136,8 @@ const PRODUCTS = [
     badge: "Halloween", motif: "pumpkin",
     images: ["pumpkin-1.webp","pumpkin-2.webp","pumpkin-3.webp","pumpkin-4.webp","pumpkin-5.webp","pumpkin-6.webp"],
     blurb: "A witch-style pumpkin hat on a chin strap, with a matching orange tulle ruffle collar. The most-searched cat costume there is, as a two-piece set.",
+    ticks: ["Hat plus a matching tulle ruffle collar", "Adjustable chin strap, one-size collar", "Ears stay free"],
+    forMeIf: ["You want the pumpkin look everyone searches for", "You'd rather not pick a size", "Your cat will sit for a hat for a minute or two"],
     fit: "One size. Hat on an adjustable chin strap; collar fits necks 25–40cm.",
     sizes: null,
     specs: [
@@ -147,6 +159,8 @@ const PRODUCTS = [
     badge: "Christmas", motif: "santa",
     images: ["santa-1.webp","santa-2.webp","santa-3.webp","santa-4.webp","santa-5.webp","santa-6.webp"],
     blurb: "A proper cat-sized Santa hat with a matching scarf — soft polycotton, white trim, and velcro so it goes on in seconds.",
+    ticks: ["Cat-sized Santa hat and matching scarf", "Velcro on both pieces — on in seconds", "Soft polycotton with plush white trim"],
+    forMeIf: ["The Christmas card photo is the goal", "You want one size that just fits", "Your cat is fine with a hat for a short while"],
     fit: "Adjustable velcro on both pieces. One size, made for cats and small dogs.",
     sizes: null,
     specs: [
@@ -168,6 +182,8 @@ const PRODUCTS = [
     badge: "Save £1.99", motif: "cape", contains: ["bat-cape", "spider-costume"],
     images: ["bat-cape-5.webp","spider-1.webp","bat-cape-2.webp","spider-2.webp"],
     blurb: "Devil Bat Cape and Spider Costume together — two looks for the one night that matters.",
+    ticks: ["Two costumes, one parcel", "Saves £1.99 against buying separately", "Pick one size for both"],
+    forMeIf: ["You want a choice of looks on the night", "You're dressing two cats", "You'd rather order once"],
     fit: "Pick one size for both. S suits most cats.",
     sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", note: "Large cats" } ],
     specs: ["Devil Bat Cape (£12.99)", "Spider Costume (£12.99)", "Ships as one parcel"],
@@ -179,6 +195,8 @@ const PRODUCTS = [
     badge: "Save £1.99", motif: "pumpkin", contains: ["pumpkin-set", "bow-tie-collar"],
     images: ["pumpkin-1.webp","bow-tie-1.webp","pumpkin-6.webp","bow-tie-4.webp"],
     blurb: "The #1 searched cat costume plus the bestselling collar.",
+    ticks: ["Pumpkin set plus the bestselling collar", "Saves £1.99 against buying separately", "Nothing to size"],
+    forMeIf: ["You want a Halloween look and an everyday one", "It's a first costume and a first collar", "You'd rather not pick a size"],
     fit: "Both one size / adjustable.", sizes: null,
     specs: ["Pumpkin Hat & Ruffle Collar (£11.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
     box: ["1 × Pumpkin Hat & Ruffle Collar", "1 × Bow Tie Collar"],
@@ -189,6 +207,8 @@ const PRODUCTS = [
     badge: "Save £1.99", motif: "bowtie", contains: ["bow-tie-collar", "bandana"],
     images: ["bow-tie-1.webp","bandana-2.webp","bow-tie-3.webp","bandana-1.webp"],
     blurb: "The easiest place to start: a bow tie collar and a bandana collar — nothing goes over the head.",
+    ticks: ["Two collars — nothing goes over the head", "Saves £1.99 against buying separately", "Bow tie adjusts; pick the bandana size"],
+    forMeIf: ["Your cat has never worn anything", "You want the gentlest possible start", "You're buying for a kitten"],
     fit: "Bow tie adjusts; pick the bandana size. S suits most cats.",
     sizes: [ { label: "S", neck: "24–40cm", note: "Most cats" }, { label: "M", neck: "29–45cm", note: "Large cats" }, { label: "L", neck: "33–55cm", note: "Small dogs" } ],
     specs: ["Bow Tie Collar (£8.99)", "Bandana Collar (£7.99)", "Ships as one parcel"],
@@ -200,6 +220,8 @@ const PRODUCTS = [
     badge: "Save £1.99", motif: "santa", contains: ["santa-set", "bow-tie-collar"],
     images: ["santa-1.webp","bow-tie-1.webp","santa-3.webp","bow-tie-6.webp"],
     blurb: "Santa hat and scarf with a plaid bow tie collar — the Christmas card, sorted.",
+    ticks: ["Santa set plus the bestselling collar", "Saves £1.99 against buying separately", "Both adjustable — no sizing"],
+    forMeIf: ["The Christmas card plus an everyday collar", "It's a gift for a cat owner", "You'd rather order once"],
     fit: "Both adjustable. No sizing needed.", sizes: null,
     specs: ["Santa Hat & Scarf Set (£17.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
     box: ["1 × Santa Hat & Scarf Set", "1 × Bow Tie Collar"],
@@ -223,3 +245,14 @@ const FIT_GUIDE = {
 };
 
 const FREE_SHIPPING_AT = 30;
+
+/* Contact details shown on the Contact page, the chat button and in structured data.
+   Placeholders until the domain and a WhatsApp Business number exist. */
+const CONTACT = {
+  email: "hello@catwalkclub.co.uk",
+  whatsapp: "",                       /* e.g. "447700900123" — international format, no + */
+  hours: "Mon–Fri, 9am–6pm UK time",
+  reply: "within one working day"
+};
+
+const DELIVERY = { min: 2, max: 4, cost: 3.95 };  /* working days, UK standard tracked */
