@@ -41,6 +41,14 @@ finder, breed presets, the unit toggle, and the informational gallery.
 
 ---
 
+## Product page order
+
+Hero gallery → title, price, size → add to cart + **Buy now** (Shop Pay / Apple Pay /
+Google Pay via `payment_button`, once enabled under Settings → Payments) → lifestyle
+videos (any **video media** on the product renders automatically) → reviews (an **app
+block** slot for Judge.me or Loox; shows "No reviews yet" until one is added) →
+description & dimensions (what you get, in the box, size table, care, delivery).
+
 ## Store setup after pushing
 
 **1. Collections** — create four, matching the catalogue in `../README.md`:

@@ -31,18 +31,11 @@
     </nav>
   </div>
 </header>
-<main class="wrap">
-  <div id="pdp"></div>
-  <div id="extra"></div>
-  <section id="also" style="padding-top:20px"></section>
-</main>
+<main class="wrap pdp-stack" id="pdp"></main>
 <footer class="site">
   <div class="wrap">
     <div class="fgrid">
-      <div>
-        <h4>Catwalk Club</h4>
-        <p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p>
-      </div>
+      <div><h4>Catwalk Club</h4><p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p></div>
       <div><h4>Shop</h4><ul>
         <li><a href="shop.html?cat=everyday">Everyday</a></li>
         <li><a href="shop.html?cat=halloween">Halloween</a></li>
@@ -55,10 +48,7 @@
         <li><a href="sizing.html#returns">Returns</a></li>
       </ul></div>
       <div><h4>Legal</h4><ul>
-        <li><a href="#">Shipping</a></li>
-        <li><a href="#">Refund policy</a></li>
-        <li><a href="#">Terms</a></li>
-        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
       </ul></div>
     </div>
     <div class="legal">
@@ -70,84 +60,85 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
+  /* Page order: hero gallery → product → add to cart + pay now → videos → reviews → details. */
   var id = new URLSearchParams(location.search).get("id");
   var p = byId(id);
   var host = document.getElementById("pdp");
 
   if(!p || p.hold){
     host.innerHTML = '<div class="empty"><h1>Can\'t find that one</h1>' +
-      '<p class="muted">It may have sold out or been renamed.</p>' +
-      '<a class="btn" href="shop.html">Back to the shop</a></div>';
-    document.getElementById("also").remove();
-    document.getElementById("extra").remove();
+      '<p class="muted">It may have sold out or been renamed.</p><a class="btn" href="shop.html">Back to the shop</a></div>';
   } else {
     document.title = p.name + " — Catwalk Club";
     var hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
+    var videos = Array.isArray(p.videos) ? p.videos : [];
 
     host.innerHTML =
-      '<div class="pdp">' +
-        '<div class="gallery" id="gallery"></div>' +
-        '<div>' +
-          '<p class="small muted" style="margin-bottom:.3em"><a href="shop.html?cat=' + p.cat + '">' + catOf(p.cat).label + '</a></p>' +
-          '<h1 style="margin-bottom:.2em">' + p.name + '</h1>' +
-          '<p class="price" style="font-size:1.7rem">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' +
-          '<p class="muted" style="font-size:1.08rem">' + p.blurb + '</p>' +
-          '<p><span class="fitline">⇔ ' + p.fit + '</span></p>' +
+      /* 1 · hero gallery */
+      '<div class="gallery" id="gallery"></div>' +
 
-          (hasSizes ?
-            '<div class="field"><label id="szl">Size</label>' +
-              '<div class="sizes" id="sizes" role="group" aria-labelledby="szl">' +
-                p.sizes.map(function(s,i){ return '<button type="button" aria-pressed="' + (i===0) + '" data-s="' + s.label + '">' + s.label + '</button>'; }).join("") +
-              '</div>' +
-              '<p class="small" id="sizenote" style="margin:.6em 0 0"></p>' +
-            '</div>'
-          : '') +
+      /* 2 · product */
+      '<div class="pdp-head">' +
+        '<p class="small muted" style="margin-bottom:.3em"><a href="shop.html?cat=' + p.cat + '">' + catOf(p.cat).label + '</a></p>' +
+        '<h1 style="margin-bottom:.2em">' + p.name + '</h1>' +
+        '<p class="price" style="font-size:1.7rem">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' +
+        '<p class="muted" style="font-size:1.08rem">' + p.blurb + '</p>' +
+        '<p><span class="fitline">⇔ ' + p.fit + '</span></p>' +
+      '</div>' +
 
-          '<div class="buyrow">' +
-            '<div class="qty"><button type="button" id="minus" aria-label="Decrease quantity">−</button>' +
-            '<span id="q">1</span>' +
-            '<button type="button" id="plus" aria-label="Increase quantity">+</button></div>' +
-            '<button class="btn btn-block" id="add" type="button">Add to cart</button>' +
-            '<button class="wish wish-lg btn-ghost" type="button" data-wish="' + p.id + '">♡</button>' +
-          '</div>' +
-
-          '<div class="badges"><span>🔒 Secure checkout</span><span>📦 Free UK delivery over £30</span>' +
-            '<span>↩️ 30-day returns</span>' + (p.id === "bandana" ? '<span>🇬🇧 UK stock</span>' : '') + '</div>' +
-
-          '<div class="field"><h3>What you get</h3><ul class="deets">' +
-            p.specs.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul></div>' +
-
-          '<div class="acc">' +
-            '<details open><summary>In the box</summary><div class="inner"><ul class="deets">' +
-              p.box.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul></div></details>' +
-            '<details><summary>Size &amp; fit</summary><div class="inner">' +
-              (hasSizes ?
-                '<div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck</th><th>Notes</th></tr></thead><tbody>' +
-                p.sizes.map(function(s){ return '<tr><td class="sz">' + s.label + '</td><td><b>' + s.neck + '</b></td><td class="muted">' + s.note + '</td></tr>'; }).join("") +
-                '</tbody></table></div>'
-              : '<p><b>' + p.fit + '</b></p>') +
-              '<p style="margin-top:.7em">' + FIT_GUIDE.neck + '</p>' +
-              (p.id === "spider-costume" || p.id === "halloween-pair" ? '<p>' + FIT_GUIDE.chest + '</p>' : '') +
-              '<p class="small muted">' + FIT_GUIDE.between + '</p>' +
-            '</div></details>' +
-            '<details><summary>Materials &amp; care</summary><div class="inner"><p>' + p.care + '</p></div></details>' +
-            '<details><summary>Delivery &amp; returns</summary><div class="inner">' +
-              '<div class="tablewrap"><table><thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead><tbody>' +
-              '<tr><td>UK standard, tracked</td><td>2–4 working days</td><td>£3.95</td></tr>' +
-              '<tr><td>UK standard over £30</td><td>2–4 working days</td><td><b>Free</b></td></tr></tbody></table></div>' +
-              '<p style="margin-top:.7em">Not right? Send it back within 30 days, worn or not.</p>' +
-              '<p class="small muted">Placeholder terms — confirm before trading.</p>' +
-            '</div></details>' +
-            '<details><summary>Wear &amp; care tips</summary><div class="inner">' +
-              '<p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done.</p>' +
-              '<p>Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>' +
-            '</div></details>' +
-          '</div>' +
+      /* 3 · add to cart + pay now */
+      '<div class="pdp-buy">' +
+        (hasSizes ?
+          '<div class="field"><label id="szl">Size</label>' +
+            '<div class="sizes" id="sizes" role="group" aria-labelledby="szl">' +
+              p.sizes.map(function(s,i){ return '<button type="button" aria-pressed="' + (i===0) + '" data-s="' + s.label + '">' + s.label + '</button>'; }).join("") +
+            '</div><p class="small" id="sizenote" style="margin:.6em 0 0"></p>' +
+            '<p class="small muted" style="margin:.4em 0 0">Sizes are neck measurements. <a href="sizing.html">How to measure</a></p></div>'
+        : '') +
+        '<div class="buyrow">' +
+          '<div class="qty"><button type="button" id="minus" aria-label="Decrease quantity">−</button><span id="q">1</span><button type="button" id="plus" aria-label="Increase quantity">+</button></div>' +
+          '<button class="btn btn-block" id="add" type="button">Add to cart</button>' +
+          '<button class="wish wish-lg btn-ghost" type="button" data-wish="' + p.id + '">♡</button>' +
         '</div>' +
-      '</div>';
+        '<div class="paynow"><button class="btn btn-block btn-dark" type="button" id="paynow">Buy now · <span class="applepay">Pay</span> / Shop Pay / Google Pay</button>' +
+          '<p class="small muted center" style="margin:.5em 0 0">Express checkout goes live on Shopify once payments are enabled.</p></div>' +
+        '<div class="badges"><span>🔒 Secure checkout</span><span>📦 Free UK delivery over £30</span><span>↩️ 30-day returns</span>' +
+          (p.id === "bandana" ? '<span>🇬🇧 UK stock</span>' : '') + '</div>' +
+      '</div>' +
+
+      /* 4 · lifestyle videos */
+      '<section class="videos"><h2>See it on a cat</h2>' +
+        (videos.length
+          ? '<div class="video-grid">' + videos.map(function(v){ return '<video controls muted loop playsinline preload="metadata" src="' + v + '"></video>'; }).join("") + '</div>'
+          : '<div class="video-slot">Lifestyle videos go here — film a 10–20 second clip of the ' + p.name.toLowerCase() + ' on a cat and drop it into the product\'s media on Shopify.</div>') +
+      '</section>' +
+
+      /* 5 · reviews */
+      reviewsHTML(p.id) +
+
+      /* 6 · description & dimensions */
+      '<section class="details"><h2>Details</h2>' +
+        '<h3>What you get</h3><ul class="deets">' + p.specs.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul>' +
+        '<h3>In the box</h3><ul class="deets">' + p.box.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul>' +
+        '<h3>Dimensions &amp; fit</h3>' +
+        (hasSizes
+          ? '<div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck</th><th>Notes</th></tr></thead><tbody>' +
+            p.sizes.map(function(s){ return '<tr><td class="sz">' + s.label + '</td><td><b>' + s.neck + '</b></td><td class="muted">' + s.note + '</td></tr>'; }).join("") + '</tbody></table></div>'
+          : '<p><b>' + p.fit + '</b></p>') +
+        '<p class="small muted">' + FIT_GUIDE.neck + ' ' + FIT_GUIDE.between + '</p>' +
+        (p.id === "spider-costume" || p.id === "halloween-pair" ? '<p class="small muted">' + FIT_GUIDE.chest + '</p>' : '') +
+        '<h3>Materials &amp; care</h3><p>' + p.care + '</p>' +
+        '<h3>Delivery &amp; returns</h3>' +
+        '<div class="tablewrap"><table><thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead><tbody>' +
+          '<tr><td>UK standard, tracked</td><td>2–4 working days</td><td>£3.95</td></tr>' +
+          '<tr><td>UK standard over £30</td><td>2–4 working days</td><td><b>Free</b></td></tr></tbody></table></div>' +
+        '<p>Not right? Send it back within 30 days, worn or not. <span class="small muted">Placeholder terms — confirm before trading.</span></p>' +
+        '<h3>Wear &amp; care tips</h3><p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done. Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>' +
+      '</section>' +
+
+      '<section id="also" style="padding-top:20px"></section>';
 
     mountGallery(document.getElementById("gallery"), p);
-    document.getElementById("extra").innerHTML = reviewsHTML(p.id);
 
     var size = hasSizes ? p.sizes[0].label : null, qty = 1;
     function paintSizeNote(){
@@ -168,10 +159,8 @@
     var qEl = document.getElementById("q");
     document.getElementById("plus").onclick  = function(){ qty = Math.min(qty + 1, 20); qEl.textContent = qty; };
     document.getElementById("minus").onclick = function(){ qty = Math.max(qty - 1, 1);  qEl.textContent = qty; };
-    document.getElementById("add").onclick   = function(){
-      addToCart(p.id, size, qty);
-      toast(qty + " × " + p.name + (size ? " (" + size + ")" : "") + " added");
-    };
+    document.getElementById("add").onclick   = function(){ addToCart(p.id, size, qty); toast(qty + " × " + p.name + (size ? " (" + size + ")" : "") + " added"); };
+    document.getElementById("paynow").onclick = function(){ toast("Express checkout activates on Shopify"); };
     host.addEventListener("click", function(e){
       var w = e.target.closest("[data-wish]"); if(!w) return;
       toast(toggleWish(w.dataset.wish) ? "Saved to wishlist" : "Removed from wishlist");

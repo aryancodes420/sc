@@ -1,173 +1,184 @@
+{%- comment -%}
+  Product page, stacked in this order:
+    1  hero gallery        2  product (title, price, variants)
+    3  add to cart + dynamic checkout (Shop Pay / Apple Pay / Google Pay)
+    4  lifestyle videos    5  reviews (app block, e.g. Judge.me)
+    6  description & dimensions
+{%- endcomment -%}
 {%- assign motif = product.metafields.custom.motif | default: '' -%}
 {%- assign has_photos = false -%}
 {%- if product.images.size > 0 -%}{%- assign has_photos = true -%}{%- endif -%}
+{%- assign videos = product.media | where: 'media_type', 'video' -%}
+{%- assign ext_videos = product.media | where: 'media_type', 'external_video' -%}
+{%- assign size_notes = product.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}
 
-<div class="wrap">
-  <div class="pdp">
-    <div class="gallery" data-gallery>
-      <div class="main" data-gallery-main data-key="{{ product.handle }}" data-motif="{{ motif }}"
-           {% unless has_photos %}data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"{% endunless %}>
-        {%- if has_photos -%}
-          <img src="{{ product.featured_image | image_url: width: 1000 }}"
-               alt="{{ product.featured_image.alt | default: product.title | escape }}"
-               width="1000" height="1000" loading="eager">
-        {%- endif -%}
-      </div>
-      {%- unless has_photos -%}
-        <div class="ph-note">⚠️ Illustration, not a photograph — add real product photography before launch</div>
-      {%- endunless -%}
+<div class="wrap pdp-stack">
 
+  {%- comment -%} 1 · hero gallery {%- endcomment -%}
+  <div class="gallery" data-gallery>
+    <div class="main" data-gallery-main data-key="{{ product.handle }}" data-motif="{{ motif }}"
+         {% unless has_photos %}data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"{% endunless %}>
+      {%- if has_photos -%}
+        <img src="{{ product.featured_image | image_url: width: 1200 }}"
+             alt="{{ product.featured_image.alt | default: product.title | escape }}"
+             width="1200" height="1200" loading="eager">
+      {%- endif -%}
+    </div>
+    {%- if product.images.size > 1 -%}
       <div class="thumbs" data-gallery-thumbs>
-        {%- if has_photos -%}
-          {%- for image in product.images limit: 5 -%}
-            <button type="button" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
-                    data-full="{{ image | image_url: width: 1000 }}" data-alt="{{ image.alt | escape }}">
-              <img src="{{ image | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
-            </button>
-          {%- endfor -%}
-        {%- else -%}
-          <button type="button" aria-pressed="true" data-view="worn">
-            <div data-cat-art="{{ product.handle }}-t1" data-art-motif="{{ motif }}"></div>
-            <span class="cap">On a cat</span>
+        {%- for image in product.images limit: 6 -%}
+          <button type="button" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-full="{{ image | image_url: width: 1200 }}" data-alt="{{ image.alt | escape }}" aria-label="Photo {{ forloop.index }}">
+            <img src="{{ image | image_url: width: 200 }}" alt="" width="200" height="200" loading="lazy">
           </button>
-          <button type="button" aria-pressed="false" data-view="measure">
-            <div data-cat-art="{{ product.handle }}-t2" data-art-motif="{{ motif }}" data-art-view="measure"></div>
-            <span class="cap">Where to measure</span>
-          </button>
-          <button type="button" aria-pressed="false" data-view="safety">
-            <div data-cat-art="{{ product.handle }}-t3" data-art-motif="{{ motif }}" data-art-view="safety"></div>
-            <span class="cap">Fastening</span>
-          </button>
-        {%- endif -%}
+        {%- endfor -%}
       </div>
-    </div>
-
-    <div>
-      {%- if collection -%}
-        <p class="small muted" style="margin-bottom:.3em"><a href="{{ collection.url }}">{{ collection.title }}</a></p>
-      {%- endif -%}
-      <h1 style="margin-bottom:.2em">{{ product.title }}</h1>
-
-      <p class="price" style="font-size:1.7rem" id="price">
-        {{ product.selected_or_first_available_variant.price | money }}
-        {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
-      </p>
-
-      {%- if product.metafields.custom.blurb != blank -%}
-        <p class="muted" style="font-size:1.08rem">{{ product.metafields.custom.blurb }}</p>
-      {%- endif -%}
-
-      {%- if product.metafields.custom.fit != blank -%}
-        <p><span class="fitline">⇔ {{ product.metafields.custom.fit }}</span></p>
-      {%- endif -%}
-
-      {%- form 'product', product, id: 'product-form', data-size-notes: product.metafields.custom.size_notes -%}
-        {%- unless product.has_only_default_variant -%}
-          <div class="field">
-            <label for="variant-select">{{ product.options.first }}</label>
-            <div class="sizes" role="group">
-              {%- for variant in product.variants -%}
-                <button type="button" class="szbtn" data-variant="{{ variant.id }}"
-                        aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
-                        {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
-              {%- endfor -%}
-            </div>
-            <p class="small" data-size-note style="margin:.6em 0 0"></p>
-            <select id="variant-select" name="id" class="visually-hidden" aria-hidden="true" tabindex="-1">
-              {%- for variant in product.variants -%}
-                <option value="{{ variant.id }}"
-                  {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %}
-                  {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>
-              {%- endfor -%}
-            </select>
-            <p class="small muted" style="margin:.4em 0 0">Sizes are neck measurements.
-              <a href="{{ section.settings.size_guide_url | default: '/pages/fit-and-care' }}">How to measure</a></p>
-          </div>
-        {%- else -%}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        {%- endunless -%}
-
-        <div class="buyrow">
-          <div class="qty">
-            <button type="button" id="qty-minus" aria-label="Decrease quantity">−</button>
-            <span id="qty-value">1</span>
-            <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
-          </div>
-          <input type="hidden" name="quantity" id="quantity" value="1">
-          <button class="btn btn-block" type="submit" {% unless product.available %}disabled{% endunless %}>
-            {%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
-          </button>
-          <button class="wish wish-lg btn-ghost" type="button" data-wish="{{ product.handle }}">&#9825;</button>
-        </div>
-      {%- endform -%}
-
-      <div class="badges">
-        <span>🔒 Secure checkout</span>
-        <span>📦 Free UK delivery over £{{ settings.free_shipping_threshold }}</span>
-        <span>↩️ {{ settings.returns_days }}-day returns</span>
-        {%- if product.metafields.custom.badge_uk == true -%}<span>🇬🇧 UK stock</span>{%- endif -%}
-      </div>
-
-      {%- if product.metafields.custom.specs != blank -%}
-        <div class="field"><h3>What you get</h3><ul class="deets">
-          {%- for item in product.metafields.custom.specs.value -%}<li>{{ item }}</li>{%- endfor -%}
-        </ul></div>
-      {%- elsif product.description != blank -%}
-        <div class="field"><h3>What you get</h3>{{ product.description }}</div>
-      {%- endif -%}
-
-      <div class="acc">
-        <details open>
-          <summary>In the box</summary>
-          <div class="inner"><ul class="deets">
-            {%- for item in product.metafields.custom.box.value -%}<li>{{ item }}</li>{%- endfor -%}
-          </ul></div>
-        </details>
-        <details>
-          <summary>Size &amp; fit</summary>
-          <div class="inner">
-            {%- unless product.has_only_default_variant -%}
-              {%- assign notes = product.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}
-              <div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck / notes</th></tr></thead><tbody>
-                {%- for variant in product.variants -%}<tr><td class="sz">{{ variant.title }}</td><td>{{ notes[forloop.index0] | strip }}</td></tr>{%- endfor -%}
-              </tbody></table></div>
-            {%- else -%}
-              <p><b>{{ product.metafields.custom.fit }}</b></p>
-            {%- endunless -%}
-            <p style="margin-top:.7em">Wrap a soft tape around the neck where a collar sits and add two fingers of slack. That number is the neck size.</p>
-            <p class="small muted">Between two sizes? Take the larger.</p>
-          </div>
-        </details>
-        <details>
-          <summary>Materials &amp; care</summary>
-          <div class="inner">
-            <p>{{ product.metafields.custom.care | default: 'Hand wash cold and air dry unless the product says otherwise.' }}</p>
-          </div>
-        </details>
-        <details>
-          <summary>Delivery &amp; returns</summary>
-          <div class="inner">
-            <div class="tablewrap"><table>
-              <thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead>
-              <tbody>
-                <tr><td>UK standard, tracked</td><td>2–4 working days</td><td>{{ settings.shipping_cost }}</td></tr>
-                <tr><td>UK standard over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days</td><td><b>Free</b></td></tr>
-              </tbody>
-            </table></div>
-            <p style="margin-top:.7em">Not right? Send it back within {{ settings.returns_days }} days, worn or not.</p>
-          </div>
-        </details>
-        <details>
-          <summary>Wear &amp; care tips</summary>
-          <div class="inner">
-            <p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take
-              it off when you are done.</p>
-            <p>Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>
-          </div>
-        </details>
-      </div>
-    </div>
+    {%- endif -%}
   </div>
+
+  {%- comment -%} 2 · product {%- endcomment -%}
+  <div class="pdp-head">
+    {%- if collection -%}<p class="small muted" style="margin-bottom:.3em"><a href="{{ collection.url }}">{{ collection.title }}</a></p>{%- endif -%}
+    <h1 style="margin-bottom:.2em">{{ product.title }}</h1>
+    <p class="price" style="font-size:1.7rem" id="price">
+      {{ product.selected_or_first_available_variant.price | money }}
+      {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+    </p>
+    {%- if product.metafields.custom.blurb != blank -%}<p class="muted" style="font-size:1.08rem">{{ product.metafields.custom.blurb }}</p>{%- endif -%}
+    {%- if product.metafields.custom.fit != blank -%}<p><span class="fitline">⇔ {{ product.metafields.custom.fit }}</span></p>{%- endif -%}
+  </div>
+
+  {%- comment -%} 3 · add to cart + dynamic checkout {%- endcomment -%}
+  {%- form 'product', product, id: 'product-form', class: 'pdp-buy', data-size-notes: product.metafields.custom.size_notes -%}
+    {%- unless product.has_only_default_variant -%}
+      <div class="field">
+        <label for="variant-select">{{ product.options.first }}</label>
+        <div class="sizes" role="group">
+          {%- for variant in product.variants -%}
+            <button type="button" class="szbtn" data-variant="{{ variant.id }}"
+                    aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
+                    {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
+          {%- endfor -%}
+        </div>
+        <p class="small" data-size-note style="margin:.6em 0 0"></p>
+        <select id="variant-select" name="id" class="visually-hidden" aria-hidden="true" tabindex="-1">
+          {%- for variant in product.variants -%}
+            <option value="{{ variant.id }}" {% if variant.id == product.selected_or_first_available_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title }} — {{ variant.price | money }}</option>
+          {%- endfor -%}
+        </select>
+        <p class="small muted" style="margin:.4em 0 0">Sizes are neck measurements.
+          <a href="{{ section.settings.size_guide_url | default: '/pages/fit-and-care' }}">How to measure</a></p>
+      </div>
+    {%- else -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    {%- endunless -%}
+
+    <div class="buyrow">
+      <div class="qty">
+        <button type="button" id="qty-minus" aria-label="Decrease quantity">−</button>
+        <span id="qty-value">1</span>
+        <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+      </div>
+      <input type="hidden" name="quantity" id="quantity" value="1">
+      <button class="btn btn-block" type="submit" {% unless product.available %}disabled{% endunless %}>
+        {%- if product.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+      </button>
+      <button class="wish wish-lg btn-ghost" type="button" data-wish="{{ product.handle }}">&#9825;</button>
+    </div>
+    {%- comment -%} Shopify renders Shop Pay / Apple Pay / Google Pay / PayPal here, whichever the
+        shopper's device supports, once those are enabled under Settings → Payments. {%- endcomment -%}
+    {%- if section.settings.show_dynamic_checkout -%}
+      <div class="paynow">{{ form | payment_button }}</div>
+    {%- endif -%}
+  {%- endform -%}
+
+  <div class="badges">
+    <span>🔒 Secure checkout</span>
+    <span>📦 Free UK delivery over £{{ settings.free_shipping_threshold }}</span>
+    <span>↩️ {{ settings.returns_days }}-day returns</span>
+    {%- if product.metafields.custom.badge_uk == true -%}<span>🇬🇧 UK stock</span>{%- endif -%}
+  </div>
+
+  {%- comment -%} 4 · lifestyle videos — product media of type video / external video {%- endcomment -%}
+  {%- if videos.size > 0 or ext_videos.size > 0 -%}
+    <section class="videos">
+      <h2>{{ section.settings.videos_heading }}</h2>
+      <div class="video-grid">
+        {%- for media in videos -%}
+          {{ media | video_tag: controls: true, muted: true, loop: true, playsinline: true, preload: 'metadata' }}
+        {%- endfor -%}
+        {%- for media in ext_videos -%}
+          {{ media | external_video_tag }}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- elsif request.design_mode -%}
+    <section class="videos"><div class="video-slot">Lifestyle videos appear here — add video media to this product.</div></section>
+  {%- endif -%}
+
+  {%- comment -%} 5 · reviews — an app block (Judge.me, Loox) dropped in via the theme editor {%- endcomment -%}
+  <section class="reviews">
+    <h2>Reviews</h2>
+    {%- assign has_app_block = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        {%- assign has_app_block = true -%}
+        {% render block %}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- unless has_app_block -%}
+      <div class="panel center">
+        <p style="font-size:2rem;margin:0">☆</p>
+        <p><b>No reviews yet — be the first.</b></p>
+        <p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here once customers leave them.</p>
+      </div>
+    {%- endunless -%}
+  </section>
+
+  {%- comment -%} 6 · description & dimensions {%- endcomment -%}
+  <section class="details">
+    <h2>Details</h2>
+
+    {%- if product.metafields.custom.specs != blank -%}
+      <h3>What you get</h3>
+      <ul class="deets">{%- for item in product.metafields.custom.specs.value -%}<li>{{ item }}</li>{%- endfor -%}</ul>
+    {%- elsif product.description != blank -%}
+      <h3>What you get</h3>{{ product.description }}
+    {%- endif -%}
+
+    {%- if product.metafields.custom.box != blank -%}
+      <h3>In the box</h3>
+      <ul class="deets">{%- for item in product.metafields.custom.box.value -%}<li>{{ item }}</li>{%- endfor -%}</ul>
+    {%- endif -%}
+
+    <h3>Dimensions &amp; fit</h3>
+    {%- unless product.has_only_default_variant -%}
+      <div class="tablewrap"><table>
+        <thead><tr><th>Size</th><th>Neck / notes</th></tr></thead>
+        <tbody>{%- for variant in product.variants -%}<tr><td class="sz">{{ variant.title }}</td><td>{{ size_notes[forloop.index0] | strip }}</td></tr>{%- endfor -%}</tbody>
+      </table></div>
+    {%- else -%}
+      <p><b>{{ product.metafields.custom.fit }}</b></p>
+    {%- endunless -%}
+    <p class="small muted">Wrap a soft tape around the neck where a collar sits and add two fingers of slack — that number is the neck size. Between two sizes? Take the larger.</p>
+
+    <h3>Materials &amp; care</h3>
+    <p>{{ product.metafields.custom.care | default: 'Hand wash cold and air dry unless the product says otherwise.' }}</p>
+
+    <h3>Delivery &amp; returns</h3>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>UK standard, tracked</td><td>2–4 working days</td><td>{{ settings.shipping_cost }}</td></tr>
+        <tr><td>UK standard over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days</td><td><b>Free</b></td></tr>
+      </tbody>
+    </table></div>
+    <p>Not right? Send it back within {{ settings.returns_days }} days, worn or not.</p>
+
+    <h3>Wear &amp; care tips</h3>
+    <p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done.
+      Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>
+  </section>
 
   {%- if section.settings.show_related -%}
     {%- assign rel = product.collections.first -%}
@@ -190,21 +201,13 @@
 
 <script>
   (function(){
-    var form = document.getElementById("product-form");
-    if(!form) return;
-    var select = document.getElementById("variant-select");
-    var qty = document.getElementById("quantity");
-    var qtyVal = document.getElementById("qty-value");
-    var n = 1;
-
+    var form = document.getElementById("product-form"); if(!form) return;
+    var select = document.getElementById("variant-select"), qty = document.getElementById("quantity"), qtyVal = document.getElementById("qty-value"), n = 1;
     form.addEventListener("click", function(e){
       var b = e.target.closest(".szbtn");
       if(b && select){
-        select.value = b.dataset.variant;
-        select.dispatchEvent(new Event("change", { bubbles: true }));
-        form.querySelectorAll(".szbtn").forEach(function(x){
-          x.setAttribute("aria-pressed", String(x === b));
-        });
+        select.value = b.dataset.variant; select.dispatchEvent(new Event("change", { bubbles: true }));
+        form.querySelectorAll(".szbtn").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
       }
       if(e.target.closest("#qty-plus"))  { n = Math.min(n + 1, 20); qty.value = n; qtyVal.textContent = n; }
       if(e.target.closest("#qty-minus")) { n = Math.max(n - 1, 1);  qty.value = n; qtyVal.textContent = n; }
@@ -216,8 +219,14 @@
 {
   "name": "Product",
   "settings": [
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show Shop Pay / Apple Pay / Google Pay button", "default": true,
+      "info": "Buttons appear once accelerated checkouts are enabled under Settings → Payments." },
+    { "type": "text", "id": "videos_heading", "label": "Videos heading", "default": "See it on a cat" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "url", "id": "size_guide_url", "label": "Size guide link" }
+  ],
+  "blocks": [
+    { "type": "@app" }
   ]
 }
 {% endschema %}
