@@ -34,11 +34,11 @@ const PRODUCTS = [
   },
   {
     id: "bandana", name: "Bandana Collar", price: 7.99, list: 9.49, alias: "Roadie", cat: "everyday",
-    badge: "UK stock", motif: "bandana",
+    badge: "UK stock", motif: "bandana", noDeliveryDates: true,
     images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
     blurb: "A paisley bandana mounted on a buckle collar — no tying, just clip it on. Dispatched from UK stock.",
     ticks: ["Clips on with a buckle — no tying", "Dispatched from UK stock", "Machine washable"],
-    forMeIf: ["You want it this week, not in a fortnight", "Your cat tolerates a collar but not a hat", "You want a wash-and-wear everyday look"],
+    forMeIf: ["Your cat tolerates a collar but not a hat", "You want a wash-and-wear everyday look", "You'd rather clip on than tie on"],
     fit: "Buckle collar with three sizes. Size S suits most cats.",
     sizes: [
       { label: "S", neck: "24–40cm", note: "Most cats" },

@@ -96,8 +96,8 @@
     "featured": {
       "type": "featured-products",
       "settings": {
-        "heading": "The seven",
-        "subheading": "Everything we sell, in one row.",
+        "heading": "Everything we make",
+        "subheading": "All of it, in one row.",
         "count": 8
       }
     },

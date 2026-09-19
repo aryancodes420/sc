@@ -257,7 +257,7 @@ function objectionCards(p){
   }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.";
   return '<div class="objections">' +
     '<a href="#fit"><b>Will it fit my cat?</b><span>' + esc(fitA) + '</span></a>' +
-    '<a href="faq.html"><b>When will it arrive?</b><span>Order today: arrives ' + deliveryWindow() + '. Free over £' + FREE_SHIPPING_AT + '.</span></a>' +
+    '<a href="faq.html"><b>When will it arrive?</b><span>' + (p.noDeliveryDates ? 'Tracked UK delivery. Free over £' + FREE_SHIPPING_AT + '.' : 'Order today: arrives ' + deliveryWindow() + '. Free over £' + FREE_SHIPPING_AT + '.') + '</span></a>' +
     '<a href="faq.html"><b>Will my cat keep it on?</b><span>' + esc(keep) + '</span></a>' +
   '</div>';
 }
@@ -377,7 +377,7 @@ function initOffer(){
     '<p class="muted">Pop your email in and we\'ll send a code for ' + OFFER.pct + '% off your first order. One email when new pieces land, and a heads-up before the October cut-off. Nothing else.</p>' +
     '<form data-offer-form><input type="email" required placeholder="you@example.com" aria-label="Email address"><button class="btn btn-mint" type="submit">Send my code</button></form>' +
     '<p class="small muted" style="margin:.8em 0 0">By signing up you agree to receive emails from Catwalk Club. Unsubscribe any time.</p>' +
-    '<div class="offer-done" hidden><p style="font-size:1.05rem"><b>Your code:</b></p><p class="code" data-code>' + OFFER.code + '</p><p class="small muted">Use it at checkout. On Shopify the email tool sends this automatically.</p><a class="btn" href="shop.html">Shop the seven</a></div>' +
+    '<div class="offer-done" hidden><p style="font-size:1.05rem"><b>Your code:</b></p><p class="code" data-code>' + OFFER.code + '</p><p class="small muted">Use it at checkout. On Shopify the email tool sends this automatically.</p><a class="btn" href="shop.html">Shop all</a></div>' +
   '</div>';
   document.body.appendChild(modal);
   const open = () => { modal.hidden = false; st.seen = true; save(); modal.querySelector("input") && setTimeout(() => modal.querySelector("input").focus(), 50); };

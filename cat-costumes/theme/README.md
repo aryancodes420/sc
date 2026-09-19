@@ -99,6 +99,7 @@ for every product are in `../site/assets/data.js`.
 | `bundles` | List of products | Bundles this product belongs to → "Cheaper together" |
 | `contains` | List of products | On a bundle: its components → "What's in it" and the partner shown in cross-sell |
 | `alias` | Single line text | Optional nickname tag under the title (e.g. `Kingsley`) |
+| `no_delivery_dates` | True/false | Drops the dated "arrives …" line from the objection card (set on dropshipped items like the bandana) |
 | `motif` | Single line text | Illustration fallback if a product has no photo |
 
 **Size collections** — create automated collections *Fits S*, *Fits M*, *Fits L* (condition:

@@ -7,7 +7,7 @@
         <h1 style="margin-top:14px">{{ section.settings.heading }}</h1>
         <p class="muted" style="font-size:1.12rem">{{ section.settings.lede }}</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
-          <a class="btn" href="{{ routes.all_products_collection_url }}">Shop the seven</a>
+          <a class="btn" href="{{ routes.all_products_collection_url }}">Shop all</a>
           <a class="btn btn-ghost" href="{{ settings.contact_page | default: '/pages/contact' }}">Say hello</a>
         </div>
       </div>
@@ -41,19 +41,19 @@
   "settings": [
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "About" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Costumes made for cats, chosen by someone who has actually tried to dress one." },
-    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Catwalk Club is a small UK shop selling seven pieces we would put on our own cats: two everyday collars, four Halloween looks and a Christmas set. Every one is sized from a cat's neck, leaves the face and eyes clear, and comes with the measurements, materials and washing instructions on the page." },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Catwalk Club is a small UK shop selling the pieces we would put on our own cats: two everyday collars, four Halloween looks and a Christmas set. Every one is sized from a cat's neck, leaves the face and eyes clear, and comes with the measurements, materials and washing instructions on the page." },
     { "type": "image_picker", "id": "image", "label": "Photo" },
     { "type": "textarea", "id": "business", "label": "Business details", "default": "Trader name, registered address and email go here before trading — a legal requirement for UK distance selling." }
   ],
   "blocks": [
     { "type": "panel", "name": "Panel", "settings": [
       { "type": "text", "id": "emoji", "label": "Emoji", "default": "🐱" },
-      { "type": "text", "id": "heading", "label": "Heading", "default": "Why only seven" },
-      { "type": "textarea", "id": "text", "label": "Text", "default": "Because seven good ones beat forty average ones." }
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Why so few" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Because a few good ones beat forty average ones." }
     ] }
   ],
   "presets": [ { "name": "About", "blocks": [
-    { "type": "panel", "settings": { "emoji": "🐱", "heading": "Why only seven", "text": "Because seven good ones beat forty average ones. Each was picked from a supplier with a long sales record and photos on real cats, then sized, priced and written up from the listing itself. When one earns its place, we add it. When one doesn't sell, it goes." } },
+    { "type": "panel", "settings": { "emoji": "🐱", "heading": "Why so few", "text": "Because a few good ones beat forty average ones. Each was picked from a supplier with a long sales record and photos on real cats, then sized, priced and written up from the listing itself. When one earns its place, we add it. When one doesn't sell, it goes." } },
     { "type": "panel", "settings": { "emoji": "📦", "heading": "How orders work", "text": "Stock is held in the UK and dispatched tracked within one working day. Standard delivery is £3.95 and free over £30. If it isn't right, send it back within 30 days, worn or not." } },
     { "type": "panel", "settings": { "emoji": "📏", "heading": "The sizing promise", "text": "Every size on this site is a neck measurement. If you measure, it fits. If it doesn't, the swap is on us." } },
     { "type": "panel", "settings": { "emoji": "📸", "heading": "Your cats", "text": "Tag us or send the photo. The best ones go on the site, with your permission and credit." } }

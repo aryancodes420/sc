@@ -3,7 +3,7 @@
     "main": {
       "type": "about",
       "blocks": {
-        "b1": { "type": "panel", "settings": { "emoji": "🐱", "heading": "Why only seven", "text": "Because seven good ones beat forty average ones. Each was picked from a supplier with a long sales record and photos on real cats, then sized, priced and written up from the listing itself. When one earns its place, we add it. When one doesn't sell, it goes." } },
+        "b1": { "type": "panel", "settings": { "emoji": "🐱", "heading": "Why so few", "text": "Because a few good ones beat forty average ones. Each was picked from a supplier with a long sales record and photos on real cats, then sized, priced and written up from the listing itself. When one earns its place, we add it. When one doesn't sell, it goes." } },
         "b2": { "type": "panel", "settings": { "emoji": "📦", "heading": "How orders work", "text": "Stock is held in the UK and dispatched tracked within one working day. Standard delivery is £3.95 and free over £30. If it isn't right, send it back within 30 days, worn or not." } },
         "b3": { "type": "panel", "settings": { "emoji": "📏", "heading": "The sizing promise", "text": "Every size on this site is a neck measurement. If you measure, it fits. If it doesn't, the swap is on us." } },
         "b4": { "type": "panel", "settings": { "emoji": "📸", "heading": "Your cats", "text": "Tag us or send the photo. The best ones go on the site, with your permission and credit." } }

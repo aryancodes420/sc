@@ -45,7 +45,7 @@
   {%- comment -%} 1b · the three questions every buyer has {%- endcomment -%}
   <div class="objections">
     <a href="#fit"><b>{{ section.settings.q1_title }}</b><span>{% if product.metafields.custom.fit != blank and product.has_only_default_variant %}{{ product.metafields.custom.fit }}{% else %}{{ section.settings.q1_text }}{% endif %}</span></a>
-    <a href="{{ section.settings.q2_url | default: '/pages/faq' }}"><b>{{ section.settings.q2_title }}</b><span data-delivery-window data-min="2" data-max="4">{{ section.settings.q2_text }}</span></a>
+    <a href="{{ section.settings.q2_url | default: '/pages/faq' }}"><b>{{ section.settings.q2_title }}</b>{% if product.metafields.custom.no_delivery_dates == true %}<span>Tracked UK delivery. Free over £{{ settings.free_shipping_threshold }}.</span>{% else %}<span data-delivery-window data-min="2" data-max="4">{{ section.settings.q2_text }}</span>{% endif %}</a>
     <a href="{{ section.settings.q3_url | default: '/pages/faq' }}"><b>{{ section.settings.q3_title }}</b><span>{{ product.metafields.custom.keep_on | default: section.settings.q3_text }}</span></a>
   </div>
 
