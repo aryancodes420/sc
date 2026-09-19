@@ -46,6 +46,9 @@
       <div><h4>Help</h4><ul>
         <li><a href="sizing.html">Fit &amp; care</a></li>
         <li><a href="faq.html">FAQ</a></li>
+        <li><a href="quiz.html">Which costume? Quiz</a></li>
+        <li><a href="breeds.html">Sizes by breed</a></li>
+        <li><a href="photo-draw.html">Cat of the Month</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
         <li><a href="track-order.html">Track your order</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -87,6 +90,7 @@
       /* 2 · product */
       '<div class="pdp-head">' +
         '<h1 style="margin-bottom:.15em">' + p.name + '</h1>' +
+        aliasTag(p) +
         ratingLine(p.id) +
         '<div class="headrow"><p class="price" style="font-size:1.7rem;margin:0">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' + stockPill(p) + '</div>' +
         '<p class="muted" style="font-size:1.08rem;margin-top:.5em">' + p.blurb + '</p>' +
@@ -148,7 +152,8 @@
 
       /* 7 · cross-sell with the saving spelled out, then related */
       crossSell(p) +
-      '<section id="also" style="padding-top:20px"></section>';
+      '<section id="also" style="padding-top:20px"></section>' +
+      '<section id="recent" style="padding-top:0" hidden></section>';
 
     mountGallery(document.getElementById("gallery"), p);
 
@@ -186,6 +191,8 @@
     if(also.length < 4) also = also.concat(live.filter(function(x){ return also.indexOf(x) < 0; }).slice(0, 4 - also.length));
     document.getElementById("also").innerHTML = '<div class="sec-head"><div><h2>Goes well with</h2></div></div><div class="grid-p" id="ag"></div>';
     renderGrid(document.getElementById("ag"), also);
+    mountRecent(document.getElementById("recent"), p.id);
+    pushRecent(p.id);
   }
 </script>
 </body>

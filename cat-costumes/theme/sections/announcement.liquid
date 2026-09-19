@@ -1,10 +1,19 @@
-<div class="topbar">{{ section.settings.text }}</div>
+<div class="topbar" data-countdown data-cutoff="{{ section.settings.cutoff_date }}" data-event="{{ section.settings.event_date }}"
+     data-before="{{ section.settings.before_text | escape }}" data-last="{{ section.settings.last_day_text | escape }}"
+     data-after-cutoff="{{ section.settings.after_cutoff_text | escape }}" data-after-event="{{ section.settings.after_event_text | escape }}">{{ section.settings.text }}</div>
 {% schema %}
 {
   "name": "Announcement bar",
   "settings": [
-    { "type": "html", "id": "text", "label": "Text",
-      "default": "Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar" }
+    { "type": "html", "id": "text", "label": "Text (always shown; the countdown is added after it)",
+      "default": "Free UK delivery over <b>£30</b>" },
+    { "type": "header", "content": "Genuine countdown — real dates, disappears when they pass" },
+    { "type": "text", "id": "cutoff_date", "label": "Order-by date (YYYY-MM-DD)", "default": "2026-10-14" },
+    { "type": "text", "id": "event_date", "label": "Event date (YYYY-MM-DD)", "default": "2026-10-31" },
+    { "type": "text", "id": "before_text", "label": "Before the order-by date ({days} = days left)", "default": "🎃 Order by 14 October for Halloween — {days} days left" },
+    { "type": "text", "id": "last_day_text", "label": "On the order-by date", "default": "🎃 Last day to order for guaranteed Halloween delivery" },
+    { "type": "text", "id": "after_cutoff_text", "label": "Between order-by date and event", "default": "🎃 Halloween orders placed now may arrive after the 31st — collars and Christmas ship as normal" },
+    { "type": "text", "id": "after_event_text", "label": "After the event", "default": "🎄 Christmas is in — shop the Santa set" }
   ]
 }
 {% endschema %}

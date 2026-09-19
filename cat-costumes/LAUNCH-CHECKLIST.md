@@ -30,7 +30,11 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [ ] **Theme settings:** free-delivery threshold `30`, delivery cost `£3.95`, returns `30`, footer tagline, logo, favicon.
 - [ ] **Menus:** `main-menu` (Shop, Fit & care, FAQ) and `footer` (Everyday, Halloween, Christmas, Bundles, Fit & care, FAQ, Track your order, Contact, About, legal pages).
 - [ ] **Collections:** `everyday`, `halloween`, `christmas`, `bundles`, plus Shopify's built-in *All*. Point the four homepage tiles and the two featured-product sections at them in the editor.
-- [ ] **Pages:** *Fit & care* (`page.sizing`), *FAQ* (`page.faq`), *Contact* (`page.contact`), *Track your order* (`page.track-order`), *About* (`page.about`). All pre-filled.
+- [ ] **Pages:** *Fit & care* (`page.sizing`), *FAQ* (`page.faq`), *Contact* (`page.contact`), *Track your order* (`page.track-order`), *About* (`page.about`), *Which costume? quiz* (`page.quiz` — assign the seven products to its blocks), *Sizes by breed* (`page.breeds` — pick the four sized products), *Cat of the Month* (`page.photo-draw` — fill in the promoter line). All pre-filled.
+- [ ] **Blog:** paste the three drafts from `content/blog/` in as articles (measuring, sizes by breed, keeping it on). Link the blog in the footer menu.
+- [ ] **Size collections:** automated *Fits S / Fits M / Fits L* (variant title equals S/M/L) and *One size* (tag `one-size`); they appear as shop filters automatically.
+- [ ] **Homepage:** point *Save by bundling* at the bundles collection and the quiz call-out at the quiz page; leave *Your cats, dressed* empty until real customer photos exist.
+- [ ] **Announcement bar:** confirm the order-by date (14 Oct) matches what the supplier lead time actually allows once stock is in.
 - [ ] **Theme settings → Contact & chat:** contact email, WhatsApp number if you want the WhatsApp button, hours. Point the contact and size-guide links at the pages above.
 - [ ] Publish the theme when the products are in.
 
@@ -38,7 +42,7 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 - [x] Catalogue, specs, sizes, care, in-the-box and 42 photos are all in `site/assets/data.js` and `site/assets/img/`.
 - [ ] Create the seven products. For each: title, blurb → description, **variants** (option `Size`: S/M/L, or S/M) with the launch prices, upload its six photos, set inventory tracking on.
-- [ ] Metafields (namespace `custom`): `fit`, `blurb`, `ticks` (list), `for_me_if` (list), `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `badge`, `badge_uk` (bandana only). Values are all in `data.js` (`ticks`, `forMeIf`).
+- [ ] Metafields (namespace `custom`): `fit`, `blurb`, `ticks` (list), `for_me_if` (list), `alias` (optional nickname), `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `badge`, `badge_uk` (bandana only). Values are all in `data.js` (`ticks`, `forMeIf`, `alias`).
 - [ ] Cross-sell metafields: on each product, `bundles` → the bundle products it sits in; on each bundle, `contains` → its two components. That is what draws the "Cheaper together" cards with the saving.
 - [ ] Assign each product to its collection.
 - [ ] **Lifestyle videos:** film a 10–20 second clip of each product on a cat and add it as product media. The product page shows videos automatically when they exist. No videos exist yet — this is the one content item still to be made.
@@ -77,6 +81,7 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 - [ ] Count in, set inventory quantities per variant.
 - [ ] Photograph your own cat in three of the seven (own imagery, not the supplier's, for ads).
+- [ ] Open the first *Cat of the Month* round (1 October) and post it on Instagram/TikTok; the first winner's photo becomes the first frame on the homepage wall.
 - [ ] First email to the list. Ads start only once you have the above.
 
 ---

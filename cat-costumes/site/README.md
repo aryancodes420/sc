@@ -60,12 +60,15 @@ supplier's shots has their own text baked in.
 | `about.html` | Story, four panels, business-details box (fill before trading) |
 | `contact.html` | Form (demo), WhatsApp/email/hours from `CONTACT` in `data.js` |
 | `track-order.html` | Order lookup (demo), delivery expectations with real dates |
+| `quiz.html` | Which costume for my cat? — occasion → tolerance → neck (or breed) → sized shortlist |
+| `breeds.html` | Ten breeds, typical neck ranges, size suggestion per sized product (computed from the size tables) |
+| `photo-draw.html` | Cat of the Month: judged photo competition, free entry, full terms, honest empty winners wall |
 | `cart.html` | Lines carry size; free-delivery progress; totals |
 | `sizing.html` | Fit & care — how to measure, every size we sell in one table, care per product, returns |
 | `faq.html` | Ten questions for this range |
 | `wishlist.html` | Saved items (per-browser) |
 
-On every page: a "10% off your first order" tab with a one-time pop-up (code `WELCOME10`, demo until the discount exists on Shopify) and a "Help me choose" chat button (WhatsApp when `CONTACT.whatsapp` is set, otherwise the contact page).
+On every page: a genuine Halloween countdown in the top bar (order-by 14 Oct, gone after the dates pass), a "10% off your first order" tab with a one-time pop-up (code `WELCOME10`, demo until the discount exists on Shopify) and a "Help me choose" chat button (WhatsApp when `CONTACT.whatsapp` is set, otherwise the contact page).
 
 ## Verified
 
@@ -79,6 +82,8 @@ wishlist persists across pages, Fit & care renders 14 size rows and 7 care rows,
 10 entries, no console errors, no horizontal overflow on eight pages at 390px.
 
 Tier 1 additions (18 Sep 2026): breadcrumbs (3), objection cards (3) with a computed delivery window, honest rating line, stock pill, 3 ticks, 4 express buttons, 4 trust cells, 7 payment icons, 3 "for you if" lines, Product/BreadcrumbList JSON-LD with 3 offers and no fake rating, sticky bar hidden on load and visible after scrolling past the buy box, chat panel opens, offer pop-up opens from the tab and shows the code after signup, bat cape cross-sells the Halloween Pair with "Save £1.99", bundle lists its two contents, About/Contact/Track pages render, homepage Organization JSON-LD, footer links present.
+
+Tier 2 additions (19 Sep 2026): save-by-bundling lists 4 bundles with "Save £1.99", UGC wall shows 6 honest empty frames, 4 homepage FAQ accordions, countdown reads "Order by 14 October … days left", recently-viewed shows products seen earlier, quiz (Halloween + hat + 30cm) returns Lion Mane size M and the Pumpkin set, collar-only falls back to the Bow Tie, breed pick fills the neck field, breeds page has 10 entries with Maine Coon → Lion Mane L / Spider M, competition page shows no winners and 9 terms, shop size filter L → 4 products and one-size → 5, alias tag renders, 11 pages with no overflow at 390px.
 
 ## Still to do before this sells anything
 

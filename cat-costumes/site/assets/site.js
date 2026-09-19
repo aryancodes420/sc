@@ -162,6 +162,8 @@ function initChrome(){
   });
   const y = document.querySelector("[data-year]");
   if(y) y.textContent = new Date().getFullYear();
+  const tb = document.querySelector(".topbar");
+  if(tb) tb.innerHTML = 'Free UK delivery over <b>£' + FREE_SHIPPING_AT + '</b> &nbsp;·&nbsp; ' + countdownHTML();
 }
 document.addEventListener("DOMContentLoaded", initChrome);
 
@@ -372,4 +374,71 @@ function initChat(){
   document.body.appendChild(fab);
   const b = fab.querySelector(".chat-btn"), pnl = fab.querySelector(".chat-panel");
   b.onclick = () => { pnl.hidden = !pnl.hidden; b.setAttribute("aria-expanded", String(!pnl.hidden)); };
+}
+
+/* ================================================================ tier 2 ==== */
+/* ----- size from a neck measurement, using each product's own size table ----- */
+function neckNums(str){ return (String(str).split("cm")[0].match(/\d+(?:\.\d+)?/g) || []).map(Number); }
+function sizeFor(p, neck){
+  if(!Array.isArray(p.sizes) || !p.sizes.length) return { label: "One size", ok: true, neck: p.fit };
+  for(const s of p.sizes){
+    const n = neckNums(s.neck); const max = n.length > 1 ? n[1] : n[0];
+    if(!max || neck <= max) return { label: s.label, ok: true, neck: s.neck };
+  }
+  return { label: null, ok: false, neck: "Largest size is " + p.sizes[p.sizes.length - 1].neck };
+}
+
+/* ----- genuine Halloween countdown: shown until the date passes ----- */
+function daysUntil(iso){ const t = new Date(iso + "T23:59:59"); return Math.ceil((t - new Date()) / 864e5); }
+function countdownHTML(){
+  const c = daysUntil(HALLOWEEN.cutoff), h = daysUntil(HALLOWEEN.day);
+  if(c > 1)  return '🎃 Order by <b>14 October</b> for Halloween — ' + c + ' days left';
+  if(c === 1) return '🎃 <b>Last day</b> to order for guaranteed Halloween delivery';
+  if(h >= 0)  return '🎃 Halloween orders placed now may arrive after the 31st — collars and Christmas ship as normal';
+  return '🎄 Christmas is in — <a href="shop.html?cat=christmas" style="color:#FFD166">shop the Santa set</a>';
+}
+
+/* ----- recently viewed (per browser) ----- */
+const RECENT_KEY = "catwalk.recent.v1";
+function getRecent(){ try{ const v = JSON.parse(localStorage.getItem(RECENT_KEY)); return Array.isArray(v) ? v : []; }catch(e){ return []; } }
+function pushRecent(id){
+  const r = getRecent().filter(x => x !== id); r.unshift(id);
+  try{ localStorage.setItem(RECENT_KEY, JSON.stringify(r.slice(0, 8))); }catch(e){}
+}
+function mountRecent(host, excludeId){
+  const list = getRecent().filter(id => id !== excludeId).map(byId).filter(p => p && !p.hold).slice(0, 4);
+  if(!host) return; if(!list.length){ host.hidden = true; return; }
+  host.hidden = false;
+  host.innerHTML = '<div class="sec-head"><div><h2>Recently viewed</h2></div></div><div class="grid-p"></div>';
+  renderGrid(host.querySelector(".grid-p"), list);
+}
+
+/* ----- quiz: occasion → what they'll tolerate → neck ----- */
+function quizResults(occ, wear, neck){
+  const live = PRODUCTS.filter(p => !p.hold && p.cat !== "bundle");
+  let list = live.filter(p => (WEAR[p.id] || 3) <= wear);
+  if(occ !== "any") list = list.filter(p => p.cat === occ || (occ === "gift" && (p.cat === "christmas" || p.badge === "Bestseller")));
+  if(!list.length) list = live.filter(p => (WEAR[p.id] || 3) <= wear);
+  return list.map(p => ({ p: p, size: neck ? sizeFor(p, neck) : null })).filter(r => !r.size || r.size.ok);
+}
+function resultCard(r){
+  const p = r.p, s = r.size;
+  return '<div class="pcard-wrap"><a class="pcard" href="product.html?id=' + p.id + '"><div class="art">' + productImg(p, 0) + '</div><div class="body"><h3>' + esc(p.name) + '</h3>' +
+    (s ? '<p class="blurb"><b>' + (s.label === "One size" ? "One size — adjusts" : "Size " + s.label) + '</b>' + (s.neck && s.label !== "One size" ? ' · neck ' + esc(s.neck) : '') + '</p>' : '<p class="blurb">' + esc(p.blurb) + '</p>') +
+    '<span class="price">' + money(p.price) + '</span></div></a></div>';
+}
+
+/* ----- alias tag under the product title ----- */
+const aliasTag = p => p.alias ? '<span class="alias">aka ' + esc(p.alias) + '</span>' : "";
+
+/* ----- UGC wall: honest empty frames until real customer photos exist ----- */
+function ugcWall(){
+  const shots = DRAW.winners.slice(0, 6);
+  const frames = [];
+  for(let i = 0; i < 6; i++){
+    const w = shots[i];
+    frames.push(w ? '<figure class="ugc"><img src="assets/img/' + w.image + '" alt="' + esc(w.name) + '" width="400" height="400" loading="lazy"><figcaption>' + esc(w.name) + ' · ' + esc(w.month) + '</figcaption></figure>'
+                  : '<figure class="ugc empty"><span>🐾</span><figcaption>Your cat here</figcaption></figure>');
+  }
+  return '<div class="ugc-grid">' + frames.join("") + '</div>';
 }

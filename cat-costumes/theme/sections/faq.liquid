@@ -1,12 +1,18 @@
 <div class="wrap">
-  <section style="padding-bottom:20px">
-    <h1 style="margin-bottom:.15em">{{ page.title | default: 'Frequently asked' }}</h1>
-    <p class="muted" style="font-size:1.1rem;max-width:62ch">{{ section.settings.intro }}</p>
-  </section>
-  <section style="padding-top:0">
+  {%- unless section.settings.compact -%}
+    <section style="padding-bottom:20px">
+      {% render 'breadcrumbs' %}
+      <h1 style="margin-bottom:.15em">{{ page.title | default: 'Frequently asked' }}</h1>
+      <p class="muted" style="font-size:1.1rem;max-width:62ch">{{ section.settings.intro }}</p>
+    </section>
+  {%- endunless -%}
+  <section style="padding-top:0{% if section.settings.compact %};padding-bottom:0{% endif %}">
+    {%- if section.settings.compact -%}
+      <div class="sec-head"><div><h2>{{ section.settings.compact_heading }}</h2>{%- if section.settings.compact_link != blank -%}<p>The things everyone asks. <a href="{{ section.settings.compact_link }}">All questions →</a></p>{%- endif -%}</div></div>
+    {%- endif -%}
     <div class="acc">
       {%- for block in section.blocks -%}
-        <details {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+        <details {% if forloop.first and section.settings.compact != true %}open{% endif %} {{ block.shopify_attributes }}>
           <summary>{{ block.settings.question }}</summary>
           <div class="inner">{{ block.settings.answer }}</div>
         </details>
@@ -17,8 +23,11 @@
 </div>
 {% schema %}
 {
-  "name": "FAQ page",
+  "name": "FAQ",
   "settings": [
+    { "type": "checkbox", "id": "compact", "label": "Compact (homepage block: h2, no page title)", "default": false },
+    { "type": "text", "id": "compact_heading", "label": "Compact heading", "default": "Quick answers" },
+    { "type": "url", "id": "compact_link", "label": "Compact: link to the full FAQ" },
     { "type": "textarea", "id": "intro", "label": "Intro", "default": "Sizing, delivery, care and returns — answered in one place." }
   ],
   "blocks": [

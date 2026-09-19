@@ -114,6 +114,61 @@
     },
     "fitwhy": {
       "type": "why-fit"
+    },
+    "saving": {
+      "type": "save-bundling"
+    },
+    "ugc": {
+      "type": "ugc-wall"
+    },
+    "quizcta": {
+      "type": "cta-band"
+    },
+    "homefaq": {
+      "type": "faq",
+      "settings": {
+        "compact": true,
+        "intro": ""
+      },
+      "blocks": {
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "How do I know what size to order?",
+            "answer": "<p>Measure the neck: wrap a soft tape where a collar sits and add two fingers of slack. Collars, the Pumpkin set and the Santa set adjust. The Lion Mane, Devil Bat Cape, Spider Costume and Bandana Collar come in sizes, and every size is a neck measurement.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>UK standard tracked delivery is 2–4 working days at £3.95, free on orders over £30. The Bandana Collar ships from UK stock.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Will my cat actually keep it on?",
+            "answer": "<p>Collars, yes — most cats forget they're there. Hats and capes are for the photo: on, shot, off. Nothing covers the face or eyes, and if your cat says no you have 30 days to send it back, worn or not.</p>"
+          }
+        },
+        "q4": {
+          "type": "qa",
+          "settings": {
+            "question": "When should I order for Halloween?",
+            "answer": "<p>By 14 October to be safe. Popular sizes go first and the two weeks before the 31st are the busiest of the year.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ]
+    },
+    "recent": {
+      "type": "recently-viewed"
     }
   },
   "order": [
@@ -122,7 +177,12 @@
     "categories",
     "featured",
     "bundles",
+    "saving",
+    "ugc",
+    "quizcta",
     "fitwhy",
+    "homefaq",
+    "recent",
     "newsletter"
   ]
 }

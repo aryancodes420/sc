@@ -6,9 +6,13 @@
         "show_dynamic_checkout": true,
         "show_related": true
       }
+    },
+    "recent": {
+      "type": "recently-viewed"
     }
   },
   "order": [
-    "main"
+    "main",
+    "recent"
   ]
 }

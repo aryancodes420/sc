@@ -47,6 +47,14 @@
         </select>
       </div>
       <div class="filters" id="filters"></div>
+      <div class="presets" id="sizef"><span class="small muted">Fits:</span>
+        <button class="chip chip-sm" type="button" data-sz="" aria-pressed="true">Any size</button>
+        <button class="chip chip-sm" type="button" data-sz="S" aria-pressed="false">S</button>
+        <button class="chip chip-sm" type="button" data-sz="M" aria-pressed="false">M</button>
+        <button class="chip chip-sm" type="button" data-sz="L" aria-pressed="false">L</button>
+        <button class="chip chip-sm" type="button" data-sz="one" aria-pressed="false">One size / adjustable</button>
+        <a class="small" href="breeds.html" style="margin-left:6px">Sizes by breed →</a>
+      </div>
       <div class="grid-p" id="grid"></div>
       <p id="none" class="empty muted" hidden>Nothing matches that.</p>
     </div>
@@ -65,6 +73,9 @@
       <div><h4>Help</h4><ul>
         <li><a href="sizing.html">Fit &amp; care</a></li>
         <li><a href="faq.html">FAQ</a></li>
+        <li><a href="quiz.html">Which costume? Quiz</a></li>
+        <li><a href="breeds.html">Sizes by breed</a></li>
+        <li><a href="photo-draw.html">Cat of the Month</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
         <li><a href="track-order.html">Track your order</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -86,12 +97,19 @@
   var grid = document.getElementById("grid"), filters = document.getElementById("filters"), none = document.getElementById("none");
   var qEl = document.getElementById("q"), sortEl = document.getElementById("sort");
   var all = [{id:"all",label:"Everything"}].concat(CATEGORIES.map(function(c){ return {id:c.id,label:c.label}; }));
-  var current = new URLSearchParams(location.search).get("cat") || "all";
+  var current = new URLSearchParams(location.search).get("cat") || "all", sizeF = "";
+  var sizeEl = document.getElementById("sizef");
+  sizeEl.addEventListener("click", function(e){
+    var b = e.target.closest("[data-sz]"); if(!b) return; sizeF = b.dataset.sz;
+    sizeEl.querySelectorAll("[data-sz]").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); }); paint();
+  });
   filters.innerHTML = all.map(function(f){
     return '<button class="chip" type="button" data-f="' + f.id + '" aria-pressed="' + (f.id === current) + '">' + f.label + '</button>';
   }).join("");
   function paint(){
     var list = PRODUCTS.filter(function(p){ return !p.hold && (current === "all" || p.cat === current); });
+    if(sizeF === "one") list = list.filter(function(p){ return !p.sizes; });
+    else if(sizeF) list = list.filter(function(p){ return p.sizes && p.sizes.some(function(x){ return x.label === sizeF; }); });
     var term = (qEl.value || "").trim().toLowerCase();
     if(term) list = list.filter(function(p){ return (p.name + " " + p.blurb + " " + p.cat + " " + (p.badge||"") + " " + p.specs.join(" ")).toLowerCase().indexOf(term) >= 0; });
     var s = sortEl.value;

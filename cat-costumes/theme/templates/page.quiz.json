@@ -1,0 +1,10 @@
+{ "sections": { "main": { "type": "quiz",
+  "blocks": {
+    "b1": { "type": "item", "settings": { "wear": "1", "occasions": "everyday, gift, halloween, christmas" } },
+    "b2": { "type": "item", "settings": { "wear": "1", "occasions": "everyday, gift" } },
+    "b3": { "type": "item", "settings": { "wear": "2", "occasions": "halloween, gift" } },
+    "b4": { "type": "item", "settings": { "wear": "3", "occasions": "halloween" } },
+    "b5": { "type": "item", "settings": { "wear": "3", "occasions": "halloween" } },
+    "b6": { "type": "item", "settings": { "wear": "2", "occasions": "halloween" } },
+    "b7": { "type": "item", "settings": { "wear": "2", "occasions": "christmas, gift" } }
+  }, "block_order": ["b1","b2","b3","b4","b5","b6","b7"] } }, "order": ["main"] }

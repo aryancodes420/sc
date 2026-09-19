@@ -1,0 +1,73 @@
+{%- comment -%}
+  Cat of the Month: a judged photo competition, free to enter. Winners are blocks — add one
+  only when it's real. The terms below are a starting point; put your trading name and
+  address in before the first round opens.
+{%- endcomment -%}
+<div class="wrap">
+  <section style="padding-bottom:10px">
+    {% render 'breadcrumbs' %}
+    <span class="kicker">📸 {{ section.settings.name }}</span>
+    <h1 style="margin-top:14px;margin-bottom:.2em">{{ section.settings.heading }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">Every month we pick the best photo of a cat in a {{ shop.name }} piece. The winner gets <b>{{ section.settings.prize }}</b>. Free to enter, no purchase necessary, and the next round closes <b>{{ section.settings.closes }}</b>.</p>
+  </section>
+  <section style="padding-top:10px">
+    <div class="two">
+      <div class="panel"><h3>1 · Take the photo</h3><p style="margin:0">Any of our pieces, on your cat. Face clear, in focus, and the cat looking like they own the place. Phone photos are fine.</p></div>
+      <div class="panel"><h3>2 · Send it in</h3><p>Post it and tag <b>{{ section.settings.handle }}</b> on Instagram or TikTok, <i>or</i> email it to <a href="mailto:{{ section.settings.email }}?subject=Cat%20of%20the%20Month">{{ section.settings.email }}</a> with your cat's name and your county. Both routes count the same.</p><p class="small muted" style="margin:0">Entries close at midnight UK time on the last day of the month.</p></div>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="sec-head"><div><h2>Previous winners</h2><p>Every winner gets a frame here, for good.</p></div></div>
+    {%- if section.blocks.size > 0 -%}
+      <div class="winners">
+        {%- for block in section.blocks -%}
+          <figure class="ugc" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}<img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}" width="400" height="400" loading="lazy">{%- endif -%}
+            <figcaption>{{ block.settings.name }} · {{ block.settings.month }}</figcaption>
+          </figure>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="video-slot">No winners yet — the first round closes {{ section.settings.closes }}. Your cat could be the first frame on this wall.</div>
+    {%- endif -%}
+  </section>
+  <section style="padding-top:0">
+    <div class="panel terms">
+      <h3>Terms</h3>
+      <ol>
+        <li><b>Promoter:</b> {{ section.settings.promoter }}. UK only, entrants 18 or over.</li>
+        <li><b>How to enter:</b> post a photo of a cat wearing a {{ shop.name }} product and tag {{ section.settings.handle }} on Instagram or TikTok, or email the photo to {{ section.settings.email }}. <b>No purchase is necessary</b> and both entry routes are treated identically.</li>
+        <li><b>Rounds:</b> monthly. Each round opens on the 1st and closes at midnight UK time on the last day of the month.</li>
+        <li><b>Judging:</b> the {{ shop.name }} team picks the winner on photo quality, how well the piece is shown and how relaxed the cat looks. It is a judged competition, not a random draw. The decision is final.</li>
+        <li><b>Prize:</b> {{ section.settings.prize }}. Credit is valid for 12 months, non-transferable, no cash alternative.</li>
+        <li><b>Winner:</b> notified within 7 days of the close and announced on this page with the cat's name and the entrant's county unless the entrant asks us not to. Entrants may object to publication by email.</li>
+        <li><b>Your photo:</b> by entering you give {{ shop.name }} permission to show the photo on this website and its social accounts, with credit. You keep the copyright and can withdraw the permission at any time by email.</li>
+        <li><b>Welfare:</b> entries where the cat looks distressed or restrained are not eligible. Nothing may cover the face or eyes.</li>
+        <li><b>Data:</b> names, emails and photos are used only to run the competition and are deleted 12 months after the round closes unless you are a winner shown on this page.</li>
+      </ol>
+      {%- if page.content != blank -%}<div class="rte">{{ page.content }}</div>{%- endif -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Cat of the Month",
+  "settings": [
+    { "type": "text", "id": "name", "label": "Competition name", "default": "Cat of the Month" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Send us your cat, dressed." },
+    { "type": "text", "id": "prize", "label": "Prize", "default": "£25 store credit and a feature on the site" },
+    { "type": "text", "id": "closes", "label": "Next round closes", "default": "31 October 2026" },
+    { "type": "text", "id": "handle", "label": "Social handle", "default": "@catwalkclub" },
+    { "type": "text", "id": "email", "label": "Entry email" },
+    { "type": "text", "id": "promoter", "label": "Promoter (trading name and address)", "default": "[Trading name, registered address — fill before the first round opens]" }
+  ],
+  "blocks": [
+    { "type": "winner", "name": "Winner", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Photo" },
+      { "type": "text", "id": "name", "label": "Cat and county", "default": "Mabel (Leeds)" },
+      { "type": "text", "id": "month", "label": "Month", "default": "October 2026" }
+    ] }
+  ],
+  "presets": [ { "name": "Cat of the Month" } ]
+}
+{% endschema %}

@@ -1,0 +1,51 @@
+{%- comment -%}
+  Sizes by breed. Each block is a breed with a typical adult neck range and the figure used
+  for sizing. The products to size come from the section's product list; sizing uses their
+  variants + custom.size_notes, computed in catwalk.js with the same rule as the product page.
+{%- endcomment -%}
+<div class="wrap" data-breeds>
+  <section style="padding-bottom:10px">
+    {% render 'breadcrumbs' %}
+    <h1 style="margin-bottom:.15em">{{ page.title | default: 'Sizes by breed' }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:64ch">{{ section.settings.intro }}</p>
+    <div class="jump">{%- for block in section.blocks -%}<a class="chip chip-sm" href="#{{ block.id }}">{{ block.settings.name | split: ' (' | first }}</a>{%- endfor -%}</div>
+  </section>
+  <section style="padding-top:0">
+    {%- for block in section.blocks -%}
+      <article class="breed" id="{{ block.id }}" data-mid="{{ block.settings.mid }}" {{ block.shopify_attributes }}>
+        <h2>{{ block.settings.name }}</h2>
+        <p class="muted" style="margin:0">Typical neck <b>{{ block.settings.range }}</b> · sized here at {{ block.settings.mid }}cm</p>
+        <div class="recs" data-recs></div>
+      </article>
+    {%- endfor -%}
+  </section>
+  <section style="padding-top:0">
+    <div class="callout"><h3 style="margin-top:0">How we got these figures</h3><p style="margin:0" class="small">{{ section.settings.method }}</p></div>
+  </section>
+  <script type="application/json" data-breed-products>
+  [
+    {%- for p in section.settings.products -%}
+    { "handle": {{ p.handle | json }}, "title": {{ p.title | json }}, "url": {{ p.url | json }}, "image": {{ p.featured_image | image_url: width: 120 | json }},
+      "sizes": [{%- unless p.has_only_default_variant -%}{%- assign notes = p.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}{%- for v in p.variants -%}{ "label": {{ v.title | json }}, "neck": {{ notes[forloop.index0] | strip | json }} }{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endunless -%}] }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+  </script>
+</div>
+{% schema %}
+{
+  "name": "Sizes by breed",
+  "settings": [
+    { "type": "product_list", "id": "products", "label": "Products to size", "limit": 12 },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Typical adult neck measurements for common breeds, and which size that points to in each of our sized pieces. Breed is a starting point — a big Bengal and a small Bengal are two sizes apart — so measure before you order." },
+    { "type": "textarea", "id": "method", "label": "Method note", "default": "The ranges are typical adult neck circumferences we use as working figures, not a veterinary standard. The size suggestion takes the middle of the range and applies the same rule as every product page: if you're between sizes, take the larger." }
+  ],
+  "blocks": [
+    { "type": "breed", "name": "Breed", "settings": [
+      { "type": "text", "id": "name", "label": "Breed", "default": "Maine Coon" },
+      { "type": "text", "id": "range", "label": "Typical neck range", "default": "30–38cm" },
+      { "type": "number", "id": "mid", "label": "Figure used for sizing (cm)", "default": 34 }
+    ] }
+  ],
+  "presets": [ { "name": "Sizes by breed" } ]
+}
+{% endschema %}

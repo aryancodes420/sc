@@ -161,3 +161,81 @@ function wireChat(){
 }
 document.addEventListener("DOMContentLoaded", () => { paintDeliveryWindows(); wireStickyATC(); wireOffer(); wireChat(); });
 document.addEventListener("shopify:section:load", e => { paintDeliveryWindows(e.target); wireStickyATC(e.target); });
+
+/* ================================================================ tier 2 ==== */
+/* genuine countdown in the announcement bar — real dates, gone when they pass */
+function wireCountdown(){
+  const el = document.querySelector("[data-countdown]"); if(!el || !el.dataset.cutoff) return;
+  const days = iso => Math.ceil((new Date(iso + "T23:59:59") - new Date()) / 864e5);
+  const c = days(el.dataset.cutoff), h = el.dataset.event ? days(el.dataset.event) : c;
+  let msg = "";
+  if(c > 1) msg = (el.dataset.before || "").replace("{days}", c);
+  else if(c === 1) msg = el.dataset.last || "";
+  else if(h >= 0) msg = el.dataset.afterCutoff || "";
+  else msg = el.dataset.afterEvent || "";
+  if(msg) el.innerHTML += " &nbsp;·&nbsp; " + msg;
+}
+/* recently viewed (per browser): product pages record; the section renders */
+const RECENT_KEY = "catwalk.recent.v1";
+function getRecent(){ try{ const v = JSON.parse(localStorage.getItem(RECENT_KEY)); return Array.isArray(v) ? v : []; }catch(e){ return []; } }
+function recordRecent(){
+  const el = document.querySelector("[data-recent-product]"); if(!el) return;
+  try{ const p = JSON.parse(el.textContent); const r = getRecent().filter(x => x.handle !== p.handle); r.unshift(p); localStorage.setItem(RECENT_KEY, JSON.stringify(r.slice(0, 8))); }catch(e){}
+}
+function paintRecent(root){
+  (root || document).querySelectorAll("[data-recently-viewed]").forEach(sec => {
+    const list = getRecent().filter(p => p.handle !== sec.dataset.exclude).slice(0, 4);
+    if(!list.length){ sec.hidden = true; return; }
+    sec.hidden = false;
+    sec.querySelector("[data-recent-grid]").innerHTML = list.map(p => '<div class="pcard-wrap"><a class="pcard" href="' + p.url + '"><div class="art">' +
+      (p.image ? '<img src="' + p.image + '" alt="" width="600" height="600" loading="lazy">' : '<div data-cat-art="' + p.handle + '"></div>') +
+      '</div><div class="body"><h3>' + p.title + '</h3><span class="price">' + p.price + '</span></div></a></div>').join("");
+    hydrateArt(sec);
+  });
+}
+/* sizing from a neck figure, using variant titles + custom.size_notes (same rule as the product page) */
+function neckNums(str){ return (String(str || "").split("cm")[0].match(/\d+(?:\.\d+)?/g) || []).map(Number); }
+function sizeFor(sizes, neck){
+  if(!sizes || !sizes.length) return { label: "One size", ok: true };
+  for(const s of sizes){ const n = neckNums(s.neck); const max = n.length > 1 ? n[1] : n[0]; if(!max || neck <= max) return { label: s.label, ok: true, neck: s.neck }; }
+  return { label: null, ok: false };
+}
+const cardHTML = (p, line) => '<div class="pcard-wrap"><a class="pcard" href="' + p.url + '"><div class="art">' + (p.image ? '<img src="' + p.image + '" alt="" width="600" height="600" loading="lazy">' : '<div data-cat-art="' + p.handle + '"></div>') +
+  '</div><div class="body"><h3>' + p.title + '</h3><p class="blurb">' + line + '</p><span class="price">' + p.price + '</span></div></a></div>';
+/* the quiz */
+function wireQuiz(root){
+  const q = (root || document).querySelector("[data-quiz]"); if(!q) return;
+  let products = []; try{ products = JSON.parse(q.querySelector("[data-quiz-products]").textContent); }catch(e){}
+  const st = { occ: null, wear: null };
+  q.querySelectorAll("[data-q]").forEach(g => g.addEventListener("click", e => {
+    const b = e.target.closest(".qopt"); if(!b) return; st[g.dataset.q] = b.dataset.v;
+    g.querySelectorAll(".qopt").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  }));
+  const neckEl = q.querySelector("[data-neck]"), breed = q.querySelector("[data-breed]");
+  if(breed) breed.addEventListener("change", () => { if(breed.value) neckEl.value = breed.value; });
+  q.querySelector("[data-go]").addEventListener("click", () => {
+    if(!st.occ || !st.wear){ toast("Pick an occasion and what your cat will wear"); return; }
+    const neck = parseFloat(neckEl.value) || 0, wear = parseInt(st.wear, 10);
+    let list = products.filter(p => parseInt(p.wear, 10) <= wear);
+    const byOcc = list.filter(p => (p.occasions || "").split(",").map(s => s.trim()).indexOf(st.occ) >= 0);
+    if(byOcc.length) list = byOcc;
+    const rs = list.map(p => ({ p, size: neck ? sizeFor(p.sizes, neck) : null })).filter(r => !r.size || r.size.ok);
+    const res = q.querySelector("[data-res]"); res.hidden = false;
+    q.querySelector("[data-res-p]").textContent = rs.length ? (neck ? "Sized for a " + neck + "cm neck." : "Add a neck measurement and we'll size each one.") : "";
+    q.querySelector("[data-res-grid]").innerHTML = rs.length ? rs.map(r => cardHTML(r.p, r.size ? "<b>" + (r.size.label === "One size" ? "One size — adjusts" : "Size " + r.size.label) + "</b>" + (r.size.neck && r.size.label !== "One size" ? " · " + r.size.neck : "") : "")).join("")
+      : '<p class="muted">Nothing suits that combination yet — the collars fit almost every cat.</p>';
+    hydrateArt(res); res.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+/* sizes by breed */
+function wireBreeds(root){
+  const host = (root || document).querySelector("[data-breeds]"); if(!host) return;
+  let products = []; try{ products = JSON.parse(host.querySelector("[data-breed-products]").textContent); }catch(e){}
+  host.querySelectorAll(".breed").forEach(art => {
+    const mid = parseFloat(art.dataset.mid) || 0;
+    art.querySelector("[data-recs]").innerHTML = products.map(p => { const s = sizeFor(p.sizes, mid);
+      return '<a href="' + p.url + '">' + (p.image ? '<img src="' + p.image + '" alt="" width="40" height="40" loading="lazy">' : '') + '<span><b>' + p.title + '</b><br>' + (s.ok ? (s.label === "One size" ? "One size" : "Size " + s.label) : '<span class="no">Too big for the largest</span>') + '</span></a>'; }).join("");
+  });
+}
+document.addEventListener("DOMContentLoaded", () => { wireCountdown(); recordRecent(); paintRecent(); wireQuiz(); wireBreeds(); });
+document.addEventListener("shopify:section:load", e => { paintRecent(e.target); wireQuiz(e.target); wireBreeds(e.target); });

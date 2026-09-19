@@ -1,0 +1,36 @@
+<div class="wrap">
+  <section style="padding-bottom:20px">
+    <h1 style="margin-bottom:.15em">{{ blog.title }}</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">{{ section.settings.intro }}</p>
+  </section>
+  <section style="padding-top:0">
+    {%- paginate blog.articles by 12 -%}
+      <div class="grid-p">
+        {%- for article in blog.articles -%}
+          <div class="pcard-wrap">
+            <a class="pcard" href="{{ article.url }}">
+              <div class="art">
+                {%- if article.image -%}<img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.image.alt | default: article.title | escape }}" width="600" height="600" loading="lazy">{%- else -%}<div data-cat-art="{{ article.handle }}"></div>{%- endif -%}
+              </div>
+              <div class="body"><h3>{{ article.title }}</h3><p class="blurb">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</p><span class="small muted">{{ article.published_at | date: '%-d %B %Y' }}</span></div>
+            </a>
+          </div>
+        {%- else -%}
+          <p class="muted">No posts yet.</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <p class="center" style="margin-top:26px">
+          {%- if paginate.previous -%}<a class="btn btn-ghost btn-sm" href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a>{%- endif -%}
+          {%- if paginate.next -%}<a class="btn btn-ghost btn-sm" href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a>{%- endif -%}
+        </p>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [ { "type": "text", "id": "intro", "label": "Intro", "default": "Sizing, breeds, and getting a cat to wear a hat. Short, practical, no fluff." } ]
+}
+{% endschema %}

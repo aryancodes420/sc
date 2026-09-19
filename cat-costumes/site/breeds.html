@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="assets/site.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-<title>Track your order — Catwalk Club</title>
-<meta name="description" content="Track a Catwalk Club order. Every parcel ships tracked; dispatch within one working day.">
+<title>Cat costume sizes by breed — Catwalk Club</title>
+<meta name="description" content="Typical neck sizes for Maine Coon, Ragdoll, British Shorthair, Bengal, Siamese and more, and which costume size fits each.">
 <meta name="description" content="All seven Catwalk Club cat costumes and collars, plus bundles.">
 </head>
 <body>
@@ -34,37 +34,16 @@
   </div>
 </header>
 <main class="wrap">
-  <section style="padding-bottom:20px">
-    <h1 style="margin-bottom:.15em">Track your order</h1>
-    <p class="muted" style="font-size:1.1rem;max-width:62ch">Every order ships tracked. Your dispatch email has a live tracking link; if you can't find it, look it up here.</p>
+  <section style="padding-bottom:10px">
+    <h1 style="margin-bottom:.15em">Sizes by breed</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:64ch">Typical adult neck measurements for common breeds, and which size that points to in each of our sized pieces.
+      Breed is a starting point — a big Bengal and a small Bengal are two sizes apart — so <a href="sizing.html">measure</a> before you order.</p>
+    <div class="jump" id="jump"></div>
   </section>
+  <section style="padding-top:0" id="breeds"></section>
   <section style="padding-top:0">
-    <div class="two">
-      <div class="panel">
-        <h3>📦 Look up an order</h3>
-        <form class="form" id="track-form">
-          <div><label for="t-order">Order number</label><input id="t-order" name="order" required placeholder="#1042" inputmode="numeric"></div>
-          <div><label for="t-email">Email used at checkout</label><input id="t-email" name="email" type="email" required autocomplete="email"></div>
-          <button class="btn" type="submit">Find my order</button>
-          <p class="small muted" style="margin:0">On Shopify this opens the order's status page, which shows the courier's live tracking.</p>
-        </form>
-      </div>
-      <div>
-        <div class="panel" style="margin-bottom:16px">
-          <h3>⏱️ What to expect</h3>
-          <div class="tablewrap"><table style="min-width:0"><tbody>
-            <tr><td>Dispatch</td><td>Within 1 working day</td></tr>
-            <tr><td>UK standard, tracked</td><td>2–4 working days · £3.95</td></tr>
-            <tr><td>Orders over £30</td><td>2–4 working days · <b>free</b></td></tr>
-          </tbody></table></div>
-          <p class="small muted" style="margin:.8em 0 0">Order today and it should arrive <b data-window></b>.</p>
-        </div>
-        <div class="panel">
-          <h3>🤔 Still nothing?</h3>
-          <p style="margin:0">If the tracking hasn't moved for three working days, <a href="contact.html">message us</a> with the order number and we'll chase the courier for you.</p>
-        </div>
-      </div>
-    </div>
+    <div class="callout"><h3 style="margin-top:0">How we got these figures</h3>
+      <p style="margin:0" class="small">The ranges are typical adult neck circumferences we use as working figures, not a veterinary standard. The size suggestion takes the middle of the range and applies the same rule as every product page: if you're between sizes, take the larger. <a href="quiz.html">Use the quiz</a> to size from your own measurement instead.</p></div>
   </section>
 </main>
 <footer class="site">
@@ -101,8 +80,15 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  document.querySelector("[data-window]").textContent = deliveryWindow();
-  document.getElementById("track-form").onsubmit = function(e){ e.preventDefault(); toast("On Shopify this opens your order status page"); };
+  var sized = PRODUCTS.filter(function(p){ return !p.hold && p.cat !== "bundle"; });
+  document.getElementById("jump").innerHTML = BREEDS.map(function(b){ return '<a class="chip chip-sm" href="#' + b.id + '">' + b.name.split(" (")[0] + '</a>'; }).join("");
+  document.getElementById("breeds").innerHTML = BREEDS.map(function(b){
+    return '<article class="breed" id="' + b.id + '"><h2>' + b.name + '</h2><p class="muted" style="margin:0">Typical neck <b>' + b.range + '</b> · sized here at ' + b.mid + 'cm</p><div class="recs">' +
+      sized.map(function(p){
+        var s = sizeFor(p, b.mid);
+        return '<a href="product.html?id=' + p.id + '">' + productImg(p, 0) + '<span><b>' + p.name + '</b><br>' + (s.ok ? (s.label === "One size" ? "One size" : "Size " + s.label) : '<span class="no">Too big for the largest</span>') + '</span></a>';
+      }).join("") + '</div></article>';
+  }).join("");
 </script>
 </body>
 </html>

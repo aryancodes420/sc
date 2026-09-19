@@ -10,7 +10,7 @@
 const PRODUCTS = [
   /* ---------- Everyday ---------- */
   {
-    id: "bow-tie-collar", name: "Bow Tie Collar", price: 8.99, cat: "everyday",
+    id: "bow-tie-collar", name: "Bow Tie Collar", price: 8.99, alias: "Reginald", cat: "everyday",
     badge: "Bestseller", motif: "bowtie",
     images: ["bow-tie-1.webp","bow-tie-2.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-5.webp","bow-tie-6.webp"],
     blurb: "A plaid bow tie on a proper safety collar — breakaway buckle, bell, and an elastic adjustable strap.",
@@ -31,7 +31,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256803258255247", cost: 1.09, sold: "5,000+", rating: 4.8, choice: true }
   },
   {
-    id: "bandana", name: "Bandana Collar", price: 7.99, cat: "everyday",
+    id: "bandana", name: "Bandana Collar", price: 7.99, alias: "Roadie", cat: "everyday",
     badge: "UK stock", motif: "bandana",
     images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
     blurb: "A paisley bandana mounted on a buckle collar — no tying, just clip it on. Dispatched from UK stock.",
@@ -58,7 +58,7 @@ const PRODUCTS = [
 
   /* ---------- Halloween ---------- */
   {
-    id: "lion-mane", name: "Lion Mane", price: 9.99, cat: "halloween",
+    id: "lion-mane", name: "Lion Mane", price: 9.99, alias: "Kingsley", cat: "halloween",
     badge: "Bestseller", motif: "mane",
     images: ["lion-mane-1.webp","lion-mane-2.webp","lion-mane-3.webp","lion-mane-4.webp","lion-mane-5.webp","lion-mane-6.webp"],
     blurb: "The classic. A full faux-fur mane with little round ears that turns any cat into the king of the living room.",
@@ -83,7 +83,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256805876802123", cost: 4.20, sold: "700+", rating: 4.6, choice: true }
   },
   {
-    id: "bat-cape", name: "Devil Bat Cape", price: 12.99, cat: "halloween",
+    id: "bat-cape", name: "Devil Bat Cape", price: 12.99, alias: "Vlad", cat: "halloween",
     badge: "Halloween", motif: "cape",
     images: ["bat-cape-5.webp","bat-cape-4.webp","bat-cape-3.webp","bat-cape-2.webp","bat-cape-1.webp","bat-cape-6.webp"],
     blurb: "A red-and-black satin cape with bat wings, a bow at the collar, and a little devil-horn hood to match.",
@@ -108,7 +108,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256812487071410", cost: 4.54, sold: "1,000+", rating: 4.6, choice: true }
   },
   {
-    id: "spider-costume", name: "Spider Costume", price: 12.99, cat: "halloween",
+    id: "spider-costume", name: "Spider Costume", price: 12.99, alias: "Boris", cat: "halloween",
     badge: "Halloween", motif: "bat",
     images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
     blurb: "Eight furry legs on a soft felt body that fastens under the chest. The costume that gets the most double-takes at the door.",
@@ -132,7 +132,7 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256805889809397", cost: 4.93, sold: "500+", rating: 4.6, choice: true }
   },
   {
-    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 11.99, cat: "halloween",
+    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 11.99, alias: "Pip", cat: "halloween",
     badge: "Halloween", motif: "pumpkin",
     images: ["pumpkin-1.webp","pumpkin-2.webp","pumpkin-3.webp","pumpkin-4.webp","pumpkin-5.webp","pumpkin-6.webp"],
     blurb: "A witch-style pumpkin hat on a chin strap, with a matching orange tulle ruffle collar. The most-searched cat costume there is, as a two-piece set.",
@@ -155,7 +155,7 @@ const PRODUCTS = [
 
   /* ---------- Christmas ---------- */
   {
-    id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, cat: "christmas",
+    id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, alias: "Nick", cat: "christmas",
     badge: "Christmas", motif: "santa",
     images: ["santa-1.webp","santa-2.webp","santa-3.webp","santa-4.webp","santa-5.webp","santa-6.webp"],
     blurb: "A proper cat-sized Santa hat with a matching scarf — soft polycotton, white trim, and velcro so it goes on in seconds.",
@@ -256,3 +256,40 @@ const CONTACT = {
 };
 
 const DELIVERY = { min: 2, max: 4, cost: 3.95 };  /* working days, UK standard tracked */
+
+/* Optional nicknames (`alias`) show as a small tag under the title; the searchable product
+   name stays the title. Change or blank them freely. */
+
+/* Halloween timing — real dates, shown until they pass, then gone. */
+const HALLOWEEN = { cutoff: "2026-10-14", day: "2026-10-31" };
+
+/* Typical adult neck ranges by breed, in cm. Starting points only — every page still says
+   to measure. `mid` drives the size suggestions on the breeds page and in the quiz. */
+const BREEDS = [
+  { id: "kitten",     name: "Kitten (4–8 months)",       range: "18–24cm", mid: 21 },
+  { id: "siamese",    name: "Siamese / Oriental",        range: "22–28cm", mid: 25 },
+  { id: "domestic",   name: "Domestic shorthair (average cat)", range: "25–30cm", mid: 27 },
+  { id: "sphynx",     name: "Sphynx",                    range: "24–30cm", mid: 27 },
+  { id: "bengal",     name: "Bengal",                    range: "26–32cm", mid: 29 },
+  { id: "persian",    name: "Persian",                   range: "26–32cm", mid: 29 },
+  { id: "british",    name: "British Shorthair",         range: "28–34cm", mid: 31 },
+  { id: "ragdoll",    name: "Ragdoll",                   range: "28–35cm", mid: 31 },
+  { id: "norwegian",  name: "Norwegian Forest",          range: "30–36cm", mid: 33 },
+  { id: "mainecoon",  name: "Maine Coon",                range: "30–38cm", mid: 34 }
+];
+
+/* Quiz: what a cat will put up with, from least to most. Each product's `wear` level. */
+const WEAR = { "bow-tie-collar": 1, "bandana": 1, "lion-mane": 2, "pumpkin-set": 2, "santa-set": 2, "bat-cape": 3, "spider-costume": 3 };
+const WEAR_LABELS = [null, "A collar, and that's it", "A collar and a hat", "Anything, honestly"];
+
+/* Cat of the Month — a judged photo competition, free to enter (no purchase necessary).
+   Winners are added here only when real. Never invent one. */
+const DRAW = {
+  name: "Cat of the Month",
+  prize: "£25 Catwalk Club credit and a feature on the site",
+  closes: "last day of every month, midnight UK time",
+  firstCloses: "31 October 2026",
+  handle: "@catwalkclub",
+  entryEmail: "hello@catwalkclub.co.uk",
+  winners: []   /* { month: "October 2026", name: "Mabel (Leeds)", image: "ugc/mabel.webp", product: "lion-mane" } */
+};

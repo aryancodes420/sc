@@ -1,0 +1,35 @@
+{%- comment -%} Homepage "Save more by bundling": lists a collection of bundles with the real saving (compare-at minus price). {%- endcomment -%}
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="savebox">
+      <div>
+        <h2>{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.text }}</p>
+        {%- assign col = collections[section.settings.collection] -%}
+        {%- if col -%}<a class="btn btn-mint" href="{{ col.url }}">{{ section.settings.button }}</a>{%- endif -%}
+      </div>
+      <ul>
+        {%- for b in col.products limit: 6 -%}
+          <li>
+            <span><b>{{ b.title }}</b>{%- if b.metafields.custom.contains.value.size > 0 -%}<br><span class="small">{%- for c in b.metafields.custom.contains.value -%}{{ c.title }}{%- unless forloop.last %} + {% endunless -%}{%- endfor -%}</span>{%- endif -%}</span>
+            <span><b>{{ b.price | money }}</b>{%- if b.compare_at_price > b.price %} <span class="tag">Save {{ b.compare_at_price | minus: b.price | money }}</span>{%- endif -%}</span>
+          </li>
+        {%- else -%}
+          <li><span>Pick the bundles collection for this section in the theme editor.</span></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Save by bundling",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Save more by bundling" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every bundle is two pieces for £1.99 less than buying them apart, and any order over £30 ships free. Two bundles, or a bundle and a costume, gets you there." },
+    { "type": "collection", "id": "collection", "label": "Bundles collection" },
+    { "type": "text", "id": "button", "label": "Button", "default": "See the four bundles" }
+  ],
+  "presets": [ { "name": "Save by bundling" } ]
+}
+{% endschema %}

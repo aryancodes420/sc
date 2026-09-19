@@ -3,7 +3,7 @@
 A complete, standalone Shopify theme carrying the Catwalk Club design: its own `layout/`,
 `config/` and `locales/`, so it uploads to an empty store and works on its own.
 
-**Validated with Shopify's own `@shopify/theme-check`: 54 files, 0 offenses.**
+**Validated with Shopify's own `@shopify/theme-check`: 68 files, 0 offenses.**
 
 ---
 
@@ -26,11 +26,11 @@ Push as **unpublished** first and preview it before making it the live theme.
 | | |
 |---|---|
 | `layout/theme.liquid` | Document shell, fonts, skip link, structured data, first-order offer, chat button |
-| `sections/` | 21 sections — header, footer, announcement, hero, trust strip, category tiles, featured products, why-fit, newsletter, first-order offer, About, plus `main-*` for product, collection, cart, page, contact, track-order, search and collection list, and the FAQ and Fit & care page sections |
+| `sections/` | 30 sections — header, footer, announcement (with a genuine countdown), hero, trust strip, category tiles, featured products, save-by-bundling, your-cats-dressed (UGC wall), call-out band, FAQ (page or compact homepage block), recently viewed, why-fit, newsletter, first-order offer, About, costume quiz, sizes by breed, Cat of the Month, plus `main-*` for product, collection, cart, page, contact, track-order, blog, article, search and collection list, and the Fit & care page section |
 | `snippets/` | `product-card`, `breadcrumbs`, `structured-data` (JSON-LD), `chat-fab`, `catwalk-fonts` |
 | `templates/` | JSON templates for every page type, plus `404.liquid` |
 | `assets/catwalk.css` | The full design system (same file as the static site, plus theme-only rules) |
-| `assets/catwalk.js` | Gallery, wishlist, variant size notes, stock pill, sticky add-to-cart, delivery dates, offer pop-up, chat toggle |
+| `assets/catwalk.js` | Gallery, wishlist, variant size notes, stock pill, sticky add-to-cart, delivery dates, offer pop-up, chat toggle, countdown, recently viewed, quiz, sizes by breed |
 
 Cart, checkout, inventory, search, pagination, the contact form and the newsletter form are
 **Shopify's** — this theme doesn't reimplement them.
@@ -69,6 +69,13 @@ FAQ, Track your order, Contact, About, legal pages).
 | Contact | `page.contact` | Shopify's contact form; posts to the store email |
 | Track your order | `page.track-order` | Links to account login + Shop app, or to a tracking app if you set one |
 | About | `page.about` | Pre-filled; edit in the theme editor |
+| Which costume? (quiz) | `page.quiz` | Handle `quiz`. Assign the seven products to the pre-made blocks in the editor |
+| Sizes by breed | `page.breeds` | Handle `sizes-by-breed`. Ten breeds pre-filled; pick the sized products in the section's product list |
+| Cat of the Month | `page.photo-draw` | Judged photo competition, free entry, terms included. Fill in the promoter line before the first round |
+
+**Blog** — create a blog called *Journal* (or keep Shopify's *News*). Three posts are drafted in
+`../content/blog/` (measuring, sizes by breed, keeping it on): paste each in as an article. The
+`blog` and `article` templates are in the theme with BlogPosting structured data.
 
 Then set **Theme settings → Contact & chat**: contact email, WhatsApp number (optional),
 hours, the contact and size-guide page links.
@@ -91,7 +98,12 @@ for every product are in `../site/assets/data.js`.
 | `badge_uk` | True/false | "UK stock" in the trust row and stock pill |
 | `bundles` | List of products | Bundles this product belongs to → "Cheaper together" |
 | `contains` | List of products | On a bundle: its components → "What's in it" and the partner shown in cross-sell |
+| `alias` | Single line text | Optional nickname tag under the title (e.g. `Kingsley`) |
 | `motif` | Single line text | Illustration fallback if a product has no photo |
+
+**Size collections** — create automated collections *Fits S*, *Fits M*, *Fits L* (condition:
+variant title equals S / M / L) and *One size* (tag `one-size`). The shop page's chip row lists
+every non-empty collection automatically, so they appear as filters with no theme change.
 
 Reviews apps (Judge.me, Loox) write to the standard `reviews.rating` and `reviews.rating_count`
 metafields. The rating line, the reviews heading and the JSON-LD `aggregateRating` read those and
@@ -108,6 +120,15 @@ and on/off are in the *First-order offer* section in the editor.
 
 **7. Chat** — the "Help me choose" button links to WhatsApp (if a number is set) and the contact
 page. If you install **Shopify Inbox** instead, turn this button off in Theme settings.
+
+**8. Homepage blocks** — `index.json` already carries, in order: hero, trust strip, tiles, the
+seven, bundles, *Save by bundling* (point it at the bundles collection), *Your cats, dressed*
+(add real customer photos as blocks; empty frames show until then), the quiz call-out (set its
+link to the quiz page), fit & why, four compact FAQs, recently viewed, newsletter.
+
+**9. Announcement countdown** — real dates in the section settings (order-by 14 Oct, event
+31 Oct). The bar counts down to the order-by date, changes wording after it, and drops to the
+Christmas line after the event. Nothing resets or repeats.
 
 ---
 

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+<title>Which costume for my cat? Quiz — Catwalk Club</title>
+<meta name="description" content="Three questions and you get the cat costumes your cat will actually wear, in the right size.">
+<meta name="description" content="All seven Catwalk Club cat costumes and collars, plus bundles.">
+</head>
+<body>
+<div class="topbar">Free UK delivery over <b>£30</b> &nbsp;·&nbsp; Breakaway buckle on our bestselling collar</div>
+<header class="site">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="50" fill="#FF6B8A"/>
+        <path d="M26 42 L22 16 L45 31 Z M74 42 L78 16 L55 31 Z" fill="#fff"/>
+        <ellipse cx="50" cy="58" rx="30" ry="26" fill="#fff"/>
+        <circle cx="40" cy="55" r="4.5" fill="#3D2B4F"/><circle cx="60" cy="55" r="4.5" fill="#3D2B4F"/>
+        <path d="M46 66 h8 l-4 5 z" fill="#FF6B8A"/>
+      </svg>
+      Catwalk Club
+    </a>
+    <nav class="links">
+      <a href="shop.html">Shop</a>
+      <a href="sizing.html">Fit &amp; care</a>
+      <a href="faq.html">FAQ</a>
+      <a href="wishlist.html">Saved <span class="count" data-wish-count style="display:none">0</span></a>
+      <a href="cart.html" class="cartlink">Cart <span class="count" data-cart-count style="display:none">0</span></a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+  <section style="padding-bottom:10px">
+    <div class="quiz">
+      <span class="kicker">60 seconds</span>
+      <h1 style="margin-top:14px">Which costume for my cat?</h1>
+      <p class="muted" style="font-size:1.1rem">Three questions. You get the pieces your cat will actually wear, in the right size.</p>
+    </div>
+  </section>
+  <section style="padding-top:10px">
+    <div class="quiz" id="quiz">
+      <div class="qstep"><h2>1 · What's the occasion?</h2>
+        <div class="qopts" data-q="occ">
+          <button class="qopt" type="button" data-v="halloween">🎃 Halloween<small>The lion, the bat, the spider, the pumpkin</small></button>
+          <button class="qopt" type="button" data-v="christmas">🎄 Christmas<small>The Santa set</small></button>
+          <button class="qopt" type="button" data-v="everyday">🎀 Everyday<small>Collars that stay on</small></button>
+          <button class="qopt" type="button" data-v="gift">🎁 A gift<small>Safe bets for someone else's cat</small></button>
+        </div></div>
+      <div class="qstep"><h2>2 · What will your cat put up with?</h2>
+        <div class="qopts" data-q="wear">
+          <button class="qopt" type="button" data-v="1">A collar, and that's it<small>Nothing on the head, nothing on the body</small></button>
+          <button class="qopt" type="button" data-v="2">A collar and a hat<small>Something on the head for a photo is fine</small></button>
+          <button class="qopt" type="button" data-v="3">Anything, honestly<small>Capes, legs, the lot</small></button>
+        </div></div>
+      <div class="qstep"><h2>3 · How big is their neck?</h2>
+        <p class="small muted" style="margin:0">Wrap a soft tape where a collar sits and add two fingers. Or pick the breed for a typical figure — measuring is always better.</p>
+        <div class="qneck">
+          <input type="number" id="neck" min="10" max="60" step="1" placeholder="cm" aria-label="Neck in cm">
+          <span class="muted small">or</span>
+          <select id="breed" aria-label="Breed"><option value="">Pick a breed…</option></select>
+          <button class="btn" type="button" id="go">Show me</button>
+        </div></div>
+      <div class="qres" id="res" hidden>
+        <div class="sec-head"><div><h2 id="res-h">Your shortlist</h2><p id="res-p"></p></div></div>
+        <div class="grid-p" id="res-grid"></div>
+        <p class="small muted" style="margin-top:14px">Sizes are suggestions from the neck figure you gave. Every product page has the full table. Between sizes? Take the larger.</p>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div class="fgrid">
+      <div><h4>Catwalk Club</h4><p class="small muted">Seriously cute costumes for cats. Free UK delivery over £30.</p></div>
+      <div><h4>Shop</h4><ul>
+        <li><a href="shop.html?cat=everyday">Everyday</a></li>
+        <li><a href="shop.html?cat=halloween">Halloween</a></li>
+        <li><a href="shop.html?cat=christmas">Christmas</a></li>
+        <li><a href="shop.html?cat=bundle">Bundles</a></li>
+      </ul></div>
+      <div><h4>Help</h4><ul>
+        <li><a href="sizing.html">Fit &amp; care</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="quiz.html">Which costume? Quiz</a></li>
+        <li><a href="breeds.html">Sizes by breed</a></li>
+        <li><a href="photo-draw.html">Cat of the Month</a></li>
+        <li><a href="sizing.html#returns">Returns</a></li>
+        <li><a href="track-order.html">Track your order</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul></div>
+      <div><h4>Legal</h4><ul>
+        <li><a href="#">Shipping</a></li><li><a href="#">Refund policy</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li>
+      </ul></div>
+    </div>
+    <div class="legal">
+      <span>© <span data-year>2026</span> Catwalk Club. Demo storefront — not yet trading.</span>
+      <span>Legal pages are placeholders and must be written before taking orders.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  var st = { occ: null, wear: null };
+  document.getElementById("breed").innerHTML += BREEDS.map(function(b){ return '<option value="' + b.mid + '">' + b.name + ' (' + b.range + ')</option>'; }).join("");
+  document.querySelectorAll("[data-q]").forEach(function(g){
+    g.addEventListener("click", function(e){
+      var b = e.target.closest(".qopt"); if(!b) return;
+      st[g.dataset.q] = b.dataset.v;
+      g.querySelectorAll(".qopt").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+    });
+  });
+  document.getElementById("breed").onchange = function(){ if(this.value) document.getElementById("neck").value = this.value; };
+  document.getElementById("go").onclick = function(){
+    if(!st.occ || !st.wear){ toast("Pick an occasion and what your cat will wear"); return; }
+    var neck = parseFloat(document.getElementById("neck").value) || 0;
+    var rs = quizResults(st.occ, parseInt(st.wear, 10), neck);
+    var res = document.getElementById("res"); res.hidden = false;
+    document.getElementById("res-p").textContent = rs.length ? (neck ? "Sized for a " + neck + "cm neck." : "Add a neck measurement and we'll size each one.") : "";
+    document.getElementById("res-grid").innerHTML = rs.length ? rs.map(resultCard).join("") : '<p class="muted">Nothing in the range suits that combination yet — the collars fit almost every cat: <a href="product.html?id=bow-tie-collar">Bow Tie Collar</a>.</p>';
+    paintWish(); res.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+</script>
+</body>
+</html>

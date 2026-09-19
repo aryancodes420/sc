@@ -1,0 +1,19 @@
+<div class="wrap">
+  <article style="max-width:720px;margin-inline:auto;padding:28px 0 40px">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="{{ routes.root_url }}">Home</a></li><li><a href="{{ blog.url }}">{{ blog.title }}</a></li><li aria-current="page">{{ article.title }}</li></ol></nav>
+    <h1>{{ article.title }}</h1>
+    <p class="small muted">{{ article.published_at | date: '%-d %B %Y' }}{% if article.author != blank %} · {{ article.author }}{% endif %}</p>
+    {%- if article.image -%}<img src="{{ article.image | image_url: width: 1200 }}" alt="{{ article.image.alt | default: article.title | escape }}" width="1200" height="800" style="border-radius:var(--r);border:3px solid var(--line);margin:18px 0">{%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+    <p style="margin-top:34px"><a class="btn btn-ghost btn-sm" href="{{ blog.url }}">← All posts</a> &nbsp; <a class="btn btn-sm" href="{{ routes.all_products_collection_url }}">Shop the seven</a></p>
+  </article>
+</div>
+<script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "BlogPosting", "headline": {{ article.title | json }}, "datePublished": {{ article.published_at | date: '%Y-%m-%d' | json }},
+  "author": { "@type": "Organization", "name": {{ shop.name | json }} }, "publisher": { "@type": "Organization", "name": {{ shop.name | json }} },
+  {%- if article.image -%}"image": {{ article.image | image_url: width: 1200 | prepend: 'https:' | json }},{%- endif -%}
+  "url": {{ shop.url | append: article.url | json }} }
+</script>
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

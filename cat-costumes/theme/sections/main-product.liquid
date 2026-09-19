@@ -52,6 +52,7 @@
   {%- comment -%} 2 · product {%- endcomment -%}
   <div class="pdp-head">
     <h1 style="margin-bottom:.15em">{{ product.title }}</h1>
+    {%- if product.metafields.custom.alias != blank -%}<span class="alias">aka {{ product.metafields.custom.alias }}</span>{%- endif -%}
     <a class="rating" href="#reviews">
       {%- if rating_count > 0 -%}
         <span class="stars has" aria-hidden="true">{%- for i in (1..5) -%}{%- if i <= rating_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span>
@@ -293,6 +294,10 @@
   {%- endif -%}
 </div>
 
+<script type="application/json" data-recent-product>
+  { "handle": {{ product.handle | json }}, "title": {{ product.title | json }}, "url": {{ product.url | json }}, "price": {{ cv.price | money | json }},
+    "image": {% if has_photos %}{{ product.featured_image | image_url: width: 600 | json }}{% else %}""{% endif %} }
+</script>
 <script>
   (function(){
     var form = document.getElementById("product-form"); if(!form) return;

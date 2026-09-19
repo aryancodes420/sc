@@ -1,0 +1,104 @@
+{
+  "sections": {
+    "main": {
+      "type": "breeds",
+      "blocks": {
+        "b1": {
+          "type": "breed",
+          "settings": {
+            "name": "Kitten (4–8 months)",
+            "range": "18–24cm",
+            "mid": 21
+          }
+        },
+        "b2": {
+          "type": "breed",
+          "settings": {
+            "name": "Siamese / Oriental",
+            "range": "22–28cm",
+            "mid": 25
+          }
+        },
+        "b3": {
+          "type": "breed",
+          "settings": {
+            "name": "Domestic shorthair (average cat)",
+            "range": "25–30cm",
+            "mid": 27
+          }
+        },
+        "b4": {
+          "type": "breed",
+          "settings": {
+            "name": "Sphynx",
+            "range": "24–30cm",
+            "mid": 27
+          }
+        },
+        "b5": {
+          "type": "breed",
+          "settings": {
+            "name": "Bengal",
+            "range": "26–32cm",
+            "mid": 29
+          }
+        },
+        "b6": {
+          "type": "breed",
+          "settings": {
+            "name": "Persian",
+            "range": "26–32cm",
+            "mid": 29
+          }
+        },
+        "b7": {
+          "type": "breed",
+          "settings": {
+            "name": "British Shorthair",
+            "range": "28–34cm",
+            "mid": 31
+          }
+        },
+        "b8": {
+          "type": "breed",
+          "settings": {
+            "name": "Ragdoll",
+            "range": "28–35cm",
+            "mid": 31
+          }
+        },
+        "b9": {
+          "type": "breed",
+          "settings": {
+            "name": "Norwegian Forest",
+            "range": "30–36cm",
+            "mid": 33
+          }
+        },
+        "b10": {
+          "type": "breed",
+          "settings": {
+            "name": "Maine Coon",
+            "range": "30–38cm",
+            "mid": 34
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9",
+        "b10"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

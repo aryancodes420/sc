@@ -1,0 +1,86 @@
+{%- comment -%}
+  "Which costume for my cat?" — occasion → tolerance → neck. Each block is one product with
+  its wear level (1 collar only, 2 collar + hat, 3 anything) and the occasions it suits.
+  Sizing reads the product's variants and the custom.size_notes metafield (one line per
+  variant, e.g. "neck 28cm / 11in · Cap 24cm") — the same data the product page shows.
+{%- endcomment -%}
+<div class="wrap">
+  <section style="padding-bottom:10px">
+    <div class="quiz">
+      <span class="kicker">{{ section.settings.kicker }}</span>
+      <h1 style="margin-top:14px">{{ page.title | default: section.settings.heading }}</h1>
+      <p class="muted" style="font-size:1.1rem">{{ section.settings.intro }}</p>
+    </div>
+  </section>
+  <section style="padding-top:10px">
+    <div class="quiz" data-quiz>
+      <div class="qstep"><h2>1 · What's the occasion?</h2>
+        <div class="qopts" data-q="occ">
+          <button class="qopt" type="button" data-v="halloween">🎃 Halloween<small>Lion, bat, spider, pumpkin</small></button>
+          <button class="qopt" type="button" data-v="christmas">🎄 Christmas<small>The Santa set</small></button>
+          <button class="qopt" type="button" data-v="everyday">🎀 Everyday<small>Collars that stay on</small></button>
+          <button class="qopt" type="button" data-v="gift">🎁 A gift<small>Safe bets for someone else's cat</small></button>
+        </div></div>
+      <div class="qstep"><h2>2 · What will your cat put up with?</h2>
+        <div class="qopts" data-q="wear">
+          <button class="qopt" type="button" data-v="1">A collar, and that's it<small>Nothing on the head, nothing on the body</small></button>
+          <button class="qopt" type="button" data-v="2">A collar and a hat<small>Something on the head for a photo is fine</small></button>
+          <button class="qopt" type="button" data-v="3">Anything, honestly<small>Capes, legs, the lot</small></button>
+        </div></div>
+      <div class="qstep"><h2>3 · How big is their neck?</h2>
+        <p class="small muted" style="margin:0">Wrap a soft tape where a collar sits and add two fingers. Or pick the breed for a typical figure — measuring is always better.</p>
+        <div class="qneck">
+          <input type="number" data-neck min="10" max="60" step="1" placeholder="cm" aria-label="Neck in cm">
+          <span class="muted small">or</span>
+          <select data-breed aria-label="Breed">
+            <option value="">Pick a breed…</option>
+            {%- assign breed_list = section.settings.breeds | split: '|' -%}
+            {%- for b in breed_list -%}{%- assign parts = b | split: ':' -%}<option value="{{ parts[1] | strip }}">{{ parts[0] | strip }} ({{ parts[2] | strip }})</option>{%- endfor -%}
+          </select>
+          <button class="btn" type="button" data-go>Show me</button>
+        </div></div>
+      <div class="qres" data-res hidden>
+        <div class="sec-head"><div><h2>Your shortlist</h2><p data-res-p></p></div></div>
+        <div class="grid-p" data-res-grid></div>
+        <p class="small muted" style="margin-top:14px">Sizes are suggestions from the neck figure you gave. Every product page has the full table. Between sizes? Take the larger.</p>
+      </div>
+      {%- comment -%} product data for the quiz, never shown {%- endcomment -%}
+      <script type="application/json" data-quiz-products>
+      [
+        {%- for block in section.blocks -%}
+          {%- assign p = block.settings.product -%}
+          {%- if p -%}
+          {
+            "handle": {{ p.handle | json }}, "title": {{ p.title | json }}, "url": {{ p.url | json }},
+            "price": {{ p.price | money | json }}, "image": {{ p.featured_image | image_url: width: 600 | json }},
+            "wear": {{ block.settings.wear | json }}, "occasions": {{ block.settings.occasions | downcase | json }},
+            "sizes": [{%- unless p.has_only_default_variant -%}{%- assign notes = p.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}{%- for v in p.variants -%}{ "label": {{ v.title | json }}, "neck": {{ notes[forloop.index0] | strip | json }} }{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endunless -%}]
+          }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      ]
+      </script>
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Costume quiz",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "60 seconds" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Which costume for my cat?" },
+    { "type": "text", "id": "intro", "label": "Intro", "default": "Three questions. You get the pieces your cat will actually wear, in the right size." },
+    { "type": "textarea", "id": "breeds", "label": "Breeds (name : typical neck cm : range), separated by |",
+      "default": "Kitten (4–8 months):21:18–24cm|Siamese / Oriental:25:22–28cm|Domestic shorthair:27:25–30cm|Sphynx:27:24–30cm|Bengal:29:26–32cm|Persian:29:26–32cm|British Shorthair:31:28–34cm|Ragdoll:31:28–35cm|Norwegian Forest:33:30–36cm|Maine Coon:34:30–38cm" }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Product", "settings": [
+      { "type": "product", "id": "product", "label": "Product" },
+      { "type": "select", "id": "wear", "label": "What the cat must tolerate", "default": "2",
+        "options": [ { "value": "1", "label": "A collar only" }, { "value": "2", "label": "A collar and a hat" }, { "value": "3", "label": "Anything" } ] },
+      { "type": "text", "id": "occasions", "label": "Occasions (comma-separated: halloween, christmas, everyday, gift)", "default": "halloween" }
+    ] }
+  ],
+  "presets": [ { "name": "Costume quiz" } ]
+}
+{% endschema %}

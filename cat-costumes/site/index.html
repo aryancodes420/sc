@@ -88,6 +88,38 @@
     </div>
   </section>
 
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="savebox" id="savebox">
+        <div>
+          <h2>Save more by bundling</h2>
+          <p>Every bundle is two pieces for £1.99 less than buying them apart, and any order over £30 ships free. Two bundles, or a bundle and a costume, gets you there.</p>
+          <a class="btn btn-mint" href="shop.html?cat=bundle">See the four bundles</a>
+        </div>
+        <ul id="savelist"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2>Your cats, dressed</h2><p>Real customers, real cats. Tag <b>@catwalkclub</b> or enter <a href="photo-draw.html">Cat of the Month</a>.</p></div>
+        <a class="btn btn-ghost btn-sm" href="photo-draw.html">Enter this month →</a>
+      </div>
+      <div id="ugc"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="finder" style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between">
+        <div><h2 style="margin-bottom:.2em">Not sure which one?</h2><p class="muted" style="margin:0">Three questions: occasion, what your cat will put up with, neck size. Sixty seconds.</p></div>
+        <a class="btn" href="quiz.html">Take the quiz</a>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap two">
       <div class="panel">
@@ -105,6 +137,20 @@
       </div>
     </div>
   </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><div><h2>Quick answers</h2><p>The four things everyone asks. <a href="faq.html">All ten →</a></p></div></div>
+      <div class="acc">
+        <details><summary>How do I know what size to order?</summary><div class="inner"><p>Measure the neck: wrap a soft tape where a collar sits and add two fingers of slack. Collars, the Pumpkin set and the Santa set adjust. The Lion Mane, Devil Bat Cape, Spider Costume and Bandana Collar come in sizes, and every size is a neck measurement. <a href="breeds.html">Sizes by breed</a> if you haven't measured yet.</p></div></details>
+        <details><summary>How long does delivery take?</summary><div class="inner"><p>UK standard tracked delivery is 2–4 working days at £3.95, free on orders over £30. The Bandana Collar ships from UK stock.</p></div></details>
+        <details><summary>Will my cat actually keep it on?</summary><div class="inner"><p>Collars, yes — most cats forget they're there. Hats and capes are for the photo: on, shot, off. Nothing covers the face or eyes, and if your cat says no you have 30 days to send it back, worn or not.</p></div></details>
+        <details><summary>When should I order for Halloween?</summary><div class="inner"><p>By 14 October to be safe. Popular sizes go first and the two weeks before the 31st are the busiest of the year.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0"><div class="wrap" id="recent" hidden></div></section>
 
   <section style="padding-top:0">
     <div class="wrap">
@@ -132,6 +178,9 @@
       <div><h4>Help</h4><ul>
         <li><a href="sizing.html">Fit &amp; care</a></li>
         <li><a href="faq.html">FAQ</a></li>
+        <li><a href="quiz.html">Which costume? Quiz</a></li>
+        <li><a href="breeds.html">Sizes by breed</a></li>
+        <li><a href="photo-draw.html">Cat of the Month</a></li>
         <li><a href="sizing.html#returns">Returns</a></li>
         <li><a href="track-order.html">Track your order</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -159,6 +208,11 @@
   var live = PRODUCTS.filter(function(p){ return !p.hold; });
   renderGrid(document.getElementById("all"), live.filter(function(p){ return p.cat !== "bundle"; }));
   renderGrid(document.getElementById("bundles"), live.filter(function(p){ return p.cat === "bundle"; }));
+  document.getElementById("savelist").innerHTML = live.filter(function(p){ return p.cat === "bundle"; }).map(function(b){
+    return '<li><span><b>' + b.name + '</b><br><span class="small">' + b.contains.map(function(id){ return byId(id).name; }).join(" + ") + '</span></span><span><b>' + money(b.price) + '</b> <span class="tag">Save ' + money(b.was - b.price) + '</span></span></li>';
+  }).join("");
+  document.getElementById("ugc").innerHTML = ugcWall();
+  mountRecent(document.getElementById("recent"));
 </script>
 </body>
 </html>
