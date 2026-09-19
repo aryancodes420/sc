@@ -281,8 +281,8 @@ function expressRow(){
   '</div><p class="small muted center" style="margin:.5em 0 0">Express checkout goes live on Shopify once payments are enabled.</p>';
 }
 function paymentIcons(){
-  return '<ul class="payicons" aria-label="Payment methods accepted">' +
-    ["Visa","Mastercard","Amex","Apple Pay","Google Pay","Shop Pay","PayPal"].map(n => '<li>' + n + '</li>').join("") + '</ul>';
+  return '<ul class="payicons logos" aria-label="Payment methods accepted">' +
+    PAYMENT_ICONS.map(i => '<li><img src="' + IMG + 'pay/' + i.file + '.svg" alt="' + esc(i.name) + '" width="38" height="24" loading="lazy"></li>').join("") + '</ul>';
 }
 
 /* ----- four-icon trust row ----- */

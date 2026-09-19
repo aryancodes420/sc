@@ -636,6 +636,10 @@ footer .payicons{margin-top:16px;justify-content:center}
   .podium{gap:8px}.pod.p1{transform:translateY(-12px)}
 }
 
+/* official payment logos (same SVGs Shopify renders in a store footer) */
+.payicons.logos li{border:0;padding:0;background:none}
+.payicons.logos img{width:38px;height:24px;display:block;border-radius:4px;box-shadow:0 0 0 1px rgba(61,43,79,.12)}
+
 /* ---------- Shopify theme additions ---------- */
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:#fff;

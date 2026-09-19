@@ -265,6 +265,15 @@ const CONTACT = {
 
 const DELIVERY = { min: 2, max: 4, cost: 3.95 };  /* working days, UK standard tracked */
 
+/* Payment logos in the footer and buy box (official Shopify payment icons, assets/img/pay).
+   Keep this to what is actually switched on under Settings → Payments. */
+const PAYMENT_ICONS = [
+  { file: "visa", name: "Visa" }, { file: "master", name: "Mastercard" }, { file: "maestro", name: "Maestro" },
+  { file: "american_express", name: "American Express" }, { file: "discover", name: "Discover" },
+  { file: "apple_pay", name: "Apple Pay" }, { file: "google_pay", name: "Google Pay" }, { file: "shopify_pay", name: "Shop Pay" },
+  { file: "paypal", name: "PayPal" }, { file: "klarna", name: "Klarna" }
+];
+
 /* Homepage "Picture it on your cat" row: five phone frames. Add { src: "assets/video/x.mp4",
    product: "lion-mane", caption: "Kingsley, Leeds" } once clips exist; empty entries show a
    placeholder frame. */
