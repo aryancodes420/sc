@@ -121,7 +121,7 @@ function paintDeliveryWindows(root){
   (root || document).querySelectorAll("[data-delivery-window]").forEach(el => {
     const min = parseInt(el.dataset.min, 10) || 2, max = parseInt(el.dataset.max, 10) || 4, now = new Date();
     const win = f(addWorkingDays(now, min)) + " – " + f(addWorkingDays(now, max));
-    el.textContent = el.closest(".objections") ? "Order today: arrives " + win + ". Free over £" + (el.dataset.free || "30") + "." : win;
+    el.textContent = (el.closest(".objections") && !el.dataset.plain) ? "Order today: arrives " + win + ". Free over £" + (el.dataset.free || "30") + "." : win;
   });
 }
 /* sticky add-to-cart: appears once the buy box has scrolled off the top */
@@ -265,3 +265,20 @@ function wireTicker(){
 }
 document.addEventListener("DOMContentLoaded", wireTicker);
 document.addEventListener("shopify:section:load", wireTicker);
+
+/* mini size finder inside the "Will it fit?" card: picks the variant from a neck measurement */
+function wireMiniFinder(root){
+  const host = (root || document).querySelector(".objections[data-sizes]"); if(!host) return;
+  const m = host.querySelector("[data-mini]"); if(!m) return;
+  let sizes = []; try{ sizes = JSON.parse(host.dataset.sizes); }catch(e){}
+  const out = host.querySelector("[data-mini-out]"), inp = m.querySelector("input");
+  const run = () => {
+    const n = parseFloat(inp.value); if(!(n > 0)){ out.textContent = ""; return; }
+    const r = sizeFor(sizes, n);
+    if(r.ok){ out.innerHTML = "✅ Order <b>size " + r.label + "</b>" + (r.neck ? " (" + r.neck + ")" : "") + " — selected below."; const b = [...document.querySelectorAll(".szbtn")].find(x => x.textContent.trim() === r.label); if(b) b.click(); }
+    else out.innerHTML = "⚠️ This one won't fit a " + n + "cm neck — the largest is " + (sizes[sizes.length - 1] || {}).neck + ". Try an adjustable collar, or ask us.";
+  };
+  m.querySelector("button").addEventListener("click", run); inp.addEventListener("keydown", e => { if(e.key === "Enter") run(); });
+}
+document.addEventListener("DOMContentLoaded", () => wireMiniFinder());
+document.addEventListener("shopify:section:load", e => wireMiniFinder(e.target));

@@ -16,19 +16,30 @@
 {%- assign rating_round = rating_val | round -%}
 {%- assign cv = product.selected_or_first_available_variant -%}
 {%- assign low = settings.low_stock_threshold | default: 5 | times: 1 -%}
+{%- capture sizes_json -%}[{%- unless product.has_only_default_variant -%}{%- for v in product.variants -%}{"label":{{ v.title | json }},"neck":{{ size_notes[forloop.index0] | strip | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}{%- endunless -%}]{%- endcapture -%}
 
 <div class="wrap pdp-stack">
   {% render 'breadcrumbs' %}
 
   {%- comment -%} 1 · hero gallery {%- endcomment -%}
   <div class="gallery" data-gallery>
-    <div class="main" data-gallery-main data-key="{{ product.handle }}" data-motif="{{ motif }}"
-         {% unless has_photos %}data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"{% endunless %}>
-      {%- if has_photos -%}
-        <img src="{{ product.featured_image | image_url: width: 1200 }}"
-             alt="{{ product.featured_image.alt | default: product.title | escape }}"
-             width="1200" height="1200" loading="eager">
-      {%- endif -%}
+    <div class="mainwrap">
+      <div class="main" data-gallery-main data-key="{{ product.handle }}" data-motif="{{ motif }}"
+           {% unless has_photos %}data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"{% endunless %}>
+        {%- if has_photos -%}
+          <img src="{{ product.featured_image | image_url: width: 1200 }}"
+               alt="{{ product.featured_image.alt | default: product.title | escape }}"
+               width="1200" height="1200" loading="eager">
+        {%- endif -%}
+      </div>
+      {%- if section.settings.draw_url != blank -%}<a class="drawpill" href="{{ section.settings.draw_url }}">📸 {{ section.settings.draw_label }}</a>{%- endif -%}
+      <span class="stockpill{% unless cv.available %} out{% endunless %}{% if cv.available and cv.inventory_management == 'shopify' and cv.inventory_quantity > 0 and cv.inventory_quantity <= low %} low{% endif %}" data-stock-pill data-low="{{ low }}">
+        <i></i>
+        {%- if cv.available -%}
+          {%- if cv.inventory_management == 'shopify' and cv.inventory_quantity > 0 and cv.inventory_quantity <= low -%}Only {{ cv.inventory_quantity }} left
+          {%- else -%}In stock{% if product.metafields.custom.badge_uk == true %} · UK stock{% endif %}{%- endif -%}
+        {%- else -%}Out of stock{%- endif -%}
+      </span>
     </div>
     {%- if product.images.size > 1 -%}
       <div class="thumbs" data-gallery-thumbs>
@@ -43,11 +54,32 @@
   </div>
 
   {%- comment -%} 1b · the three questions every buyer has {%- endcomment -%}
-  <div class="objections">
-    <a href="#fit"><b>{{ section.settings.q1_title }}</b><span>{% if product.metafields.custom.fit != blank and product.has_only_default_variant %}{{ product.metafields.custom.fit }}{% else %}{{ section.settings.q1_text }}{% endif %}</span></a>
-    <a href="{{ section.settings.q2_url | default: '/pages/faq' }}"><b>{{ section.settings.q2_title }}</b>{% if product.metafields.custom.no_delivery_dates == true %}<span>Tracked UK delivery. Free over £{{ settings.free_shipping_threshold }}.</span>{% else %}<span data-delivery-window data-min="2" data-max="4">{{ section.settings.q2_text }}</span>{% endif %}</a>
-    <a href="{{ section.settings.q3_url | default: '/pages/faq' }}"><b>{{ section.settings.q3_title }}</b><span>{{ product.metafields.custom.keep_on | default: section.settings.q3_text }}</span></a>
+  <div class="objections" data-sizes="{{ sizes_json | escape }}">
+    <details class="obj"><summary><i>📏</i><b>{{ section.settings.q1_title }}</b><span class="plus" aria-hidden="true"></span></summary><div class="inner">
+      {%- if product.has_only_default_variant -%}
+        <p><b>{{ product.metafields.custom.fit | default: section.settings.q1_text }}</b></p><p class="small muted" style="margin:0">No size to pick. <a href="{{ settings.size_guide_page | default: '/pages/fit-and-care' }}">How it fastens</a></p>
+      {%- else -%}
+        <p>Every size is a <b>neck measurement</b>. Wrap a soft tape where a collar sits, add two fingers, and type the number:</p>
+        <div class="mini" data-mini><input type="number" min="10" max="60" step="1" placeholder="neck cm" aria-label="Neck in cm"><button class="btn btn-sm" type="button">Check</button></div><p class="mini-out" data-mini-out></p>
+        <p class="small muted" style="margin:0">Between sizes? Take the larger. <a href="{{ settings.size_guide_page | default: '/pages/fit-and-care' }}">How to measure</a></p>
+      {%- endif -%}
+    </div></details>
+    <details class="obj"><summary><i>🚚</i><b>{{ section.settings.q2_title }}</b><span class="plus" aria-hidden="true"></span></summary><div class="inner">
+      {%- if product.metafields.custom.no_delivery_dates == true -%}<p><b>Tracked UK delivery</b>, free over £{{ settings.free_shipping_threshold }}.</p>{%- else -%}<p>Order today and it should arrive <b data-delivery-window data-min="2" data-max="4" data-plain="1">in 2–4 working days</b>.</p>{%- endif -%}
+      <table class="mini-table"><tr><td>UK standard, tracked</td><td>2–4 working days</td><td>{{ settings.shipping_cost }}</td></tr><tr><td>Orders over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days</td><td><b>Free</b></td></tr></table>
+      <p class="small muted" style="margin:.6em 0 0"><a href="{{ section.settings.q2_url | default: '/pages/track-your-order' }}">Track an order</a></p>
+    </div></details>
+    <details class="obj"><summary><i>🛡️</i><b>{{ section.settings.q3_title }}</b><span class="plus" aria-hidden="true"></span></summary><div class="inner">
+      <ul class="deets small">
+        {%- if product.metafields.custom.specs != blank -%}<li>{{ product.metafields.custom.specs.value | first }}</li>{%- endif -%}
+        <li>Every photo on this page is the product you get, on a real cat</li>
+        {%- if product.metafields.custom.care != blank -%}<li>{{ product.metafields.custom.care }}</li>{%- endif -%}
+        <li>Not right? <b>{{ settings.returns_days }} days to return it, worn or not</b></li>
+      </ul>
+      <p class="small muted" style="margin:.6em 0 0"><a href="{{ settings.contact_page | default: '/pages/contact' }}?product={{ product.handle }}">Ask us anything about it</a></p>
+    </div></details>
   </div>
+  <details class="obj keep"><summary><i>🐱</i><b>Will my cat keep it on?</b><span class="plus" aria-hidden="true"></span></summary><div class="inner"><p>{{ product.metafields.custom.keep_on | default: section.settings.keep_text }}</p><p class="small muted" style="margin:0"><a href="{{ section.settings.q3_url | default: '/pages/faq' }}">More in the FAQ</a></p></div></details>
 
   {%- comment -%} 2 · product {%- endcomment -%}
   <div class="pdp-head">
@@ -68,14 +100,8 @@
       {%- else -%}
         <p class="price" style="font-size:1.7rem;margin:0" id="price"><span class="now">{{ cv.price | money }}</span></p>
       {%- endif -%}
-      <span class="stockpill" data-stock-pill data-low="{{ low }}">
-        <i></i>
-        {%- if cv.available -%}
-          {%- if cv.inventory_management == 'shopify' and cv.inventory_quantity > 0 and cv.inventory_quantity <= low -%}Only {{ cv.inventory_quantity }} left
-          {%- else -%}In stock{% if product.metafields.custom.badge_uk == true %} · dispatched from UK stock{% else %} · ready to ship{% endif %}{%- endif -%}
-        {%- else -%}Sold out{%- endif -%}
-      </span>
     </div>
+    <p class="saved" data-saved {% unless cv.compare_at_price > cv.price %}hidden{% endunless %}>You've saved {{ cv.compare_at_price | minus: cv.price | money }}</p>
     {%- if cv.compare_at_price > cv.price and settings.sale_ends != blank -%}
       <p class="launchline" data-launchline data-deadline="{{ settings.sale_ends }}">{{ settings.sale_label }}: <span data-ll-price>{{ cv.price | money }}</span> until {{ settings.sale_ends | date: '%a %-d %b' }}, then <span data-ll-list>{{ cv.compare_at_price | money }}</span>.</p>
     {%- endif -%}
@@ -95,6 +121,7 @@
           {%- for variant in product.variants -%}
             <button type="button" class="szbtn" data-variant="{{ variant.id }}"
                     data-available="{{ variant.available }}" data-qty="{% if variant.inventory_management == 'shopify' %}{{ variant.inventory_quantity }}{% endif %}"
+                    data-saved="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | money }}{% endif %}"
                     data-price="{{ variant.price | money }}" data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
                     data-pct="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round }}{% endif %}"
                     aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
@@ -114,6 +141,8 @@
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
     {%- endunless -%}
 
+    {%- comment -%} Pay in 3 / Klarna etc. — Shopify renders this only when an instalment provider is enabled {%- endcomment -%}
+    <div class="instal-wrap">{{ form | payment_terms }}</div>
     <div class="buyrow">
       <div class="qty">
         <button type="button" id="qty-minus" aria-label="Decrease quantity">−</button>
@@ -184,6 +213,10 @@
   {%- comment -%} 5 · reviews — an app block (Judge.me, Loox) dropped in via the theme editor {%- endcomment -%}
   <section class="reviews" id="reviews">
     <h2>{% if rating_count > 0 %}{{ section.settings.reviews_heading }}{% else %}Reviews{% endif %}</h2>
+    {%- if rating_count > 0 -%}
+      <div class="rev-summary"><div class="score"><b>{{ rating_val | round: 1 }}</b><span class="stars has">{%- for i in (1..5) -%}{%- if i <= rating_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span><span class="small muted">Based on {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}</span></div>
+        <p class="muted" style="margin:0">What customers said after the costume went on. Every review below is verified by the reviews app.</p></div>
+    {%- endif -%}
     {%- assign has_app_block = false -%}
     {%- for block in section.blocks -%}
       {%- if block.type == '@app' -%}
@@ -201,9 +234,8 @@
   </section>
 
   {%- comment -%} 6 · description & dimensions {%- endcomment -%}
-  <section class="details" id="fit">
-    <h2>Details</h2>
-
+  <div class="details acc" id="fit">
+    <details open><summary>Product details &amp; dimensions</summary><div class="inner">
     {%- if product.metafields.custom.specs != blank -%}
       <h3>What you get</h3>
       <ul class="deets">{%- for item in product.metafields.custom.specs.value -%}<li>{{ item }}</li>{%- endfor -%}</ul>
@@ -228,9 +260,10 @@
     <p class="small muted">Wrap a soft tape around the neck where a collar sits and add two fingers of slack — that number is the neck size. Between two sizes? Take the larger.</p>
 
     <h3>Materials &amp; care</h3>
-    <p>{{ product.metafields.custom.care | default: 'Hand wash cold and air dry unless the product says otherwise.' }}</p>
+    <p style="margin:0">{{ product.metafields.custom.care | default: 'Hand wash cold and air dry unless the product says otherwise.' }}</p>
+    </div></details>
 
-    <h3>Delivery &amp; returns</h3>
+    <details><summary>Delivery &amp; returns</summary><div class="inner">
     <div class="tablewrap"><table>
       <thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead>
       <tbody>
@@ -238,12 +271,15 @@
         <tr><td>UK standard over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days</td><td><b>Free</b></td></tr>
       </tbody>
     </table></div>
-    <p>Not right? Send it back within {{ settings.returns_days }} days, worn or not.</p>
+    <p style="margin:.8em 0 0">Not right? Send it back within {{ settings.returns_days }} days, worn or not.</p>
+    </div></details>
 
-    <h3>Wear &amp; care tips</h3>
+    <details><summary>Is it right for my cat?</summary><div class="inner">
     <p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done.
       Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>
-  </section>
+    <p style="margin:0">Not sure? Answer the three questions further down and we'll shortlist the pieces your cat will actually wear.</p>
+    </div></details>
+  </div>
 
   {%- comment -%} 7 · cross-sell: bundles this product sits in (custom.bundles), or a bundle's contents (custom.contains) {%- endcomment -%}
   {%- assign bundles = product.metafields.custom.bundles.value -%}
@@ -316,8 +352,10 @@
         var pill = document.querySelector("[data-stock-pill]"), price = document.getElementById("price"), sp = document.querySelector("[data-s-price]"), ss = document.querySelector("[data-s-size]");
         if(pill){
           var q = parseInt(b.dataset.qty, 10), low = parseInt(pill.dataset.low, 10) || 5, avail = b.dataset.available === "true";
-          pill.innerHTML = "<i></i>" + (!avail ? "Sold out" : (q > 0 && q <= low) ? "Only " + q + " left" : "In stock");
+          pill.innerHTML = "<i></i>" + (!avail ? "Out of stock" : (q > 0 && q <= low) ? "Only " + q + " left" : "In stock");
+          pill.classList.toggle("out", !avail); pill.classList.toggle("low", avail && q > 0 && q <= low);
         }
+        var sv = document.querySelector("[data-saved]"); if(sv){ sv.hidden = !b.dataset.saved; sv.textContent = "You've saved " + b.dataset.saved; }
         if(price && b.dataset.price){
           price.innerHTML = '<span class="now">' + b.dataset.price + '</span>' + (b.dataset.compare ? '<s>' + b.dataset.compare + '</s><em class="off">Save ' + b.dataset.pct + '%</em>' : '');
           price.classList.toggle("sale", !!b.dataset.compare);
@@ -348,9 +386,13 @@
     { "type": "text", "id": "q2_title", "label": "Card 2 title", "default": "When will it arrive?" },
     { "type": "text", "id": "q2_text", "label": "Card 2 text", "default": "Order today: dispatched within one working day, 2–4 working days tracked. Free over £30.", "info": "The theme replaces this with real dates (e.g. 'arrives Tue 22 – Thu 24 Sept') when JavaScript is on." },
     { "type": "url", "id": "q2_url", "label": "Card 2 link" },
-    { "type": "text", "id": "q3_title", "label": "Card 3 title", "default": "Will my cat keep it on?" },
-    { "type": "text", "id": "q3_text", "label": "Card 3 text", "default": "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.", "info": "Override per product with the custom.keep_on metafield." },
-    { "type": "url", "id": "q3_url", "label": "Card 3 link" }
+    { "type": "text", "id": "q3_title", "label": "Card 3 title", "default": "Is the quality good?" },
+    { "type": "text", "id": "q3_text", "label": "Card 3 text (unused when metafields exist)", "default": "Photographed on real cats; the material and care line come from the product's metafields." },
+    { "type": "url", "id": "q3_url", "label": "Card 3 link" },
+    { "type": "text", "id": "keep_text", "label": "'Will my cat keep it on?' default answer", "default": "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not." },
+    { "type": "header", "content": "Competition pill on the photo" },
+    { "type": "text", "id": "draw_label", "label": "Pill text", "default": "Enter Cat of the Month" },
+    { "type": "url", "id": "draw_url", "label": "Competition page" }
   ],
   "blocks": [
     { "type": "@app" }

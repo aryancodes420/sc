@@ -9,10 +9,87 @@
     },
     "recent": {
       "type": "recently-viewed"
+    },
+    "draw": {
+      "type": "draw-block"
+    },
+    "winners": {
+      "type": "winners-podium"
+    },
+    "quiz": {
+      "type": "quiz",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "wear": "1",
+            "occasions": "everyday, gift, halloween, christmas"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "wear": "1",
+            "occasions": "everyday, gift"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "wear": "2",
+            "occasions": "halloween, gift"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "wear": "3",
+            "occasions": "halloween"
+          }
+        },
+        "b5": {
+          "type": "item",
+          "settings": {
+            "wear": "3",
+            "occasions": "halloween"
+          }
+        },
+        "b6": {
+          "type": "item",
+          "settings": {
+            "wear": "2",
+            "occasions": "halloween"
+          }
+        },
+        "b7": {
+          "type": "item",
+          "settings": {
+            "wear": "2",
+            "occasions": "christmas, gift"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7"
+      ],
+      "settings": {
+        "compact": true,
+        "heading": "Not sure this is the one?",
+        "intro": "Three questions and we'll shortlist what your cat will actually wear."
+      }
     }
   },
   "order": [
     "main",
+    "draw",
+    "winners",
+    "quiz",
     "recent"
   ]
 }

@@ -267,6 +267,11 @@ const DELIVERY = { min: 2, max: 4, cost: 3.95 };  /* working days, UK standard t
 
 /* Payment logos in the footer and buy box (official Shopify payment icons, assets/img/pay).
    Keep this to what is actually switched on under Settings → Payments. */
+/* Pay-in-3 line. Klarna (through Shopify Payments UK) is the realistic provider; it only
+   offers Pay in 3 above a minimum basket, so the line shows only at or above `min`. Set
+   `enabled` to false until Klarna is switched on under Settings → Payments. */
+const INSTALMENTS = { enabled: true, provider: "Klarna", parts: 3, min: 30 };
+
 const PAYMENT_ICONS = [
   { file: "visa", name: "Visa" }, { file: "master", name: "Mastercard" }, { file: "maestro", name: "Maestro" },
   { file: "american_express", name: "American Express" }, { file: "discover", name: "Discover" },

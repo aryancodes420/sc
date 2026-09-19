@@ -87,7 +87,7 @@
         '<div class="sumline"><span>Delivery</span><b>' + (ship ? money(ship) : "Free") + '</b></div>' +
         '<div class="progress"><i style="width:' + Math.min(100, (total / FREE_SHIPPING_AT) * 100).toFixed(0) + '%"></i></div>' +
         '<p class="small ' + (left > 0 ? "muted" : "") + '" style="margin:0 0 .6em">' + (left > 0 ? "Spend " + money(left) + " more for free UK delivery" : "✅ You've got free UK delivery") + '</p>' +
-        '<div class="sumline total"><span>Total</span><span>' + money(total + ship) + '</span></div>' +
+        '<div class="sumline total"><span>Total</span><span>' + money(total + ship) + '</span></div>' + instalmentsLine(total + ship) +
         '<button class="btn btn-block" style="margin-top:14px" id="co" type="button">Checkout</button>' +
         '<p class="small muted center" style="margin:.8em 0 0">No payment provider connected yet — this is a demo storefront.</p>' +
       '</div></div>';

@@ -640,6 +640,81 @@ footer .payicons{margin-top:16px;justify-content:center}
 .payicons.logos li{border:0;padding:0;background:none}
 .payicons.logos img{width:38px;height:24px;display:block;border-radius:4px;box-shadow:0 0 0 1px rgba(61,43,79,.12)}
 
+
+/* ============================================================ product page v3 ==== */
+.mainwrap{position:relative}
+.drawpill{
+  position:absolute;top:14px;right:14px;z-index:3;background:#fff;color:var(--ink);text-decoration:none;
+  font:600 .85rem Fredoka,sans-serif;padding:.55em 1em;border-radius:var(--r-pill);border:2px solid var(--line);box-shadow:var(--shadow)
+}
+.drawpill:hover{border-color:var(--pink)}
+.mainwrap .stockpill{position:absolute;left:14px;bottom:14px;z-index:3;background:#fff;padding:.45em .9em;border-radius:var(--r-pill);border:2px solid var(--line);margin:0}
+.stockpill.out{color:var(--muted)}.stockpill.out i{background:var(--muted);box-shadow:0 0 0 3px #eee}
+.stockpill.low{color:#B45309}.stockpill.low i{background:#F59E0B;box-shadow:0 0 0 3px #FDE68A}
+/* expanding objection cards */
+.objections{grid-template-columns:repeat(3,1fr);align-items:start}
+.obj{background:#fff;border:3px solid var(--line);border-radius:var(--r-sm);transition:border-color .14s}
+.obj[open],.obj:hover{border-color:var(--pink)}
+.obj summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 12px 12px;text-align:center}
+.obj summary::-webkit-details-marker{display:none}
+.obj summary i{font-style:normal;font-size:1.5rem}
+.obj summary b{font-family:Fredoka,sans-serif;font-weight:600;font-size:.98rem}
+.obj .plus{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);position:relative}
+.obj .plus:before,.obj .plus:after{content:"";position:absolute;background:var(--ink);left:50%;top:50%;transform:translate(-50%,-50%)}
+.obj .plus:before{width:10px;height:2px}.obj .plus:after{width:2px;height:10px}
+.obj[open] .plus:after{display:none}
+.obj .inner{padding:0 14px 14px;font-size:.9rem;text-align:left}
+.obj .inner p{margin:0 0 .6em}
+.obj.keep{margin-top:12px}
+.obj.keep summary{flex-direction:row;justify-content:flex-start;text-align:left;padding:12px 14px}
+.obj.keep .plus{margin-left:auto}
+.mini{display:flex;gap:8px;margin:.4em 0}
+.mini input{font:inherit;font-weight:700;width:110px;padding:.55em .8em;border-radius:var(--r-pill);border:3px solid var(--line)}
+.mini-out{font-weight:700;min-height:1.4em}
+.mini-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:0}
+.mini-table td{padding:.35em .4em;border-bottom:1px solid var(--line)}
+.mini-table tr:last-child td{border-bottom:0}
+.deets.small li{padding:.35em 0 .35em 1.5em;font-size:.88rem}
+/* price extras */
+.saved{color:#C8102E;font-weight:800;margin:.2em 0 0}
+.instal{font-size:.92rem;margin:.4em 0 0;padding:.5em .8em;background:#fff;border:2px solid var(--line);border-radius:var(--r-sm);display:inline-block}
+/* reviews */
+.rev-summary{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:center;background:#fff;border:3px solid var(--line);border-radius:var(--r);padding:22px;margin-bottom:14px}
+.rev-summary .score{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.rev-summary .score b{font:600 3.2rem/1 Fredoka,sans-serif}
+.stars.has{color:#F5A623;letter-spacing:.08em}
+.bars{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.bars li{display:grid;grid-template-columns:2.4em 1fr 2em;gap:10px;align-items:center;font-size:.85rem;font-weight:700}
+.bars i{display:block;height:10px;background:var(--line);border-radius:var(--r-pill);overflow:hidden}
+.bars b{display:block;height:100%;background:#F5A623;border-radius:var(--r-pill)}
+.rev-list{display:grid;gap:12px}
+.rev{background:#fff;border:3px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.rev-head{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.rev-head > div{display:flex;flex-direction:column}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:600 .95rem Fredoka,sans-serif;flex:0 0 44px}
+.vtag{background:#E4F5F0;color:#227A66;font:800 .68rem Nunito,sans-serif;padding:.25em .6em;border-radius:var(--r-pill);margin-left:.4em;vertical-align:middle}
+.rev .stars{margin:0 0 .4em}
+.rev-title{font-weight:800;margin:0 0 .3em}
+.rev p:last-of-type{margin-bottom:0}
+.rev-photo{width:120px;height:120px;object-fit:cover;border-radius:var(--r-sm);margin-top:10px;border:2px solid var(--line)}
+/* accordions on the product page */
+.details.acc{margin-top:0}
+.details.acc .inner h3{margin-top:1.2em;font-size:1rem}
+.details.acc .inner h3:first-child{margin-top:.2em}
+.details.acc summary{font-size:1.05rem}
+/* competition block */
+.drawblock{background:linear-gradient(140deg,#FFF1F4,#F1F7FF);border:3px solid var(--line);border-radius:var(--r);padding:26px 28px}
+.drawblock h2{font-size:1.5rem;margin-bottom:.4em}
+.pdpquiz{padding-top:0}
+@media(max-width:960px){.objections{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){
+  .objections{grid-template-columns:1fr;gap:8px}
+  .obj summary{flex-direction:row;justify-content:flex-start;text-align:left;padding:12px 14px}.obj .plus{margin-left:auto}
+  .rev-summary{grid-template-columns:1fr}
+  .drawpill{top:10px;right:10px;font-size:.78rem}
+  .drawblock{padding:20px}
+}
+
 /* ---------- Shopify theme additions ---------- */
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:#fff;
@@ -671,3 +746,5 @@ footer .payicons{margin-top:16px;justify-content:center}
 .form{margin-top:6px}
 .qadd-form{display:contents}
 footer .payicons.svg{justify-content:center;margin-top:16px}
+.instal-wrap:empty{display:none}
+.instal-wrap{margin:0 0 12px}

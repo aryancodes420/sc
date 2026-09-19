@@ -18,7 +18,8 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 - [ ] Create the store (Basic plan). Set **currency GBP**, country UK, timezone.
 - [ ] Buy or connect the domain.
-- [ ] **Settings → Payments:** enable Shopify Payments; turn on **Shop Pay, Apple Pay, Google Pay**; add PayPal. The product page's "Buy now" button only appears once these are on.
+- [ ] **Settings → Payments:** enable Shopify Payments; turn on **Shop Pay, Apple Pay, Google Pay**; add PayPal. The product page's express buttons only appear once these are on.
+- [ ] **Klarna** (inside Shopify Payments): switch it on so the "Pay in 3" line renders on product pages and in the cart. It only appears on baskets over Klarna's minimum.
 - [ ] **Settings → Taxes:** UK VAT (register if/when required; charge VAT-inclusive prices either way).
 - [ ] **Settings → Shipping:** one UK zone. Standard £3.95; **free over £30**. These must match the theme settings below and the product-page table.
 - [ ] Settings → Checkout: guest checkout on, email marketing opt-in checkbox on.
@@ -33,7 +34,8 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [ ] **Pages:** *Fit & care* (`page.sizing`), *FAQ* (`page.faq`), *Contact* (`page.contact`), *Track your order* (`page.track-order`), *About* (`page.about`), *Which costume? quiz* (`page.quiz` — assign the seven products to its blocks), *Sizes by breed* (`page.breeds` — pick the four sized products), *Cat of the Month* (`page.photo-draw` — fill in the promoter line). All pre-filled.
 - [ ] **Blog:** paste the three drafts from `content/blog/` in as articles (measuring, sizes by breed, keeping it on). Link the blog in the footer menu.
 - [ ] **Size collections:** automated *Fits S / Fits M / Fits L* (variant title equals S/M/L) and *One size* (tag `one-size`); they appear as shop filters automatically.
-- [ ] **Homepage:** point *Save by bundling* at the bundles collection and the quiz call-out at the quiz page; leave *Your cats, dressed* empty until real customer photos exist.
+- [ ] **Homepage:** point *Save by bundling* at the bundles collection; assign the seven products to the quiz blocks; leave *Your cats, dressed* and the winners podium empty until real photos exist.
+- [ ] **Product template:** set the competition page link on the *Product* section (pill on the photo) and the *Competition block*; assign the seven products to the product-page quiz blocks.
 - [ ] **Announcement bar:** confirm the order-by date (14 Oct) matches what the supplier lead time actually allows once stock is in.
 - [ ] **Launch offer:** set the deadline under Theme settings → Launch offer (same moment for everyone). The red LED ticker and the "until" line on product pages run off it and vanish when it passes.
 - [ ] **When the offer ends (manual, nothing automatic):** turn the ticker off in Theme settings, then on every variant set Price to the regular price and clear Compare-at. Do it the same day the ticker hits zero — a strike-through left up after the deadline is the thing the CMA fines.

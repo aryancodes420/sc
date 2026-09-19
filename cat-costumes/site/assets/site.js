@@ -119,11 +119,22 @@ function reviewsHTML(productId){
     return '<section class="reviews"><h2>Reviews</h2>' +
       '<div class="panel center"><p style="font-size:2rem;margin:0">☆</p>' +
       '<p><b>No reviews yet — be the first.</b></p>' +
-      '<p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here once customers leave them.</p></div></section>';
+      '<p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here once customers leave them. Photo reviews get a frame on the homepage too.</p></div></section>';
   }
-  const avg = (list.reduce((n,r) => n + r.stars, 0) / list.length).toFixed(1);
-  return '<section class="reviews"><h2>Reviews</h2><p class="muted">' + avg + ' out of 5 · ' + list.length + ' review' + (list.length>1?"s":"") + '</p>' +
-    list.map(r => '<div class="panel" style="margin-bottom:12px"><b>' + "★".repeat(r.stars) + '</b> <b>' + r.name + '</b><p style="margin:.4em 0 0">' + r.text + '</p></div>').join("") + '</section>';
+  const n = list.length, avg = list.reduce((t,r) => t + r.stars, 0) / n;
+  const counts = [5,4,3,2,1].map(k => list.filter(r => r.stars === k).length);
+  const stars = k => "★".repeat(k) + "☆".repeat(5 - k);
+  const card = r => '<article class="rev"><div class="rev-head"><span class="avatar">' + esc((r.name || "?").split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase()) + '</span>' +
+    '<div><b>' + esc(r.name) + '</b>' + (r.verified ? ' <span class="vtag">Verified buyer</span>' : '') + '<span class="small muted">' + esc(r.date || "") + (r.size ? ' · Size ' + esc(r.size) : '') + '</span></div></div>' +
+    '<p class="stars has" aria-label="' + r.stars + ' out of 5">' + stars(r.stars) + '</p>' +
+    (r.title ? '<p class="rev-title">' + esc(r.title) + '</p>' : '') + '<p>' + esc(r.text) + '</p>' +
+    (r.photo ? '<img class="rev-photo" src="' + IMG + r.photo + '" alt="Customer photo" width="200" height="200" loading="lazy">' : '') + '</article>';
+  return '<section class="reviews"><h2>Real cats, real results</h2><p class="muted" style="margin-top:-.4em">What customers said after the costume went on.</p>' +
+    '<div class="rev-summary"><div class="score"><b>' + avg.toFixed(1) + '</b><span class="stars has">' + stars(Math.round(avg)) + '</span><span class="small muted">Based on ' + n + ' review' + (n > 1 ? "s" : "") + '</span></div>' +
+    '<ul class="bars">' + counts.map((c, i) => '<li><span>' + (5 - i) + '★</span><i><b style="width:' + (c / n * 100).toFixed(0) + '%"></b></i><span>' + c + '</span></li>').join("") + '</ul></div>' +
+    '<div class="rev-list" data-rev-list>' + list.slice(0, 3).map(card).join("") + '</div>' +
+    (n > 3 ? '<div class="center" style="margin-top:14px"><button class="btn btn-ghost" type="button" data-rev-more>Show all ' + n + ' reviews</button><div hidden data-rev-rest>' + list.slice(3).map(card).join("") + '</div></div>' : '') +
+  '</section>';
 }
 
 /* -------------------------------------------------------------- rendering -- */
@@ -156,7 +167,7 @@ const renderGrid = (el, list) => { el.innerHTML = list.map(productCard).join("")
 function mountGallery(host, p){
   const imgs = p.images || [];
   host.innerHTML =
-    '<div class="main" data-main>' + productImg(p, 0) + '</div>' +
+    '<div class="mainwrap"><div class="main" data-main>' + productImg(p, 0) + '</div>' + galleryOverlays(p) + '</div>' +
     '<div class="thumbs" data-thumbs>' +
       imgs.map((f, i) => `<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="Photo ${i+1}">
         <img src="${IMG}${f}" alt="" width="200" height="200" loading="lazy"></button>`).join("") +
@@ -561,4 +572,90 @@ function mountQuiz(host, opts){
       paintWish(); if(opts.scroll !== false) res.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
+}
+
+/* ============================================================ product page ==== */
+/* pills over the hero image: enter the competition, and stock */
+function galleryOverlays(p){
+  const stock = p.soldOut ? '<span class="stockpill out"><i></i>Out of stock</span>'
+    : (p.stock && p.stock <= 5) ? '<span class="stockpill low"><i></i>Only ' + p.stock + ' left</span>'
+    : '<span class="stockpill"><i></i>In stock' + ((p.id === "bandana" || (p.contains || []).indexOf("bandana") >= 0) ? ' · UK stock' : '') + '</span>';
+  return '<a class="drawpill" href="photo-draw.html">📸 Enter ' + esc(DRAW.name) + '</a>' + stock;
+}
+/* expanding objection cards; the fit card answers with a size from a neck measurement */
+function objectionCards(p){
+  const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
+  const keep = {
+    "bow-tie-collar": "It's a collar — most cats forget it's there.",
+    "bandana": "It's a collar — most cats forget it's there.",
+    "lion-mane": "Velcro under the chin, nothing over the face. Put it on, get the shot, take it off.",
+    "bat-cape": "Sits on the shoulders, nothing over the face. Put it on, get the shot, take it off.",
+    "spider-costume": "Fastens under the chest like a harness. Best for cats already used to one.",
+    "pumpkin-set": "Chin strap on the hat, ruffle on the collar. A minute or two is all the photo needs.",
+    "santa-set": "Velcro on both pieces, nothing over the face. A minute or two is all the photo needs."
+  }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.";
+  const fitInner = hasSizes
+    ? '<p>Every size is a <b>neck measurement</b>. Wrap a soft tape where a collar sits, add two fingers, and type the number:</p>' +
+      '<div class="mini" data-mini><input type="number" min="10" max="60" step="1" placeholder="neck cm" aria-label="Neck in cm"><button class="btn btn-sm" type="button">Check</button></div><p class="mini-out" data-mini-out></p>' +
+      '<p class="small muted" style="margin:0">Between sizes? Take the larger. <a href="breeds.html">Sizes by breed</a> · <a href="sizing.html">How to measure</a></p>'
+    : '<p><b>' + esc(p.fit) + '</b></p><p class="small muted" style="margin:0">No size to pick. <a href="sizing.html">How it fastens</a></p>';
+  const delivery = p.noDeliveryDates
+    ? '<p><b>Tracked UK delivery</b>, free over £' + FREE_SHIPPING_AT + '.</p>'
+    : '<p>Order today and it should arrive <b>' + deliveryWindow() + '</b>.</p>';
+  const deliveryInner = delivery + '<table class="mini-table"><tr><td>UK standard, tracked</td><td>2–4 working days</td><td>£' + DELIVERY.cost.toFixed(2) + '</td></tr><tr><td>Orders over £' + FREE_SHIPPING_AT + '</td><td>2–4 working days</td><td><b>Free</b></td></tr></table>' +
+    '<p class="small muted" style="margin:.6em 0 0"><a href="track-order.html">Track an order</a> · <a href="faq.html">Delivery FAQ</a></p>';
+  const material = (p.specs || []).find(x => /satin|felt|faux|polycotton|plush|tulle|elastic|buckle|washable/i.test(x)) || p.specs[0];
+  const qualityInner = '<ul class="deets small"><li>' + esc(material) + '</li><li>Every photo on this page is the product you get, on a real cat</li><li>' + esc(p.care) + '</li><li>Not right? <b>30 days to return it, worn or not</b></li></ul>' +
+    '<p class="small muted" style="margin:.6em 0 0"><a href="contact.html?product=' + p.id + '">Ask us anything about it</a></p>';
+  const card = (icon, title, inner, open) => '<details class="obj"' + (open ? ' open' : '') + '><summary><i>' + icon + '</i><b>' + title + '</b><span class="plus" aria-hidden="true"></span></summary><div class="inner">' + inner + '</div></details>';
+  return '<div class="objections">' + card("📏", "Will it fit my cat?", fitInner) + card("🚚", "When will it arrive?", deliveryInner) + card("🛡️", "Is the quality good?", qualityInner) + '</div>' +
+    '<details class="obj keep"><summary><i>🐱</i><b>Will my cat keep it on?</b><span class="plus" aria-hidden="true"></span></summary><div class="inner"><p>' + esc(keep) + '</p><p class="small muted" style="margin:0"><a href="faq.html">More in the FAQ</a></p></div></details>';
+}
+/* wires the mini size finder inside the fit card to the size buttons */
+function wireMiniFinder(host, p){
+  const m = host.querySelector("[data-mini]"); if(!m) return;
+  const out = host.querySelector("[data-mini-out]"), inp = m.querySelector("input");
+  const run = () => {
+    const n = parseFloat(inp.value); if(!(n > 0)){ out.textContent = ""; return; }
+    const r = sizeFor(p, n);
+    if(r.ok){ out.innerHTML = '✅ Order <b>size ' + r.label + '</b> (neck ' + esc(r.neck) + ') — selected below.'; const b = host.querySelector('#sizes button[data-s="' + r.label + '"]'); if(b) b.click(); }
+    else out.innerHTML = '⚠️ ' + esc(r.neck) + ' — this one won\'t fit a ' + n + 'cm neck. <a href="contact.html?product=' + p.id + '">Ask us</a> or try the <a href="product.html?id=bow-tie-collar">Bow Tie Collar</a>, which adjusts.';
+  };
+  m.querySelector("button").addEventListener("click", run); inp.addEventListener("keydown", e => { if(e.key === "Enter") run(); });
+}
+/* "You've saved £X" + pay-in-3 */
+function savedLine(p){ return savePct(p) ? '<p class="saved">You\'ve saved ' + money(p.list - p.price) + '</p>' : ""; }
+function instalmentsLine(amount){
+  if(!INSTALMENTS.enabled || amount < INSTALMENTS.min) return "";
+  return '<p class="instal">Pay in ' + INSTALMENTS.parts + ' interest-free instalments of <b>' + money(amount / INSTALMENTS.parts) + '</b> with ' + esc(INSTALMENTS.provider) + ' <span class="small muted">(orders over £' + INSTALMENTS.min + ')</span></p>';
+}
+/* details as three accordions */
+function detailsAccordions(p){
+  const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
+  const dims = hasSizes
+    ? '<div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck</th><th>Notes</th></tr></thead><tbody>' + p.sizes.map(s => '<tr><td class="sz">' + s.label + '</td><td><b>' + s.neck + '</b></td><td class="muted">' + s.note + '</td></tr>').join("") + '</tbody></table></div>'
+    : '<p><b>' + esc(p.fit) + '</b></p>';
+  return '<div class="details acc" id="fit">' +
+    '<details open><summary>Product details &amp; dimensions</summary><div class="inner">' +
+      '<h3>What you get</h3><ul class="deets">' + p.specs.map(d => '<li>' + d + '</li>').join("") + '</ul>' +
+      '<h3>In the box</h3><ul class="deets">' + p.box.map(d => '<li>' + d + '</li>').join("") + '</ul>' +
+      '<h3>Dimensions &amp; fit</h3>' + dims + '<p class="small muted">' + FIT_GUIDE.neck + ' ' + FIT_GUIDE.between + '</p>' +
+      ((p.id === "spider-costume" || p.id === "halloween-pair") ? '<p class="small muted">' + FIT_GUIDE.chest + '</p>' : '') +
+      '<h3>Materials &amp; care</h3><p style="margin:0">' + p.care + '</p></div></details>' +
+    '<details><summary>Delivery &amp; returns</summary><div class="inner">' +
+      '<div class="tablewrap"><table><thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead><tbody><tr><td>UK standard, tracked</td><td>2–4 working days</td><td>£' + DELIVERY.cost.toFixed(2) + '</td></tr><tr><td>UK standard over £' + FREE_SHIPPING_AT + '</td><td>2–4 working days</td><td><b>Free</b></td></tr></tbody></table></div>' +
+      '<p style="margin:.8em 0 0">Not right? Send it back within 30 days, worn or not. <span class="small muted">Placeholder terms — confirm before trading.</span></p></div></details>' +
+    '<details><summary>Is it right for my cat?</summary><div class="inner">' +
+      '<p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done. Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>' +
+      '<p style="margin:0">Not sure? <a href="#pdpquiz">Answer three questions</a> and we\'ll shortlist the pieces your cat will actually wear.</p></div></details>' +
+  '</div>';
+}
+/* competition block for product pages */
+function drawBlock(){
+  return '<section class="drawblock"><p class="kicker" style="margin:0 0 10px">📸 ' + esc(DRAW.name) + '</p>' +
+    '<h2>Your cat could be next month\'s winner</h2>' +
+    '<p class="muted">Order, take the photo, send it in. Every month the best photo of a cat in a Catwalk Club piece wins <b>' + esc(DRAW.prize) + '</b>. Free to enter, no purchase necessary — the first round closes ' + esc(DRAW.firstCloses) + '.</p>' +
+    '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><a class="btn" href="photo-draw.html">How to enter</a><a class="small" href="mailto:' + esc(DRAW.entryEmail) + '?subject=' + encodeURIComponent(DRAW.name) + '">Already ordered? Send your photo →</a></div>' +
+    (DRAW.winners.length ? '<h3 style="margin-top:22px">🏆 Previous winners</h3>' + podium() : '') +
+  '</section>';
 }

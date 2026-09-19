@@ -1,0 +1,25 @@
+{%- comment -%} Competition block for product pages: enter, or send a photo of an order already placed. Winners via the Winners podium section. {%- endcomment -%}
+<div class="wrap pdp-stack" style="padding-top:0">
+  <section class="drawblock">
+    <p class="kicker" style="margin:0 0 10px">📸 {{ section.settings.name }}</p>
+    <h2>{{ section.settings.heading }}</h2>
+    <p class="muted">{{ section.settings.text }}</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      {%- if section.settings.url != blank -%}<a class="btn" href="{{ section.settings.url }}">How to enter</a>{%- endif -%}
+      {%- if section.settings.email != blank -%}<a class="small" href="mailto:{{ section.settings.email }}?subject={{ section.settings.name | url_encode }}">Already ordered? Send your photo &rarr;</a>{%- endif -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Competition block",
+  "settings": [
+    { "type": "text", "id": "name", "label": "Competition name", "default": "Cat of the Month" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your cat could be next month's winner" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Order, take the photo, send it in. Every month the best photo of a cat in a Catwalk Club piece wins £25 credit and a feature on the site. Free to enter, no purchase necessary." },
+    { "type": "url", "id": "url", "label": "Competition page" },
+    { "type": "text", "id": "email", "label": "Entry email" }
+  ],
+  "presets": [ { "name": "Competition block" } ]
+}
+{% endschema %}

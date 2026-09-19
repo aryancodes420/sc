@@ -40,17 +40,17 @@ Cart, checkout, inventory, search, pagination, the contact form and the newslett
 ## Product page, top to bottom
 
 1. Breadcrumbs
-2. **Hero gallery** (six photos, thumbnails)
-3. Three **objection cards**: *Will it fit my cat?* · *When will it arrive?* (real dates) · *Will my cat keep it on?*
-4. Title · **rating line** (honest "No reviews yet" until a reviews app writes real numbers) · price · **stock pill** ("In stock", "Only 3 left", "Sold out", follows the chosen size) · blurb · three **ticks**
-5. Size picker · quantity · **Add to cart** · **Shop Pay / PayPal / Apple Pay / Google Pay** (`payment_button`, appears once enabled under Settings → Payments) · four-icon trust row · **payment icons** (`shop.enabled_payment_types`)
+2. **Hero gallery** (six photos, thumbnails) with two pills on the photo: **Enter Cat of the Month** (section setting) and the **stock pill** ("In stock", "Only 3 left", "Out of stock", follows the chosen size)
+3. Three **expanding objection cards**: *Will it fit my cat?* (with a mini size finder: type the neck in cm, it names the size and selects it) · *When will it arrive?* (real dates + the delivery table) · *Is the quality good?* (material, care, returns, ask-us link). Then *Will my cat keep it on?* underneath (`custom.keep_on` or the section default)
+4. Title · **rating line** (honest "No reviews yet" until a reviews app writes real numbers) · price with strike-through and Save % · **"You've saved £X"** · **Pay in 3** line (`payment_terms`, renders only once Klarna or another instalment provider is on) · blurb · three **ticks**
+5. Size picker · quantity · **Add to cart** · **Shop Pay / PayPal / Apple Pay / Google Pay** (`payment_button`) · four-icon trust row · **payment logos**
 6. **Sticky add-to-cart bar** once the buy box scrolls off screen
 7. *This is for you if…* (`custom.for_me_if`)
 8. Lifestyle **videos** (any video media on the product)
-9. **Reviews** — app block slot for Judge.me or Loox; heading becomes "Real cats, real results" once reviews exist
-10. **Details**: what you get, in the box, dimensions & fit, materials & care, delivery & returns
-11. **Cheaper together** — the bundles this product sits in, with the saving spelled out (`custom.bundles`)
-12. Related products
+9. **Reviews** — score summary from `reviews.rating` / `reviews.rating_count`, then the app block (Judge.me or Loox); heading becomes "Real cats, real results" once reviews exist
+10. **Three accordions**: Product details & dimensions · Delivery & returns · Is it right for my cat?
+11. **Cheaper together** — the bundles this product sits in, with the saving (`custom.bundles`) · related products
+12. **Competition block**, **winners podium** (hidden until a winner exists), the **quiz** in compact mode, recently viewed — all separate sections on `product.json`, so you can reorder or remove them in the editor
 
 ## Store setup after pushing
 

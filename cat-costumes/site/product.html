@@ -83,7 +83,7 @@
     host.innerHTML =
       breadcrumbs([{ label: "Home", href: "index.html" }, { label: catOf(p.cat).label, href: "shop.html?cat=" + p.cat }, { label: p.name }]) +
 
-      /* 1 · hero gallery, and the three questions every buyer has */
+      /* 1 · hero gallery (with the competition and stock pills), then the questions every buyer has */
       '<div class="gallery" id="gallery"></div>' +
       objectionCards(p) +
 
@@ -92,8 +92,10 @@
         '<h1 style="margin-bottom:.15em">' + p.name + '</h1>' +
         aliasTag(p) +
         ratingLine(p.id) +
-        '<div class="headrow"><p class="price ' + (savePct(p) ? "sale" : "") + '" style="font-size:1.7rem;margin:0">' + priceHTML(p) + '</p>' + stockPill(p) + '</div>' +
+        '<div class="headrow"><p class="price ' + (savePct(p) ? "sale" : "") + '" style="font-size:1.7rem;margin:0">' + priceHTML(p) + '</p></div>' +
+        savedLine(p) +
         (savePct(p) ? '<p class="launchline">' + SALE.label + ': ' + money(p.price) + ' until ' + saleEndsText() + ', then ' + money(p.list) + '.</p>' : '') +
+        instalmentsLine(currentPrice(p)) +
         '<p class="muted" style="font-size:1.08rem;margin-top:.5em">' + p.blurb + '</p>' +
         tickList(p) +
         '<p><span class="fitline">⇔ ' + p.fit + '</span></p>' +
@@ -131,32 +133,20 @@
       /* 5 · reviews */
       '<div id="reviews"></div>' + reviewsHTML(p.id) +
 
-      /* 6 · description & dimensions */
-      '<section class="details" id="fit"><h2>Details</h2>' +
-        '<h3>What you get</h3><ul class="deets">' + p.specs.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul>' +
-        '<h3>In the box</h3><ul class="deets">' + p.box.map(function(d){ return '<li>' + d + '</li>'; }).join("") + '</ul>' +
-        '<h3>Dimensions &amp; fit</h3>' +
-        (hasSizes
-          ? '<div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck</th><th>Notes</th></tr></thead><tbody>' +
-            p.sizes.map(function(s){ return '<tr><td class="sz">' + s.label + '</td><td><b>' + s.neck + '</b></td><td class="muted">' + s.note + '</td></tr>'; }).join("") + '</tbody></table></div>'
-          : '<p><b>' + p.fit + '</b></p>') +
-        '<p class="small muted">' + FIT_GUIDE.neck + ' ' + FIT_GUIDE.between + '</p>' +
-        (p.id === "spider-costume" || p.id === "halloween-pair" ? '<p class="small muted">' + FIT_GUIDE.chest + '</p>' : '') +
-        '<h3>Materials &amp; care</h3><p>' + p.care + '</p>' +
-        '<h3>Delivery &amp; returns</h3>' +
-        '<div class="tablewrap"><table><thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead><tbody>' +
-          '<tr><td>UK standard, tracked</td><td>2–4 working days</td><td>£3.95</td></tr>' +
-          '<tr><td>UK standard over £30</td><td>2–4 working days</td><td><b>Free</b></td></tr></tbody></table></div>' +
-        '<p>Not right? Send it back within 30 days, worn or not. <span class="small muted">Placeholder terms — confirm before trading.</span></p>' +
-        '<h3>Wear &amp; care tips</h3><p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done. Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>' +
-      '</section>' +
+      /* 6 · details, delivery, is it right — as accordions */
+      detailsAccordions(p) +
 
-      /* 7 · cross-sell with the saving spelled out, then related */
+      /* 7 · cross-sell, competition, quiz, related, recently viewed */
       crossSell(p) +
+      drawBlock() +
+      '<section class="pdpquiz" id="pdpquiz"><div class="sec-head"><div><h2>Not sure this is the one?</h2><p>Three questions and we\'ll shortlist what your cat will actually wear.</p></div></div><div class="quiz-home" id="pdpquiz-host"></div></section>' +
       '<section id="also" style="padding-top:20px"></section>' +
       '<section id="recent" style="padding-top:0" hidden></section>';
 
     mountGallery(document.getElementById("gallery"), p);
+    wireMiniFinder(host, p);
+    mountQuiz(document.getElementById("pdpquiz-host"), { scroll: false });
+    host.addEventListener("click", function(e){ var b = e.target.closest("[data-rev-more]"); if(!b) return; var rest = host.querySelector("[data-rev-rest]"); host.querySelector("[data-rev-list]").insertAdjacentHTML("beforeend", rest.innerHTML); rest.remove(); b.remove(); });
 
     var size = hasSizes ? p.sizes[0].label : null, qty = 1;
     function paintSizeNote(){
