@@ -1,3 +1,4 @@
+{%- comment -%} Category circles with real product photos; scrolls sideways on a phone. Image: the block's picture, else the collection's, else its emoji. {%- endcomment -%}
 <section>
   <div class="wrap">
     <div class="sec-head">
@@ -7,39 +8,48 @@
       </div>
       <a class="btn btn-ghost btn-sm" href="{{ routes.all_products_collection_url }}">See everything &rarr;</a>
     </div>
-    <div class="cats">
+    <div class="catrow">
       {%- for block in section.blocks -%}
         {%- assign col = collections[block.settings.collection] -%}
-        <a class="cat" href="{{ col.url | default: '#' }}" {{ block.shopify_attributes }}>
-          <div class="ic" style="background:{{ block.settings.tint }}">{{ block.settings.emoji }}</div>
-          <h3>{{ block.settings.title | default: col.title }}</h3>
-          <span>{{ block.settings.note }}</span>
+        {%- assign pic = block.settings.image | default: col.featured_image -%}
+        <a class="catc" href="{{ col.url | default: '#' }}" {{ block.shopify_attributes }}>
+          <span class="ring" style="background:{{ block.settings.tint }}">
+            {%- if pic != blank -%}<img src="{{ pic | image_url: width: 300 }}" alt="" width="200" height="200" loading="lazy">{%- else -%}<i>{{ block.settings.emoji }}</i>{%- endif -%}
+          </span>
+          <b>{{ block.settings.title | default: col.title }}</b>
+          <span class="small muted">{{ block.settings.note }}</span>
         </a>
       {%- endfor -%}
+      {%- if section.settings.show_all -%}
+        <a class="catc" href="{{ routes.all_products_collection_url }}"><span class="ring all">All</span><b>Everything</b><span class="small muted">{{ section.settings.all_note }}</span></a>
+      {%- endif -%}
     </div>
   </div>
 </section>
 {% schema %}
 {
-  "name": "Category tiles",
-  "max_blocks": 4,
+  "name": "Category circles",
+  "max_blocks": 6,
   "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Pick your look" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Four ranges, endless photo opportunities." }
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Three seasons, one very well-dressed cat." },
+    { "type": "checkbox", "id": "show_all", "label": "Add an 'Everything' circle", "default": true },
+    { "type": "text", "id": "all_note", "label": "'Everything' note", "default": "Costumes, collars, bundles" }
   ],
   "blocks": [
     {
       "type": "tile",
-      "name": "Tile",
+      "name": "Circle",
       "settings": [
         { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Photo (falls back to the collection image, then the emoji)" },
         { "type": "text", "id": "title", "label": "Title override" },
         { "type": "text", "id": "note", "label": "Note", "default": "Halloween, Christmas, birthdays" },
-        { "type": "text", "id": "emoji", "label": "Emoji", "default": "🎃" },
+        { "type": "text", "id": "emoji", "label": "Emoji fallback", "default": "🎃" },
         { "type": "color", "id": "tint", "label": "Tint", "default": "#FFE3EA" }
       ]
     }
   ],
-  "presets": [ { "name": "Category tiles", "blocks": [ { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" } ] } ]
+  "presets": [ { "name": "Category circles", "blocks": [ { "type": "tile" }, { "type": "tile" }, { "type": "tile" }, { "type": "tile" } ] } ]
 }
 {% endschema %}

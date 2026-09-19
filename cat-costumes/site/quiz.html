@@ -41,34 +41,7 @@
     </div>
   </section>
   <section style="padding-top:10px">
-    <div class="quiz" id="quiz">
-      <div class="qstep"><h2>1 · What's the occasion?</h2>
-        <div class="qopts" data-q="occ">
-          <button class="qopt" type="button" data-v="halloween">🎃 Halloween<small>The lion, the bat, the spider, the pumpkin</small></button>
-          <button class="qopt" type="button" data-v="christmas">🎄 Christmas<small>The Santa set</small></button>
-          <button class="qopt" type="button" data-v="everyday">🎀 Everyday<small>Collars that stay on</small></button>
-          <button class="qopt" type="button" data-v="gift">🎁 A gift<small>Safe bets for someone else's cat</small></button>
-        </div></div>
-      <div class="qstep"><h2>2 · What will your cat put up with?</h2>
-        <div class="qopts" data-q="wear">
-          <button class="qopt" type="button" data-v="1">A collar, and that's it<small>Nothing on the head, nothing on the body</small></button>
-          <button class="qopt" type="button" data-v="2">A collar and a hat<small>Something on the head for a photo is fine</small></button>
-          <button class="qopt" type="button" data-v="3">Anything, honestly<small>Capes, legs, the lot</small></button>
-        </div></div>
-      <div class="qstep"><h2>3 · How big is their neck?</h2>
-        <p class="small muted" style="margin:0">Wrap a soft tape where a collar sits and add two fingers. Or pick the breed for a typical figure — measuring is always better.</p>
-        <div class="qneck">
-          <input type="number" id="neck" min="10" max="60" step="1" placeholder="cm" aria-label="Neck in cm">
-          <span class="muted small">or</span>
-          <select id="breed" aria-label="Breed"><option value="">Pick a breed…</option></select>
-          <button class="btn" type="button" id="go">Show me</button>
-        </div></div>
-      <div class="qres" id="res" hidden>
-        <div class="sec-head"><div><h2 id="res-h">Your shortlist</h2><p id="res-p"></p></div></div>
-        <div class="grid-p" id="res-grid"></div>
-        <p class="small muted" style="margin-top:14px">Sizes are suggestions from the neck figure you gave. Every product page has the full table. Between sizes? Take the larger.</p>
-      </div>
-    </div>
+    <div class="quiz" id="quiz"></div>
   </section>
 </main>
 <footer class="site">
@@ -105,25 +78,7 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  var st = { occ: null, wear: null };
-  document.getElementById("breed").innerHTML += BREEDS.map(function(b){ return '<option value="' + b.mid + '">' + b.name + ' (' + b.range + ')</option>'; }).join("");
-  document.querySelectorAll("[data-q]").forEach(function(g){
-    g.addEventListener("click", function(e){
-      var b = e.target.closest(".qopt"); if(!b) return;
-      st[g.dataset.q] = b.dataset.v;
-      g.querySelectorAll(".qopt").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
-    });
-  });
-  document.getElementById("breed").onchange = function(){ if(this.value) document.getElementById("neck").value = this.value; };
-  document.getElementById("go").onclick = function(){
-    if(!st.occ || !st.wear){ toast("Pick an occasion and what your cat will wear"); return; }
-    var neck = parseFloat(document.getElementById("neck").value) || 0;
-    var rs = quizResults(st.occ, parseInt(st.wear, 10), neck);
-    var res = document.getElementById("res"); res.hidden = false;
-    document.getElementById("res-p").textContent = rs.length ? (neck ? "Sized for a " + neck + "cm neck." : "Add a neck measurement and we'll size each one.") : "";
-    document.getElementById("res-grid").innerHTML = rs.length ? rs.map(resultCard).join("") : '<p class="muted">Nothing in the range suits that combination yet — the collars fit almost every cat: <a href="product.html?id=bow-tie-collar">Bow Tie Collar</a>.</p>';
-    paintWish(); res.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  mountQuiz(document.getElementById("quiz"));
 </script>
 </body>
 </html>

@@ -54,7 +54,7 @@ supplier's shots has their own text baked in.
 
 | File | What it does |
 |---|---|
-| `index.html` | Hero (real photo), four tiles, all seven, four bundles, fit + why panels, newsletter |
+| `index.html` | Hero (photo, sticker, note), three-stat strip, category circles, all products with quick add, phone-frame video row (honest empty frames), bundles, save-by-bundling, customer wall + winners podium, the quiz inline, fit + why, FAQs, recently viewed, newsletter, footer payment icons |
 | `shop.html` | Everything with filters (Everyday / Halloween / Christmas / Bundles), search and sort |
 | `product.html` | `?id=<id>` — breadcrumbs, six-photo gallery, three objection cards (fit / real delivery dates / keep it on), rating line (honest empty state), price + stock pill, three ticks, size picker with per-size neck note, express checkout row, four-icon trust row, payment icons, sticky add-to-cart, "This is for you if…", videos slot, reviews, details, "Cheaper together" cross-sell with the saving, related. Emits Product + BreadcrumbList JSON-LD |
 | `about.html` | Story, four panels, business-details box (fill before trading) |

@@ -1,0 +1,24 @@
+{%- comment -%} Winners podium: 3rd · 1st (raised) · 2nd, then a grid for the rest. Param: blocks (winner blocks with image, name, month). {%- endcomment -%}
+{%- if blocks.size > 0 -%}
+  <div class="podium">
+    {%- assign order = "3,1,2" | split: "," -%}
+    {%- for place in order -%}
+      {%- assign i = place | plus: 0 | minus: 1 -%}
+      {%- assign w = blocks[i] -%}
+      {%- if w -%}
+        <figure class="pod p{{ place }}" {{ w.shopify_attributes }}>
+          <span class="medal m{{ place }}">&#9819; {{ place }}</span>
+          {%- if w.settings.image != blank -%}<img src="{{ w.settings.image | image_url: width: 400 }}" alt="{{ w.settings.name | escape }}" width="400" height="400" loading="lazy">{%- endif -%}
+          <figcaption><b>{{ w.settings.name }}</b><span class="small muted">{{ w.settings.month }}</span></figcaption>
+        </figure>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  {%- if blocks.size > 3 -%}
+    <div class="winners" style="margin-top:20px">
+      {%- for w in blocks offset: 3 -%}
+        <figure class="ugc" {{ w.shopify_attributes }}>{%- if w.settings.image != blank -%}<img src="{{ w.settings.image | image_url: width: 400 }}" alt="{{ w.settings.name | escape }}" width="400" height="400" loading="lazy">{%- endif -%}<figcaption>{{ w.settings.name }} · {{ w.settings.month }}</figcaption></figure>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}

@@ -26,6 +26,11 @@
       <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.legal_note }}</span>
       <span>{{ powered_by_link }}</span>
     </div>
+    {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+      <ul class="payicons svg" aria-label="Payment methods accepted">
+        {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'payicon' }}</li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
   </div>
 </footer>
 {% schema %}
@@ -33,7 +38,8 @@
   "name": "Footer",
   "max_blocks": 3,
   "settings": [
-    { "type": "text", "id": "legal_note", "label": "Legal note", "default": "All rights reserved." }
+    { "type": "text", "id": "legal_note", "label": "Legal note", "default": "All rights reserved." },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true }
   ],
   "blocks": [
     {

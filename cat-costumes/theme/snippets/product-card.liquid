@@ -32,4 +32,16 @@
     </div>
   </a>
   <button class="wish" type="button" data-wish="{{ product.handle }}" aria-pressed="false" aria-label="Save to wishlist">&#9825;</button>
+  {%- comment -%} quick add: one-size products go straight in; sized ones open the size picker; sold out asks to be notified {%- endcomment -%}
+  {%- if product.available == false -%}
+    <a class="qadd notify" href="{{ settings.contact_page | default: '/pages/contact' }}?product={{ product.handle }}">🔔 Notify</a>
+  {%- elsif product.has_only_default_variant -%}
+    {%- form 'product', product, class: 'qadd-form' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button class="qadd" type="submit">🛒 {{ 'products.product.add_to_cart' | t | split: ' ' | first }}</button>
+    {%- endform -%}
+  {%- else -%}
+    <a class="qadd" href="{{ product.url }}#product-form">Pick size</a>
+  {%- endif -%}
 </div>

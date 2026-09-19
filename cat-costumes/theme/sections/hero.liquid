@@ -19,6 +19,8 @@
       {%- else -%}
         <div data-cat-art="hero-lion" data-art-motif="mane"></div>
       {%- endif -%}
+      {%- if section.settings.hand_note != blank -%}<span class="hand">{{ section.settings.hand_note }}</span>{%- endif -%}
+      {%- if section.settings.sticker_title != blank -%}<span class="sticker">{{ section.settings.sticker_title | newline_to_br }}{% if section.settings.sticker_sub != blank %}<small>{{ section.settings.sticker_sub }}</small>{% endif %}</span>{%- endif -%}
     </div>
   </div>
 </section>
@@ -33,7 +35,10 @@
     { "type": "text", "id": "button_1_label", "label": "Primary button", "default": "Shop all" },
     { "type": "url", "id": "button_1_url", "label": "Primary link" },
     { "type": "text", "id": "button_2_label", "label": "Secondary button", "default": "Halloween first" },
-    { "type": "url", "id": "button_2_url", "label": "Secondary link" }
+    { "type": "url", "id": "button_2_url", "label": "Secondary link" },
+    { "type": "text", "id": "hand_note", "label": "Handwritten note on the photo", "default": "Seriously cute ♡" },
+    { "type": "textarea", "id": "sticker_title", "label": "Round sticker text", "default": "Sized\nfor cats" },
+    { "type": "text", "id": "sticker_sub", "label": "Sticker small line", "default": "faces always clear" }
   ],
   "presets": [ { "name": "Hero" } ]
 }

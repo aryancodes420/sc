@@ -5,30 +5,37 @@
   variant, e.g. "neck 28cm / 11in · Cap 24cm") — the same data the product page shows.
 {%- endcomment -%}
 <div class="wrap">
-  <section style="padding-bottom:10px">
-    <div class="quiz">
-      <span class="kicker">{{ section.settings.kicker }}</span>
-      <h1 style="margin-top:14px">{{ page.title | default: section.settings.heading }}</h1>
-      <p class="muted" style="font-size:1.1rem">{{ section.settings.intro }}</p>
-    </div>
-  </section>
-  <section style="padding-top:10px">
-    <div class="quiz" data-quiz>
-      <div class="qstep"><h2>1 · What's the occasion?</h2>
-        <div class="qopts" data-q="occ">
-          <button class="qopt" type="button" data-v="halloween">🎃 Halloween<small>Lion, bat, spider, pumpkin</small></button>
-          <button class="qopt" type="button" data-v="christmas">🎄 Christmas<small>The Santa set</small></button>
-          <button class="qopt" type="button" data-v="everyday">🎀 Everyday<small>Collars that stay on</small></button>
-          <button class="qopt" type="button" data-v="gift">🎁 A gift<small>Safe bets for someone else's cat</small></button>
-        </div></div>
-      <div class="qstep"><h2>2 · What will your cat put up with?</h2>
-        <div class="qopts" data-q="wear">
-          <button class="qopt" type="button" data-v="1">A collar, and that's it<small>Nothing on the head, nothing on the body</small></button>
-          <button class="qopt" type="button" data-v="2">A collar and a hat<small>Something on the head for a photo is fine</small></button>
-          <button class="qopt" type="button" data-v="3">Anything, honestly<small>Capes, legs, the lot</small></button>
-        </div></div>
-      <div class="qstep"><h2>3 · How big is their neck?</h2>
-        <p class="small muted" style="margin:0">Wrap a soft tape where a collar sits and add two fingers. Or pick the breed for a typical figure — measuring is always better.</p>
+  {%- unless section.settings.compact -%}
+    <section style="padding-bottom:10px">
+      <div class="quiz">
+        <span class="kicker">{{ section.settings.kicker }}</span>
+        <h1 style="margin-top:14px">{{ page.title | default: section.settings.heading }}</h1>
+        <p class="muted" style="font-size:1.1rem">{{ section.settings.intro }}</p>
+      </div>
+    </section>
+  {%- endunless -%}
+  <section style="padding-top:{% if section.settings.compact %}0{% else %}10px{% endif %}">
+    {%- if section.settings.compact -%}
+      <div class="sec-head"><div><h2>{{ section.settings.heading }}</h2><p>{{ section.settings.intro }}</p></div></div>
+    {%- endif -%}
+    <div class="quiz{% if section.settings.compact %} quiz-home{% endif %}" data-quiz>
+      <div class="qstep" data-step="1"><p class="small muted" style="margin:0">1 of 3</p><h3>What's the occasion?</h3>
+        <div class="qradios" data-q="occ">
+          <label><input type="radio" name="{{ section.id }}-occ" value="halloween"><span>🎃 Halloween <small>lion, bat, spider, pumpkin</small></span></label>
+          <label><input type="radio" name="{{ section.id }}-occ" value="christmas"><span>🎄 Christmas <small>the Santa set</small></span></label>
+          <label><input type="radio" name="{{ section.id }}-occ" value="everyday"><span>🎀 Everyday <small>collars that stay on</small></span></label>
+          <label><input type="radio" name="{{ section.id }}-occ" value="gift"><span>🎁 A gift <small>safe bets for someone else's cat</small></span></label>
+        </div>
+        <div class="qnav"><button class="btn" type="button" data-next>Next</button></div></div>
+      <div class="qstep" data-step="2" hidden><p class="small muted" style="margin:0">2 of 3</p><h3>What will your cat put up with?</h3>
+        <div class="qradios" data-q="wear">
+          <label><input type="radio" name="{{ section.id }}-wear" value="1"><span>A collar, and that's it <small>nothing on the head or body</small></span></label>
+          <label><input type="radio" name="{{ section.id }}-wear" value="2"><span>A collar and a hat <small>something on the head for a photo is fine</small></span></label>
+          <label><input type="radio" name="{{ section.id }}-wear" value="3"><span>Anything, honestly <small>capes, legs, the lot</small></span></label>
+        </div>
+        <div class="qnav"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn" type="button" data-next>Next</button></div></div>
+      <div class="qstep" data-step="3" hidden><p class="small muted" style="margin:0">3 of 3</p><h3>How big is their neck?</h3>
+        <p class="small muted">Wrap a soft tape where a collar sits and add two fingers. Or pick the breed for a typical figure — measuring is always better.</p>
         <div class="qneck">
           <input type="number" data-neck min="10" max="60" step="1" placeholder="cm" aria-label="Neck in cm">
           <span class="muted small">or</span>
@@ -37,12 +44,12 @@
             {%- assign breed_list = section.settings.breeds | split: '|' -%}
             {%- for b in breed_list -%}{%- assign parts = b | split: ':' -%}<option value="{{ parts[1] | strip }}">{{ parts[0] | strip }} ({{ parts[2] | strip }})</option>{%- endfor -%}
           </select>
-          <button class="btn" type="button" data-go>Show me</button>
-        </div></div>
+        </div>
+        <div class="qnav"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn" type="button" data-go>Show me</button></div></div>
       <div class="qres" data-res hidden>
-        <div class="sec-head"><div><h2>Your shortlist</h2><p data-res-p></p></div></div>
+        <div class="sec-head"><div><h3>Your shortlist</h3><p data-res-p></p></div><button class="btn btn-ghost btn-sm" type="button" data-again>Start again</button></div>
         <div class="grid-p" data-res-grid></div>
-        <p class="small muted" style="margin-top:14px">Sizes are suggestions from the neck figure you gave. Every product page has the full table. Between sizes? Take the larger.</p>
+        <p class="small muted" style="margin-top:12px">Sizes are suggestions from the neck figure you gave. Every product page has the full table. Between sizes? Take the larger.</p>
       </div>
       {%- comment -%} product data for the quiz, never shown {%- endcomment -%}
       <script type="application/json" data-quiz-products>
@@ -67,6 +74,7 @@
 {
   "name": "Costume quiz",
   "settings": [
+    { "type": "checkbox", "id": "compact", "label": "Compact (homepage block)", "default": false },
     { "type": "text", "id": "kicker", "label": "Kicker", "default": "60 seconds" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Which costume for my cat?" },
     { "type": "text", "id": "intro", "label": "Intro", "default": "Three questions. You get the pieces your cat will actually wear, in the right size." },

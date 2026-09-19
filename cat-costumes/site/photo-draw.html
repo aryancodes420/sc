@@ -40,7 +40,7 @@
   </section>
   <section style="padding-top:10px">
     <div class="two">
-      <div class="panel"><h3>1 · Take the photo</h3><p style="margin:0">Any of the seven, on your cat. Face clear, in focus, and the cat looking like they own the place. Phone photos are fine.</p></div>
+      <div class="panel"><h3>1 · Take the photo</h3><p style="margin:0">Any of our pieces, on your cat. Face clear, in focus, and the cat looking like they own the place. Phone photos are fine.</p></div>
       <div class="panel"><h3>2 · Send it in</h3><p>Post it and tag <b data-handle></b> on Instagram or TikTok, <i>or</i> email it to <a data-email href="#"></a> with your cat's name and your county. Both routes count the same.</p><p class="small muted" style="margin:0">Entries close on the <span data-closes></span>.</p></div>
     </div>
   </section>
@@ -105,9 +105,7 @@
   document.querySelector("[data-closes]").textContent = DRAW.closes;
   document.querySelector("[data-email2]").textContent = DRAW.entryEmail;
   var em = document.querySelector("[data-email]"); em.textContent = DRAW.entryEmail; em.href = "mailto:" + DRAW.entryEmail + "?subject=Cat%20of%20the%20Month";
-  document.getElementById("winners").innerHTML = DRAW.winners.length
-    ? '<div class="winners">' + DRAW.winners.map(function(w){ return '<figure class="ugc"><img src="assets/img/' + w.image + '" alt="' + w.name + '" width="400" height="400"><figcaption>' + w.name + ' · ' + w.month + '</figcaption></figure>'; }).join("") + '</div>'
-    : '<div class="video-slot">No winners yet — the first round closes ' + DRAW.firstCloses + '. Your cat could be the first frame on this wall.</div>';
+  document.getElementById("winners").innerHTML = podium();
 </script>
 </body>
 </html>

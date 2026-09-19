@@ -1,10 +1,8 @@
 <div class="strip">
   <div class="wrap">
-    <ul>
+    <ul class="stats">
       {%- for block in section.blocks -%}
-        <li {{ block.shopify_attributes }}>
-          <span class="dot" style="background:{{ block.settings.colour }}"></span> {{ block.settings.text }}
-        </li>
+        <li {{ block.shopify_attributes }}><i>{{ block.settings.icon }}</i><span><b>{{ block.settings.text }}</b>{% if block.settings.sub != blank %}<small>{{ block.settings.sub }}</small>{% endif %}</span></li>
       {%- endfor -%}
     </ul>
   </div>
@@ -18,18 +16,18 @@
       "type": "item",
       "name": "Point",
       "settings": [
-        { "type": "text", "id": "text", "label": "Text", "default": "Free UK delivery over £30" },
-        { "type": "color", "id": "colour", "label": "Dot colour", "default": "#4ECDB4" }
+        { "type": "text", "id": "icon", "label": "Emoji", "default": "📦" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Free UK delivery" },
+        { "type": "text", "id": "sub", "label": "Small line", "default": "on orders over £30" }
       ]
     }
   ],
   "presets": [ {
     "name": "Trust strip",
     "blocks": [
-      { "type": "item", "settings": { "text": "Free UK delivery over £30", "colour": "#4ECDB4" } },
-      { "type": "item", "settings": { "text": "Sized for cats, not dogs", "colour": "#FF6B8A" } },
-      { "type": "item", "settings": { "text": "Faces and eyes always clear", "colour": "#FFD166" } },
-      { "type": "item", "settings": { "text": "30-day returns", "colour": "#B79CED" } }
+      { "type": "item", "settings": { "icon": "📦", "text": "Free UK delivery", "sub": "on orders over £30" } },
+      { "type": "item", "settings": { "icon": "↩️", "text": "30-day returns", "sub": "worn or not" } },
+      { "type": "item", "settings": { "icon": "🏷️", "text": "10% off your first order", "sub": "use code WELCOME10" } }
     ] } ]
 }
 {% endschema %}

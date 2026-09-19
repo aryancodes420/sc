@@ -232,10 +232,10 @@ const PRODUCTS = [
 ];
 
 const CATEGORIES = [
-  { id: "everyday",  label: "Everyday",  note: "Collars and bandanas, year-round", emoji: "🎀", tint: "#E4F5F0" },
-  { id: "halloween", label: "Halloween", note: "Lion, bat, spider, pumpkin",        emoji: "🎃", tint: "#FFE3EA" },
-  { id: "christmas", label: "Christmas", note: "Santa hat and scarf set",                       emoji: "🎄", tint: "#EDE7FF" },
-  { id: "bundle",    label: "Bundles",   note: "Cheaper together, genuinely",       emoji: "🎁", tint: "#FFF3D6" }
+  { id: "everyday",  label: "Everyday",  note: "Collars and bandanas, year-round", emoji: "🎀", tint: "#E4F5F0", image: "bow-tie-2.webp" },
+  { id: "halloween", label: "Halloween", note: "Lion, bat, spider, pumpkin",        emoji: "🎃", tint: "#FFE3EA", image: "lion-mane-3.webp" },
+  { id: "christmas", label: "Christmas", note: "Santa hat and scarf set",                       emoji: "🎄", tint: "#EDE7FF", image: "santa-2.webp" },
+  { id: "bundle",    label: "Bundles",   note: "Cheaper together, genuinely",       emoji: "🎁", tint: "#FFF3D6", image: "bat-cape-5.webp" }
 ];
 
 /* Fit guidance for a range where most things are collars, hats and short capes. */
@@ -264,6 +264,11 @@ const CONTACT = {
 };
 
 const DELIVERY = { min: 2, max: 4, cost: 3.95 };  /* working days, UK standard tracked */
+
+/* Homepage "Picture it on your cat" row: five phone frames. Add { src: "assets/video/x.mp4",
+   product: "lion-mane", caption: "Kingsley, Leeds" } once clips exist; empty entries show a
+   placeholder frame. */
+const HOME_VIDEOS = [];
 
 /* Optional nicknames (`alias`) show as a small tag under the title; the searchable product
    name stays the title. Change or blank them freely. */

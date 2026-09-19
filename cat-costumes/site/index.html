@@ -44,17 +44,20 @@
           <a class="btn btn-ghost" href="shop.html?cat=halloween">Halloween first</a>
         </div>
       </div>
-      <div class="heroart"><img src="assets/img/lion-mane-2.webp" alt="A ginger cat wearing a full lion mane" width="800" height="800"></div>
+      <div class="heroart">
+        <img src="assets/img/lion-mane-2.webp" alt="A ginger cat wearing a full lion mane" width="800" height="800">
+        <span class="hand">Seriously cute ♡</span>
+        <span class="sticker">Sized<br>for cats<br><small>faces always clear</small></span>
+      </div>
     </div>
   </section>
 
   <div class="strip">
     <div class="wrap">
-      <ul>
-        <li><span class="dot" style="background:#4ECDB4"></span> Free UK delivery over £30</li>
-        <li><span class="dot" style="background:#FF6B8A"></span> Sized for cats, not dogs</li>
-        <li><span class="dot" style="background:#FFD166"></span> Faces and eyes always clear</li>
-        <li><span class="dot" style="background:#B79CED"></span> 30-day returns, worn or not</li>
+      <ul class="stats">
+        <li><i>📦</i><span><b>Free UK delivery</b><small>on orders over £30</small></span></li>
+        <li><i>↩️</i><span><b>30-day returns</b><small>worn or not</small></span></li>
+        <li><i>🏷️</i><span><b>10% off your first order</b><small>use code WELCOME10</small></span></li>
       </ul>
     </div>
   </div>
@@ -65,7 +68,7 @@
         <div><h2>Pick your look</h2><p>Three seasons, one very well-dressed cat.</p></div>
         <a class="btn btn-ghost btn-sm" href="shop.html">See everything →</a>
       </div>
-      <div class="cats" id="cats"></div>
+      <div id="cats"></div>
     </div>
   </section>
 
@@ -75,6 +78,15 @@
         <div><h2>Everything we make</h2><p>All of it, in one row.</p></div>
       </div>
       <div class="grid-p" id="all"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><h2>Picture it on your cat</h2><p>Ten-second clips, phone-shot. Tap to play.</p></div>
+      </div>
+      <div id="videos"></div>
     </div>
   </section>
 
@@ -107,15 +119,14 @@
         <a class="btn btn-ghost btn-sm" href="photo-draw.html">Enter this month →</a>
       </div>
       <div id="ugc"></div>
+      <div id="podium" style="margin-top:24px" hidden></div>
     </div>
   </section>
 
   <section style="padding-top:0">
     <div class="wrap">
-      <div class="finder" style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-        <div><h2 style="margin-bottom:.2em">Not sure which one?</h2><p class="muted" style="margin:0">Three questions: occasion, what your cat will put up with, neck size. Sixty seconds.</p></div>
-        <a class="btn" href="quiz.html">Take the quiz</a>
-      </div>
+      <div class="sec-head"><div><h2>Which costume for my cat?</h2><p>Three questions: occasion, what your cat will put up with, neck size. Sixty seconds.</p></div></div>
+      <div class="quiz-home" id="homequiz"></div>
     </div>
   </section>
 
@@ -198,11 +209,10 @@
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
 <script>
-  document.getElementById("cats").innerHTML = CATEGORIES.map(function(c){
-    return '<a class="cat" href="shop.html?cat=' + c.id + '">' +
-      '<div class="ic" style="background:' + c.tint + '">' + c.emoji + '</div>' +
-      '<h3>' + c.label + '</h3><span>' + c.note + '</span></a>';
-  }).join("");
+  document.getElementById("cats").innerHTML = categoryCircles();
+  document.getElementById("videos").innerHTML = videoRow();
+  mountQuiz(document.getElementById("homequiz"), { scroll: false });
+  if(DRAW.winners.length){ var pd = document.getElementById("podium"); pd.hidden = false; pd.innerHTML = '<h3 style="text-align:center">Cat of the Month winners</h3>' + podium(); }
   orgJsonLd();
   var live = PRODUCTS.filter(function(p){ return !p.hold; });
   renderGrid(document.getElementById("all"), live.filter(function(p){ return p.cat !== "bundle"; }));

@@ -3,7 +3,7 @@
 A complete, standalone Shopify theme carrying the Catwalk Club design: its own `layout/`,
 `config/` and `locales/`, so it uploads to an empty store and works on its own.
 
-**Validated with Shopify's own `@shopify/theme-check`: 69 files, 0 offenses.**
+**Validated with Shopify's own `@shopify/theme-check`: 72 files, 0 offenses.**
 
 ---
 
@@ -26,8 +26,8 @@ Push as **unpublished** first and preview it before making it the live theme.
 | | |
 |---|---|
 | `layout/theme.liquid` | Document shell, fonts, skip link, structured data, sale ticker, first-order offer, chat button |
-| `sections/` | 31 sections — header, footer, announcement (with a genuine countdown), sale ticker, hero, trust strip, category tiles, featured products, save-by-bundling, your-cats-dressed (UGC wall), call-out band, FAQ (page or compact homepage block), recently viewed, why-fit, newsletter, first-order offer, About, costume quiz, sizes by breed, Cat of the Month, plus `main-*` for product, collection, cart, page, contact, track-order, blog, article, search and collection list, and the Fit & care page section |
-| `snippets/` | `product-card`, `breadcrumbs`, `structured-data` (JSON-LD), `chat-fab`, `catwalk-fonts` |
+| `sections/` | 34 sections — header, footer, announcement (with a genuine countdown), sale ticker (under the header), hero (with sticker and handwritten note), three-stat trust strip, category circles, product grid with quick add, phone-frame video row, winners podium, hero, trust strip, category tiles, featured products, save-by-bundling, your-cats-dressed (UGC wall), call-out band, FAQ (page or compact homepage block), recently viewed, why-fit, newsletter, first-order offer, About, costume quiz, sizes by breed, Cat of the Month, plus `main-*` for product, collection, cart, page, contact, track-order, blog, article, search and collection list, and the Fit & care page section |
+| `snippets/` | `product-card` (with quick add), `breadcrumbs`, `structured-data` (JSON-LD), `chat-fab`, `podium`, `catwalk-fonts` |
 | `templates/` | JSON templates for every page type, plus `404.liquid` |
 | `assets/catwalk.css` | The full design system (same file as the static site, plus theme-only rules) |
 | `assets/catwalk.js` | Gallery, wishlist, variant size notes, stock pill, sticky add-to-cart, delivery dates, offer pop-up, chat toggle, countdown, recently viewed, quiz, sizes by breed |
@@ -122,10 +122,15 @@ and on/off are in the *First-order offer* section in the editor.
 **7. Chat** — the "Help me choose" button links to WhatsApp (if a number is set) and the contact
 page. If you install **Shopify Inbox** instead, turn this button off in Theme settings.
 
-**8. Homepage blocks** — `index.json` already carries, in order: hero, trust strip, tiles, the
-seven, bundles, *Save by bundling* (point it at the bundles collection), *Your cats, dressed*
-(add real customer photos as blocks; empty frames show until then), the quiz call-out (set its
-link to the quiz page), fit & why, four compact FAQs, recently viewed, newsletter.
+**8. Homepage blocks** — `index.json` already carries, in order: hero (photo, sticker, note),
+three-stat trust strip, category circles (give each a photo, or it uses the collection image),
+everything we make (cards carry a quick **Add** for one-size products, **Pick size** for sized
+ones, **Notify** when sold out), *Picture it on your cat* (five phone frames: add clips as blocks,
+empty slots show dimmed product photos marked "video coming"), bundles, *Save by bundling*
+(point it at the bundles collection), *Your cats, dressed* (customer photos as blocks), the
+winners podium (hidden until a winner block exists), the quiz itself in compact mode (assign the
+seven products to its blocks), fit & why, four compact FAQs, recently viewed, newsletter.
+Payment icons render in the footer from the store's enabled payment methods.
 
 **9. Launch offer and the LED ticker** — *Theme settings → Launch offer* holds the deadline (one
 fixed moment, UK time), the label and the ticker on/off. Product cards and pages read Shopify's

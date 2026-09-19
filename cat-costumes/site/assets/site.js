@@ -141,7 +141,14 @@ function productCard(p){
     </a>
     <button class="wish" type="button" data-wish="${p.id}" aria-pressed="false"
       onclick="event.preventDefault();toast(toggleWish('${p.id}')?'Saved to wishlist':'Removed from wishlist');">&#9825;</button>
+    ${quickAdd(p)}
   </div>`;
+}
+/* Quick add: one-size products go straight in the basket; sized ones go to the size picker. */
+function quickAdd(p){
+  if(p.soldOut) return `<button class="qadd notify" type="button" onclick="toast('We\'ll email you when the ${esc(p.name)} is back — connect this to Shopify\'s back-in-stock app')">🔔 Notify</button>`;
+  if(Array.isArray(p.sizes) && p.sizes.length) return `<a class="qadd" href="product.html?id=${p.id}#sizes">Pick size</a>`;
+  return `<button class="qadd" type="button" onclick="addToCart('${p.id}',null,1);toast('${esc(p.name)} added')">🛒 Add</button>`;
 }
 const renderGrid = (el, list) => { el.innerHTML = list.map(productCard).join(""); paintWish(); };
 
@@ -173,6 +180,8 @@ function initChrome(){
   });
   const y = document.querySelector("[data-year]");
   if(y) y.textContent = new Date().getFullYear();
+  const lg = document.querySelector("footer .legal");
+  if(lg && !lg.querySelector(".payicons")) lg.insertAdjacentHTML("afterend", paymentIcons());
   const tb = document.querySelector(".topbar");
   if(tb) tb.innerHTML = 'Free UK delivery over <b>£' + FREE_SHIPPING_AT + '</b> &nbsp;·&nbsp; ' + countdownHTML();
   mountTicker();
@@ -184,7 +193,7 @@ function mountTicker(){
   const el = document.createElement("div"); el.className = "led"; el.setAttribute("role", "status"); el.setAttribute("aria-live", "off");
   const item = '<span class="led-item"><span class="led-label">' + SALE.ticker + '</span><span class="led-time" data-led></span><span class="led-sep">•</span></span>';
   el.innerHTML = '<div class="led-track">' + item.repeat(8) + '</div>';
-  const hdr = document.querySelector("header.site"); hdr ? hdr.parentNode.insertBefore(el, hdr) : document.body.prepend(el);
+  const hdr = document.querySelector("header.site"); hdr ? hdr.parentNode.insertBefore(el, hdr.nextSibling) : document.body.prepend(el);
   const pad = n => String(n).padStart(2, "0");
   const tick = () => {
     const ms = Math.max(0, new Date(SALE.ends) - new Date());
@@ -475,4 +484,81 @@ function ugcWall(){
                   : '<figure class="ugc empty"><span>🐾</span><figcaption>Your cat here</figcaption></figure>');
   }
   return '<div class="ugc-grid">' + frames.join("") + '</div>';
+}
+
+/* ================================================================ home blocks ==== */
+/* 4 · category circles with real product photos, scrolling sideways on a phone */
+function categoryCircles(){
+  return '<div class="catrow">' + CATEGORIES.map(c =>
+    '<a class="catc" href="shop.html?cat=' + c.id + '"><span class="ring" style="background:' + c.tint + '">' +
+    (c.image ? '<img src="' + IMG + c.image + '" alt="" width="200" height="200" loading="lazy">' : '<i>' + c.emoji + '</i>') +
+    '</span><b>' + esc(c.label) + '</b><span class="small muted">' + esc(c.note) + '</span></a>').join("") +
+    '<a class="catc" href="shop.html"><span class="ring all">All</span><b>Everything</b><span class="small muted">Costumes, collars, bundles</span></a></div>';
+}
+/* 6 · phone-frame video row; honest empty frames until clips exist */
+function videoRow(){
+  const frames = [];
+  for(let i = 0; i < 5; i++){
+    const v = HOME_VIDEOS[i];
+    if(v){
+      const p = v.product ? byId(v.product) : null;
+      frames.push('<figure class="phone"><video src="' + v.src + '" muted loop playsinline preload="metadata" controls></video>' +
+        '<figcaption>' + (p ? '<a href="product.html?id=' + p.id + '">' + esc(p.name) + '</a>' : '') + (v.caption ? ' · ' + esc(v.caption) : '') + '</figcaption></figure>');
+    } else {
+      const p = PRODUCTS.filter(x => !x.hold && x.cat !== "bundle")[i];
+      frames.push('<figure class="phone empty"><img src="' + IMG + p.images[1] + '" alt="" width="300" height="300" loading="lazy"><span class="play">▶</span><figcaption>' + esc(p.name) + ' · <em>video coming</em></figcaption></figure>');
+    }
+  }
+  return '<div class="phones">' + frames.join("") + '</div>';
+}
+/* 8 · winners podium: 1st centre, 2nd right, 3rd left */
+function podium(winners){
+  const w = winners || DRAW.winners;
+  if(!w.length) return '<div class="video-slot">No winners yet — the first round closes ' + esc(DRAW.firstCloses) + '. Your cat could be the first frame on this wall.</div>';
+  const slot = (x, place) => x ? '<figure class="pod p' + place + '"><span class="medal m' + place + '">♛ ' + place + '</span><img src="' + IMG + x.image + '" alt="' + esc(x.name) + '" width="400" height="400" loading="lazy"><figcaption><b>' + esc(x.name) + '</b><span class="small muted">' + esc(x.month) + '</span></figcaption></figure>' : '';
+  return '<div class="podium">' + slot(w[2], 3) + slot(w[0], 1) + slot(w[1], 2) + '</div>' +
+    (w.length > 3 ? '<div class="winners" style="margin-top:20px">' + w.slice(3).map(x => '<figure class="ugc"><img src="' + IMG + x.image + '" alt="' + esc(x.name) + '" width="400" height="400" loading="lazy"><figcaption>' + esc(x.name) + ' · ' + esc(x.month) + '</figcaption></figure>').join("") + '</div>' : '');
+}
+/* 7 · the quiz as a stepped block (used on the homepage and the quiz page) */
+function mountQuiz(host, opts){
+  opts = opts || {};
+  const st = { occ: null, wear: null, step: 1 };
+  const breedOpts = BREEDS.map(b => '<option value="' + b.mid + '">' + esc(b.name) + ' (' + b.range + ')</option>').join("");
+  host.innerHTML =
+    '<div class="qstep" data-step="1"><p class="small muted" style="margin:0">1 of 3</p><h3>What\'s the occasion?</h3>' +
+      '<div class="qradios" data-q="occ">' +
+        '<label><input type="radio" name="' + host.id + '-occ" value="halloween"><span>🎃 Halloween <small>lion, bat, spider, pumpkin</small></span></label>' +
+        '<label><input type="radio" name="' + host.id + '-occ" value="christmas"><span>🎄 Christmas <small>the Santa set</small></span></label>' +
+        '<label><input type="radio" name="' + host.id + '-occ" value="everyday"><span>🎀 Everyday <small>collars that stay on</small></span></label>' +
+        '<label><input type="radio" name="' + host.id + '-occ" value="gift"><span>🎁 A gift <small>safe bets for someone else\'s cat</small></span></label>' +
+      '</div><div class="qnav"><button class="btn" type="button" data-next>Next</button></div></div>' +
+    '<div class="qstep" data-step="2" hidden><p class="small muted" style="margin:0">2 of 3</p><h3>What will your cat put up with?</h3>' +
+      '<div class="qradios" data-q="wear">' +
+        '<label><input type="radio" name="' + host.id + '-wear" value="1"><span>A collar, and that\'s it <small>nothing on the head or body</small></span></label>' +
+        '<label><input type="radio" name="' + host.id + '-wear" value="2"><span>A collar and a hat <small>something on the head for a photo is fine</small></span></label>' +
+        '<label><input type="radio" name="' + host.id + '-wear" value="3"><span>Anything, honestly <small>capes, legs, the lot</small></span></label>' +
+      '</div><div class="qnav"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn" type="button" data-next>Next</button></div></div>' +
+    '<div class="qstep" data-step="3" hidden><p class="small muted" style="margin:0">3 of 3</p><h3>How big is their neck?</h3>' +
+      '<p class="small muted">Wrap a soft tape where a collar sits and add two fingers. Or pick the breed for a typical figure.</p>' +
+      '<div class="qneck"><input type="number" data-neck min="10" max="60" step="1" placeholder="cm" aria-label="Neck in cm"><span class="muted small">or</span>' +
+      '<select data-breed aria-label="Breed"><option value="">Pick a breed…</option>' + breedOpts + '</select></div>' +
+      '<div class="qnav"><button class="btn btn-ghost" type="button" data-back>Back</button><button class="btn" type="button" data-go>Show me</button></div></div>' +
+    '<div class="qres" data-res hidden><div class="sec-head"><div><h3>Your shortlist</h3><p data-res-p></p></div><button class="btn btn-ghost btn-sm" type="button" data-again>Start again</button></div>' +
+      '<div class="grid-p" data-res-grid></div><p class="small muted" style="margin-top:12px">Sizes are suggestions from the neck figure you gave. Between sizes? Take the larger.</p></div>';
+  const show = n => { st.step = n; host.querySelectorAll(".qstep").forEach(el => el.hidden = +el.dataset.step !== n); host.querySelector("[data-res]").hidden = true; };
+  host.addEventListener("change", e => { const r = e.target.closest("input[type=radio]"); if(r) st[r.closest("[data-q]").dataset.q] = r.value; if(e.target.matches("[data-breed]") && e.target.value) host.querySelector("[data-neck]").value = e.target.value; });
+  host.addEventListener("click", e => {
+    if(e.target.closest("[data-next]")){ if(st.step === 1 && !st.occ) return toast("Pick an occasion"); if(st.step === 2 && !st.wear) return toast("Pick what your cat will wear"); show(st.step + 1); }
+    if(e.target.closest("[data-back]")) show(st.step - 1);
+    if(e.target.closest("[data-again]")) { st.occ = st.wear = null; host.querySelectorAll("input[type=radio]").forEach(r => r.checked = false); show(1); }
+    if(e.target.closest("[data-go]")){
+      const neck = parseFloat(host.querySelector("[data-neck]").value) || 0;
+      const rs = quizResults(st.occ, parseInt(st.wear, 10), neck);
+      host.querySelectorAll(".qstep").forEach(el => el.hidden = true);
+      const res = host.querySelector("[data-res]"); res.hidden = false;
+      host.querySelector("[data-res-p]").textContent = rs.length ? (neck ? "Sized for a " + neck + "cm neck." : "Add a neck measurement and we'll size each one.") : "";
+      host.querySelector("[data-res-grid]").innerHTML = rs.length ? rs.map(resultCard).join("") : '<p class="muted">Nothing suits that combination yet — the collars fit almost every cat: <a href="product.html?id=bow-tie-collar">Bow Tie Collar</a>.</p>';
+      paintWish(); if(opts.scroll !== false) res.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
 }

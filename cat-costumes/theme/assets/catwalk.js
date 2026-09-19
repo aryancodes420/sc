@@ -202,29 +202,35 @@ function sizeFor(sizes, neck){
 }
 const cardHTML = (p, line) => '<div class="pcard-wrap"><a class="pcard" href="' + p.url + '"><div class="art">' + (p.image ? '<img src="' + p.image + '" alt="" width="600" height="600" loading="lazy">' : '<div data-cat-art="' + p.handle + '"></div>') +
   '</div><div class="body"><h3>' + p.title + '</h3><p class="blurb">' + line + '</p><span class="price">' + p.price + '</span></div></a></div>';
-/* the quiz */
+/* the quiz — stepped: occasion → tolerance → neck (or breed) */
 function wireQuiz(root){
-  const q = (root || document).querySelector("[data-quiz]"); if(!q) return;
-  let products = []; try{ products = JSON.parse(q.querySelector("[data-quiz-products]").textContent); }catch(e){}
-  const st = { occ: null, wear: null };
-  q.querySelectorAll("[data-q]").forEach(g => g.addEventListener("click", e => {
-    const b = e.target.closest(".qopt"); if(!b) return; st[g.dataset.q] = b.dataset.v;
-    g.querySelectorAll(".qopt").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  }));
-  const neckEl = q.querySelector("[data-neck]"), breed = q.querySelector("[data-breed]");
-  if(breed) breed.addEventListener("change", () => { if(breed.value) neckEl.value = breed.value; });
-  q.querySelector("[data-go]").addEventListener("click", () => {
-    if(!st.occ || !st.wear){ toast("Pick an occasion and what your cat will wear"); return; }
-    const neck = parseFloat(neckEl.value) || 0, wear = parseInt(st.wear, 10);
-    let list = products.filter(p => parseInt(p.wear, 10) <= wear);
-    const byOcc = list.filter(p => (p.occasions || "").split(",").map(s => s.trim()).indexOf(st.occ) >= 0);
-    if(byOcc.length) list = byOcc;
-    const rs = list.map(p => ({ p, size: neck ? sizeFor(p.sizes, neck) : null })).filter(r => !r.size || r.size.ok);
-    const res = q.querySelector("[data-res]"); res.hidden = false;
-    q.querySelector("[data-res-p]").textContent = rs.length ? (neck ? "Sized for a " + neck + "cm neck." : "Add a neck measurement and we'll size each one.") : "";
-    q.querySelector("[data-res-grid]").innerHTML = rs.length ? rs.map(r => cardHTML(r.p, r.size ? "<b>" + (r.size.label === "One size" ? "One size — adjusts" : "Size " + r.size.label) + "</b>" + (r.size.neck && r.size.label !== "One size" ? " · " + r.size.neck : "") : "")).join("")
-      : '<p class="muted">Nothing suits that combination yet — the collars fit almost every cat.</p>';
-    hydrateArt(res); res.scrollIntoView({ behavior: "smooth", block: "start" });
+  (root || document).querySelectorAll("[data-quiz]").forEach(q => {
+    if(q.dataset.wired) return; q.dataset.wired = "1";
+    let products = []; try{ products = JSON.parse(q.querySelector("[data-quiz-products]").textContent); }catch(e){}
+    const st = { occ: null, wear: null, step: 1 };
+    const show = n => { st.step = n; q.querySelectorAll(".qstep").forEach(el => el.hidden = +el.dataset.step !== n); q.querySelector("[data-res]").hidden = true; };
+    q.addEventListener("change", e => {
+      const r = e.target.closest("input[type=radio]"); if(r) st[r.closest("[data-q]").dataset.q] = r.value;
+      if(e.target.matches("[data-breed]") && e.target.value) q.querySelector("[data-neck]").value = e.target.value;
+    });
+    q.addEventListener("click", e => {
+      if(e.target.closest("[data-next]")){ if(st.step === 1 && !st.occ) return toast("Pick an occasion"); if(st.step === 2 && !st.wear) return toast("Pick what your cat will wear"); show(st.step + 1); }
+      if(e.target.closest("[data-back]")) show(st.step - 1);
+      if(e.target.closest("[data-again]")){ st.occ = st.wear = null; q.querySelectorAll("input[type=radio]").forEach(r => r.checked = false); show(1); }
+      if(e.target.closest("[data-go]")){
+        const neck = parseFloat(q.querySelector("[data-neck]").value) || 0, wear = parseInt(st.wear, 10);
+        let list = products.filter(p => parseInt(p.wear, 10) <= wear);
+        const byOcc = list.filter(p => (p.occasions || "").split(",").map(s => s.trim()).indexOf(st.occ) >= 0);
+        if(byOcc.length) list = byOcc;
+        const rs = list.map(p => ({ p, size: neck ? sizeFor(p.sizes, neck) : null })).filter(r => !r.size || r.size.ok);
+        q.querySelectorAll(".qstep").forEach(el => el.hidden = true);
+        const res = q.querySelector("[data-res]"); res.hidden = false;
+        q.querySelector("[data-res-p]").textContent = rs.length ? (neck ? "Sized for a " + neck + "cm neck." : "Add a neck measurement and we'll size each one.") : "";
+        q.querySelector("[data-res-grid]").innerHTML = rs.length ? rs.map(r => cardHTML(r.p, r.size ? "<b>" + (r.size.label === "One size" ? "One size — adjusts" : "Size " + r.size.label) + "</b>" + (r.size.neck && r.size.label !== "One size" ? " · " + r.size.neck : "") : "")).join("")
+          : '<p class="muted">Nothing suits that combination yet — the collars fit almost every cat.</p>';
+        hydrateArt(res); if(!q.classList.contains("quiz-home")) res.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
   });
 }
 /* sizes by breed */
