@@ -36,7 +36,7 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [ ] **Homepage:** point *Save by bundling* at the bundles collection and the quiz call-out at the quiz page; leave *Your cats, dressed* empty until real customer photos exist.
 - [ ] **Announcement bar:** confirm the order-by date (14 Oct) matches what the supplier lead time actually allows once stock is in.
 - [ ] **Launch offer:** set the deadline under Theme settings → Launch offer (same moment for everyone). The red LED ticker and the "until" line on product pages run off it and vanish when it passes.
-- [ ] **When the offer ends:** on every variant set Price to the regular price and clear Compare-at. Do it the same day the ticker hits zero — a strike-through left up after the deadline is the thing the CMA fines.
+- [ ] **When the offer ends (manual, nothing automatic):** turn the ticker off in Theme settings, then on every variant set Price to the regular price and clear Compare-at. Do it the same day the ticker hits zero — a strike-through left up after the deadline is the thing the CMA fines.
 - [ ] **Theme settings → Contact & chat:** contact email, WhatsApp number if you want the WhatsApp button, hours. Point the contact and size-guide links at the pages above.
 - [ ] Publish the theme when the products are in.
 
@@ -91,11 +91,13 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 ## The seven — launch offer and regular prices
 
 The store opens on a **launch offer** with one fixed deadline (`SALE.ends` in `data.js`,
-*Theme settings → Launch offer* on Shopify; currently **22 Sept 2026, 23:59 UK**). Until then the
-launch price is charged and the regular price shows crossed out with the saving. After it, the
-regular price is charged: the static site switches by itself; on Shopify you set Price to the
-regular figure and clear Compare-at. **The regular price has to be what you actually charge
-afterwards** — that is what makes the strike-through true.
+*Theme settings → Launch offer* on Shopify; currently **22 Sept 2026, 23:59 UK**). While it runs
+the launch price is charged and the regular price shows crossed out with the saving. **Nothing
+switches by itself.** When the ticker reaches zero it sits at 00D 00H 00M 00S until you end the
+offer by hand: set `SALE.active` to `false` and move each `price` to its `list` figure in
+`data.js`; on Shopify turn the ticker off, set each Price to the regular figure and clear
+Compare-at. **The regular price has to be what you actually charge afterwards** — that is what
+makes the strike-through true.
 
 | Product | Launch price | Regular price | Saving | Sizes | Collection |
 |---|---|---|---|---|---|

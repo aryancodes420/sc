@@ -4,9 +4,9 @@
    the listing page can confirm is under `confirm` — it is never shown to customers.
 
    `sizes` is present only where the listing sells sizes; the value is what the customer
-   picks. `price` is the launch-offer price (set 18 Sep 2026 against UK competitor anchors,
-   see ../sourcing.md); `list` is the regular price charged from the moment SALE.ends passes —
-   the site switches to it automatically, so the crossed-out figure is always a real price.
+   picks. `price` is what is charged now (launch-offer prices, set 18 Sep 2026 against UK
+   competitor anchors, see ../sourcing.md); `list` is the regular price shown crossed out while
+   SALE.active is true, and the figure to move `price` to when the offer ends.
    `source` is the supplier record and is never rendered. Items with `hold: true` are not shown. */
 
 const PRODUCTS = [
@@ -248,10 +248,11 @@ const FIT_GUIDE = {
 
 const FREE_SHIPPING_AT = 30;
 
-/* Launch offer. One fixed deadline for everyone (UK time). While it runs, `price` is charged
-   and `list` is shown crossed out with the saving. After it, `list` is charged and the
-   strike-through and the header ticker disappear on their own. Change the date here. */
-const SALE = { label: "Launch offer", ends: "2026-09-22T23:59:59+01:00", ticker: "Sale ends in" };
+/* Launch offer — fully manual. `active: true` shows the crossed-out `list` price, the saving,
+   the "until" line and the LED ticker; `active: false` removes all of it. Nothing switches by
+   itself: when the offer ends, set `active` to false and raise each `price` to its `list`
+   figure in the same edit. The ticker counts to `ends` and then sits at zero until you do. */
+const SALE = { active: true, label: "Launch offer", ends: "2026-09-22T23:59:59+01:00", ticker: "Sale ends in" };
 
 /* Contact details shown on the Contact page, the chat button and in structured data.
    Placeholders until the domain and a WhatsApp Business number exist. */

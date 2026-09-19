@@ -54,7 +54,7 @@ products. The site and the Shopify theme are built around exactly these.
 | **Santa Hat & Scarf Set** | £17.99 | £21.49 | £10.96 | £7.03 | 39% | One size |
 
 The launch price runs to a fixed deadline (22 Sept 2026, 23:59 UK) with the regular price shown
-crossed out; the regular price is charged from then on. See `LAUNCH-CHECKLIST.md`.
+crossed out. Ending the offer is a manual step (see `LAUNCH-CHECKLIST.md`); nothing changes by itself.
 
 Bundles:
 - **Halloween Pair** — £23.99 (components £25.98, saves £1.99)

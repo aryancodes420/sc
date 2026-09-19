@@ -241,19 +241,19 @@ document.addEventListener("DOMContentLoaded", () => { wireCountdown(); recordRec
 document.addEventListener("shopify:section:load", e => { paintRecent(e.target); wireQuiz(e.target); wireBreeds(e.target); });
 
 /* ================================================================ launch offer ==== */
-/* LED ticker to one fixed deadline; removed (with the "until" line) once it passes. */
+/* LED ticker to one fixed deadline. Sits at zero when it passes — nothing is removed or changed
+   automatically; switch it off under Theme settings → Launch offer and update the prices. */
 function wireTicker(){
   const el = document.querySelector("[data-led-bar]"); if(!el) return;
   const end = new Date(el.dataset.deadline); if(isNaN(end)) return;
   const pad = n => String(n).padStart(2, "0");
   const tick = () => {
-    const ms = end - new Date();
-    if(ms <= 0){ el.remove(); document.querySelectorAll("[data-launchline]").forEach(x => x.remove()); return; }
+    const ms = Math.max(0, end - new Date());
     el.hidden = false;
     const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
     const t = pad(d) + "D " + pad(h) + "H " + pad(m) + "M " + pad(s) + "S";
     el.querySelectorAll("[data-led]").forEach(x => x.textContent = t);
-    setTimeout(tick, 1000 - (Date.now() % 1000));
+    if(ms > 0) setTimeout(tick, 1000 - (Date.now() % 1000));
   };
   tick();
 }

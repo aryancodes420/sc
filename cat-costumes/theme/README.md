@@ -130,9 +130,9 @@ link to the quiz page), fit & why, four compact FAQs, recently viewed, newslette
 fixed moment, UK time), the label and the ticker on/off. Product cards and pages read Shopify's
 own Compare-at price: set **Price = launch price, Compare-at = regular price** and the theme shows
 the red price, the crossed-out regular price, a "Save N%" tag and "Launch offer: £9.99 until Tue
-22 Sep, then £11.99". The header ticker reads "SALE ENDS IN 03D 10H 19M 01S" and removes itself
-when the deadline passes. **After the deadline, set Price to the regular figure and clear
-Compare-at** — the regular price must be what you then charge.
+22 Sep, then £11.99". The header ticker reads "SALE ENDS IN 03D 10H 19M 01S" and sits at zero once the
+deadline passes — nothing switches on its own. **When the offer ends, turn the ticker off, set
+Price to the regular figure and clear Compare-at** — the regular price must be what you then charge.
 
 **10. Announcement countdown** — real dates in the section settings (order-by 14 Oct, event
 31 Oct). The bar counts down to the order-by date, changes wording after it, and drops to the

@@ -34,9 +34,9 @@ function productImg(p, i, cls){
 /* ----------------------------------------------------------------- misc --- */
 const money = n => "£" + n.toFixed(2);
 
-/* ----- launch offer: price now, regular price after the deadline ----- */
-const saleActive = () => new Date() < new Date(SALE.ends);
-const currentPrice = p => (saleActive() || !p.list) ? p.price : p.list;
+/* ----- launch offer: manual switch (SALE.active); the site never changes a price by itself ----- */
+const saleActive = () => SALE.active === true;
+const currentPrice = p => p.price;
 const savePct = p => (saleActive() && p.list > p.price) ? Math.round((1 - p.price / p.list) * 100) : 0;
 const saleEndsText = () => new Date(SALE.ends).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
 function priceHTML(p){
@@ -178,7 +178,7 @@ function initChrome(){
   mountTicker();
 }
 
-/* ----- LED sale ticker: one fixed deadline for every visitor; gone when it passes ----- */
+/* ----- LED sale ticker: one fixed deadline for every visitor; sits at zero until SALE.active is switched off ----- */
 function mountTicker(){
   if(!saleActive() || document.querySelector(".led")) return;
   const el = document.createElement("div"); el.className = "led"; el.setAttribute("role", "status"); el.setAttribute("aria-live", "off");
@@ -187,12 +187,11 @@ function mountTicker(){
   const hdr = document.querySelector("header.site"); hdr ? hdr.parentNode.insertBefore(el, hdr) : document.body.prepend(el);
   const pad = n => String(n).padStart(2, "0");
   const tick = () => {
-    const ms = new Date(SALE.ends) - new Date();
-    if(ms <= 0){ el.remove(); document.querySelectorAll(".price.sale").forEach(x => { x.classList.remove("sale"); }); return; }
+    const ms = Math.max(0, new Date(SALE.ends) - new Date());
     const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, sec = Math.floor(ms / 1e3) % 60;
     const t = pad(d) + "D " + pad(h) + "H " + pad(m) + "M " + pad(sec) + "S";
     el.querySelectorAll("[data-led]").forEach(x => x.textContent = t);
-    setTimeout(tick, 1000 - (Date.now() % 1000));
+    if(ms > 0) setTimeout(tick, 1000 - (Date.now() % 1000));
   };
   tick();
 }

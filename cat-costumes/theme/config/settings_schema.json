@@ -150,7 +150,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "How it works: set each product's Compare-at price to its regular price and Price to the launch price. The theme shows the crossed-out regular price and the saving. When the deadline passes, set Price to the regular price and clear Compare-at — the regular price must be what you actually charge afterwards."
+        "content": "How it works: set each product's Compare-at price to its regular price and Price to the launch price. The theme shows the crossed-out regular price and the saving. Nothing switches by itself: when the offer ends, turn the ticker off here, set each Price to the regular figure and clear Compare-at, all in the same sitting."
       },
       {
         "type": "text",
@@ -163,7 +163,7 @@
         "id": "sale_ends",
         "label": "Deadline (YYYY-MM-DDTHH:MM:SS+01:00, UK time)",
         "default": "2026-09-22T23:59:59+01:00",
-        "info": "One fixed moment for every visitor. The ticker and the 'until' line disappear when it passes."
+        "info": "One fixed moment for every visitor. The ticker counts to it and then sits at zero until you turn it off."
       },
       {
         "type": "checkbox",
