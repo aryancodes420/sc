@@ -209,7 +209,7 @@
   renderGrid(document.getElementById("all"), live.filter(function(p){ return p.cat !== "bundle"; }));
   renderGrid(document.getElementById("bundles"), live.filter(function(p){ return p.cat === "bundle"; }));
   document.getElementById("savelist").innerHTML = live.filter(function(p){ return p.cat === "bundle"; }).map(function(b){
-    return '<li><span><b>' + b.name + '</b><br><span class="small">' + b.contains.map(function(id){ return byId(id).name; }).join(" + ") + '</span></span><span><b>' + money(b.price) + '</b> <span class="tag">Save ' + money(b.was - b.price) + '</span></span></li>';
+    return '<li><span><b>' + b.name + '</b><br><span class="small">' + b.contains.map(function(id){ return byId(id).name; }).join(" + ") + '</span></span><span><b>' + money(currentPrice(b)) + '</b> <span class="tag">Save ' + money(bundleSaving(b)) + '</span></span></li>';
   }).join("");
   document.getElementById("ugc").innerHTML = ugcWall();
   mountRecent(document.getElementById("recent"));

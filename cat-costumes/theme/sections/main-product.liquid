@@ -62,10 +62,12 @@
       {%- endif -%}
     </a>
     <div class="headrow">
-      <p class="price" style="font-size:1.7rem;margin:0" id="price">
-        {{ cv.price | money }}
-        {%- if cv.compare_at_price > cv.price -%}<s>{{ cv.compare_at_price | money }}</s>{%- endif -%}
-      </p>
+      {%- if cv.compare_at_price > cv.price -%}
+        {%- assign pct = cv.compare_at_price | minus: cv.price | times: 100.0 | divided_by: cv.compare_at_price | round -%}
+        <p class="price sale" style="font-size:1.7rem;margin:0" id="price"><span class="now">{{ cv.price | money }}</span><s>{{ cv.compare_at_price | money }}</s><em class="off">Save {{ pct }}%</em></p>
+      {%- else -%}
+        <p class="price" style="font-size:1.7rem;margin:0" id="price"><span class="now">{{ cv.price | money }}</span></p>
+      {%- endif -%}
       <span class="stockpill" data-stock-pill data-low="{{ low }}">
         <i></i>
         {%- if cv.available -%}
@@ -74,6 +76,9 @@
         {%- else -%}Sold out{%- endif -%}
       </span>
     </div>
+    {%- if cv.compare_at_price > cv.price and settings.sale_ends != blank -%}
+      <p class="launchline" data-launchline data-deadline="{{ settings.sale_ends }}">{{ settings.sale_label }}: <span data-ll-price>{{ cv.price | money }}</span> until {{ settings.sale_ends | date: '%a %-d %b' }}, then <span data-ll-list>{{ cv.compare_at_price | money }}</span>.</p>
+    {%- endif -%}
     {%- if product.metafields.custom.blurb != blank -%}<p class="muted" style="font-size:1.08rem;margin-top:.5em">{{ product.metafields.custom.blurb }}</p>{%- endif -%}
     {%- if product.metafields.custom.ticks != blank -%}
       <ul class="ticks">{%- for t in product.metafields.custom.ticks.value -%}<li>{{ t }}</li>{%- endfor -%}</ul>
@@ -90,7 +95,8 @@
           {%- for variant in product.variants -%}
             <button type="button" class="szbtn" data-variant="{{ variant.id }}"
                     data-available="{{ variant.available }}" data-qty="{% if variant.inventory_management == 'shopify' %}{{ variant.inventory_quantity }}{% endif %}"
-                    data-price="{{ variant.price | money }}"
+                    data-price="{{ variant.price | money }}" data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
+                    data-pct="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round }}{% endif %}"
                     aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
                     {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
           {%- endfor -%}
@@ -312,7 +318,11 @@
           var q = parseInt(b.dataset.qty, 10), low = parseInt(pill.dataset.low, 10) || 5, avail = b.dataset.available === "true";
           pill.innerHTML = "<i></i>" + (!avail ? "Sold out" : (q > 0 && q <= low) ? "Only " + q + " left" : "In stock");
         }
-        if(price && b.dataset.price) price.firstChild.textContent = " " + b.dataset.price + " ";
+        if(price && b.dataset.price){
+          price.innerHTML = '<span class="now">' + b.dataset.price + '</span>' + (b.dataset.compare ? '<s>' + b.dataset.compare + '</s><em class="off">Save ' + b.dataset.pct + '%</em>' : '');
+          price.classList.toggle("sale", !!b.dataset.compare);
+          var ll = document.querySelector("[data-launchline]"); if(ll){ ll.hidden = !b.dataset.compare; var a = ll.querySelector("[data-ll-price]"), c = ll.querySelector("[data-ll-list]"); if(a) a.textContent = b.dataset.price; if(c) c.textContent = b.dataset.compare; }
+        }
         if(sp && b.dataset.price) sp.textContent = b.dataset.price;
         if(ss) ss.textContent = "Size " + b.textContent.trim();
       }

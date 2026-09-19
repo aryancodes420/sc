@@ -35,13 +35,15 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [ ] **Size collections:** automated *Fits S / Fits M / Fits L* (variant title equals S/M/L) and *One size* (tag `one-size`); they appear as shop filters automatically.
 - [ ] **Homepage:** point *Save by bundling* at the bundles collection and the quiz call-out at the quiz page; leave *Your cats, dressed* empty until real customer photos exist.
 - [ ] **Announcement bar:** confirm the order-by date (14 Oct) matches what the supplier lead time actually allows once stock is in.
+- [ ] **Launch offer:** set the deadline under Theme settings → Launch offer (same moment for everyone). The red LED ticker and the "until" line on product pages run off it and vanish when it passes.
+- [ ] **When the offer ends:** on every variant set Price to the regular price and clear Compare-at. Do it the same day the ticker hits zero — a strike-through left up after the deadline is the thing the CMA fines.
 - [ ] **Theme settings → Contact & chat:** contact email, WhatsApp number if you want the WhatsApp button, hours. Point the contact and size-guide links at the pages above.
 - [ ] Publish the theme when the products are in.
 
 ## D · Products — the seven
 
 - [x] Catalogue, specs, sizes, care, in-the-box and 42 photos are all in `site/assets/data.js` and `site/assets/img/`.
-- [ ] Create the seven products. For each: title, blurb → description, **variants** (option `Size`: S/M/L, or S/M) with the launch prices, upload its six photos, set inventory tracking on.
+- [ ] Create the seven products. For each: title, blurb → description, **variants** (option `Size`: S/M/L, or S/M) with **Price = launch price and Compare-at = regular price** (table below), upload its six photos, set inventory tracking on.
 - [ ] Metafields (namespace `custom`): `fit`, `blurb`, `ticks` (list), `for_me_if` (list), `alias` (optional nickname), `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `badge`, `badge_uk` (bandana only). Values are all in `data.js` (`ticks`, `forMeIf`, `alias`).
 - [ ] Cross-sell metafields: on each product, `bundles` → the bundle products it sits in; on each bundle, `contains` → its two components. That is what draws the "Cheaper together" cards with the saving.
 - [ ] Assign each product to its collection.
@@ -86,23 +88,34 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 ---
 
-## The seven — products and prices
+## The seven — launch offer and regular prices
 
-| Product | Price | Sizes | Collection |
-|---|---|---|---|
-| Bow Tie Collar | £8.99 | adjustable | Everyday |
-| Bandana Collar *(UK stock)* | £7.99 | S / M / L | Everyday |
-| Lion Mane | £9.99 | S / M / L | Halloween |
-| Devil Bat Cape | £12.99 | S / M / L | Halloween |
-| Spider Costume | £12.99 | S / M | Halloween |
-| Pumpkin Hat & Ruffle Collar | £11.99 | one size | Halloween |
-| Santa Hat & Scarf Set | £17.99 | one size | Christmas |
+The store opens on a **launch offer** with one fixed deadline (`SALE.ends` in `data.js`,
+*Theme settings → Launch offer* on Shopify; currently **22 Sept 2026, 23:59 UK**). Until then the
+launch price is charged and the regular price shows crossed out with the saving. After it, the
+regular price is charged: the static site switches by itself; on Shopify you set Price to the
+regular figure and clear Compare-at. **The regular price has to be what you actually charge
+afterwards** — that is what makes the strike-through true.
+
+| Product | Launch price | Regular price | Saving | Sizes | Collection |
+|---|---|---|---|---|---|
+| Bow Tie Collar | £8.99 | £10.99 | 18% | adjustable | Everyday |
+| Bandana Collar *(UK stock)* | £7.99 | £9.49 | 16% | S / M / L | Everyday |
+| Lion Mane | £9.99 | £11.99 | 17% | S / M / L | Halloween |
+| Devil Bat Cape | £12.99 | £15.49 | 16% | S / M / L | Halloween |
+| Spider Costume | £12.99 | £15.49 | 16% | S / M | Halloween |
+| Pumpkin Hat & Ruffle Collar | £11.99 | £14.49 | 17% | one size | Halloween |
+| Santa Hat & Scarf Set | £17.99 | £21.49 | 16% | one size | Christmas |
+
+On Shopify: **Price = launch price, Compare-at price = regular price**, on every variant.
 
 ## The four bundles
 
-| Bundle | Contents | Price | Saves |
-|---|---|---|---|
-| Halloween Pair | Devil Bat Cape + Spider Costume | £23.99 | £1.99 |
-| Pumpkin Patch | Pumpkin Hat & Ruffle Collar + Bow Tie Collar | £18.99 | £1.99 |
-| First Costume Kit | Bow Tie Collar + Bandana Collar | £14.99 | £1.99 |
-| Festive Pair | Santa Hat & Scarf Set + Bow Tie Collar | £24.99 | £1.99 |
+| Bundle | Contents | Launch price | Regular price | Saving | vs buying separately |
+|---|---|---|---|---|---|
+| Halloween Pair | Devil Bat Cape + Spider Costume | £23.99 | £28.99 | 17% | £1.99 |
+| Pumpkin Patch | Pumpkin Hat & Ruffle Collar + Bow Tie Collar | £18.99 | £23.49 | 19% | £1.99 |
+| First Costume Kit | Bow Tie Collar + Bandana Collar | £14.99 | £18.49 | 19% | £1.99 |
+| Festive Pair | Santa Hat & Scarf Set + Bow Tie Collar | £24.99 | £30.49 | 18% | £1.99 |
+
+Each bundle stays £1.99 cheaper than its two pieces both during and after the offer.

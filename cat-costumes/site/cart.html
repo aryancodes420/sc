@@ -98,7 +98,7 @@
           '<button class="linkbtn" data-rm="' + i + '" type="button">Remove</button></div>' +
         '<div style="text-align:right"><div class="qty" style="margin-bottom:.4em">' +
           '<button type="button" data-dec="' + i + '" aria-label="Decrease">−</button><span>' + l.qty + '</span>' +
-          '<button type="button" data-inc="' + i + '" aria-label="Increase">+</button></div><b>' + money(p.price * l.qty) + '</b></div></div>';
+          '<button type="button" data-inc="' + i + '" aria-label="Increase">+</button></div><b>' + money(currentPrice(p) * l.qty) + '</b></div></div>';
     }).join("");
     document.getElementById("co").onclick = function(){ toast("Checkout needs a payment provider — see the README"); };
   }

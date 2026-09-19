@@ -92,7 +92,8 @@
         '<h1 style="margin-bottom:.15em">' + p.name + '</h1>' +
         aliasTag(p) +
         ratingLine(p.id) +
-        '<div class="headrow"><p class="price" style="font-size:1.7rem;margin:0">' + money(p.price) + (p.was ? '<s>' + money(p.was) + '</s>' : '') + '</p>' + stockPill(p) + '</div>' +
+        '<div class="headrow"><p class="price ' + (savePct(p) ? "sale" : "") + '" style="font-size:1.7rem;margin:0">' + priceHTML(p) + '</p>' + stockPill(p) + '</div>' +
+        (savePct(p) ? '<p class="launchline">' + SALE.label + ': ' + money(p.price) + ' until ' + saleEndsText() + ', then ' + money(p.list) + '.</p>' : '') +
         '<p class="muted" style="font-size:1.08rem;margin-top:.5em">' + p.blurb + '</p>' +
         tickList(p) +
         '<p><span class="fitline">⇔ ' + p.fit + '</span></p>' +

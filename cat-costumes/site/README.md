@@ -68,7 +68,7 @@ supplier's shots has their own text baked in.
 | `faq.html` | Ten questions for this range |
 | `wishlist.html` | Saved items (per-browser) |
 
-On every page: a genuine Halloween countdown in the top bar (order-by 14 Oct, gone after the dates pass), a "10% off your first order" tab with a one-time pop-up (code `WELCOME10`, demo until the discount exists on Shopify) and a "Help me choose" chat button (WhatsApp when `CONTACT.whatsapp` is set, otherwise the contact page).
+On every page: a red LED "Sale ends in" ticker to the launch-offer deadline (`SALE.ends`; prices switch to `list` and the ticker disappears when it passes), a genuine Halloween countdown in the top bar (order-by 14 Oct, gone after the dates pass), a "10% off your first order" tab with a one-time pop-up (code `WELCOME10`, demo until the discount exists on Shopify) and a "Help me choose" chat button (WhatsApp when `CONTACT.whatsapp` is set, otherwise the contact page).
 
 ## Verified
 

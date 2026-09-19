@@ -3,7 +3,7 @@
 A complete, standalone Shopify theme carrying the Catwalk Club design: its own `layout/`,
 `config/` and `locales/`, so it uploads to an empty store and works on its own.
 
-**Validated with Shopify's own `@shopify/theme-check`: 68 files, 0 offenses.**
+**Validated with Shopify's own `@shopify/theme-check`: 69 files, 0 offenses.**
 
 ---
 
@@ -25,8 +25,8 @@ Push as **unpublished** first and preview it before making it the live theme.
 
 | | |
 |---|---|
-| `layout/theme.liquid` | Document shell, fonts, skip link, structured data, first-order offer, chat button |
-| `sections/` | 30 sections — header, footer, announcement (with a genuine countdown), hero, trust strip, category tiles, featured products, save-by-bundling, your-cats-dressed (UGC wall), call-out band, FAQ (page or compact homepage block), recently viewed, why-fit, newsletter, first-order offer, About, costume quiz, sizes by breed, Cat of the Month, plus `main-*` for product, collection, cart, page, contact, track-order, blog, article, search and collection list, and the Fit & care page section |
+| `layout/theme.liquid` | Document shell, fonts, skip link, structured data, sale ticker, first-order offer, chat button |
+| `sections/` | 31 sections — header, footer, announcement (with a genuine countdown), sale ticker, hero, trust strip, category tiles, featured products, save-by-bundling, your-cats-dressed (UGC wall), call-out band, FAQ (page or compact homepage block), recently viewed, why-fit, newsletter, first-order offer, About, costume quiz, sizes by breed, Cat of the Month, plus `main-*` for product, collection, cart, page, contact, track-order, blog, article, search and collection list, and the Fit & care page section |
 | `snippets/` | `product-card`, `breadcrumbs`, `structured-data` (JSON-LD), `chat-fab`, `catwalk-fonts` |
 | `templates/` | JSON templates for every page type, plus `404.liquid` |
 | `assets/catwalk.css` | The full design system (same file as the static site, plus theme-only rules) |
@@ -126,7 +126,15 @@ seven, bundles, *Save by bundling* (point it at the bundles collection), *Your c
 (add real customer photos as blocks; empty frames show until then), the quiz call-out (set its
 link to the quiz page), fit & why, four compact FAQs, recently viewed, newsletter.
 
-**9. Announcement countdown** — real dates in the section settings (order-by 14 Oct, event
+**9. Launch offer and the LED ticker** — *Theme settings → Launch offer* holds the deadline (one
+fixed moment, UK time), the label and the ticker on/off. Product cards and pages read Shopify's
+own Compare-at price: set **Price = launch price, Compare-at = regular price** and the theme shows
+the red price, the crossed-out regular price, a "Save N%" tag and "Launch offer: £9.99 until Tue
+22 Sep, then £11.99". The header ticker reads "SALE ENDS IN 03D 10H 19M 01S" and removes itself
+when the deadline passes. **After the deadline, set Price to the regular figure and clear
+Compare-at** — the regular price must be what you then charge.
+
+**10. Announcement countdown** — real dates in the section settings (order-by 14 Oct, event
 31 Oct). The bar counts down to the order-by date, changes wording after it, and drops to the
 Christmas line after the event. Nothing resets or repeats.
 

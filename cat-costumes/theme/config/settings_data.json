@@ -9,6 +9,10 @@
     "show_chat": true,
     "chat_label": "Help me choose",
     "tracking_param": "nums",
-    "low_stock_threshold": 5
+    "low_stock_threshold": 5,
+    "sale_label": "Launch offer",
+    "sale_ends": "2026-09-22T23:59:59+01:00",
+    "show_ticker": true,
+    "ticker_label": "Sale ends in"
   }
 }

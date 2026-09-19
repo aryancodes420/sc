@@ -43,15 +43,18 @@ existing one, and signing up through a preview link creates a real store.
 The original fourteen-SKU draft was replaced by seven sourced, photographed, verified
 products. The site and the Shopify theme are built around exactly these.
 
-| Product | Retail | Landed | Gross | Margin | Sizes |
-|---|---|---|---|---|---|
-| **Bow Tie Collar** | £8.99 | £1.82 | £7.17 | 80% | One size |
-| **Bandana Collar** | £7.99 | £2.88 | £5.11 | 64% | S/M/L |
-| **Lion Mane** | £9.99 | £5.17 | £4.82 | 48% | S/M/L |
-| **Devil Bat Cape** | £12.99 | £5.49 | £7.50 | 58% | S/M/L |
-| **Spider Costume** | £12.99 | £5.86 | £7.13 | 55% | S/M |
-| **Pumpkin Hat & Ruffle Collar** | £11.99 | £7.33 | £4.66 | 39% | One size |
-| **Santa Hat & Scarf Set** | £17.99 | £10.96 | £7.03 | 39% | One size |
+| Product | Launch price | Regular price | Landed | Gross at launch | Margin at launch | Sizes |
+|---|---|---|---|---|---|---|
+| **Bow Tie Collar** | £8.99 | £10.99 | £1.82 | £7.17 | 80% | One size |
+| **Bandana Collar** | £7.99 | £9.49 | £2.88 | £5.11 | 64% | S/M/L |
+| **Lion Mane** | £9.99 | £11.99 | £5.17 | £4.82 | 48% | S/M/L |
+| **Devil Bat Cape** | £12.99 | £15.49 | £5.49 | £7.50 | 58% | S/M/L |
+| **Spider Costume** | £12.99 | £15.49 | £5.86 | £7.13 | 55% | S/M |
+| **Pumpkin Hat & Ruffle Collar** | £11.99 | £14.49 | £7.33 | £4.66 | 39% | One size |
+| **Santa Hat & Scarf Set** | £17.99 | £21.49 | £10.96 | £7.03 | 39% | One size |
+
+The launch price runs to a fixed deadline (22 Sept 2026, 23:59 UK) with the regular price shown
+crossed out; the regular price is charged from then on. See `LAUNCH-CHECKLIST.md`.
 
 Bundles:
 - **Halloween Pair** — £23.99 (components £25.98, saves £1.99)

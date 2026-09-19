@@ -113,8 +113,8 @@
     var term = (qEl.value || "").trim().toLowerCase();
     if(term) list = list.filter(function(p){ return (p.name + " " + p.blurb + " " + p.cat + " " + (p.badge||"") + " " + p.specs.join(" ")).toLowerCase().indexOf(term) >= 0; });
     var s = sortEl.value;
-    if(s === "low")  list = list.slice().sort(function(a,b){ return a.price - b.price; });
-    if(s === "high") list = list.slice().sort(function(a,b){ return b.price - a.price; });
+    if(s === "low")  list = list.slice().sort(function(a,b){ return currentPrice(a) - currentPrice(b); });
+    if(s === "high") list = list.slice().sort(function(a,b){ return currentPrice(b) - currentPrice(a); });
     if(s === "az")   list = list.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
     renderGrid(grid, list);
     none.hidden = list.length > 0;

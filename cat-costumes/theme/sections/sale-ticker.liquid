@@ -1,0 +1,16 @@
+{%- comment -%}
+  Red LED ticker: "Sale ends in 03D 10H 19M 01S". One fixed deadline (Theme settings →
+  Launch offer) for every visitor; catwalk.js ticks it and removes it when the deadline passes.
+{%- endcomment -%}
+{%- if settings.show_ticker and settings.sale_ends != blank -%}
+  <div class="led" data-led-bar data-deadline="{{ settings.sale_ends }}" role="status" aria-live="off" hidden>
+    <div class="led-track">
+      {%- for i in (1..8) -%}
+        <span class="led-item"><span class="led-label">{{ settings.ticker_label }}</span><span class="led-time" data-led></span><span class="led-sep">&bull;</span></span>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+{ "name": "Sale ticker", "settings": [ { "type": "paragraph", "content": "Deadline, label and on/off live under Theme settings → Launch offer." } ] }
+{% endschema %}

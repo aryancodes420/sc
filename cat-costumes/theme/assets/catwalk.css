@@ -532,6 +532,28 @@ body.has-sticky .chat-fab,body.has-sticky .offer-tab{bottom:86px}
 .ugc.empty span{position:absolute;inset:0;display:grid;place-items:center;font-size:2rem;opacity:.5}
 .ugc.empty figcaption{position:absolute;left:0;right:0;bottom:6px;background:none;color:var(--muted);text-align:center}
 
+/* ================================================================ launch offer ==== */
+.price.sale .now{color:#C8102E}
+.price s{color:var(--muted);font-size:.78em;font-weight:400;margin-left:.4em}
+.price .off{
+  font-style:normal;display:inline-block;vertical-align:middle;margin-left:.45em;
+  background:#C8102E;color:#fff;font:800 .62rem Nunito,sans-serif;letter-spacing:.04em;text-transform:uppercase;
+  padding:.3em .6em;border-radius:6px
+}
+.launchline{font-size:.9rem;font-weight:700;color:#C8102E;margin:.2em 0 .6em}
+.led{
+  background:#51182B;color:#FFF0D2;overflow:hidden;white-space:nowrap;
+  font:700 .9rem/1 "SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;letter-spacing:.06em;
+  padding:.55em 0;border-bottom:2px solid #3a0f1e
+}
+.led-track{display:inline-flex;animation:led-scroll 40s linear infinite;will-change:transform}
+.led-item{display:inline-flex;align-items:center;gap:.8em;padding-right:.8em}
+.led-label{text-transform:uppercase;font-size:.78rem;opacity:.85}
+.led-time{color:#FF4D4D;text-shadow:0 0 6px rgba(255,77,77,.7),0 0 14px rgba(255,77,77,.35);font-size:1rem;font-variant-numeric:tabular-nums}
+.led-sep{opacity:.5}
+@keyframes led-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.led-track{animation:none}}
+
 /* ---------- Shopify theme additions ---------- */
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:#fff;

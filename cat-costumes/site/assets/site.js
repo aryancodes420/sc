@@ -33,6 +33,17 @@ function productImg(p, i, cls){
 
 /* ----------------------------------------------------------------- misc --- */
 const money = n => "£" + n.toFixed(2);
+
+/* ----- launch offer: price now, regular price after the deadline ----- */
+const saleActive = () => new Date() < new Date(SALE.ends);
+const currentPrice = p => (saleActive() || !p.list) ? p.price : p.list;
+const savePct = p => (saleActive() && p.list > p.price) ? Math.round((1 - p.price / p.list) * 100) : 0;
+const saleEndsText = () => new Date(SALE.ends).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+function priceHTML(p){
+  const pct = savePct(p);
+  if(!pct) return money(currentPrice(p));
+  return '<span class="now">' + money(p.price) + '</span><s>' + money(p.list) + '</s><em class="off">Save ' + pct + '%</em>';
+}
 const byId  = id => PRODUCTS.find(p => p.id === id);
 const catOf = id => CATEGORIES.find(c => c.id === id);
 
@@ -64,7 +75,7 @@ function addToCart(id, size, qty){
   setCart(cart);
 }
 const cartCount = () => getCart().reduce((n,l) => n + l.qty, 0);
-const cartTotal = () => getCart().reduce((n,l) => { const p = byId(l.id); return p ? n + p.price * l.qty : n; }, 0);
+const cartTotal = () => getCart().reduce((n,l) => { const p = byId(l.id); return p ? n + currentPrice(p) * l.qty : n; }, 0);
 function paintCount(){
   const n = cartCount();
   document.querySelectorAll("[data-cart-count]").forEach(el => {
@@ -117,7 +128,7 @@ function reviewsHTML(productId){
 
 /* -------------------------------------------------------------- rendering -- */
 function productCard(p){
-  const badge = p.badge ? `<span class="badge ${p.was ? "save" : ""}">${p.badge}</span>` : "";
+  const badge = p.badge ? `<span class="badge ${p.cat === "bundle" ? "save" : ""}">${p.badge}</span>` : "";
   return `<div class="pcard-wrap">
     <a class="pcard" href="product.html?id=${p.id}">
       ${badge}
@@ -125,7 +136,7 @@ function productCard(p){
       <div class="body">
         <h3>${p.name}</h3>
         <p class="blurb">${p.blurb}</p>
-        <span class="price">${money(p.price)}${p.was ? `<s>${money(p.was)}</s>` : ""}</span>
+        <span class="price ${savePct(p) ? "sale" : ""}">${priceHTML(p)}</span>
       </div>
     </a>
     <button class="wish" type="button" data-wish="${p.id}" aria-pressed="false"
@@ -164,6 +175,26 @@ function initChrome(){
   if(y) y.textContent = new Date().getFullYear();
   const tb = document.querySelector(".topbar");
   if(tb) tb.innerHTML = 'Free UK delivery over <b>£' + FREE_SHIPPING_AT + '</b> &nbsp;·&nbsp; ' + countdownHTML();
+  mountTicker();
+}
+
+/* ----- LED sale ticker: one fixed deadline for every visitor; gone when it passes ----- */
+function mountTicker(){
+  if(!saleActive() || document.querySelector(".led")) return;
+  const el = document.createElement("div"); el.className = "led"; el.setAttribute("role", "status"); el.setAttribute("aria-live", "off");
+  const item = '<span class="led-item"><span class="led-label">' + SALE.ticker + '</span><span class="led-time" data-led></span><span class="led-sep">•</span></span>';
+  el.innerHTML = '<div class="led-track">' + item.repeat(8) + '</div>';
+  const hdr = document.querySelector("header.site"); hdr ? hdr.parentNode.insertBefore(el, hdr) : document.body.prepend(el);
+  const pad = n => String(n).padStart(2, "0");
+  const tick = () => {
+    const ms = new Date(SALE.ends) - new Date();
+    if(ms <= 0){ el.remove(); document.querySelectorAll(".price.sale").forEach(x => { x.classList.remove("sale"); }); return; }
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, sec = Math.floor(ms / 1e3) % 60;
+    const t = pad(d) + "D " + pad(h) + "H " + pad(m) + "M " + pad(sec) + "S";
+    el.querySelectorAll("[data-led]").forEach(x => x.textContent = t);
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  };
+  tick();
 }
 document.addEventListener("DOMContentLoaded", initChrome);
 
@@ -264,17 +295,20 @@ function forMeIf(p){
   return '<section class="forme"><h2>This is for you if…</h2><ul>' + p.forMeIf.map(t => '<li>' + esc(t) + '</li>').join("") + '</ul></section>';
 }
 
+/* bundle saving against buying its pieces separately — true before and after the launch offer */
+const bundleSaving = b => (b.contains || []).reduce((n, id) => n + currentPrice(byId(id)), 0) - currentPrice(b);
+
 /* ----- cross-sell: the bundles this product sits in, with the saving spelled out ----- */
 function crossSell(p){
   const live = PRODUCTS.filter(x => !x.hold);
   let cards = [];
   if(p.cat === "bundle"){
-    cards = (p.contains || []).map(byId).filter(Boolean).map(c => ({ img: c.images[0], title: c.name, line: "Included in this bundle", price: money(c.price), href: "product.html?id=" + c.id, save: "" }));
+    cards = (p.contains || []).map(byId).filter(Boolean).map(c => ({ img: c.images[0], title: c.name, line: "Included in this bundle", price: money(currentPrice(c)), href: "product.html?id=" + c.id, save: "" }));
   } else {
     cards = live.filter(b => b.cat === "bundle" && (b.contains || []).indexOf(p.id) >= 0).map(b => {
       const partner = byId((b.contains || []).find(id => id !== p.id));
       return { img: partner ? partner.images[0] : b.images[0], title: b.name, line: "Add the " + (partner ? partner.name : "pair") + " as a bundle",
-        price: money(b.price), href: "product.html?id=" + b.id, save: b.was ? "Save " + money(b.was - b.price) : "" };
+        price: money(currentPrice(b)), href: "product.html?id=" + b.id, save: "Save " + money(bundleSaving(b)) };
     });
   }
   if(!cards.length) return "";
@@ -293,7 +327,8 @@ const ORG = { "@type": "Organization", "name": "Catwalk Club", "url": abs("index
 function orgJsonLd(){ jsonLd(Object.assign({ "@context": "https://schema.org" }, ORG)); }
 function productJsonLd(p){
   const offer = (size) => ({
-    "@type": "Offer", "price": p.price.toFixed(2), "priceCurrency": "GBP", "availability": "https://schema.org/InStock",
+    "@type": "Offer", "price": currentPrice(p).toFixed(2), "priceCurrency": "GBP", "availability": "https://schema.org/InStock",
+    "priceValidUntil": saleActive() ? SALE.ends.slice(0, 10) : undefined,
     "url": abs("product.html?id=" + p.id) + (size ? "#" + size.label : ""), "itemCondition": "https://schema.org/NewCondition",
     "shippingDetails": { "@type": "OfferShippingDetails", "shippingRate": { "@type": "MonetaryAmount", "value": DELIVERY.cost.toFixed(2), "currency": "GBP" },
       "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" },
@@ -315,7 +350,7 @@ function productJsonLd(p){
 function stickyATC(p, state){
   const bar = document.createElement("div"); bar.className = "sticky-atc"; bar.hidden = true;
   bar.innerHTML = '<img src="' + IMG + p.images[0] + '" alt="" width="48" height="48"><div class="s-meta"><b>' + esc(p.name) + '</b><span class="small muted" data-s-size></span></div>' +
-    '<span class="price">' + money(p.price) + '</span><button class="btn btn-sm" type="button" data-s-add>Add to cart</button>';
+    '<span class="price">' + money(currentPrice(p)) + '</span><button class="btn btn-sm" type="button" data-s-add>Add to cart</button>';
   document.body.appendChild(bar);
   bar.querySelector("[data-s-add]").onclick = () => document.getElementById("add").click();
   const buy = document.querySelector(".pdp-buy"); if(!buy || !("IntersectionObserver" in window)) return;
@@ -425,7 +460,7 @@ function resultCard(r){
   const p = r.p, s = r.size;
   return '<div class="pcard-wrap"><a class="pcard" href="product.html?id=' + p.id + '"><div class="art">' + productImg(p, 0) + '</div><div class="body"><h3>' + esc(p.name) + '</h3>' +
     (s ? '<p class="blurb"><b>' + (s.label === "One size" ? "One size — adjusts" : "Size " + s.label) + '</b>' + (s.neck && s.label !== "One size" ? ' · neck ' + esc(s.neck) : '') + '</p>' : '<p class="blurb">' + esc(p.blurb) + '</p>') +
-    '<span class="price">' + money(p.price) + '</span></div></a></div>';
+    '<span class="price ' + (savePct(p) ? "sale" : "") + '">' + priceHTML(p) + '</span></div></a></div>';
 }
 
 /* ----- alias tag under the product title ----- */

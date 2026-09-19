@@ -239,3 +239,23 @@ function wireBreeds(root){
 }
 document.addEventListener("DOMContentLoaded", () => { wireCountdown(); recordRecent(); paintRecent(); wireQuiz(); wireBreeds(); });
 document.addEventListener("shopify:section:load", e => { paintRecent(e.target); wireQuiz(e.target); wireBreeds(e.target); });
+
+/* ================================================================ launch offer ==== */
+/* LED ticker to one fixed deadline; removed (with the "until" line) once it passes. */
+function wireTicker(){
+  const el = document.querySelector("[data-led-bar]"); if(!el) return;
+  const end = new Date(el.dataset.deadline); if(isNaN(end)) return;
+  const pad = n => String(n).padStart(2, "0");
+  const tick = () => {
+    const ms = end - new Date();
+    if(ms <= 0){ el.remove(); document.querySelectorAll("[data-launchline]").forEach(x => x.remove()); return; }
+    el.hidden = false;
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
+    const t = pad(d) + "D " + pad(h) + "H " + pad(m) + "M " + pad(s) + "S";
+    el.querySelectorAll("[data-led]").forEach(x => x.textContent = t);
+    setTimeout(tick, 1000 - (Date.now() % 1000));
+  };
+  tick();
+}
+document.addEventListener("DOMContentLoaded", wireTicker);
+document.addEventListener("shopify:section:load", wireTicker);
