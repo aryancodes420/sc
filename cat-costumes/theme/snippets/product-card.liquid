@@ -15,6 +15,7 @@
         <img src="{{ product.featured_image | image_url: width: 600 }}"
              alt="{{ product.featured_image.alt | default: product.title | escape }}"
              width="600" height="600" loading="lazy">
+        {%- if product.images[1] -%}<img class="alt" src="{{ product.images[1] | image_url: width: 600 }}" alt="" width="600" height="600" loading="lazy">{%- endif -%}
       {%- else -%}
         <div data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"></div>
       {%- endif -%}

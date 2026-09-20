@@ -30,7 +30,8 @@ Push as **unpublished** first and preview it before making it the live theme.
 | `snippets/` | `product-card` (with quick add), `breadcrumbs`, `structured-data` (JSON-LD), `chat-fab`, `podium`, `catwalk-fonts` |
 | `templates/` | JSON templates for every page type, plus `404.liquid` |
 | `assets/catwalk.css` | The full design system (same file as the static site, plus theme-only rules) |
-| `assets/catwalk.js` | Gallery, wishlist, variant size notes, stock pill, sticky add-to-cart, delivery dates, offer pop-up, chat toggle, countdown, recently viewed, quiz, sizes by breed |
+| `assets/catwalk.js` | Gallery, wishlist, variant size notes, stock pill, sticky add-to-cart, delivery dates, offer pop-up, chat toggle, countdown, recently viewed, quiz, sizes by breed, mini size finder |
+| `assets/motion.js` | The motion layer: scroll reveals, compact header + reading bar, hero tilt and floaters, card hover image swap, fly-to-cart, ripples, animated accordions, gallery swipe/zoom/keys, page transitions. Pure decoration, transforms and opacity only, off under prefers-reduced-motion |
 
 Cart, checkout, inventory, search, pagination, the contact form and the newsletter form are
 **Shopify's** — this theme doesn't reimplement them.

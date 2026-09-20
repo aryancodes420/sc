@@ -30,6 +30,10 @@ is `assets/data.js`.
 - **First Costume Kit** — £14.99 (components £16.98, saves £1.99)
 - **Festive Pair** — £24.99 (components £26.98, saves £1.99)
 
+## Motion
+
+`assets/motion.js` + the `motion` block in `site.css`: scroll reveals with stagger, header that compacts on scroll with a reading-progress bar, hero that tilts to the mouse with a breathing glow and drifting emoji, category rings with a spinning gradient on hover, product cards that swap to their second photo and lift, fly-to-cart with a cart bump, button ripples, heart pop, accordions that animate open, gallery swipe on touch / magnify on hover / arrow keys, quiz steps that slide, cross-page fade (View Transitions). Everything is transform/opacity only and switches off under `prefers-reduced-motion`.
+
 ## Payment logos
 
 `assets/img/pay/*.svg` are Shopify's own payment icons (github.com/Shopify/payment_icons), the same files the theme renders through `payment_type_svg_tag`. `PAYMENT_ICONS` in `data.js` decides which show; keep it to what is enabled under Settings → Payments.

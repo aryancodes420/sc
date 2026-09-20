@@ -78,6 +78,7 @@
 </footer>
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
+<script src="assets/motion.js" defer></script>
 <script>
   var sized = PRODUCTS.filter(function(p){ return !p.hold && p.cat !== "bundle"; });
   document.getElementById("jump").innerHTML = BREEDS.map(function(b){ return '<a class="chip chip-sm" href="#' + b.id + '">' + b.name.split(" (")[0] + '</a>'; }).join("");

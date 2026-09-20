@@ -143,7 +143,7 @@ function productCard(p){
   return `<div class="pcard-wrap">
     <a class="pcard" href="product.html?id=${p.id}">
       ${badge}
-      <div class="art">${productImg(p, 0)}</div>
+      <div class="art">${productImg(p, 0)}${p.images && p.images[1] ? `<img class="alt" src="${IMG}${p.images[1]}" alt="" width="800" height="800" loading="lazy">` : ""}</div>
       <div class="body">
         <h3>${p.name}</h3>
         <p class="blurb">${p.blurb}</p>
