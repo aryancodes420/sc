@@ -66,7 +66,7 @@ const PRODUCTS = [
     blurb: "The classic. A full faux-fur mane with little round ears that turns any cat into the king of the living room.",
     ticks: ["Full faux-fur mane with round ears", "Velcro under the chin — on in one go", "Face, eyes and mouth stay clear"],
     forMeIf: ["You want the photo that gets the most likes", "Your cat already wears a collar happily", "You've measured the neck (S 28cm · M 32cm · L 38cm)"],
-    fit: "Three sizes, fastened with velcro under the chin. Measure the neck.",
+    fit: "Three sizes, velcro under the chin. Runs big — between sizes, take the smaller.",
     sizes: [
       { label: "S", neck: "28cm / 11in",   note: "Cap 24cm" },
       { label: "M", neck: "32cm / 12.6in", note: "Cap 26cm" },
@@ -81,7 +81,7 @@ const PRODUCTS = [
     ],
     box: ["1 × lion mane"],
     care: "Hand wash cold. Air dry flat. Do not tumble dry.",
-    confirm: ["Colour options (listing shows a natural tan)"],
+    confirm: ["Colour options (listing shows a natural tan)", "Reviews: S suits small/young cats, M was too big for several one-year-olds — the mane runs large"],
     source: { platform: "AliExpress", id: "3256805876802123", cost: 4.20, sold: "700+", rating: 4.6, choice: true }
   },
   {
@@ -114,7 +114,7 @@ const PRODUCTS = [
     badge: "Halloween", motif: "bat",
     images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
     blurb: "Eight furry legs on a soft felt body that fastens under the chest. The costume that gets the most double-takes at the door.",
-    ticks: ["Eight plush legs — nothing rigid", "Soft felt body, velcro under the chest", "The one that gets double-takes at the door"],
+    ticks: ["Eight posable plush legs", "Soft felt body, velcro under the chest", "The one that gets double-takes at the door"],
     forMeIf: ["Your cat is relaxed about a harness or jumper", "You've measured neck and chest", "You want the full costume, not just a hat"],
     fit: "Two sizes, velcro fastening. Measure the neck and chest.",
     sizes: [
@@ -122,7 +122,7 @@ const PRODUCTS = [
       { label: "M", neck: "30–40cm", note: "Chest 40–55cm — large cats, small dogs" }
     ],
     specs: [
-      "Eight plush spider legs — soft, nothing rigid",
+      "Eight plush spider legs on bendable wire cores — pose them, and keep them away from chewers",
       "3mm felt body",
       "Velcro fastening",
       "Made for cats and small–medium dogs",
@@ -130,7 +130,7 @@ const PRODUCTS = [
     ],
     box: ["1 × spider costume"],
     care: "Spot clean. Do not machine wash.",
-    confirm: [],
+    confirm: ["Legs have wire cores (buyer reviews); two buyers received a leg broken in transit — check every unit on arrival", "Reviews say M is big: one buyer calls it a 7kg-cat size"],
     source: { platform: "AliExpress", id: "3256805889809397", cost: 4.93, sold: "500+", rating: 4.6, choice: true }
   },
   {
@@ -151,7 +151,7 @@ const PRODUCTS = [
     ],
     box: ["1 × pumpkin hat", "1 × ruffle collar"],
     care: "Spot clean the hat. Hand wash the collar cold; do not wring.",
-    confirm: ["The same listing offers a Christmas-tree hat with red/green ruffle — a candidate for the Christmas slot"],
+    confirm: ["The same listing offers a Christmas-tree hat with red/green ruffle — a candidate for the Christmas slot", "Review: the ruffle collar was too big for one buyer's cat — confirm the 25cm end of the range on the sample"],
     source: { platform: "AliExpress", id: "3256807081347725", cost: 6.48, sold: "77", rating: 4.6, choice: true }
   },
 
@@ -163,7 +163,7 @@ const PRODUCTS = [
     blurb: "A proper cat-sized Santa hat with a matching scarf — soft polycotton, white trim, and velcro so it goes on in seconds.",
     ticks: ["Cat-sized Santa hat and matching scarf", "Velcro on both pieces — on in seconds", "Soft polycotton with plush white trim"],
     forMeIf: ["The Christmas card photo is the goal", "You want one size that just fits", "Your cat is fine with a hat for a short while"],
-    fit: "Adjustable velcro on both pieces. One size, made for cats and small dogs.",
+    fit: "Adjustable velcro on both pieces. One size; the scarf fits most cats, the hat runs large.",
     sizes: null,
     specs: [
       "Two-piece set — Santa hat and scarf",
@@ -174,7 +174,7 @@ const PRODUCTS = [
     ],
     box: ["1 × Santa hat", "1 × scarf"],
     care: "Hand wash cold. Reshape and air dry. Do not tumble dry.",
-    confirm: ["Hat and scarf dimensions (cm)"],
+    confirm: ["Hat and scarf dimensions (cm)", "Reviews: the scarf fits cats well; the hat runs large and the velcro headband can slip — check on the sample"],
     source: { platform: "AliExpress", id: "3256809759699003", cost: 10.73, sold: "106", rating: 4.7, choice: true }
   },
 
