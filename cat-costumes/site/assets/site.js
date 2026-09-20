@@ -196,6 +196,11 @@ function initChrome(){
   const tb = document.querySelector(".topbar");
   if(tb) tb.innerHTML = 'Free UK delivery over <b>£' + FREE_SHIPPING_AT + '</b> &nbsp;·&nbsp; ' + countdownHTML();
   mountTicker();
+  /* When the site is shown inside a taller host page (the claude.ai preview on a phone stretches the
+     frame to full height), a new page would otherwise appear wherever the host was scrolled to.
+     scrollIntoView asks the host to bring the top of this page into view. Hash links still win. */
+  const target = location.hash && location.hash.length > 1 ? document.querySelector(location.hash) : null;
+  setTimeout(() => { try{ (target || document.documentElement).scrollIntoView({ block: "start" }); }catch(e){} }, 30);
 }
 
 /* ----- LED sale ticker: one fixed deadline for every visitor; sits at zero until SALE.active is switched off ----- */
