@@ -117,9 +117,9 @@ function reviewsHTML(productId){
   const list = REVIEWS[productId] || [];
   if(!list.length){
     return '<section class="reviews"><h2>Reviews</h2>' +
-      '<div class="panel center"><p style="font-size:2rem;margin:0">☆</p>' +
+      (syndicatedHTML(productId) || ('<div class="panel center"><p style="font-size:2rem;margin:0">☆</p>' +
       '<p><b>No reviews yet — be the first.</b></p>' +
-      '<p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here once customers leave them. Photo reviews get a frame on the homepage too.</p></div></section>';
+      '<p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here once customers leave them. Photo reviews get a frame on the homepage too.</p></div>')) + '</section>';
   }
   const n = list.length, avg = list.reduce((t,r) => t + r.stars, 0) / n;
   const counts = [5,4,3,2,1].map(k => list.filter(r => r.stars === k).length);
@@ -134,7 +134,23 @@ function reviewsHTML(productId){
     '<ul class="bars">' + counts.map((c, i) => '<li><span>' + (5 - i) + '★</span><i><b style="width:' + (c / n * 100).toFixed(0) + '%"></b></i><span>' + c + '</span></li>').join("") + '</ul></div>' +
     '<div class="rev-list" data-rev-list>' + list.slice(0, 3).map(card).join("") + '</div>' +
     (n > 3 ? '<div class="center" style="margin-top:14px"><button class="btn btn-ghost" type="button" data-rev-more>Show all ' + n + ' reviews</button><div hidden data-rev-rest>' + list.slice(3).map(card).join("") + '</div></div>' : '') +
+    syndicatedHTML(productId) +
   '</section>';
+}
+/* Reviews from the maker's listing: clearly labelled, own block, never merged into our score. */
+function syndicatedHTML(productId){
+  const sup = (typeof SUPPLIER_REVIEWS !== "undefined") && SUPPLIER_REVIEWS[productId];
+  if(!sup || !sup.total) return "";
+  const stars = k => "★".repeat(k) + "☆".repeat(5 - k);
+  const flag = { US:"🇺🇸", GB:"🇬🇧", AU:"🇦🇺", BR:"🇧🇷", CL:"🇨🇱", ES:"🇪🇸", DE:"🇩🇪", IL:"🇮🇱", CA:"🇨🇦", RU:"🇷🇺", MX:"🇲🇽", PE:"🇵🇪", JP:"🇯🇵", PL:"🇵🇱", FR:"🇫🇷", NL:"🇳🇱", CO:"🇨🇴", LU:"🇱🇺", UA:"🇺🇦" };
+  const card = r => '<article class="rev synd"><div class="rev-head"><span class="avatar">' + (flag[r.country] || "🌍") + '</span><div><b>Buyer' + (r.country ? ' in ' + r.country : '') + '</b> <span class="vtag synd">From the maker\'s listing</span><span class="small muted">' + esc(r.date || "") + (r.size ? ' · Size ' + esc(r.size) : '') + '</span></div></div>' +
+    '<p class="stars has" aria-label="' + r.stars + ' out of 5">' + stars(r.stars) + '</p><p>' + esc(r.text) + '</p></article>';
+  const dist = sup.dist || [];
+  return '<div class="synd-block"><div class="synd-note"><b>What buyers of this exact product said elsewhere.</b> ' + esc(SYNDICATION_NOTE) + '</div>' +
+    '<div class="rev-summary"><div class="score"><b>' + sup.avg.toFixed(1) + '</b><span class="stars has">' + stars(Math.round(sup.avg)) + '</span><span class="small muted">' + sup.total + ' reviews on the maker\'s listing</span></div>' +
+    (dist.length ? '<ul class="bars">' + dist.map((c, i) => '<li><span>' + (5 - i) + '★</span><i><b style="width:' + (sup.total ? (c / sup.total * 100).toFixed(0) : 0) + '%"></b></i><span>' + c + '</span></li>').join("") + '</ul>' : '') + '</div>' +
+    '<div class="rev-list">' + sup.reviews.map(card).join("") + '</div>' +
+    '<p class="small muted" style="margin:.8em 0 0">Showing ' + sup.reviews.length + ' of ' + sup.total + ', chosen for being about cats and for saying something useful, including the critical ones.</p></div>';
 }
 
 /* -------------------------------------------------------------- rendering -- */
@@ -243,6 +259,8 @@ function breadcrumbs(items){
 /* ----- rating line under the title: honest until real reviews exist ----- */
 function ratingLine(id){
   const list = REVIEWS[id] || [];
+  const sup = (typeof SUPPLIER_REVIEWS !== "undefined") && SUPPLIER_REVIEWS[id];
+  if(!list.length && sup && sup.total) return '<a class="rating" href="#reviews"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(sup.avg)) + "☆".repeat(5 - Math.round(sup.avg)) + '</span> ' + sup.avg.toFixed(1) + ' · ' + sup.total + ' reviews on the maker\'s listing <span class="muted">· no Catwalk Club reviews yet</span></a>';
   if(!list.length) return '<a class="rating" href="#reviews"><span class="stars" aria-hidden="true">☆☆☆☆☆</span> No reviews yet — be the first</a>';
   const avg = list.reduce((n,r) => n + r.stars, 0) / list.length;
   return '<a class="rating" href="#reviews"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg)) + '</span> ' +

@@ -12,6 +12,10 @@
 {%- assign ext_videos = product.media | where: 'media_type', 'external_video' -%}
 {%- assign size_notes = product.metafields.custom.size_notes | newline_to_br | split: '<br />' -%}
 {%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+{%- assign sup_count = product.metafields.custom.supplier_review_count | default: 0 | times: 1 -%}
+{%- assign sup_rating = product.metafields.custom.supplier_rating | default: 0 | times: 1.0 -%}
+{%- assign sup_round = sup_rating | round -%}
+{%- assign sup_reviews = product.metafields.custom.supplier_reviews.value -%}
 {%- assign rating_val = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}
 {%- assign rating_round = rating_val | round -%}
 {%- assign cv = product.selected_or_first_available_variant -%}
@@ -89,6 +93,9 @@
       {%- if rating_count > 0 -%}
         <span class="stars has" aria-hidden="true">{%- for i in (1..5) -%}{%- if i <= rating_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span>
         {{ rating_val | round: 1 }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
+      {%- elsif sup_count > 0 -%}
+        <span class="stars has" aria-hidden="true">{%- for i in (1..5) -%}{%- if i <= sup_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span>
+        {{ sup_rating | round: 1 }} · {{ sup_count }} reviews on the maker's listing <span class="muted">· no {{ shop.name }} reviews yet</span>
       {%- else -%}
         <span class="stars" aria-hidden="true">☆☆☆☆☆</span> No reviews yet — be the first
       {%- endif -%}
@@ -224,13 +231,29 @@
         {% render block %}
       {%- endif -%}
     {%- endfor -%}
-    {%- unless has_app_block -%}
+    {%- unless has_app_block or sup_count > 0 -%}
       <div class="panel center">
         <p style="font-size:2rem;margin:0">☆</p>
         <p><b>No reviews yet — be the first.</b></p>
         <p class="muted small" style="max-width:46ch;margin-inline:auto">Reviews appear here once customers leave them.</p>
       </div>
     {%- endunless -%}
+    {%- comment -%} Reviews from the maker's listing (custom.supplier_reviews, JSON). Labelled, separate, never merged into our rating. {%- endcomment -%}
+    {%- if sup_count > 0 -%}
+      <div class="synd-block">
+        <div class="synd-note"><b>What buyers of this exact product said elsewhere.</b> {{ section.settings.synd_note }}</div>
+        <div class="rev-summary"><div class="score"><b>{{ sup_rating | round: 1 }}</b><span class="stars has">{%- for i in (1..5) -%}{%- if i <= sup_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span><span class="small muted">{{ sup_count }} reviews on the maker's listing</span></div>
+          <p class="muted" style="margin:0">Chosen for being about cats and for saying something useful, including the critical ones.</p></div>
+        {%- if sup_reviews -%}
+          <div class="rev-list">
+            {%- for r in sup_reviews -%}
+              <article class="rev synd"><div class="rev-head"><span class="avatar">🌍</span><div><b>Buyer{% if r.country %} in {{ r.country }}{% endif %}</b> <span class="vtag synd">From the maker's listing</span><span class="small muted">{{ r.date }}{% if r.size != blank %} · Size {{ r.size }}{% endif %}</span></div></div>
+                <p class="stars has">{%- for i in (1..5) -%}{%- if i <= r.stars -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</p><p>{{ r.text }}</p></article>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
   </section>
 
   {%- comment -%} 6 · description & dimensions {%- endcomment -%}
@@ -380,6 +403,7 @@
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "url", "id": "size_guide_url", "label": "Size guide link" },
     { "type": "text", "id": "reviews_heading", "label": "Reviews heading (once reviews exist)", "default": "Real cats, real results" },
+    { "type": "textarea", "id": "synd_note", "label": "Label above reviews from the maker's listing", "default": "These reviews were left on the maker's listing by customers who bought this exact product there, not from Catwalk Club. Republished with the seller's permission; some are machine-translated. Our own customer reviews appear above them as they come in." },
     { "type": "header", "content": "Objection cards (under the gallery)" },
     { "type": "text", "id": "q1_title", "label": "Card 1 title", "default": "Will it fit my cat?" },
     { "type": "text", "id": "q1_text", "label": "Card 1 text (sized products)", "default": "Sizes are neck measurements. Two fingers of slack, and if in doubt go up." },

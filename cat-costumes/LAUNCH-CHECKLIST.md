@@ -58,6 +58,7 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 ## F · Apps
 
+- [ ] **Reviews from the maker's listings:** get each seller's permission **in writing** (an AliExpress message is fine) and keep it. Fill `custom.supplier_reviews`, `supplier_rating` and `supplier_review_count` from `data.js`. They show in their own labelled block; never paste them into the reviews app as if they were ours.
 - [ ] **Judge.me or Loox** (reviews) — add its app block to the product page's *Reviews* slot in the theme editor. Photo reviews (Loox) suit this shop best. The rating line under the title fills itself once real reviews exist. Never seed reviews by hand (DMCC Act 2024).
 - [ ] **Shopify Bundles** — above.
 - [ ] **First-order offer:** Discounts → create code `WELCOME10`, 10% off, once per customer, new customers only. Then Shopify Email → Automations → *Welcome new subscriber*, sending the code to customers tagged `welcome10`. The pop-up is already in the theme.

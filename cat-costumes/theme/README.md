@@ -97,6 +97,9 @@ for every product are in `../site/assets/data.js`.
 | `size_notes` | Multi-line text | One line per variant, in variant order |
 | `badge` | Single line text | Card badge |
 | `badge_uk` | True/false | "UK stock" in the trust row and stock pill |
+| `supplier_reviews` | JSON | Reviews from the maker's listing, republished with the seller's written permission: `[{"stars":5,"country":"US","date":"26 Jun 2026","size":"M","text":"…"}]`. Rendered in a labelled block under the reviews app, never merged into the rating. Values in `../site/assets/data.js` (`SUPPLIER_REVIEWS`) |
+| `supplier_rating` | Decimal | The listing's average, shown as "4.6 · 104 reviews on the maker's listing" until our own reviews exist |
+| `supplier_review_count` | Integer | The listing's review count |
 | `bundles` | List of products | Bundles this product belongs to → "Cheaper together" |
 | `contains` | List of products | On a bundle: its components → "What's in it" and the partner shown in cross-sell |
 | `alias` | Single line text | Optional nickname tag under the title (e.g. `Kingsley`) |

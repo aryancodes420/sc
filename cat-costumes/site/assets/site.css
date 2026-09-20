@@ -798,3 +798,10 @@ header.site.compact .logo .mark{width:30px;height:30px;flex-basis:30px}
   .rv{opacity:1;transform:none;transition:none}
   .hand,.sticker,.floaters span,.heroart::after,.led-time,.catc .ring::after{animation:none}
 }
+
+/* syndicated (maker's-listing) reviews: clearly separate from our own */
+.synd-block{margin-top:18px}
+.synd-note{background:#FFF7E0;border:2px solid #F3DFA0;border-radius:var(--r-sm);padding:12px 14px;font-size:.88rem;margin-bottom:14px}
+.rev.synd{background:#FFFDF8;border-style:dashed}
+.rev.synd .avatar{background:#FFF1F4;font-size:1.3rem}
+.vtag.synd{background:#FFF7E0;color:#8A6300}
