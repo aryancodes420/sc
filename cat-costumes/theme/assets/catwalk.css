@@ -816,6 +816,15 @@ header.site.compact .logo .mark{width:32px;height:32px;flex-basis:32px}
 
 .synd-src{margin:14px 0 0;text-align:center}
 
+/* card rating, review filter, star-only ratings */
+.card-rating{display:inline-flex;align-items:center;gap:.35em;font-size:.82rem;font-weight:800;margin:2px 0 4px}
+.card-rating .stars{font-size:.85rem;letter-spacing:.04em}
+.rev-filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.rev-h{font-size:1.05rem;margin:18px 0 8px}
+.rev-minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.rev.mini{padding:10px 12px;font-size:.85rem;display:flex;gap:.4em;align-items:center;flex-wrap:wrap;border-style:dashed}
+.rev.mini .stars{margin:0;font-size:.9rem}
+
 /* ---------- Shopify theme additions ---------- */
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:#fff;

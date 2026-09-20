@@ -281,3 +281,18 @@ function wireMiniFinder(root){
 }
 document.addEventListener("DOMContentLoaded", () => wireMiniFinder());
 document.addEventListener("shopify:section:load", e => wireMiniFinder(e.target));
+
+/* review list: show all, star filter */
+function wireReviewList(root){
+  const host = (root || document).querySelector(".reviews"); if(!host || host.dataset.wired) return; host.dataset.wired = "1";
+  const showAll = () => { host.querySelectorAll("[data-rev-hidden]").forEach(el => { el.hidden = false; el.removeAttribute("data-rev-hidden"); }); const m = host.querySelector("[data-rev-more]"); if(m) m.remove(); };
+  host.addEventListener("click", e => {
+    if(e.target.closest("[data-rev-more]")){ showAll(); return; }
+    const f = e.target.closest("[data-rev-filter] .chip"); if(!f) return; showAll();
+    host.querySelectorAll("[data-rev-filter] .chip").forEach(c => c.setAttribute("aria-pressed", String(c === f)));
+    const want = f.dataset.f;
+    host.querySelectorAll("[data-rev-list] [data-stars]").forEach(el => { el.hidden = want !== "all" && el.dataset.stars !== want; });
+  });
+}
+document.addEventListener("DOMContentLoaded", () => wireReviewList());
+document.addEventListener("shopify:section:load", e => wireReviewList(e.target));

@@ -137,21 +137,51 @@ function reviewsHTML(productId){
     syndicatedHTML(productId) +
   '</section>';
 }
-/* Reviews from the maker's listing: own block with a one-line source note, never merged into our score. */
+/* Reviews from the maker's listing: best first, star filter, star-only ratings too, one-line source note. */
 function syndicatedHTML(productId){
   const sup = (typeof SUPPLIER_REVIEWS !== "undefined") && SUPPLIER_REVIEWS[productId];
   if(!sup || !sup.total) return "";
   const stars = k => "★".repeat(k) + "☆".repeat(5 - k);
   const flag = { US:"🇺🇸", GB:"🇬🇧", AU:"🇦🇺", BR:"🇧🇷", CL:"🇨🇱", ES:"🇪🇸", DE:"🇩🇪", IL:"🇮🇱", CA:"🇨🇦", RU:"🇷🇺", MX:"🇲🇽", PE:"🇵🇪", JP:"🇯🇵", PL:"🇵🇱", FR:"🇫🇷", NL:"🇳🇱", CO:"🇨🇴", LU:"🇱🇺", UA:"🇺🇦", IT:"🇮🇹", PT:"🇵🇹", KR:"🇰🇷", TR:"🇹🇷", SE:"🇸🇪", BE:"🇧🇪", CZ:"🇨🇿", AR:"🇦🇷", NZ:"🇳🇿", IE:"🇮🇪", CH:"🇨🇭", AT:"🇦🇹", HU:"🇭🇺", RO:"🇷🇴", GR:"🇬🇷", SK:"🇸🇰", LT:"🇱🇹", SA:"🇸🇦", ZA:"🇿🇦", TH:"🇹🇭", MY:"🇲🇾", SG:"🇸🇬", KZ:"🇰🇿", BY:"🇧🇾", HR:"🇭🇷", SI:"🇸🇮", FI:"🇫🇮", NO:"🇳🇴", DK:"🇩🇰", EE:"🇪🇪", LV:"🇱🇻", BG:"🇧🇬", RS:"🇷🇸", MA:"🇲🇦", EG:"🇪🇬", PH:"🇵🇭", ID:"🇮🇩", VN:"🇻🇳", TW:"🇹🇼", HK:"🇭🇰", AE:"🇦🇪", QA:"🇶🇦", PK:"🇵🇰", IN:"🇮🇳", UY:"🇺🇾", EC:"🇪🇨", CR:"🇨🇷", DO:"🇩🇴", PA:"🇵🇦", GE:"🇬🇪", MD:"🇲🇩", AM:"🇦🇲", AZ:"🇦🇿", CY:"🇨🇾", MT:"🇲🇹", IS:"🇮🇸" };
-  const card = r => '<article class="rev synd"><div class="rev-head"><span class="avatar">' + (flag[r.c] || "🌍") + '</span><div><b>' + esc(r.n || "Verified buyer") + '</b> <span class="vtag">Verified purchase</span><span class="small muted">' + esc(r.d || "") + (r.c ? ' · ' + esc(r.c) : '') + (r.z ? ' · Size ' + esc(r.z) : '') + '</span></div></div>' +
+  const who = r => '<b>' + esc(r.n || "Verified buyer") + '</b> <span class="vtag">Verified purchase</span><span class="small muted">' + esc(r.d || "") + (r.c ? ' · ' + esc(r.c) : '') + (r.z ? ' · Size ' + esc(r.z) : '') + '</span>';
+  const card = r => '<article class="rev synd" data-stars="' + r.s + '"><div class="rev-head"><span class="avatar">' + (flag[r.c] || "🌍") + '</span><div>' + who(r) + '</div></div>' +
     '<p class="stars has" aria-label="' + r.s + ' out of 5">' + stars(r.s) + '</p><p>' + esc(r.t) + '</p></article>';
-  const dist = sup.dist || [], list = sup.reviews || [], first = list.slice(0, 6), rest = list.slice(6);
+  const mini = r => '<div class="rev mini" data-stars="' + r.s + '"><span class="stars has" aria-label="' + r.s + ' out of 5">' + stars(r.s) + '</span> ' + (flag[r.c] || "🌍") + ' <b>' + esc(r.n || "Verified buyer") + '</b> <span class="small muted">' + esc(r.d || "") + (r.z ? ' · Size ' + esc(r.z) : '') + '</span></div>';
+  const dist = sup.dist || [], list = sup.reviews || [], ratings = sup.ratings || [];
+  const first = list.slice(0, 6), rest = list.slice(6);
+  const chips = '<div class="rev-filter" data-rev-filter><button class="chip chip-sm" type="button" data-f="all" aria-pressed="true">All</button>' +
+    [5,4,3,2,1].map(k => '<button class="chip chip-sm" type="button" data-f="' + k + '" aria-pressed="false">' + k + '★ <span class="muted">' + (dist[5 - k] || 0) + '</span></button>').join("") + '</div>';
   return '<div class="synd-block">' +
     '<div class="rev-summary"><div class="score"><b>' + sup.avg.toFixed(1) + '</b><span class="stars has">' + stars(Math.round(sup.avg)) + '</span><span class="small muted">Based on ' + sup.total + ' reviews</span></div>' +
     (dist.length ? '<ul class="bars">' + dist.map((c, i) => '<li><span>' + (5 - i) + '★</span><i><b style="width:' + (sup.total ? (c / sup.total * 100).toFixed(0) : 0) + '%"></b></i><span>' + c + '</span></li>').join("") + '</ul>' : '') + '</div>' +
+    chips +
     '<div class="rev-list" data-rev-list>' + first.map(card).join("") + '</div>' +
-    (rest.length ? '<div class="center" style="margin-top:14px"><button class="btn btn-ghost" type="button" data-rev-more>Show all ' + list.length + ' written reviews</button><div hidden data-rev-rest>' + rest.map(card).join("") + '</div></div>' : '') +
-    '<p class="synd-src small muted">' + esc(SYNDICATION_NOTE) + ' ' + list.length + ' written reviews of ' + sup.total + '; the rest were star ratings only.</p></div>';
+    '<div hidden data-rev-rest>' + rest.map(card).join("") + (ratings.length ? '<h3 class="rev-h">Ratings without a comment <span class="muted small">(' + ratings.length + ')</span></h3><div class="rev-minis">' + ratings.map(mini).join("") + '</div>' : '') + '</div>' +
+    ((rest.length || ratings.length) ? '<div class="center" style="margin-top:14px"><button class="btn btn-ghost" type="button" data-rev-more>Show all ' + (list.length + ratings.length) + ' reviews</button></div>' : '') +
+    '<p class="synd-src small muted">' + esc(SYNDICATION_NOTE) + '</p></div>';
+}
+/* show-all and star filter for the review list */
+function wireReviewList(host){
+  host.addEventListener("click", e => {
+    const more = e.target.closest("[data-rev-more]");
+    if(more){ const rest = host.querySelector("[data-rev-rest]"); host.querySelector("[data-rev-list]").insertAdjacentHTML("beforeend", rest.innerHTML); rest.remove(); more.remove(); return; }
+    const f = e.target.closest("[data-rev-filter] .chip"); if(!f) return;
+    const rest = host.querySelector("[data-rev-rest]"); if(rest){ host.querySelector("[data-rev-list]").insertAdjacentHTML("beforeend", rest.innerHTML); rest.remove(); const m = host.querySelector("[data-rev-more]"); if(m) m.remove(); }
+    host.querySelectorAll("[data-rev-filter] .chip").forEach(c => c.setAttribute("aria-pressed", String(c === f)));
+    const want = f.dataset.f;
+    host.querySelectorAll("[data-rev-list] [data-stars]").forEach(el => { el.hidden = want !== "all" && el.dataset.stars !== want; });
+    const h = host.querySelector(".rev-h"); if(h) h.hidden = want !== "all" && !host.querySelector('.rev-minis [data-stars="' + want + '"]:not([hidden])');
+  });
+}
+
+/* stars + count for a card, from our own reviews first, else the maker's listing */
+function cardRating(p){
+  const own = REVIEWS[p.id] || [];
+  let avg, n;
+  if(own.length){ n = own.length; avg = own.reduce((t,r) => t + r.stars, 0) / n; }
+  else if(typeof RATING_SUMMARY !== "undefined" && RATING_SUMMARY[p.id]){ avg = RATING_SUMMARY[p.id].avg; n = RATING_SUMMARY[p.id].total; }
+  if(!n) return "";
+  return '<span class="card-rating"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg)) + '</span> ' + avg.toFixed(1) + ' <span class="muted">(' + n + ')</span></span>';
 }
 
 /* -------------------------------------------------------------- rendering -- */
@@ -163,6 +193,7 @@ function productCard(p){
       <div class="art">${productImg(p, 0)}${p.images && p.images[1] ? `<img class="alt" src="${IMG}${p.images[1]}" alt="" width="800" height="800" loading="lazy">` : ""}</div>
       <div class="body">
         <h3>${p.name}</h3>
+        ${cardRating(p)}
         <p class="blurb">${p.blurb}</p>
         <span class="price ${savePct(p) ? "sale" : ""}">${priceHTML(p)}</span>
       </div>
@@ -502,7 +533,7 @@ function quizResults(occ, wear, neck){
 }
 function resultCard(r){
   const p = r.p, s = r.size;
-  return '<div class="pcard-wrap"><a class="pcard" href="product.html?id=' + p.id + '"><div class="art">' + productImg(p, 0) + '</div><div class="body"><h3>' + esc(p.name) + '</h3>' +
+  return '<div class="pcard-wrap"><a class="pcard" href="product.html?id=' + p.id + '"><div class="art">' + productImg(p, 0) + '</div><div class="body"><h3>' + esc(p.name) + '</h3>' + cardRating(p) +
     (s ? '<p class="blurb"><b>' + (s.label === "One size" ? "One size — adjusts" : "Size " + s.label) + '</b>' + (s.neck && s.label !== "One size" ? ' · neck ' + esc(s.neck) : '') + '</p>' : '<p class="blurb">' + esc(p.blurb) + '</p>') +
     '<span class="price ' + (savePct(p) ? "sale" : "") + '">' + priceHTML(p) + '</span></div></a></div>';
 }

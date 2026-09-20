@@ -23,6 +23,10 @@
 
     <div class="body">
       <h3>{{ product.title }}</h3>
+      {%- assign rc = product.metafields.reviews.rating_count.value | default: 0 -%}
+      {%- assign rv = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}
+      {%- if rc == 0 -%}{%- assign rc = product.metafields.custom.supplier_review_count | default: 0 | times: 1 -%}{%- assign rv = product.metafields.custom.supplier_rating | default: 0 | times: 1.0 -%}{%- endif -%}
+      {%- if rc > 0 -%}{%- assign rr = rv | round -%}<span class="card-rating"><span class="stars has" aria-hidden="true">{%- for i in (1..5) -%}{%- if i <= rr -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span> {{ rv | round: 1 }} <span class="muted">({{ rc }})</span></span>{%- endif -%}
       <p class="blurb">{{ product.description | strip_html | truncatewords: 16 }}</p>
       {%- if product.compare_at_price > product.price -%}
         {%- assign pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}

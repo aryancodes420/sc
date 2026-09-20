@@ -324,3 +324,6 @@ const DRAW = {
 /* Reviews from the makers' listings live in assets/reviews.js (SUPPLIER_REVIEWS), loaded by
    product.html only. Shared with the sellers' permission; shown with a one-line source note. */
 const SYNDICATION_NOTE = "Reviews collected from the maker's listing for this product, shared with permission.";
+
+/* Average and count per product from the makers' listings — shown on product cards. Bundles inherit nothing. */
+const RATING_SUMMARY = {"bow-tie-collar": {"avg": 4.8, "total": 585}, "bandana": {"avg": 4.7, "total": 194}, "lion-mane": {"avg": 4.6, "total": 104}, "spider-costume": {"avg": 4.6, "total": 38}, "pumpkin-set": {"avg": 4.6, "total": 8}, "santa-set": {"avg": 4.7, "total": 15}};

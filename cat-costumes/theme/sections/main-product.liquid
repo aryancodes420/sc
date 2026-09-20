@@ -15,7 +15,8 @@
 {%- assign sup_count = product.metafields.custom.supplier_review_count | default: 0 | times: 1 -%}
 {%- assign sup_rating = product.metafields.custom.supplier_rating | default: 0 | times: 1.0 -%}
 {%- assign sup_round = sup_rating | round -%}
-{%- assign sup_reviews = product.metafields.custom.supplier_reviews.value -%}
+{%- assign sup_reviews = product.metafields.custom.supplier_reviews.value | sort: 'stars' | reverse -%}
+{%- assign sup_ratings = product.metafields.custom.supplier_ratings.value | sort: 'stars' | reverse -%}
 {%- assign rating_val = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}
 {%- assign rating_round = rating_val | round -%}
 {%- assign cv = product.selected_or_first_available_variant -%}
@@ -243,13 +244,22 @@
       <div class="synd-block">
         <div class="rev-summary"><div class="score"><b>{{ sup_rating | round: 1 }}</b><span class="stars has">{%- for i in (1..5) -%}{%- if i <= sup_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span><span class="small muted">Based on {{ sup_count }} reviews</span></div>
           <p class="muted" style="margin:0">{{ section.settings.synd_note }}</p></div>
+        <div class="rev-filter" data-rev-filter><button class="chip chip-sm" type="button" data-f="all" aria-pressed="true">All</button>{%- for k in (1..5) -%}{%- assign star = 6 | minus: k -%}<button class="chip chip-sm" type="button" data-f="{{ star }}" aria-pressed="false">{{ star }}★</button>{%- endfor -%}</div>
         {%- if sup_reviews -%}
-          <div class="rev-list">
+          <div class="rev-list" data-rev-list>
             {%- for r in sup_reviews -%}
-              <article class="rev synd"><div class="rev-head"><span class="avatar">🌍</span><div><b>{{ r.name | default: 'Verified buyer' }}</b> <span class="vtag">Verified purchase</span><span class="small muted">{{ r.date }}{% if r.country %} · {{ r.country }}{% endif %}{% if r.size != blank %} · Size {{ r.size }}{% endif %}</span></div></div>
+              <article class="rev synd" data-stars="{{ r.stars }}" {% if forloop.index > 6 %}data-rev-hidden hidden{% endif %}><div class="rev-head"><span class="avatar">🌍</span><div><b>{{ r.name | default: 'Verified buyer' }}</b> <span class="vtag">Verified purchase</span><span class="small muted">{{ r.date }}{% if r.country %} · {{ r.country }}{% endif %}{% if r.size != blank %} · Size {{ r.size }}{% endif %}</span></div></div>
                 <p class="stars has">{%- for i in (1..5) -%}{%- if i <= r.stars -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</p><p>{{ r.text }}</p></article>
             {%- endfor -%}
+            {%- if sup_ratings.size > 0 -%}
+              <h3 class="rev-h" data-rev-hidden hidden>Ratings without a comment <span class="muted small">({{ sup_ratings.size }})</span></h3>
+              <div class="rev-minis" data-rev-hidden hidden>
+                {%- for r in sup_ratings -%}<div class="rev mini" data-stars="{{ r.stars }}"><span class="stars has">{%- for i in (1..5) -%}{%- if i <= r.stars -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span> <b>{{ r.name | default: 'Verified buyer' }}</b> <span class="small muted">{{ r.date }}{% if r.size != blank %} · Size {{ r.size }}{% endif %}</span></div>{%- endfor -%}
+              </div>
+            {%- endif -%}
           </div>
+          {%- assign hidden_count = sup_reviews.size | minus: 6 | plus: sup_ratings.size -%}
+          {%- if hidden_count > 0 -%}<div class="center" style="margin-top:14px"><button class="btn btn-ghost" type="button" data-rev-more>Show all {{ sup_reviews.size | plus: sup_ratings.size }} reviews</button></div>{%- endif -%}
         {%- endif -%}
       </div>
     {%- endif -%}

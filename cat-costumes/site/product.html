@@ -142,7 +142,7 @@
     mountGallery(document.getElementById("gallery"), p);
     wireMiniFinder(host, p);
     mountQuiz(document.getElementById("pdpquiz-host"), { scroll: false });
-    host.addEventListener("click", function(e){ var b = e.target.closest("[data-rev-more]"); if(!b) return; var rest = host.querySelector("[data-rev-rest]"); host.querySelector("[data-rev-list]").insertAdjacentHTML("beforeend", rest.innerHTML); rest.remove(); b.remove(); });
+    wireReviewList(host);
 
     var size = hasSizes ? p.sizes[0].label : null, qty = 1;
     function paintSizeNote(){
