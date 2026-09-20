@@ -396,13 +396,14 @@ function stickyATC(p, state){
     '<span class="price">' + money(currentPrice(p)) + '</span><button class="btn btn-sm" type="button" data-s-add>Add to cart</button>';
   document.body.appendChild(bar);
   bar.querySelector("[data-s-add]").onclick = () => document.getElementById("add").click();
-  const buy = document.querySelector(".pdp-buy"); if(!buy || !("IntersectionObserver" in window)) return;
-  let past = false;
-  new IntersectionObserver(es => {
-    es.forEach(e => { past = !e.isIntersecting && e.boundingClientRect.top < 0; });
+  const buy = document.querySelector(".pdp-buy"); if(!buy) return;
+  /* shown once the buy box has scrolled off the top; checked on scroll so jumps (anchor links,
+     "show all" buttons) can't leave it stuck either way */
+  let ticking = false;
+  const paint = () => { ticking = false; const past = buy.getBoundingClientRect().bottom < 0; if(bar.hidden === !past) return;
     bar.hidden = !past; document.body.classList.toggle("has-sticky", past);
-    const sz = bar.querySelector("[data-s-size]"); if(sz) sz.textContent = state().size ? "Size " + state().size : "";
-  }, { threshold: 0 }).observe(buy);
+    const sz = bar.querySelector("[data-s-size]"); if(sz) sz.textContent = state().size ? "Size " + state().size : ""; };
+  addEventListener("scroll", () => { if(!ticking){ ticking = true; requestAnimationFrame(paint); } }, { passive: true }); paint();
 }
 
 /* ----- first-order offer: a tab, and a one-time pop-up. Code is a placeholder until

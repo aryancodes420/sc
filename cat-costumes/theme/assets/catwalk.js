@@ -127,14 +127,13 @@ function paintDeliveryWindows(root){
 /* sticky add-to-cart: appears once the buy box has scrolled off the top */
 function wireStickyATC(root){
   const bar = (root || document).querySelector("[data-sticky-atc]"), form = document.getElementById("product-form");
-  if(!bar || !form || !("IntersectionObserver" in window)) return;
+  if(!bar || !form) return;
   bar.querySelector("[data-s-add]").addEventListener("click", () => { form.requestSubmit ? form.requestSubmit() : form.submit(); });
   const cur = form.querySelector('.szbtn[aria-pressed="true"]'), ss = bar.querySelector("[data-s-size]");
   if(cur && ss) ss.textContent = "Size " + cur.textContent.trim();
-  new IntersectionObserver(es => {
-    const past = es.some(e => !e.isIntersecting && e.boundingClientRect.top < 0);
-    bar.hidden = !past; document.body.classList.toggle("has-sticky", past);
-  }, { threshold: 0 }).observe(form);
+  let ticking = false;
+  const paint = () => { ticking = false; const past = form.getBoundingClientRect().bottom < 0; if(bar.hidden === !past) return; bar.hidden = !past; document.body.classList.toggle("has-sticky", past); };
+  addEventListener("scroll", () => { if(!ticking){ ticking = true; requestAnimationFrame(paint); } }, { passive: true }); paint();
 }
 /* first-order offer: tab + one-time pop-up; the form itself is Shopify's */
 function wireOffer(){
