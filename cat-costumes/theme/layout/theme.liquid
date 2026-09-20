@@ -6,6 +6,8 @@
   <link rel="canonical" href="{{ canonical_url }}">
   {%- if settings.favicon != blank -%}
     <link rel="icon" href="{{ settings.favicon | image_url: width: 48 }}">
+  {%- else -%}
+    <link rel="icon" href="{{ 'logo.svg' | asset_url }}" type="image/svg+xml">
   {%- endif -%}
 
   <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>

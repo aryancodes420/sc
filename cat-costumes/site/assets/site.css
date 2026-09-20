@@ -805,3 +805,13 @@ header.site.compact .logo .mark{width:30px;height:30px;flex-basis:30px}
 .rev.synd{background:#FFFDF8;border-style:dashed}
 .rev.synd .avatar{background:#FFF1F4;font-size:1.3rem}
 .vtag.synd{background:#FFF7E0;color:#8A6300}
+
+/* logo */
+.logo .mark{width:40px;height:40px;flex:0 0 40px;border-radius:50%;box-shadow:0 3px 0 rgba(61,43,79,.12)}
+.logo .club{color:var(--pink-dk)}
+header.site.compact .logo .mark{width:32px;height:32px;flex-basis:32px}
+/* category row auto-scroll on small screens (motion.js drives it; pauses on touch) */
+.catrow.auto{scroll-snap-type:none;scrollbar-width:none}
+.catrow.auto::-webkit-scrollbar{display:none}
+
+.synd-src{margin:14px 0 0;text-align:center}

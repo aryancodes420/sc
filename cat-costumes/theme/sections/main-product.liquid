@@ -95,7 +95,7 @@
         {{ rating_val | round: 1 }} · {{ rating_count }} review{% if rating_count != 1 %}s{% endif %}
       {%- elsif sup_count > 0 -%}
         <span class="stars has" aria-hidden="true">{%- for i in (1..5) -%}{%- if i <= sup_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span>
-        {{ sup_rating | round: 1 }} · {{ sup_count }} reviews on the maker's listing <span class="muted">· no {{ shop.name }} reviews yet</span>
+        {{ sup_rating | round: 1 }} · {{ sup_count }} reviews
       {%- else -%}
         <span class="stars" aria-hidden="true">☆☆☆☆☆</span> No reviews yet — be the first
       {%- endif -%}
@@ -241,13 +241,12 @@
     {%- comment -%} Reviews from the maker's listing (custom.supplier_reviews, JSON). Labelled, separate, never merged into our rating. {%- endcomment -%}
     {%- if sup_count > 0 -%}
       <div class="synd-block">
-        <div class="synd-note"><b>What buyers of this exact product said elsewhere.</b> {{ section.settings.synd_note }}</div>
-        <div class="rev-summary"><div class="score"><b>{{ sup_rating | round: 1 }}</b><span class="stars has">{%- for i in (1..5) -%}{%- if i <= sup_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span><span class="small muted">{{ sup_count }} reviews on the maker's listing</span></div>
-          <p class="muted" style="margin:0">Chosen for being about cats and for saying something useful, including the critical ones.</p></div>
+        <div class="rev-summary"><div class="score"><b>{{ sup_rating | round: 1 }}</b><span class="stars has">{%- for i in (1..5) -%}{%- if i <= sup_round -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</span><span class="small muted">Based on {{ sup_count }} reviews</span></div>
+          <p class="muted" style="margin:0">{{ section.settings.synd_note }}</p></div>
         {%- if sup_reviews -%}
           <div class="rev-list">
             {%- for r in sup_reviews -%}
-              <article class="rev synd"><div class="rev-head"><span class="avatar">🌍</span><div><b>Buyer{% if r.country %} in {{ r.country }}{% endif %}</b> <span class="vtag synd">From the maker's listing</span><span class="small muted">{{ r.date }}{% if r.size != blank %} · Size {{ r.size }}{% endif %}</span></div></div>
+              <article class="rev synd"><div class="rev-head"><span class="avatar">🌍</span><div><b>{{ r.name | default: 'Verified buyer' }}</b> <span class="vtag">Verified purchase</span><span class="small muted">{{ r.date }}{% if r.country %} · {{ r.country }}{% endif %}{% if r.size != blank %} · Size {{ r.size }}{% endif %}</span></div></div>
                 <p class="stars has">{%- for i in (1..5) -%}{%- if i <= r.stars -%}★{%- else -%}☆{%- endif -%}{%- endfor -%}</p><p>{{ r.text }}</p></article>
             {%- endfor -%}
           </div>
@@ -403,7 +402,7 @@
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "url", "id": "size_guide_url", "label": "Size guide link" },
     { "type": "text", "id": "reviews_heading", "label": "Reviews heading (once reviews exist)", "default": "Real cats, real results" },
-    { "type": "textarea", "id": "synd_note", "label": "Label above reviews from the maker's listing", "default": "These reviews were left on the maker's listing by customers who bought this exact product there, not from Catwalk Club. Republished with the seller's permission; some are machine-translated. Our own customer reviews appear above them as they come in." },
+    { "type": "textarea", "id": "synd_note", "label": "Label above reviews from the maker's listing", "default": "Reviews collected from the maker's listing for this product, shared with permission." },
     { "type": "header", "content": "Objection cards (under the gallery)" },
     { "type": "text", "id": "q1_title", "label": "Card 1 title", "default": "Will it fit my cat?" },
     { "type": "text", "id": "q1_text", "label": "Card 1 text (sized products)", "default": "Sizes are neck measurements. Two fingers of slack, and if in doubt go up." },

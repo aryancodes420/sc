@@ -126,9 +126,23 @@
     e.preventDefault(); t.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); history.replaceState(null, "", a.getAttribute("href"));
   });
 
+  /* ---------- category circles drift sideways when they overflow (phones); any touch stops it ---------- */
+  function autoRow(){
+    if(reduce) return;
+    $$(".catrow").forEach(row => {
+      if(row.scrollWidth <= row.clientWidth + 8) return;
+      row.classList.add("auto"); let dir = 1, on = true, raf;
+      const stop = () => { on = false; cancelAnimationFrame(raf); row.classList.remove("auto"); };
+      ["touchstart", "pointerdown", "wheel", "keydown"].forEach(ev => row.addEventListener(ev, stop, { passive: true }));
+      row.addEventListener("mouseenter", () => { on = false; }); row.addEventListener("mouseleave", () => { if(row.classList.contains("auto")){ on = true; step(); } });
+      const step = () => { if(!on) return; const max = row.scrollWidth - row.clientWidth; row.scrollLeft += 0.5 * dir; if(row.scrollLeft >= max - 1) dir = -1; if(row.scrollLeft <= 0) dir = 1; raf = requestAnimationFrame(step); };
+      setTimeout(step, 1200);
+    });
+  }
+
   /* ---------- boot ---------- */
   function boot(){
-    header(); hero(); tilt(); gallery();
+    header(); hero(); tilt(); gallery(); setTimeout(autoRow, 300);
     reveal(); mo.observe(document.body, { childList: true, subtree: true });
     document.body.classList.add("motion-ready");
   }

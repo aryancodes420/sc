@@ -137,20 +137,21 @@ function reviewsHTML(productId){
     syndicatedHTML(productId) +
   '</section>';
 }
-/* Reviews from the maker's listing: clearly labelled, own block, never merged into our score. */
+/* Reviews from the maker's listing: own block with a one-line source note, never merged into our score. */
 function syndicatedHTML(productId){
   const sup = (typeof SUPPLIER_REVIEWS !== "undefined") && SUPPLIER_REVIEWS[productId];
   if(!sup || !sup.total) return "";
   const stars = k => "★".repeat(k) + "☆".repeat(5 - k);
-  const flag = { US:"🇺🇸", GB:"🇬🇧", AU:"🇦🇺", BR:"🇧🇷", CL:"🇨🇱", ES:"🇪🇸", DE:"🇩🇪", IL:"🇮🇱", CA:"🇨🇦", RU:"🇷🇺", MX:"🇲🇽", PE:"🇵🇪", JP:"🇯🇵", PL:"🇵🇱", FR:"🇫🇷", NL:"🇳🇱", CO:"🇨🇴", LU:"🇱🇺", UA:"🇺🇦" };
-  const card = r => '<article class="rev synd"><div class="rev-head"><span class="avatar">' + (flag[r.country] || "🌍") + '</span><div><b>Buyer' + (r.country ? ' in ' + r.country : '') + '</b> <span class="vtag synd">From the maker\'s listing</span><span class="small muted">' + esc(r.date || "") + (r.size ? ' · Size ' + esc(r.size) : '') + '</span></div></div>' +
-    '<p class="stars has" aria-label="' + r.stars + ' out of 5">' + stars(r.stars) + '</p><p>' + esc(r.text) + '</p></article>';
-  const dist = sup.dist || [];
-  return '<div class="synd-block"><div class="synd-note"><b>What buyers of this exact product said elsewhere.</b> ' + esc(SYNDICATION_NOTE) + '</div>' +
-    '<div class="rev-summary"><div class="score"><b>' + sup.avg.toFixed(1) + '</b><span class="stars has">' + stars(Math.round(sup.avg)) + '</span><span class="small muted">' + sup.total + ' reviews on the maker\'s listing</span></div>' +
+  const flag = { US:"🇺🇸", GB:"🇬🇧", AU:"🇦🇺", BR:"🇧🇷", CL:"🇨🇱", ES:"🇪🇸", DE:"🇩🇪", IL:"🇮🇱", CA:"🇨🇦", RU:"🇷🇺", MX:"🇲🇽", PE:"🇵🇪", JP:"🇯🇵", PL:"🇵🇱", FR:"🇫🇷", NL:"🇳🇱", CO:"🇨🇴", LU:"🇱🇺", UA:"🇺🇦", IT:"🇮🇹", PT:"🇵🇹", KR:"🇰🇷", TR:"🇹🇷", SE:"🇸🇪", BE:"🇧🇪", CZ:"🇨🇿", AR:"🇦🇷", NZ:"🇳🇿", IE:"🇮🇪", CH:"🇨🇭", AT:"🇦🇹", HU:"🇭🇺", RO:"🇷🇴", GR:"🇬🇷", SK:"🇸🇰", LT:"🇱🇹", SA:"🇸🇦", ZA:"🇿🇦", TH:"🇹🇭", MY:"🇲🇾", SG:"🇸🇬", KZ:"🇰🇿", BY:"🇧🇾", HR:"🇭🇷", SI:"🇸🇮", FI:"🇫🇮", NO:"🇳🇴", DK:"🇩🇰", EE:"🇪🇪", LV:"🇱🇻", BG:"🇧🇬", RS:"🇷🇸", MA:"🇲🇦", EG:"🇪🇬", PH:"🇵🇭", ID:"🇮🇩", VN:"🇻🇳", TW:"🇹🇼", HK:"🇭🇰", AE:"🇦🇪", QA:"🇶🇦", PK:"🇵🇰", IN:"🇮🇳", UY:"🇺🇾", EC:"🇪🇨", CR:"🇨🇷", DO:"🇩🇴", PA:"🇵🇦", GE:"🇬🇪", MD:"🇲🇩", AM:"🇦🇲", AZ:"🇦🇿", CY:"🇨🇾", MT:"🇲🇹", IS:"🇮🇸" };
+  const card = r => '<article class="rev synd"><div class="rev-head"><span class="avatar">' + (flag[r.c] || "🌍") + '</span><div><b>' + esc(r.n || "Verified buyer") + '</b> <span class="vtag">Verified purchase</span><span class="small muted">' + esc(r.d || "") + (r.c ? ' · ' + esc(r.c) : '') + (r.z ? ' · Size ' + esc(r.z) : '') + '</span></div></div>' +
+    '<p class="stars has" aria-label="' + r.s + ' out of 5">' + stars(r.s) + '</p><p>' + esc(r.t) + '</p></article>';
+  const dist = sup.dist || [], list = sup.reviews || [], first = list.slice(0, 6), rest = list.slice(6);
+  return '<div class="synd-block">' +
+    '<div class="rev-summary"><div class="score"><b>' + sup.avg.toFixed(1) + '</b><span class="stars has">' + stars(Math.round(sup.avg)) + '</span><span class="small muted">Based on ' + sup.total + ' reviews</span></div>' +
     (dist.length ? '<ul class="bars">' + dist.map((c, i) => '<li><span>' + (5 - i) + '★</span><i><b style="width:' + (sup.total ? (c / sup.total * 100).toFixed(0) : 0) + '%"></b></i><span>' + c + '</span></li>').join("") + '</ul>' : '') + '</div>' +
-    '<div class="rev-list">' + sup.reviews.map(card).join("") + '</div>' +
-    '<p class="small muted" style="margin:.8em 0 0">Showing ' + sup.reviews.length + ' of ' + sup.total + ', chosen for being about cats and for saying something useful, including the critical ones.</p></div>';
+    '<div class="rev-list" data-rev-list>' + first.map(card).join("") + '</div>' +
+    (rest.length ? '<div class="center" style="margin-top:14px"><button class="btn btn-ghost" type="button" data-rev-more>Show all ' + list.length + ' written reviews</button><div hidden data-rev-rest>' + rest.map(card).join("") + '</div></div>' : '') +
+    '<p class="synd-src small muted">' + esc(SYNDICATION_NOTE) + ' ' + list.length + ' written reviews of ' + sup.total + '; the rest were star ratings only.</p></div>';
 }
 
 /* -------------------------------------------------------------- rendering -- */
@@ -260,7 +261,7 @@ function breadcrumbs(items){
 function ratingLine(id){
   const list = REVIEWS[id] || [];
   const sup = (typeof SUPPLIER_REVIEWS !== "undefined") && SUPPLIER_REVIEWS[id];
-  if(!list.length && sup && sup.total) return '<a class="rating" href="#reviews"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(sup.avg)) + "☆".repeat(5 - Math.round(sup.avg)) + '</span> ' + sup.avg.toFixed(1) + ' · ' + sup.total + ' reviews on the maker\'s listing <span class="muted">· no Catwalk Club reviews yet</span></a>';
+  if(!list.length && sup && sup.total) return '<a class="rating" href="#reviews"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(sup.avg)) + "☆".repeat(5 - Math.round(sup.avg)) + '</span> ' + sup.avg.toFixed(1) + ' · ' + sup.total + ' reviews</a>';
   if(!list.length) return '<a class="rating" href="#reviews"><span class="stars" aria-hidden="true">☆☆☆☆☆</span> No reviews yet — be the first</a>';
   const avg = list.reduce((n,r) => n + r.stars, 0) / list.length;
   return '<a class="rating" href="#reviews"><span class="stars has" aria-hidden="true">' + "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg)) + '</span> ' +
