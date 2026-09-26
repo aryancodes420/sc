@@ -1,0 +1,94 @@
+{%- comment -%}
+  Cart drawer. Opens after every add (catwalk.js intercepts the product and quick-add forms, posts to
+  /cart/add.js, then re-renders this section through the Section Rendering API: /?section_id=cart-drawer).
+  Shows the £ gap to free delivery, one one-tap add-on, the bundle the basket is one item away from
+  (or already holds the parts of), the gift note (saved as the cart note), Checkout and the express
+  buttons Shopify offers at cart level.
+{%- endcomment -%}
+{%- assign threshold = settings.free_shipping_threshold | times: 100 -%}
+{%- assign gap = threshold | minus: cart.total_price -%}
+<div class="drawer-wrap" data-cart-drawer hidden>
+  <div class="drawer-bg" data-drawer-close></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-label="Your basket">
+    <div class="drawer-head"><b data-drawer-title>{{ section.settings.heading }}</b><button class="drawer-x" type="button" data-drawer-close aria-label="Close">&times;</button></div>
+    <div class="drawer-body" data-drawer-body>
+      {%- if cart.item_count == 0 -%}
+        <p class="muted">Nothing in here yet.</p><a class="btn btn-block" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+      {%- else -%}
+        {%- for item in cart.items -%}
+          <div class="dline">
+            <div class="art">{%- if item.image -%}<img src="{{ item.image | image_url: width: 128 }}" alt="" width="64" height="64">{%- else -%}<div data-cat-art="{{ item.product.handle }}"></div>{%- endif -%}</div>
+            <div><b>{{ item.product.title }}</b>
+              {%- capture meta -%}{% unless item.product.has_only_default_variant %}{{ item.variant.title }}{% endunless %}{% for p in item.properties %}{% unless p.last == blank or p.first contains '_' %} · {{ p.last }}{% endunless %}{% endfor %}{%- endcapture -%}
+              {%- if meta != blank -%}<span class="small muted">{{ meta | remove_first: ' · ' }}</span>{%- endif -%}
+              <span class="small">{{ item.quantity }} × {{ item.final_price | money }}</span></div>
+            <button class="linkbtn" type="button" data-drawer-rm="{{ item.key }}">{{ 'cart.general.remove' | t }}</button>
+          </div>
+        {%- endfor -%}
+        {%- if threshold > 0 -%}
+          {%- assign pct = cart.total_price | times: 100 | divided_by: threshold | at_most: 100 -%}
+          <div class="dgap"><div class="progress"><i style="width:{{ pct }}%"></i></div>
+            <p class="small" style="margin:0">{% if gap > 0 %}<b>{{ gap | money }}</b> more for free UK delivery{% else %}✅ Free UK delivery unlocked{% endif %}</p></div>
+        {%- endif -%}
+        {%- comment -%} one one-tap add-on: the section's product, skipped once it is in the basket or the line is cleared {%- endcomment -%}
+        {%- assign addon = section.settings.addon_product -%}
+        {%- if addon != blank and gap > 0 and addon.available -%}
+          {%- assign in_cart = false -%}{%- for item in cart.items -%}{%- if item.product_id == addon.id -%}{%- assign in_cart = true -%}{%- endif -%}{%- endfor -%}
+          {%- unless in_cart -%}
+            {%- assign av = addon.selected_or_first_available_variant -%}
+            <div class="daddon"><div class="art">{%- if addon.featured_image -%}<img src="{{ addon.featured_image | image_url: width: 112 }}" alt="" width="56" height="56">{%- endif -%}</div>
+              <div><b>{{ addon.title }}</b><span class="small muted">{{ av.price | money }}{% if av.price >= gap %} — takes you over {{ threshold | money_without_trailing_zeros }}, so delivery is free{% endif %}</span></div>
+              <button class="btn btn-sm" type="button" data-drawer-add="{{ av.id }}">Add</button></div>
+          {%- endunless -%}
+        {%- endif -%}
+        {%- comment -%} the bundle the basket holds the parts of (swap) or is one item away from (add) — from the bundles collection's `contains` metafields {%- endcomment -%}
+        {%- assign best_saving = 0 -%}{%- assign best = nil -%}{%- assign best_missing = nil -%}{%- assign best_complete = false -%}
+        {%- for b in collections[section.settings.bundles_collection].products -%}
+          {%- assign parts = b.metafields.custom.contains.value -%}
+          {%- if parts.size > 1 and b.available -%}
+            {%- assign have = 0 -%}{%- assign missing = nil -%}{%- assign parts_total = 0 -%}{%- assign already = false -%}
+            {%- for part in parts -%}
+              {%- assign parts_total = parts_total | plus: part.price -%}
+              {%- assign found = false -%}{%- for item in cart.items -%}{%- if item.product_id == part.id -%}{%- assign found = true -%}{%- endif -%}{%- endfor -%}
+              {%- if found -%}{%- assign have = have | plus: 1 -%}{%- else -%}{%- assign missing = part -%}{%- endif -%}
+            {%- endfor -%}
+            {%- for item in cart.items -%}{%- if item.product_id == b.id -%}{%- assign already = true -%}{%- endif -%}{%- endfor -%}
+            {%- assign saving = parts_total | minus: b.price -%}
+            {%- assign need = parts.size | minus: have -%}
+            {%- if already == false and saving > 0 and need <= 1 -%}
+              {%- assign complete = false -%}{%- if need == 0 -%}{%- assign complete = true -%}{%- endif -%}
+              {%- if best == nil or complete == true and best_complete == false or complete == best_complete and saving > best_saving -%}
+                {%- assign best = b -%}{%- assign best_saving = saving -%}{%- assign best_missing = missing -%}{%- assign best_complete = complete -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if best -%}
+          {%- capture remove_keys -%}{%- for part in best.metafields.custom.contains.value -%}{%- for item in cart.items -%}{%- if item.product_id == part.id -%}{{ item.key }},{%- break -%}{%- endif -%}{%- endfor -%}{%- endfor -%}{%- endcapture -%}
+          <div class="dbundle"><div><b>{% if best_complete %}You've got the {{ best.title }}{% else %}Make it the {{ best.title }}{% endif %}</b>
+            <span class="small">{% if best_complete %}As a set it's {{ best.price | money }} — swap and save {{ best_saving | money }}{% else %}Add the {{ best_missing.title }} and the set costs {{ best.price | money }} — you save {{ best_saving | money }}{% endif %}{% if best.price >= threshold %}, with free delivery{% endif %}.</span></div>
+            <a class="btn btn-sm btn-mint" href="{{ best.url }}" data-drawer-swap="{{ best.selected_or_first_available_variant.id }}" data-swap-remove="{{ remove_keys }}" {% unless best.has_only_default_variant %}data-swap-choose="1"{% endunless %}>{% if best_complete %}Swap{% else %}Add{% endif %} &amp; save {{ best_saving | money }}</a></div>
+        {%- endif -%}
+        <div class="dsum"><span>{{ 'cart.general.subtotal' | t }}</span><b>{{ cart.total_price | money }}</b></div>
+        <label class="dnote"><span class="small">{{ section.settings.note_label }} <span class="muted">(optional, printed on the slip)</span></span><textarea data-cart-note rows="2" maxlength="200" placeholder="{{ section.settings.note_placeholder }}">{{ cart.note }}</textarea></label>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button class="btn btn-block" type="submit" name="checkout">{{ 'cart.general.checkout' | t }} · {{ cart.total_price | money }}</button>
+          {%- if additional_checkout_buttons -%}<div class="express-native">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+        </form>
+        <a class="small center" href="{{ routes.cart_url }}" style="display:block;margin-top:.6em">View basket</a>
+      {%- endif -%}
+    </div>
+  </aside>
+</div>
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading after an add", "default": "Added to your basket" },
+    { "type": "product", "id": "addon_product", "label": "One-tap add-on", "info": "Offered while the basket is under the free-delivery line. The Bow Tie Collar is the natural choice." },
+    { "type": "collection", "id": "bundles_collection", "label": "Bundles collection", "info": "Bundles whose `contains` metafield matches the basket are offered as a swap or a completion." },
+    { "type": "text", "id": "note_label", "label": "Note field label", "default": "Gift note" },
+    { "type": "text", "id": "note_placeholder", "label": "Note placeholder", "default": "e.g. Happy birthday, Mabel" }
+  ]
+}
+{% endschema %}

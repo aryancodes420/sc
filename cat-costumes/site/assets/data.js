@@ -15,6 +15,17 @@ const PRODUCTS = [
     id: "bow-tie-collar", name: "Bow Tie Collar", price: 8.99, list: 10.99, alias: "Reginald", cat: "everyday",
     badge: "Bestseller", motif: "bowtie",
     images: ["bow-tie-1.webp","bow-tie-2.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-5.webp","bow-tie-6.webp"],
+    /* Colour is a variant: one card per colour on the shop page, swatches on the product page, and the
+       colour travels on the cart line. `images: null` means "not photographed yet" — the page then shows the
+       red tartan photos with an honest note, never a recoloured or borrowed picture. */
+    colours: [
+      { id: "red",   label: "Red tartan", hex: "#B3242C", images: ["bow-tie-1.webp","bow-tie-2.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-5.webp","bow-tie-6.webp"] },
+      { id: "blue",  label: "Blue tartan", hex: "#2F5FA8", images: null },
+      { id: "green", label: "Green tartan", hex: "#2E7D4F", images: null }
+    ],
+    /* Line properties: same price, no separate stock. The bell unclips from its ring. */
+    options: [ { key: "bell", label: "Bell", values: ["With bell", "Without bell"], note: "Same price — the bell unclips from its ring, so you can change your mind later." } ],
+    addon: { id: "bow-tie-collar", label: "Add a second colour", pick: "next-colour" },
     blurb: "A plaid bow tie on a proper safety collar — breakaway buckle, bell, and an elastic adjustable strap.",
     ticks: ["Breakaway buckle releases under pressure", "Elastic strap adjusts to most adult cats", "Bell and plaid bow — on in seconds"],
     forMeIf: ["Your cat has never worn anything before", "You want something that stays on all day, not just for a photo", "You'd rather adjust a strap than pick a size"],
@@ -34,6 +45,7 @@ const PRODUCTS = [
   },
   {
     id: "bandana", name: "Bandana Collar", price: 7.99, list: 9.49, alias: "Roadie", cat: "everyday",
+    addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "UK stock", motif: "bandana", noDeliveryDates: true,
     images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
     blurb: "A paisley bandana mounted on a buckle collar — no tying, just clip it on. Dispatched from UK stock.",
@@ -61,6 +73,7 @@ const PRODUCTS = [
   /* ---------- Halloween ---------- */
   {
     id: "lion-mane", name: "Lion Mane", price: 9.99, list: 11.99, alias: "Kingsley", cat: "halloween",
+    addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Bestseller", motif: "mane",
     images: ["lion-mane-1.webp","lion-mane-2.webp","lion-mane-3.webp","lion-mane-4.webp","lion-mane-5.webp","lion-mane-6.webp"],
     blurb: "The classic. A full faux-fur mane with little round ears that turns any cat into the king of the living room.",
@@ -86,6 +99,7 @@ const PRODUCTS = [
   },
   {
     id: "bat-cape", name: "Devil Bat Cape", price: 12.99, list: 15.49, alias: "Vlad", cat: "halloween",
+    addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Halloween", motif: "cape",
     images: ["bat-cape-5.webp","bat-cape-4.webp","bat-cape-3.webp","bat-cape-2.webp","bat-cape-1.webp","bat-cape-6.webp"],
     blurb: "A red-and-black satin cape with bat wings, a bow at the collar, and a little devil-horn hood to match.",
@@ -111,6 +125,7 @@ const PRODUCTS = [
   },
   {
     id: "spider-costume", name: "Spider Costume", price: 12.99, list: 15.49, alias: "Boris", cat: "halloween",
+    addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Halloween", motif: "bat",
     images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
     blurb: "Eight furry legs on a soft felt body that fastens under the chest. The costume that gets the most double-takes at the door.",
@@ -135,6 +150,7 @@ const PRODUCTS = [
   },
   {
     id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 11.99, list: 14.49, alias: "Pip", cat: "halloween",
+    addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Halloween", motif: "pumpkin",
     images: ["pumpkin-1.webp","pumpkin-2.webp","pumpkin-3.webp","pumpkin-4.webp","pumpkin-5.webp","pumpkin-6.webp"],
     blurb: "A witch-style pumpkin hat on a chin strap, with a matching orange tulle ruffle collar. The most-searched cat costume there is, as a two-piece set.",
@@ -158,6 +174,7 @@ const PRODUCTS = [
   /* ---------- Christmas ---------- */
   {
     id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, list: 21.49, alias: "Nick", cat: "christmas",
+    addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Christmas", motif: "santa",
     images: ["santa-1.webp","santa-2.webp","santa-3.webp","santa-4.webp","santa-5.webp","santa-6.webp"],
     blurb: "A proper cat-sized Santa hat with a matching scarf — soft polycotton, white trim, and velcro so it goes on in seconds.",
@@ -228,6 +245,60 @@ const PRODUCTS = [
     specs: ["Santa Hat & Scarf Set (£17.99)", "Bow Tie Collar (£8.99)", "Ships as one parcel"],
     box: ["1 × Santa Hat & Scarf Set", "1 × Bow Tie Collar"],
     care: "See each product.", confirm: [], source: null
+  },
+  /* ---- the £30 basket: trios and collar sets (GROWTH-PLAN §10 action 2). Bundle prices are set so the
+     saving is real at the launch price AND at the regular price; bundleSaving() shows whichever applies. ---- */
+  {
+    id: "halloween-trio", name: "Halloween Trio", price: 31.99, list: 34.99, cat: "bundle",
+    badge: "Free delivery", motif: "bat", contains: ["bat-cape", "spider-costume", "bow-tie-collar"],
+    images: ["bat-cape-1.webp","spider-2.webp","bow-tie-2.webp","bat-cape-5.webp"],
+    blurb: "Bat cape, spider costume and the bestselling bow tie collar: two Halloween looks and one for every other day. Clears free delivery on its own.",
+    ticks: ["Three pieces, one parcel, free UK delivery", "Cheaper than buying the three apart", "One size choice covers the cape and the spider"],
+    forMeIf: ["You want the two Halloween looks plus a collar the cat keeps on", "You want free delivery and Klarna in one go", "It's a gift and you'd rather send one box"],
+    fit: "Pick one size for the cape and the spider. The bow tie collar adjusts.",
+    sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", note: "Large cats" } ],
+    specs: ["Devil Bat Cape", "Spider Costume", "Bow Tie Collar (red tartan, with bell)", "Ships as one parcel"],
+    box: ["1 × Devil Bat Cape with hood", "1 × Spider Costume", "1 × Bow Tie Collar"],
+    care: "See each product.", confirm: [], source: null
+  },
+  {
+    id: "festive-trio", name: "Festive Trio", price: 32.99, list: 36.99, cat: "bundle",
+    badge: "Free delivery", motif: "santa", contains: ["santa-set", "bow-tie-collar", "bandana"],
+    images: ["santa-1.webp","bow-tie-1.webp","bandana-2.webp","santa-3.webp"],
+    blurb: "Santa hat and scarf for the card, a bow tie collar for the day and a bandana collar for the rest of the year. Free delivery on its own.",
+    ticks: ["Three pieces, one parcel, free UK delivery", "Cheaper than buying the three apart", "Only the bandana needs a size"],
+    forMeIf: ["The Christmas card plus two collars the cat keeps on", "It's the present for the cat person who has everything", "You want the whole December sorted in one order"],
+    fit: "Pick the bandana size. The Santa set and the bow tie collar adjust.",
+    sizes: [ { label: "S", neck: "bandana 24–40cm", note: "Most cats" }, { label: "M", neck: "bandana 29–45cm", note: "Large cats, small dogs" }, { label: "L", neck: "bandana 33–55cm", note: "Small–medium dogs" } ],
+    specs: ["Santa Hat & Scarf Set", "Bow Tie Collar (red tartan, with bell)", "Bandana Collar", "Ships as one parcel"],
+    box: ["1 × Santa Hat & Scarf Set", "1 × Bow Tie Collar", "1 × Bandana Collar"],
+    care: "See each product.", confirm: [], source: null
+  },
+  {
+    id: "bow-tie-trio", name: "One for Every Season", price: 24.99, list: 27.99, cat: "bundle",
+    badge: "Three colours", motif: "bowtie", contains: ["bow-tie-collar", "bow-tie-collar", "bow-tie-collar"],
+    colourSet: ["red", "blue", "green"],
+    images: ["bow-tie-1.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-6.webp"],
+    blurb: "Three bow tie collars, one in each tartan: red, blue and green. Swap with the season, or the mood.",
+    ticks: ["Red, blue and green tartan — one of each", "Cheaper than three bought apart", "Adjustable, nothing to size"],
+    forMeIf: ["You'd rather rotate collars than wash one", "There's more than one cat in the house", "You know the bow tie will get worn every day"],
+    fit: "All three adjust. Nothing to size.", sizes: null,
+    specs: ["3 × Bow Tie Collar with bell — red tartan, blue tartan, green tartan", "Ships as one parcel"],
+    box: ["3 × Bow Tie Collar (one per colour)"],
+    care: "Spot clean. Wipe the buckle; do not machine wash.", confirm: [], source: null
+  },
+  {
+    id: "two-cats", name: "Two Cats", price: 15.99, list: 19.99, cat: "bundle",
+    badge: "Matching pair", motif: "bowtie", contains: ["bow-tie-collar", "bow-tie-collar"],
+    colourSet: ["red", "red"],
+    images: ["bow-tie-2.webp","bow-tie-5.webp","bow-tie-1.webp","bow-tie-4.webp"],
+    blurb: "Two matching bow tie collars for a two-cat household, or a cat and a small dog who have to be in the same photo.",
+    ticks: ["Two matching collars, one parcel", "Cheaper than two bought apart", "Adjustable, nothing to size"],
+    forMeIf: ["You have two cats and one Christmas card", "It's a cat and a small dog", "You want a spare for the one who loses collars"],
+    fit: "Both adjust. Nothing to size.", sizes: null,
+    specs: ["2 × Bow Tie Collar with bell, red tartan", "Ships as one parcel"],
+    box: ["2 × Bow Tie Collar"],
+    care: "Spot clean. Wipe the buckle; do not machine wash.", confirm: [], source: null
   }
 ];
 

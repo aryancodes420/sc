@@ -825,6 +825,54 @@ header.site.compact .logo .mark{width:32px;height:32px;flex-basis:32px}
 .rev.mini{padding:10px 12px;font-size:.85rem;display:flex;gap:.4em;align-items:center;flex-wrap:wrap;border-style:dashed}
 .rev.mini .stars{margin:0;font-size:.9rem}
 
+/* ---------- phase 2: the £30 basket ---------- */
+/* colour swatches */
+.swatches{display:flex;gap:10px;margin:.5em 0 0;flex-wrap:wrap}
+.swatches button{width:38px;height:38px;border-radius:50%;border:3px solid var(--line);background:#fff;padding:3px;cursor:pointer;display:grid;place-items:center}
+.swatches button i{display:block;width:100%;height:100%;border-radius:50%}
+.swatches button[aria-pressed="true"]{border-color:var(--ink)}
+.swatches.mini{display:inline-flex;gap:5px;margin:0 0 6px}
+.swatches.mini i{width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);display:inline-block}
+.swatches.mini i.on{box-shadow:0 0 0 2px var(--ink)}
+.pcard h3 .cvar{display:block;font-family:Nunito,sans-serif;font-weight:700;font-size:.8rem;color:var(--muted);margin-top:2px}
+.pcard .art .cardnote{position:absolute;left:8px;right:8px;bottom:8px;background:rgba(255,255,255,.92);color:var(--muted);font-size:.7rem;font-weight:700;padding:.45em .7em;border-radius:10px;line-height:1.3}
+.sizes.opts button{min-width:0;padding:0 14px}
+/* add-on tick box */
+.addon{display:grid;grid-template-columns:auto 56px 1fr;gap:12px;align-items:center;margin:14px 0 0;padding:12px 14px;border:3px solid var(--line);border-radius:var(--r-sm);background:#fff;cursor:pointer}
+.addon:has(input:checked){border-color:var(--mint);background:#F1FBF6}
+.addon input{width:22px;height:22px;accent-color:var(--mint);margin:0}
+.addon .art{width:56px;height:56px;border-radius:10px;overflow:hidden;border:2px solid var(--line)}
+.addon .art img{width:100%;height:100%;object-fit:cover}
+.addon b{display:block;font-size:.95rem}.addon b em{font-style:normal;color:var(--pink-dk)}
+/* cart drawer */
+.drawer-wrap{position:fixed;inset:0;z-index:95}
+.drawer-wrap[hidden]{display:none}
+.drawer-bg{position:absolute;inset:0;background:rgba(61,43,79,.45);opacity:0;transition:opacity .25s}
+.drawer{position:absolute;top:0;right:0;bottom:0;width:min(440px,100%);background:#fff;box-shadow:var(--shadow-lg);transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+.drawer-wrap.open .drawer-bg{opacity:1}.drawer-wrap.open .drawer{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:2px solid var(--line);font-family:Fredoka,sans-serif;font-size:1.15rem}
+.drawer-x{border:0;background:var(--line);width:36px;height:36px;border-radius:50%;font-size:1.3rem;cursor:pointer;color:var(--ink)}
+.drawer-body{padding:16px 20px 24px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+.dline{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center}
+.dline.new{background:#FFF7F9;border-radius:var(--r-sm);padding:8px;margin:-8px}
+.dline .art{width:64px;height:64px;border-radius:10px;overflow:hidden;border:2px solid var(--line)}
+.dline .art img{width:100%;height:100%;object-fit:cover}
+.dline b{display:block;font-size:.95rem}.dline span{display:block}
+.dgap{margin-top:4px}
+.daddon,.dbundle{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:12px;border:3px dashed var(--line);border-radius:var(--r-sm)}
+.dbundle{grid-template-columns:1fr auto;background:#F1FBF6;border-style:solid;border-color:var(--mint)}
+.daddon .art{width:56px;height:56px;border-radius:10px;overflow:hidden;border:2px solid var(--line)}
+.daddon .art img{width:100%;height:100%;object-fit:cover}
+.daddon b,.dbundle b{display:block;font-size:.95rem}.daddon span,.dbundle span{display:block}
+.dsum{display:flex;justify-content:space-between;font-size:1.1rem;padding-top:8px;border-top:2px solid var(--line)}
+.dnote{display:flex;flex-direction:column;gap:6px}
+.dnote textarea{width:100%;border:3px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;font:inherit;font-size:.95rem;resize:vertical}
+.drawer .express{margin-top:4px}
+body.drawer-open{overflow:hidden}
+.summary .daddon,.summary .dbundle{margin:10px 0}
+.summary .dnote{margin:12px 0 0}
+@media(prefers-reduced-motion:reduce){.drawer,.drawer-bg{transition:none}}
+
 /* ---------- Shopify theme additions ---------- */
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;background:var(--ink);color:#fff;

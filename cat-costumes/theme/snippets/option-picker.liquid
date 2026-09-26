@@ -1,0 +1,24 @@
+{%- comment -%}
+  One group per product option. A Colour option renders as swatches (each value's swatch colour from the
+  option settings, grey if unset); every other option as pills. The product section's script resolves the
+  variant from the selected values. A colour with no variant photo gets the 'photographed when it lands' note.
+  Params: product
+{%- endcomment -%}
+{%- for opt in product.options_with_values -%}
+  {%- assign is_colour = false -%}{%- if opt.name == 'Colour' or opt.name == 'Color' -%}{%- assign is_colour = true -%}{%- endif -%}
+  {%- assign oidx = opt.position | minus: 1 -%}
+  <div class="field" data-option-group="{{ oidx }}">
+    <label id="opt-{{ opt.position }}">{{ opt.name }}{% if is_colour %}: <b data-colour-label>{{ opt.selected_value }}</b>{% endif %}</label>
+    <div class="{% if is_colour %}swatches{% else %}sizes{% endif %}" role="group" aria-labelledby="opt-{{ opt.position }}">
+      {%- for value in opt.values -%}
+        {%- assign has_own_photo = false -%}
+        {%- if is_colour -%}{%- for v in product.variants -%}{%- if v.options[oidx] == value and v.featured_image != blank -%}{%- assign has_own_photo = true -%}{%- endif -%}{%- endfor -%}{%- endif -%}
+        <button type="button" class="{% if is_colour %}swbtn{% else %}szbtn{% endif %}" data-value="{{ value | escape }}" data-has-photo="{{ has_own_photo }}"
+                aria-pressed="{% if value == opt.selected_value %}true{% else %}false{% endif %}" aria-label="{{ value | escape }}" title="{{ value | escape }}">
+          {%- if is_colour -%}<i style="background:{{ value.swatch.color | default: '#ccc' }}"></i>{%- else -%}{{ value }}{%- endif -%}
+        </button>
+      {%- endfor -%}
+          </div>
+    {%- if is_colour -%}<p class="small muted" data-colour-note style="margin:.4em 0 0" hidden>Photos show the {{ opt.values.first | downcase }}. This colour is the same collar in that tartan and is photographed when it lands.</p>{%- endif -%}
+  </div>
+{%- endfor -%}

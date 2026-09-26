@@ -111,7 +111,7 @@
     if(s === "low")  list = list.slice().sort(function(a,b){ return currentPrice(a) - currentPrice(b); });
     if(s === "high") list = list.slice().sort(function(a,b){ return currentPrice(b) - currentPrice(a); });
     if(s === "az")   list = list.slice().sort(function(a,b){ return a.name.localeCompare(b.name); });
-    renderGrid(grid, list);
+    renderGrid(grid, expandColours(list));
     none.hidden = list.length > 0;
     filters.querySelectorAll(".chip").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.f === current)); });
   }

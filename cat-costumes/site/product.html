@@ -75,6 +75,9 @@
     document.title = p.name + " — Catwalk Club";
     var hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
     var videos = Array.isArray(p.videos) ? p.videos : [];
+    var colourParam = new URLSearchParams(location.search).get("colour");
+    var colour = p.colours ? ((p.colours.find(function(c){ return c.id === colourParam; }) || p.colours[0]).id) : null;
+    var props = {}; (p.options || []).forEach(function(o){ props[o.key] = o.values[0]; });
 
     host.innerHTML =
       breadcrumbs([{ label: "Home", href: "index.html" }, { label: catOf(p.cat).label, href: "shop.html?cat=" + p.cat }, { label: p.name }]) +
@@ -99,6 +102,8 @@
 
       /* 3 · add to cart + express checkout + trust */
       '<div class="pdp-buy">' +
+        swatchRow(p, colour) +
+        optionRows(p) +
         (hasSizes ?
           '<div class="field"><label id="szl">Size</label>' +
             '<div class="sizes" id="sizes" role="group" aria-labelledby="szl">' +
@@ -111,6 +116,7 @@
           '<button class="btn btn-block" id="add" type="button">Add to cart</button>' +
           '<button class="wish wish-lg btn-ghost" type="button" data-wish="' + p.id + '">♡</button>' +
         '</div>' +
+        addonBox(p) +
         expressRow() +
         trustRow(p) +
         paymentIcons() +
@@ -161,11 +167,44 @@
       });
     }
     var qEl = document.getElementById("q");
-    document.getElementById("plus").onclick  = function(){ qty = Math.min(qty + 1, 20); qEl.textContent = qty; };
-    document.getElementById("minus").onclick = function(){ qty = Math.max(qty - 1, 1);  qEl.textContent = qty; };
-    document.getElementById("add").onclick   = function(){ addToCart(p.id, size, qty); toast(qty + " × " + p.name + (size ? " (" + size + ")" : "") + " added"); };
+    document.getElementById("plus").onclick  = function(){ qty = Math.min(qty + 1, 20); qEl.textContent = qty; if(p.addon) paintAddonNote(p, qty); };
+    document.getElementById("minus").onclick = function(){ qty = Math.max(qty - 1, 1);  qEl.textContent = qty; if(p.addon) paintAddonNote(p, qty); };
+    /* colour swatches: repaint the gallery from the colour's own photos, or keep the photographed colour with the note */
+    var sw = document.getElementById("swatches");
+    if(sw){
+      sw.addEventListener("click", function(e){
+        var b = e.target.closest("button"); if(!b) return;
+        colour = b.dataset.c; var c = p.colours.find(function(x){ return x.id === colour; });
+        sw.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+        document.querySelector("[data-colour-label]").textContent = c.label;
+        var note = document.getElementById("colournote"); note.hidden = !!c.images;
+        note.textContent = "Photos show the " + p.colours[0].label.toLowerCase() + ". The " + c.label.toLowerCase() + " is the same collar in that tartan and is photographed when it lands.";
+        mountGallery(document.getElementById("gallery"), c.images ? Object.assign({}, p, { images: c.images }) : p);
+        history.replaceState(null, "", "product.html?id=" + p.id + "&colour=" + colour);
+        var ss = document.querySelector(".sticky-atc [data-s-size]"); if(ss) ss.textContent = c.label + (size ? " · Size " + size : "");
+      });
+    }
+    /* line-property toggles (e.g. bell on/off): same price, travels on the cart line */
+    host.querySelectorAll("[data-opt]").forEach(function(g){
+      g.addEventListener("click", function(e){
+        var b = e.target.closest("button"); if(!b) return;
+        props[g.dataset.opt] = b.dataset.v;
+        g.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+      });
+    });
+    if(p.addon) paintAddonNote(p, qty);
+    document.getElementById("add").onclick   = function(){
+      addToCart(p.id, size, qty, { colour: colour, props: props });
+      var box = document.querySelector("[data-addon]");
+      if(box && box.checked){
+        var a = byId(box.dataset.addon); var aCol = null;
+        if(a.colours){ var c = getCart(); aCol = (a.colours.find(function(x){ return !c.some(function(l){ return l.id === a.id && l.colour === x.id; }); }) || a.colours[0]).id; }
+        addToCart(a.id, null, 1, { colour: aCol }); box.checked = false;
+      }
+      openDrawer(p.id);
+    };
     document.getElementById("paynow").addEventListener("click", function(e){ var b = e.target.closest("[data-ex]"); if(b) toast(b.dataset.ex + " activates on Shopify once payments are enabled"); });
-    stickyATC(p, function(){ return { size: size, qty: qty }; });
+    stickyATC(p, function(){ return { size: size, qty: qty, colour: colour }; });
     productJsonLd(p);
     host.addEventListener("click", function(e){
       var w = e.target.closest("[data-wish]"); if(!w) return;

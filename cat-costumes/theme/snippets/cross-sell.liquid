@@ -1,0 +1,41 @@
+{%- comment -%}
+  Cross-sell for the product page: the bundles this product sits in (custom.bundles) with the saving and
+  the free-delivery flag, or, on a bundle, what it contains (custom.contains). Params: product
+{%- endcomment -%}
+{%- comment -%} 7 · cross-sell: bundles this product sits in (custom.bundles), or a bundle's contents (custom.contains) {%- endcomment -%}
+{%- assign bundles = product.metafields.custom.bundles.value -%}
+{%- assign contents = product.metafields.custom.contains.value -%}
+{%- if contents.size > 0 -%}
+  <section class="xsell">
+    <h2>What's in it</h2>
+    <div class="xgrid">
+      {%- for item in contents -%}
+        <a class="xcard" href="{{ item.url }}">
+          {%- if item.featured_image -%}<img src="{{ item.featured_image | image_url: width: 200 }}" alt="" width="84" height="84" loading="lazy">{%- else -%}<div data-cat-art="{{ item.handle }}"></div>{%- endif -%}
+          <div><b>{{ item.title }}</b><span class="muted small">Included in this bundle</span><span class="price">{{ item.price | money }}</span></div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- elsif bundles.size > 0 -%}
+  <section class="xsell">
+    <h2>Cheaper together</h2>
+    <div class="xgrid">
+      {%- for b in bundles -%}
+        {%- assign partner = nil -%}{%- assign others = '' -%}{%- assign n_others = 0 -%}
+        {%- for c in b.metafields.custom.contains.value -%}{%- if c.id != product.id -%}{%- if partner == nil -%}{%- assign partner = c -%}{%- endif -%}{%- assign n_others = n_others | plus: 1 -%}{%- if others == '' -%}{%- assign others = c.title -%}{%- else -%}{%- assign others = others | append: ' and the ' | append: c.title -%}{%- endif -%}{%- endif -%}{%- endfor -%}
+        {%- assign pic = partner.featured_image | default: b.featured_image -%}
+        <a class="xcard" href="{{ b.url }}">
+          {%- if pic -%}<img src="{{ pic | image_url: width: 200 }}" alt="" width="84" height="84" loading="lazy">{%- else -%}<div data-cat-art="{{ b.handle }}"></div>{%- endif -%}
+          <div>
+            <b>{{ b.title }}</b>
+            {%- assign thr = settings.free_shipping_threshold | times: 100 -%}
+            <span class="muted small">{% if n_others > 1 %}Add the {{ others }} as a trio{% elsif partner %}Add the {{ partner.title }} as a bundle{% else %}{{ b.metafields.custom.contains.value.size }} of these, as a set{% endif %}{% if b.price >= thr %} · free delivery{% endif %}</span>
+            <span class="price">{{ b.price | money }}{% if b.compare_at_price > b.price %} <em class="save">Save {{ b.compare_at_price | minus: b.price | money }}</em>{% endif %}</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+

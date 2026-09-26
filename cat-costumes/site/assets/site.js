@@ -66,13 +66,61 @@ function setCart(c){
   try{ localStorage.setItem(CART_KEY, JSON.stringify(c)); }catch(e){}
   paintCount();
 }
-/* A line is identified by product + size, so "Lion Mane L" and "Lion Mane M" stay separate. */
-function addToCart(id, size, qty){
-  const cart = getCart();
+/* A line is identified by product + size + colour + line properties, so "Lion Mane L" and "Lion Mane M",
+   or a red and a blue bow tie, stay separate. opts: { colour, props: { bell: "Without bell" } } */
+const sameLine = (l, id, size, colour, props) => l.id === id && (l.size || null) === (size || null) && (l.colour || null) === (colour || null) && JSON.stringify(l.props || {}) === JSON.stringify(props || {});
+function addToCart(id, size, qty, opts){
+  const cart = getCart(); opts = opts || {};
   size = size || null; qty = Math.max(1, parseInt(qty, 10) || 1);
-  const hit = cart.find(l => l.id === id && (l.size || null) === size);
-  if(hit) hit.qty += qty; else cart.push({ id, size, qty });
+  const p = byId(id);
+  const colour = opts.colour || (p && p.colours ? p.colours[0].id : null);
+  const props = opts.props && Object.keys(opts.props).length ? opts.props : undefined;
+  const hit = cart.find(l => sameLine(l, id, size, colour, props));
+  if(hit) hit.qty += qty; else cart.push(Object.assign({ id, size, qty }, colour ? { colour } : {}, props ? { props } : {}));
   setCart(cart);
+  return cart;
+}
+/* one-line description of a cart line's choices: "Size M · Blue tartan · Without bell" */
+function lineMeta(l){
+  const p = byId(l.id); const bits = [];
+  if(l.size) bits.push("Size " + l.size);
+  if(p && p.colours && l.colour){ const c = p.colours.find(x => x.id === l.colour); if(c) bits.push(c.label); }
+  if(l.props) Object.keys(l.props).forEach(k => { const o = (p.options || []).find(x => x.key === k); if(!o || l.props[k] !== o.values[0]) bits.push(l.props[k]); });
+  return bits.join(" · ");
+}
+const NOTE_KEY = "catwalk.giftnote.v1";
+function getGiftNote(){ try{ return localStorage.getItem(NOTE_KEY) || ""; }catch(e){ return ""; } }
+function setGiftNote(v){ try{ if(v) localStorage.setItem(NOTE_KEY, v); else localStorage.removeItem(NOTE_KEY); }catch(e){} }
+/* the cheapest live product that would take the basket over the free-delivery line, else the bow tie */
+function gapAddon(){
+  const total = cartTotal(), gap = FREE_SHIPPING_AT - total;
+  const live = PRODUCTS.filter(x => !x.hold && x.cat !== "bundle" && !x.sizes);
+  if(gap <= 0) return null;
+  const closes = live.filter(x => currentPrice(x) >= gap).sort((a, b) => currentPrice(a) - currentPrice(b));
+  return closes[0] || live.sort((a, b) => currentPrice(b) - currentPrice(a))[0] || null;
+}
+/* a bundle the basket is one item away from: { bundle, missing, saving } — swapping the parts for the bundle saves money */
+function completingBundle(){
+  const cart = getCart(); const ids = cart.map(l => l.id);
+  let best = null;
+  PRODUCTS.filter(b => b.cat === "bundle" && !b.hold && (b.contains || []).length > 1).forEach(b => {
+    const need = b.contains.slice(); const have = [];
+    ids.forEach(id => { const i = need.indexOf(id); if(i >= 0){ need.splice(i, 1); have.push(id); } });
+    if(need.length <= 1 && have.length >= b.contains.length - 1 && ids.indexOf(b.id) < 0){
+      const saving = bundleSaving(b); const complete = need.length === 0;
+      /* a set the basket already holds outranks one it is an item away from; then the bigger saving */
+      if(saving > 0 && (!best || (complete && !best.complete) || (complete === best.complete && saving > best.saving))) best = { bundle: b, missing: complete ? null : byId(need[0]), saving, complete };
+    }
+  });
+  return best;
+}
+/* replace the bundle's components in the basket with the bundle itself (size carried from the first sized component) */
+function swapForBundle(bid){
+  const b = byId(bid); if(!b) return;
+  let cart = getCart(); let size = null;
+  b.contains.forEach(id => { const i = cart.findIndex(l => l.id === id); if(i >= 0){ if(cart[i].size && !size) size = cart[i].size; if(cart[i].qty > 1) cart[i].qty--; else cart.splice(i, 1); } });
+  if(b.sizes && (!size || !b.sizes.some(x => x.label === size))) size = b.sizes[0].label;
+  setCart(cart); addToCart(b.id, b.sizes ? size : null, 1);
 }
 const cartCount = () => getCart().reduce((n,l) => n + l.qty, 0);
 const cartTotal = () => getCart().reduce((n,l) => { const p = byId(l.id); return p ? n + currentPrice(p) * l.qty : n; }, 0);
@@ -185,14 +233,20 @@ function cardRating(p){
 }
 
 /* -------------------------------------------------------------- rendering -- */
-function productCard(p){
+function productCard(p, colour){
   const badge = p.badge ? `<span class="badge ${p.cat === "bundle" ? "save" : ""}">${p.badge}</span>` : "";
+  const c = colour && p.colours ? p.colours.find(x => x.id === colour) : null;
+  const href = "product.html?id=" + p.id + (c ? "&colour=" + c.id : "");
+  const art = c && !c.images
+    ? productImg(p, 0) + '<span class="cardnote">Photo shows ' + esc(p.colours[0].label.toLowerCase()) + ' — ' + esc(c.label.toLowerCase()) + ' photographed when it lands</span>'
+    : productImg(p, 0) + (p.images && p.images[1] ? `<img class="alt" src="${IMG}${p.images[1]}" alt="" width="800" height="800" loading="lazy">` : "");
+  const swatches = p.colours ? '<span class="swatches mini" aria-label="Colours">' + p.colours.map(x => '<i style="background:' + x.hex + '"' + (c && c.id === x.id ? ' class="on"' : '') + ' title="' + esc(x.label) + '"></i>').join("") + '</span>' : "";
   return `<div class="pcard-wrap">
-    <a class="pcard" href="product.html?id=${p.id}">
+    <a class="pcard" href="${href}">
       ${badge}
-      <div class="art">${productImg(p, 0)}${p.images && p.images[1] ? `<img class="alt" src="${IMG}${p.images[1]}" alt="" width="800" height="800" loading="lazy">` : ""}</div>
+      <div class="art">${art}</div>
       <div class="body">
-        <h3>${p.name}</h3>
+        <h3>${p.name}${c ? ' <span class="cvar">' + esc(c.label) + '</span>' : ''}</h3>${swatches}
         ${cardRating(p)}
         <p class="blurb">${p.blurb}</p>
         <span class="price ${savePct(p) ? "sale" : ""}">${priceHTML(p)}</span>
@@ -200,16 +254,23 @@ function productCard(p){
     </a>
     <button class="wish" type="button" data-wish="${p.id}" aria-pressed="false"
       onclick="event.preventDefault();toast(toggleWish('${p.id}')?'Saved to wishlist':'Removed from wishlist');">&#9825;</button>
-    ${quickAdd(p)}
+    ${quickAdd(p, c ? c.id : null)}
   </div>`;
 }
+/* the shop grid shows one card per colour for products that come in colours */
+function expandColours(list){
+  const out = [];
+  list.forEach(p => { if(p.colours && p.colours.length > 1) p.colours.forEach(c => out.push([p, c.id])); else out.push([p, null]); });
+  return out;
+}
 /* Quick add: one-size products go straight in the basket; sized ones go to the size picker. */
-function quickAdd(p){
+function quickAdd(p, colour){
   if(p.soldOut) return `<button class="qadd notify" type="button" onclick="toast('We\'ll email you when the ${esc(p.name)} is back — connect this to Shopify\'s back-in-stock app')">🔔 Notify</button>`;
   if(Array.isArray(p.sizes) && p.sizes.length) return `<a class="qadd" href="product.html?id=${p.id}#sizes">Pick size</a>`;
-  return `<button class="qadd" type="button" onclick="addToCart('${p.id}',null,1);toast('${esc(p.name)} added')">🛒 Add</button>`;
+  return `<button class="qadd" type="button" onclick="addToCart('${p.id}',null,1,{colour:${colour ? "'" + colour + "'" : "null"}});openDrawer('${p.id}')">🛒 Add</button>`;
 }
-const renderGrid = (el, list) => { el.innerHTML = list.map(productCard).join(""); paintWish(); };
+/* list may hold products, or [product, colourId] pairs from expandColours() */
+const renderGrid = (el, list) => { el.innerHTML = list.map(x => Array.isArray(x) ? productCard(x[0], x[1]) : productCard(x)).join(""); paintWish(); };
 
 /* Six-image gallery: main image plus thumbnails. */
 function mountGallery(host, p){
@@ -414,8 +475,11 @@ function crossSell(p){
     cards = (p.contains || []).map(byId).filter(Boolean).map(c => ({ img: c.images[0], title: c.name, line: "Included in this bundle", price: money(currentPrice(c)), href: "product.html?id=" + c.id, save: "" }));
   } else {
     cards = live.filter(b => b.cat === "bundle" && (b.contains || []).indexOf(p.id) >= 0).map(b => {
-      const partner = byId((b.contains || []).find(id => id !== p.id));
-      return { img: partner ? partner.images[0] : b.images[0], title: b.name, line: "Add the " + (partner ? partner.name : "pair") + " as a bundle",
+      const others = (b.contains || []).filter(id => id !== p.id).map(byId).filter(Boolean);
+      const names = others.map(x => x.name); const same = others.length === 0;
+      const line = same ? ((b.contains || []).length + " of these, as a set") : "Add the " + names.join(" and the ") + (others.length > 1 ? " as a trio" : " as a bundle");
+      const free = currentPrice(b) >= FREE_SHIPPING_AT ? " · free delivery" : "";
+      return { img: others[0] ? others[0].images[0] : b.images[0], title: b.name, line: line + free,
         price: money(currentPrice(b)), href: "product.html?id=" + b.id, save: "Save " + money(bundleSaving(b)) };
     });
   }
@@ -468,10 +532,84 @@ function stickyATC(p, state){
   let ticking = false;
   const paint = () => { ticking = false; const past = buy.getBoundingClientRect().bottom < 0; if(bar.hidden === !past) return;
     bar.hidden = !past; document.body.classList.toggle("has-sticky", past);
-    const sz = bar.querySelector("[data-s-size]"); if(sz) sz.textContent = state().size ? "Size " + state().size : ""; };
+    const sz = bar.querySelector("[data-s-size]"); if(sz){ const st = state(); const c = p.colours && st.colour ? p.colours.find(x => x.id === st.colour) : null; sz.textContent = [c ? c.label : "", st.size ? "Size " + st.size : ""].filter(Boolean).join(" · "); } };
   addEventListener("scroll", () => { if(!ticking){ ticking = true; requestAnimationFrame(paint); } }, { passive: true }); paint();
 }
 
+
+/* ----- cart drawer: opens on every add. The £ gap to free delivery, one one-tap add-on, the bundle the
+   basket is one item away from, express slots and a gift note. Replaces the "added" toast. ----- */
+function drawerEl(){
+  let d = document.querySelector(".drawer-wrap");
+  if(d) return d;
+  d = document.createElement("div"); d.className = "drawer-wrap"; d.hidden = true;
+  d.innerHTML = '<div class="drawer-bg" data-drawer-close></div><aside class="drawer" role="dialog" aria-modal="true" aria-label="Your basket"><div class="drawer-head"><b data-drawer-title>Added to your basket</b><button class="drawer-x" type="button" data-drawer-close aria-label="Close">×</button></div><div class="drawer-body" data-drawer-body></div></aside>';
+  document.body.appendChild(d);
+  d.addEventListener("click", e => {
+    if(e.target.closest("[data-drawer-close]")) return closeDrawer();
+    const add = e.target.closest("[data-drawer-add]"); if(add){ const [id, colour] = add.dataset.drawerAdd.split("|"); addToCart(id, null, 1, { colour: colour || null }); paintDrawer(id); return; }
+    const swap = e.target.closest("[data-drawer-swap]"); if(swap){ swapForBundle(swap.dataset.drawerSwap); paintDrawer(swap.dataset.drawerSwap); return; }
+    const rm = e.target.closest("[data-drawer-rm]"); if(rm){ const c = getCart(); c.splice(+rm.dataset.drawerRm, 1); setCart(c); paintDrawer(); return; }
+    const ex = e.target.closest("[data-ex]"); if(ex) toast(ex.dataset.ex + " activates on Shopify once payments are enabled");
+  });
+  d.addEventListener("input", e => { const n = e.target.closest("[data-gift-note]"); if(n) setGiftNote(n.value.slice(0, 200)); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") closeDrawer(); });
+  return d;
+}
+function paintDrawer(justAdded){
+  const d = drawerEl(), body = d.querySelector("[data-drawer-body]");
+  const cart = getCart().filter(l => byId(l.id) && !byId(l.id).hold);
+  const total = cartTotal(), gap = Math.max(0, FREE_SHIPPING_AT - total);
+  d.querySelector("[data-drawer-title]").textContent = justAdded ? "Added to your basket" : "Your basket";
+  if(!cart.length){ body.innerHTML = '<p class="muted">Nothing in here yet.</p><a class="btn btn-block" href="shop.html">Start shopping</a>'; return; }
+  const lines = cart.map((l, i) => { const p = byId(l.id); const meta = lineMeta(l);
+    return '<div class="dline' + (l.id === justAdded ? ' new' : '') + '"><div class="art">' + productImg(p, 0) + '</div><div><b>' + esc(p.name) + '</b>' + (meta ? '<span class="small muted">' + esc(meta) + '</span>' : '') + '<span class="small">' + l.qty + ' × ' + money(currentPrice(p)) + '</span></div><button class="linkbtn" type="button" data-drawer-rm="' + i + '">Remove</button></div>'; }).join("");
+  const addon = gap > 0 ? gapAddon() : null;
+  const inCartColour = addon && addon.colours ? addon.colours.find(c => !cart.some(l => l.id === addon.id && l.colour === c.id)) : null;
+  const addonHTML = addon ? '<div class="daddon"><div class="art">' + productImg(addon, 0) + '</div><div><b>' + esc(addon.name) + (inCartColour ? ' · ' + esc(inCartColour.label) : '') + '</b><span class="small muted">' + money(currentPrice(addon)) + (currentPrice(addon) >= gap ? ' — takes you over £' + FREE_SHIPPING_AT + ', so delivery is free' : '') + '</span></div><button class="btn btn-sm" type="button" data-drawer-add="' + addon.id + '|' + (inCartColour ? inCartColour.id : '') + '">Add</button></div>' : '';
+  const cb = completingBundle();
+  const cbHTML = cb ? '<div class="dbundle"><div><b>' + (cb.complete ? 'You\'ve got the ' + esc(cb.bundle.name) : 'Make it the ' + esc(cb.bundle.name)) + '</b><span class="small">' + (cb.complete ? 'As a set it\'s ' + money(currentPrice(cb.bundle)) + ' — swap and save ' + money(cb.saving) : 'Add the ' + esc(cb.missing.name) + ' and the set costs ' + money(currentPrice(cb.bundle)) + ' — you save ' + money(cb.saving)) + (currentPrice(cb.bundle) >= FREE_SHIPPING_AT ? ', with free delivery' : '') + '.</span></div><button class="btn btn-sm btn-mint" type="button" data-drawer-swap="' + cb.bundle.id + '">' + (cb.complete ? 'Swap' : 'Add') + ' &amp; save ' + money(cb.saving) + '</button></div>' : '';
+  body.innerHTML = lines +
+    '<div class="dgap"><div class="progress"><i style="width:' + Math.min(100, total / FREE_SHIPPING_AT * 100).toFixed(0) + '%"></i></div><p class="small" style="margin:0">' + (gap > 0 ? '<b>' + money(gap) + '</b> more for free UK delivery' : '✅ Free UK delivery unlocked') + '</p></div>' +
+    addonHTML + cbHTML +
+    '<div class="dsum"><span>Subtotal</span><b>' + money(total) + '</b></div>' + instalmentsLine(total) +
+    '<label class="dnote"><span class="small">Gift note <span class="muted">(optional, printed on the slip)</span></span><textarea data-gift-note rows="2" maxlength="200" placeholder="e.g. Happy birthday, Mabel">' + esc(getGiftNote()) + '</textarea></label>' +
+    '<a class="btn btn-block" href="cart.html">Checkout · ' + money(total) + '</a>' +
+    expressRow() +
+    '<a class="small center" href="cart.html" style="display:block;margin-top:.6em">View basket</a>';
+}
+function openDrawer(justAdded){
+  const d = drawerEl(); paintDrawer(justAdded); d.hidden = false;
+  requestAnimationFrame(() => d.classList.add("open")); document.body.classList.add("drawer-open");
+  const x = d.querySelector(".drawer-x"); if(x) x.focus();
+}
+function closeDrawer(){ const d = document.querySelector(".drawer-wrap"); if(!d) return; d.classList.remove("open"); document.body.classList.remove("drawer-open"); setTimeout(() => { d.hidden = true; }, 250); }
+
+/* ----- buy-box helpers: colour swatches, line-property toggles, the add-on tick box ----- */
+function swatchRow(p, current){
+  if(!p.colours) return "";
+  const c = p.colours.find(x => x.id === current) || p.colours[0];
+  return '<div class="field"><label id="cll">Colour: <b data-colour-label>' + esc(c.label) + '</b></label><div class="swatches" id="swatches" role="group" aria-labelledby="cll">' +
+    p.colours.map(x => '<button type="button" data-c="' + x.id + '" aria-pressed="' + (x.id === c.id) + '" aria-label="' + esc(x.label) + '" title="' + esc(x.label) + '"><i style="background:' + x.hex + '"></i></button>').join("") +
+    '</div><p class="small muted" id="colournote" style="margin:.4em 0 0"' + (c.images ? ' hidden' : '') + '>Photos show the ' + esc(p.colours[0].label.toLowerCase()) + '. The ' + esc(c.label.toLowerCase()) + ' is the same collar in that tartan and is photographed when it lands.</p></div>';
+}
+function optionRows(p){
+  if(!p.options) return "";
+  return p.options.map(o => '<div class="field"><label id="ol-' + o.key + '">' + esc(o.label) + '</label><div class="sizes opts" role="group" aria-labelledby="ol-' + o.key + '" data-opt="' + o.key + '">' +
+    o.values.map((v, i) => '<button type="button" data-v="' + esc(v) + '" aria-pressed="' + (i === 0) + '">' + esc(v) + '</button>').join("") + '</div>' + (o.note ? '<p class="small muted" style="margin:.4em 0 0">' + esc(o.note) + '</p>' : '') + '</div>').join("");
+}
+function addonBox(p){
+  if(!p.addon || p.cat === "bundle") return "";
+  const a = byId(p.addon.id); if(!a || a.hold) return "";
+  return '<label class="addon" id="addon"><input type="checkbox" data-addon="' + a.id + '"><span class="art">' + productImg(a, 0) + '</span><span><b>' + esc(p.addon.label) + ' <em>+' + money(currentPrice(a)) + '</em></b><span class="small muted" data-addon-note></span></span></label>';
+}
+/* the add-on line: "gets you to free delivery" when the product + add-on clears the line, else the £ still to go */
+function paintAddonNote(p, qty){
+  const el = document.querySelector("[data-addon-note]"); if(!el) return;
+  const a = byId(p.addon.id); const base = cartTotal() + currentPrice(p) * qty;
+  const withIt = base + currentPrice(a);
+  el.textContent = base >= FREE_SHIPPING_AT ? "Same parcel, same delivery" : withIt >= FREE_SHIPPING_AT ? "Gets you to free UK delivery (over £" + FREE_SHIPPING_AT + ")" : "Then " + money(FREE_SHIPPING_AT - withIt) + " more for free delivery";
+}
 /* ----- first-order offer: a tab, and a one-time pop-up. Code is a placeholder until
    the discount exists in Shopify (Discounts → Create → WELCOME10, 10% off, once per customer). ----- */
 const OFFER = { code: "WELCOME10", pct: 10, key: "catwalk.offer.v1", delay: 7000 };

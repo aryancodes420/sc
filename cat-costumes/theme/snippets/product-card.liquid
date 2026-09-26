@@ -3,26 +3,43 @@
   so the grid never renders as empty placeholder boxes.
   Params: product
 {%- endcomment -%}
+{%- comment -%}
+  split_colours: true → one card per value of a "Colour" option, each linking to that colour's first
+  variant. A colour without its own variant photo shows the product's photos with an honest note.
+{%- endcomment -%}
 {%- assign motif = product.metafields.custom.motif | default: '' -%}
+{%- assign colour_opt = nil -%}
+{%- for opt in product.options_with_values -%}{%- if opt.name == 'Colour' or opt.name == 'Color' -%}{%- assign colour_opt = opt -%}{%- endif -%}{%- endfor -%}
+{%- if split_colours and colour_opt and colour_opt.values.size > 1 -%}
+  {%- for cval in colour_opt.values -%}
+    {%- assign cvar = nil -%}{%- assign cidx = colour_opt.position | minus: 1 -%}
+    {%- for v in product.variants -%}{%- if v.options[cidx] == cval and cvar == nil -%}{%- assign cvar = v -%}{%- endif -%}{%- endfor -%}
+    {%- render 'product-card', product: product, colour_value: cval, colour_variant: cvar, colour_opt: colour_opt -%}
+  {%- endfor -%}
+{%- else -%}
 <div class="pcard-wrap" style="position:relative">
-  <a class="pcard" href="{{ product.url }}">
+  <a class="pcard" href="{{ product.url }}{% if colour_variant %}?variant={{ colour_variant.id }}{% endif %}">
     {%- if product.metafields.custom.badge != blank -%}
       <span class="badge{% if product.metafields.custom.contains.value.size > 0 %} save{% endif %}">{{ product.metafields.custom.badge }}</span>
     {%- endif -%}
 
     <div class="art">
-      {%- if product.featured_image -%}
+      {%- if colour_variant and colour_variant.featured_image -%}
+        <img src="{{ colour_variant.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }} — {{ colour_value | escape }}" width="600" height="600" loading="lazy">
+      {%- elsif product.featured_image -%}
         <img src="{{ product.featured_image | image_url: width: 600 }}"
              alt="{{ product.featured_image.alt | default: product.title | escape }}"
              width="600" height="600" loading="lazy">
-        {%- if product.images[1] -%}<img class="alt" src="{{ product.images[1] | image_url: width: 600 }}" alt="" width="600" height="600" loading="lazy">{%- endif -%}
+        {%- if colour_value -%}<span class="cardnote">Photo shows {{ colour_opt.values.first | downcase }} — {{ colour_value | downcase }} photographed when it lands</span>
+        {%- elsif product.images[1] -%}<img class="alt" src="{{ product.images[1] | image_url: width: 600 }}" alt="" width="600" height="600" loading="lazy">{%- endif -%}
       {%- else -%}
         <div data-cat-art="{{ product.handle }}" data-art-motif="{{ motif }}"></div>
       {%- endif -%}
     </div>
 
     <div class="body">
-      <h3>{{ product.title }}</h3>
+      <h3>{{ product.title }}{% if colour_value %} <span class="cvar">{{ colour_value }}</span>{% endif %}</h3>
+      {%- if colour_opt -%}<span class="swatches mini" aria-label="Colours">{%- for cv2 in colour_opt.values -%}<i style="background:{{ cv2.swatch.color | default: '#ccc' }}"{% if cv2 == colour_value %} class="on"{% endif %} title="{{ cv2 | escape }}"></i>{%- endfor -%}</span>{%- endif -%}
       {%- assign rc = product.metafields.reviews.rating_count.value | default: 0 -%}
       {%- assign rv = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}
       {%- if rc == 0 -%}{%- assign rc = product.metafields.custom.supplier_review_count | default: 0 | times: 1 -%}{%- assign rv = product.metafields.custom.supplier_rating | default: 0 | times: 1.0 -%}{%- endif -%}
@@ -40,9 +57,9 @@
   {%- comment -%} quick add: one-size products go straight in; sized ones open the size picker; sold out asks to be notified {%- endcomment -%}
   {%- if product.available == false -%}
     <a class="qadd notify" href="{{ settings.contact_page | default: '/pages/contact' }}?product={{ product.handle }}">🔔 Notify</a>
-  {%- elsif product.has_only_default_variant -%}
+  {%- elsif product.has_only_default_variant or colour_variant and product.options.size == 1 -%}
     {%- form 'product', product, class: 'qadd-form' -%}
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="id" value="{{ colour_variant.id | default: product.selected_or_first_available_variant.id }}">
       <input type="hidden" name="quantity" value="1">
       <button class="qadd" type="submit">🛒 {{ 'products.product.add_to_cart' | t | split: ' ' | first }}</button>
     {%- endform -%}
@@ -50,3 +67,4 @@
     <a class="qadd" href="{{ product.url }}#product-form">Pick size</a>
   {%- endif -%}
 </div>
+{%- endif -%}

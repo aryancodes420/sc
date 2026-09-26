@@ -123,19 +123,12 @@
   {%- comment -%} 3 · add to cart + dynamic checkout {%- endcomment -%}
   {%- form 'product', product, id: 'product-form', class: 'pdp-buy', data-size-notes: product.metafields.custom.size_notes -%}
     {%- unless product.has_only_default_variant -%}
-      <div class="field">
-        <label for="variant-select">{{ product.options.first }}</label>
-        <div class="sizes" role="group">
-          {%- for variant in product.variants -%}
-            <button type="button" class="szbtn" data-variant="{{ variant.id }}"
-                    data-available="{{ variant.available }}" data-qty="{% if variant.inventory_management == 'shopify' %}{{ variant.inventory_quantity }}{% endif %}"
-                    data-saved="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | money }}{% endif %}"
-                    data-price="{{ variant.price | money }}" data-compare="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | money }}{% endif %}"
-                    data-pct="{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round }}{% endif %}"
-                    aria-pressed="{% if variant.id == product.selected_or_first_available_variant.id %}true{% else %}false{% endif %}"
-                    {% unless variant.available %}disabled title="Sold out"{% endunless %}>{{ variant.title }}</button>
-          {%- endfor -%}
-        </div>
+      {%- comment -%} one group per option. A "Colour" option renders as swatches (the value's swatch colour from
+          the option settings, or grey); every other option as pills. catwalk.js resolves the variant from the
+          selected values and keeps the hidden select, price, stock pill and sticky bar in step. {%- endcomment -%}
+      <script type="application/json" data-variants>{{ product.variants | json }}</script>
+      {% render 'option-picker', product: product %}
+      <div class="field" style="margin-top:0">
         <p class="small" data-size-note style="margin:.6em 0 0"></p>
         <select id="variant-select" name="id" class="visually-hidden" aria-hidden="true" tabindex="-1">
           {%- for variant in product.variants -%}
@@ -149,6 +142,19 @@
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
     {%- endunless -%}
 
+    {%- comment -%} line property, e.g. Bell with/without: same price, no extra variants. The metafield holds the
+        label, the two values and an optional note, one per line: "Bell / With bell / Without bell / Same price — the bell unclips." {%- endcomment -%}
+    {%- if product.metafields.custom.line_option != blank -%}
+      {%- assign lo = product.metafields.custom.line_option | newline_to_br | split: '<br />' -%}
+      <div class="field"><label id="lo-label">{{ lo[0] | strip }}</label>
+        <div class="sizes opts" role="group" aria-labelledby="lo-label" data-line-option>
+          <button type="button" data-v="{{ lo[1] | strip | escape }}" aria-pressed="true">{{ lo[1] | strip }}</button>
+          <button type="button" data-v="{{ lo[2] | strip | escape }}" aria-pressed="false">{{ lo[2] | strip }}</button>
+        </div>
+        <input type="hidden" name="properties[{{ lo[0] | strip | escape }}]" value="{{ lo[1] | strip | escape }}" data-line-option-input>
+        {%- if lo[3] != blank -%}<p class="small muted" style="margin:.4em 0 0">{{ lo[3] | strip }}</p>{%- endif -%}
+      </div>
+    {%- endif -%}
     {%- comment -%} Pay in 3 / Klarna etc. — Shopify renders this only when an instalment provider is enabled {%- endcomment -%}
     <div class="instal-wrap">{{ form | payment_terms }}</div>
     <div class="buyrow">
@@ -163,6 +169,15 @@
       </button>
       <button class="wish wish-lg btn-ghost" type="button" data-wish="{{ product.handle }}">&#9825;</button>
     </div>
+    {%- comment -%} the add-on tick box: one product (metafield custom.addon, else the section's default), added in the
+        same request when ticked. The note reads the live basket and says whether it clears free delivery. {%- endcomment -%}
+    {%- assign addon = product.metafields.custom.addon.value | default: section.settings.addon_product -%}
+    {%- if addon != blank and addon.available and addon.id != product.id and product.metafields.custom.contains.value.size == 0 -%}
+      {%- assign av = addon.selected_or_first_available_variant -%}
+      <label class="addon" id="addon"><input type="checkbox" data-addon="{{ av.id }}" data-addon-price="{{ av.price }}">
+        <span class="art">{%- if addon.featured_image -%}<img src="{{ addon.featured_image | image_url: width: 112 }}" alt="" width="56" height="56" loading="lazy">{%- endif -%}</span>
+        <span><b>{{ section.settings.addon_label | default: 'Add the' }} {{ addon.title }} <em>+{{ av.price | money }}</em></b><span class="small muted" data-addon-note data-cart-total="{{ cart.total_price }}" data-price="{{ cv.price }}" data-free="{{ settings.free_shipping_threshold | times: 100 }}"></span></span></label>
+    {%- endif -%}
     {%- comment -%} Shopify renders Shop Pay / Apple Pay / Google Pay / PayPal here, whichever the
         shopper's device supports, once those are enabled under Settings → Payments. {%- endcomment -%}
     {%- if section.settings.show_dynamic_checkout -%}
@@ -313,41 +328,8 @@
     </div></details>
   </div>
 
-  {%- comment -%} 7 · cross-sell: bundles this product sits in (custom.bundles), or a bundle's contents (custom.contains) {%- endcomment -%}
-  {%- assign bundles = product.metafields.custom.bundles.value -%}
-  {%- assign contents = product.metafields.custom.contains.value -%}
-  {%- if contents.size > 0 -%}
-    <section class="xsell">
-      <h2>What's in it</h2>
-      <div class="xgrid">
-        {%- for item in contents -%}
-          <a class="xcard" href="{{ item.url }}">
-            {%- if item.featured_image -%}<img src="{{ item.featured_image | image_url: width: 200 }}" alt="" width="84" height="84" loading="lazy">{%- else -%}<div data-cat-art="{{ item.handle }}"></div>{%- endif -%}
-            <div><b>{{ item.title }}</b><span class="muted small">Included in this bundle</span><span class="price">{{ item.price | money }}</span></div>
-          </a>
-        {%- endfor -%}
-      </div>
-    </section>
-  {%- elsif bundles.size > 0 -%}
-    <section class="xsell">
-      <h2>Cheaper together</h2>
-      <div class="xgrid">
-        {%- for b in bundles -%}
-          {%- assign partner = nil -%}
-          {%- for c in b.metafields.custom.contains.value -%}{%- if c.id != product.id and partner == nil -%}{%- assign partner = c -%}{%- endif -%}{%- endfor -%}
-          {%- assign pic = partner.featured_image | default: b.featured_image -%}
-          <a class="xcard" href="{{ b.url }}">
-            {%- if pic -%}<img src="{{ pic | image_url: width: 200 }}" alt="" width="84" height="84" loading="lazy">{%- else -%}<div data-cat-art="{{ b.handle }}"></div>{%- endif -%}
-            <div>
-              <b>{{ b.title }}</b>
-              <span class="muted small">{% if partner %}Add the {{ partner.title }} as a bundle{% else %}Bundle{% endif %}</span>
-              <span class="price">{{ b.price | money }}{% if b.compare_at_price > b.price %} <em class="save">Save {{ b.compare_at_price | minus: b.price | money }}</em>{% endif %}</span>
-            </div>
-          </a>
-        {%- endfor -%}
-      </div>
-    </section>
-  {%- endif -%}
+  {%- comment -%} 7 · cross-sell: bundles this product sits in, or a bundle's contents (snippets/cross-sell.liquid) {%- endcomment -%}
+  {% render 'cross-sell', product: product %}
 
   {%- if section.settings.show_related -%}
     {%- assign rel = product.collections.first -%}
@@ -376,29 +358,59 @@
   (function(){
     var form = document.getElementById("product-form"); if(!form) return;
     var select = document.getElementById("variant-select"), qty = document.getElementById("quantity"), qtyVal = document.getElementById("qty-value"), n = 1;
-    form.addEventListener("click", function(e){
-      var b = e.target.closest(".szbtn");
-      if(b && select){
-        select.value = b.dataset.variant; select.dispatchEvent(new Event("change", { bubbles: true }));
-        form.querySelectorAll(".szbtn").forEach(function(x){ x.setAttribute("aria-pressed", String(x === b)); });
-        var pill = document.querySelector("[data-stock-pill]"), price = document.getElementById("price"), sp = document.querySelector("[data-s-price]"), ss = document.querySelector("[data-s-size]");
-        if(pill){
-          var q = parseInt(b.dataset.qty, 10), low = parseInt(pill.dataset.low, 10) || 5, avail = b.dataset.available === "true";
-          pill.innerHTML = "<i></i>" + (!avail ? "Out of stock" : (q > 0 && q <= low) ? "Only " + q + " left" : "In stock");
-          pill.classList.toggle("out", !avail); pill.classList.toggle("low", avail && q > 0 && q <= low);
-        }
-        var sv = document.querySelector("[data-saved]"); if(sv){ sv.hidden = !b.dataset.saved; sv.textContent = "You've saved " + b.dataset.saved; }
-        if(price && b.dataset.price){
-          price.innerHTML = '<span class="now">' + b.dataset.price + '</span>' + (b.dataset.compare ? '<s>' + b.dataset.compare + '</s><em class="off">Save ' + b.dataset.pct + '%</em>' : '');
-          price.classList.toggle("sale", !!b.dataset.compare);
-          var ll = document.querySelector("[data-launchline]"); if(ll){ ll.hidden = !b.dataset.compare; var a = ll.querySelector("[data-ll-price]"), c = ll.querySelector("[data-ll-list]"); if(a) a.textContent = b.dataset.price; if(c) c.textContent = b.dataset.compare; }
-        }
-        if(sp && b.dataset.price) sp.textContent = b.dataset.price;
-        if(ss) ss.textContent = "Size " + b.textContent.trim();
+    var variants = []; try{ variants = JSON.parse((form.querySelector("[data-variants]") || {}).textContent || "[]"); }catch(e){}
+    var money = function(c){ return "£" + (c / 100).toFixed(2); };
+    function selected(){ return [].map.call(form.querySelectorAll("[data-option-group]"), function(g){ var on = g.querySelector('[aria-pressed="true"]'); return on ? on.dataset.value : null; }); }
+    function paintVariant(v){
+      if(!v) return;
+      if(select){ select.value = v.id; select.dispatchEvent(new Event("change", { bubbles: true })); }
+      var pill = document.querySelector("[data-stock-pill]"), price = document.getElementById("price"), sp = document.querySelector("[data-s-price]"), ss = document.querySelector("[data-s-size]");
+      if(pill){
+        var q = v.inventory_management === "shopify" ? v.inventory_quantity : NaN, low = parseInt(pill.dataset.low, 10) || 5, avail = v.available;
+        pill.innerHTML = "<i></i>" + (!avail ? "Out of stock" : (q > 0 && q <= low) ? "Only " + q + " left" : "In stock");
+        pill.classList.toggle("out", !avail); pill.classList.toggle("low", avail && q > 0 && q <= low);
       }
-      if(e.target.closest("#qty-plus"))  { n = Math.min(n + 1, 20); qty.value = n; qtyVal.textContent = n; }
-      if(e.target.closest("#qty-minus")) { n = Math.max(n - 1, 1);  qty.value = n; qtyVal.textContent = n; }
+      var onSale = v.compare_at_price && v.compare_at_price > v.price;
+      var sv = document.querySelector("[data-saved]"); if(sv){ sv.hidden = !onSale; if(onSale) sv.textContent = "You've saved " + money(v.compare_at_price - v.price); }
+      if(price){
+        price.innerHTML = '<span class="now">' + money(v.price) + '</span>' + (onSale ? '<s>' + money(v.compare_at_price) + '</s><em class="off">Save ' + Math.round((v.compare_at_price - v.price) * 100 / v.compare_at_price) + '%</em>' : '');
+        price.classList.toggle("sale", !!onSale);
+        var ll = document.querySelector("[data-launchline]"); if(ll){ ll.hidden = !onSale; var a = ll.querySelector("[data-ll-price]"), c = ll.querySelector("[data-ll-list]"); if(a) a.textContent = money(v.price); if(c && onSale) c.textContent = money(v.compare_at_price); }
+      }
+      if(sp) sp.textContent = money(v.price);
+      if(ss) ss.textContent = selected().filter(Boolean).join(" · ");
+      var addonNote = document.querySelector("[data-addon-note]"); if(addonNote){ addonNote.dataset.price = v.price; if(window.paintAddonNote) window.paintAddonNote(); }
+      /* colour: swap the gallery to the variant's own photo when it has one; otherwise keep the photographed colour and say so */
+      var main = document.querySelector("[data-gallery-main]"), note = document.querySelector("[data-colour-note]"), cl = document.querySelector("[data-colour-label]");
+      var cg = form.querySelector('[data-option-group] .swatches'); var cb = cg ? cg.querySelector('[aria-pressed="true"]') : null;
+      if(cb){ if(cl) cl.textContent = cb.dataset.value; if(note) note.hidden = cb.dataset.hasPhoto === "true"; if(main && v.featured_image && v.featured_image.src) main.innerHTML = '<img src="' + v.featured_image.src + '" alt="' + (v.featured_image.alt || "") + '" width="1000" height="1000">'; }
+      var u = new URL(location.href); u.searchParams.set("variant", v.id); history.replaceState(null, "", u);
+    }
+    function resolve(){
+      var want = selected();
+      var v = variants.find(function(x){ return want.every(function(w, i){ return w === null || x.options[i] === w; }); }) || null;
+      paintVariant(v);
+    }
+    form.addEventListener("click", function(e){
+      var b = e.target.closest(".szbtn, .swbtn");
+      if(b){
+        var g = b.closest("[data-option-group]");
+        (g || form).querySelectorAll(".szbtn, .swbtn").forEach(function(x){ if(!g || x.closest("[data-option-group]") === g) x.setAttribute("aria-pressed", String(x === b)); });
+        resolve();
+      }
+      var lo = e.target.closest("[data-line-option] button");
+      if(lo){ var inp = form.querySelector("[data-line-option-input]"); if(inp) inp.value = lo.dataset.v; lo.parentNode.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", String(x === lo)); }); }
+      if(e.target.closest("#qty-plus"))  { n = Math.min(n + 1, 20); qty.value = n; qtyVal.textContent = n; if(window.paintAddonNote) window.paintAddonNote(); }
+      if(e.target.closest("#qty-minus")) { n = Math.max(n - 1, 1);  qty.value = n; qtyVal.textContent = n; if(window.paintAddonNote) window.paintAddonNote(); }
     });
+    /* the add-on line: reads the basket total Liquid printed, the current variant price and the quantity */
+    window.paintAddonNote = function(){
+      var el = document.querySelector("[data-addon-note]"), box = document.querySelector("[data-addon]"); if(!el || !box) return;
+      var base = (parseInt(el.dataset.cartTotal, 10) || 0) + (parseInt(el.dataset.price, 10) || 0) * n, free = parseInt(el.dataset.free, 10) || 0, withIt = base + (parseInt(box.dataset.addonPrice, 10) || 0);
+      el.textContent = !free ? "Same parcel, same delivery" : base >= free ? "Same parcel, same delivery" : withIt >= free ? "Gets you to free UK delivery (over " + money(free).replace(".00", "") + ")" : "Then " + money(free - withIt) + " more for free delivery";
+    };
+    window.paintAddonNote();
+    if(variants.length) resolve();
   })();
 </script>
 
@@ -409,6 +421,8 @@
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show Shop Pay / Apple Pay / Google Pay button", "default": true,
       "info": "Buttons appear once accelerated checkouts are enabled under Settings → Payments." },
     { "type": "text", "id": "videos_heading", "label": "Videos heading", "default": "See it on a cat" },
+    { "type": "product", "id": "addon_product", "label": "Default add-on (tick box in the buy box)", "info": "Used when a product has no custom.addon metafield. Bundles never show it." },
+    { "type": "text", "id": "addon_label", "label": "Add-on label", "default": "Add the" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },
     { "type": "url", "id": "size_guide_url", "label": "Size guide link" },
     { "type": "text", "id": "reviews_heading", "label": "Reviews heading (once reviews exist)", "default": "Real cats, real results" },

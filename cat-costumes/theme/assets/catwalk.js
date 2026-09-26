@@ -96,7 +96,7 @@ function wireGallery(root){
 function wireVariantNotes(form){
   const notes = (form.getAttribute("data-size-notes") || "").split("\n").map(s => s.trim()).filter(Boolean);
   const out = form.querySelector("[data-size-note]"); if(!out || !notes.length) return;
-  const paint = () => { const i = [...form.querySelectorAll(".szbtn")].findIndex(b => b.getAttribute("aria-pressed") === "true"); out.textContent = notes[i] || ""; };
+  const paint = () => { const group = form.querySelector('[data-option-group] .sizes') || form; const i = [...group.querySelectorAll(".szbtn")].findIndex(b => b.getAttribute("aria-pressed") === "true"); out.textContent = notes[i] || ""; };
   form.addEventListener("click", e => { if(e.target.closest(".szbtn")) setTimeout(paint, 0); });
   paint();
 }
@@ -129,8 +129,8 @@ function wireStickyATC(root){
   const bar = (root || document).querySelector("[data-sticky-atc]"), form = document.getElementById("product-form");
   if(!bar || !form) return;
   bar.querySelector("[data-s-add]").addEventListener("click", () => { form.requestSubmit ? form.requestSubmit() : form.submit(); });
-  const cur = form.querySelector('.szbtn[aria-pressed="true"]'), ss = bar.querySelector("[data-s-size]");
-  if(cur && ss) ss.textContent = "Size " + cur.textContent.trim();
+  const cur = [...form.querySelectorAll('.szbtn[aria-pressed="true"], .swbtn[aria-pressed="true"]')], ss = bar.querySelector("[data-s-size]");
+  if(cur.length && ss) ss.textContent = cur.map(b => b.dataset.value || b.textContent.trim()).join(" · ");
   let ticking = false;
   const paint = () => { ticking = false; const past = form.getBoundingClientRect().bottom < 0; if(bar.hidden === !past) return; bar.hidden = !past; document.body.classList.toggle("has-sticky", past); };
   addEventListener("scroll", () => { if(!ticking){ ticking = true; requestAnimationFrame(paint); } }, { passive: true }); paint();
@@ -296,3 +296,72 @@ function wireReviewList(root){
 }
 document.addEventListener("DOMContentLoaded", () => wireReviewList());
 document.addEventListener("shopify:section:load", e => wireReviewList(e.target));
+
+/* ================================================================ phase 2 ==== */
+/* Cart drawer. Every add goes through /cart/add.js (the product form, quick-add forms, the drawer's own
+   add-on button), then the drawer section is re-rendered with the Section Rendering API and opened.
+   Falls back to the normal form post if fetch is unavailable. */
+const DRAWER_ID = "cart-drawer";
+function drawerRoot(){ return document.querySelector("[data-cart-drawer]"); }
+async function refreshDrawer(open){
+  const root = drawerRoot(); if(!root) return;
+  try{
+    const res = await fetch(location.pathname + "?section_id=" + DRAWER_ID, { headers: { "Accept": "text/html" } });
+    const html = await res.text(); const doc = new DOMParser().parseFromString(html, "text/html");
+    const fresh = doc.querySelector("[data-drawer-body]"); if(fresh) root.querySelector("[data-drawer-body]").innerHTML = fresh.innerHTML;
+    hydrateArt(root);
+    const cnt = doc.querySelector("[data-drawer-body]") ? (html.match(/data-drawer-rm=/g) || []).length : null;
+  }catch(e){}
+  if(open) openDrawer();
+  paintCartCount();
+}
+async function paintCartCount(){
+  try{ const c = await (await fetch("/cart.js")).json(); document.querySelectorAll("[data-cart-count]").forEach(el => { el.textContent = c.item_count; el.style.display = c.item_count ? "inline-block" : "none"; }); }catch(e){}
+}
+function openDrawer(){ const r = drawerRoot(); if(!r) return; r.hidden = false; requestAnimationFrame(() => r.classList.add("open")); document.body.classList.add("drawer-open"); const x = r.querySelector(".drawer-x"); if(x) x.focus(); }
+function closeDrawer(){ const r = drawerRoot(); if(!r) return; r.classList.remove("open"); document.body.classList.remove("drawer-open"); setTimeout(() => { r.hidden = true; }, 250); }
+async function cartAdd(items){
+  const res = await fetch("/cart/add.js", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify({ items }) });
+  if(!res.ok){ let msg = "Could not add that"; try{ msg = (await res.json()).description || msg; }catch(e){} throw new Error(msg); }
+  return res.json();
+}
+async function cartChange(key, quantity){ await fetch("/cart/change.js", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: key, quantity }) }); }
+function wireDrawer(){
+  const root = drawerRoot(); if(!root || !window.fetch) return;
+  document.addEventListener("submit", async e => {
+    const form = e.target;
+    if(!(form.id === "product-form" || form.classList.contains("qadd-form"))) return;
+    if(e.submitter && e.submitter.name === "checkout") return;
+    e.preventDefault();
+    const fd = new FormData(form); const items = [{ id: parseInt(fd.get("id"), 10), quantity: parseInt(fd.get("quantity") || "1", 10) || 1, properties: {} }];
+    for(const [k, v] of fd.entries()){ const m = k.match(/^properties\[(.+)\]$/); if(m && v) items[0].properties[m[1]] = v; }
+    if(!Object.keys(items[0].properties).length) delete items[0].properties;
+    const box = form.querySelector("[data-addon]"); if(box && box.checked){ items.push({ id: parseInt(box.dataset.addon, 10), quantity: 1 }); box.checked = false; }
+    try{ await cartAdd(items); await refreshDrawer(true); }catch(err){ toast(err.message); }
+  });
+  root.addEventListener("click", async e => {
+    if(e.target.closest("[data-drawer-close]")) return closeDrawer();
+    const add = e.target.closest("[data-drawer-add]"); if(add){ add.disabled = true; try{ await cartAdd([{ id: parseInt(add.dataset.drawerAdd, 10), quantity: 1 }]); await refreshDrawer(false); }catch(err){ toast(err.message); add.disabled = false; } return; }
+    const rm = e.target.closest("[data-drawer-rm]"); if(rm){ await cartChange(rm.dataset.drawerRm, 0); await refreshDrawer(false); return; }
+    const swap = e.target.closest("[data-drawer-swap]");
+    if(swap && !swap.dataset.swapChoose){
+      e.preventDefault(); swap.textContent = "Swapping…";
+      const keys = (swap.dataset.swapRemove || "").split(",").filter(Boolean);
+      try{
+        /* take one of each component out (the whole line if it was a single), then add the bundle */
+        const cart = await (await fetch("/cart.js")).json();
+        for(const k of keys){ const line = cart.items.find(i => i.key === k); if(line) await cartChange(k, Math.max(0, line.quantity - 1)); }
+        await cartAdd([{ id: parseInt(swap.dataset.drawerSwap, 10), quantity: 1 }]); await refreshDrawer(false);
+      }catch(err){ toast(err.message); await refreshDrawer(false); }
+      return;
+    }
+  });
+  let noteTimer = null;
+  root.addEventListener("input", e => {
+    const n = e.target.closest("[data-cart-note]"); if(!n) return;
+    clearTimeout(noteTimer); noteTimer = setTimeout(() => fetch("/cart/update.js", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ note: n.value.slice(0, 200) }) }), 400);
+  });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") closeDrawer(); });
+  document.querySelectorAll("[data-open-drawer]").forEach(el => el.addEventListener("click", e => { e.preventDefault(); refreshDrawer(true); }));
+}
+document.addEventListener("DOMContentLoaded", wireDrawer);

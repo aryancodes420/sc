@@ -73,6 +73,7 @@ FAQ, Track your order, Contact, About, legal pages).
 | Which costume? (quiz) | `page.quiz` | Handle `quiz`. Assign the seven products to the pre-made blocks in the editor |
 | Sizes by breed | `page.breeds` | Handle `sizes-by-breed`. Ten breeds pre-filled; pick the sized products in the section's product list |
 | Cat of the Month | `page.photo-draw` | Free-entry random draw (CAP 8.24), any cat photo qualifies, terms included. The promoter line comes from Theme settings → Business & returns; fill it before the first round |
+| Cart drawer | `sections/cart-drawer.liquid` | Opens after every add (product form, quick-add, the drawer's own add-on) via `/cart/add.js` and the Section Rendering API. £ gap to free delivery, one one-tap add-on, the bundle the basket holds the parts of or is one item away from (swap/add with real cart calls), gift note saved as the cart note, Checkout and Shopify's cart-level express buttons |
 | Policies | Settings → Policies | Paste the drafts in `../policies/`; the footer lists them and the cart, product page and contact page link to them |
 
 **Blog** — create a blog called *Journal* (or keep Shopify's *News*). Three posts are drafted in

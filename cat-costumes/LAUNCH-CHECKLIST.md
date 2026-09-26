@@ -47,14 +47,18 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [x] Catalogue, specs, sizes, care, in-the-box and 42 photos are all in `site/assets/data.js` and `site/assets/img/`.
 - [ ] Create the seven products. For each: title, blurb → description, **variants** (option `Size`: S/M/L, or S/M) with **Price = launch price and Compare-at = regular price** (table below), upload its six photos, set inventory tracking on.
 - [ ] Metafields (namespace `custom`): `fit`, `blurb`, `ticks` (list), `for_me_if` (list), `alias` (optional nickname), `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `badge`, `badge_uk` (bandana only). Values are all in `data.js` (`ticks`, `forMeIf`, `alias`).
-- [ ] Cross-sell metafields: on each product, `bundles` → the bundle products it sits in; on each bundle, `contains` → its two components. That is what draws the "Cheaper together" cards with the saving.
+- [ ] Cross-sell metafields: on each product, `bundles` → the bundle products it sits in; on each bundle, `contains` → its components (two or three). That is what draws the "Cheaper together" cards with the saving, and what the cart drawer uses to offer the bundle a basket is one item away from.
+- [ ] **Bow Tie Collar colours:** add option `Colour` with values *Red tartan*, *Blue tartan*, *Green tartan* (set each value's swatch colour in the option settings so the swatches render); upload a photo per colour as the variant image once it exists — until then the theme shows the red photos with "photographed when it lands". Collection pages show one card per colour.
+- [ ] **Bell on/off:** metafield `custom.line_option` (multi-line text) on the Bow Tie Collar: `Bell` / `With bell` / `Without bell` / `Same price — the bell unclips from its ring.` It becomes a line property, not a variant.
+- [ ] **Add-on tick box:** metafield `custom.addon` (product reference) on every non-bundle product → the Bow Tie Collar (and on the bow tie itself, a second bow tie is offered by the drawer instead). The Product section's *Default add-on* setting covers products without the metafield.
 - [ ] Assign each product to its collection.
 - [ ] **Lifestyle videos:** film a 10–20 second clip of each product on a cat and add it as product media. The product page shows videos automatically when they exist. No videos exist yet — this is the one content item still to be made.
 
-## E · Bundles — the four
+## E · Bundles — the eight
 
-- [ ] Install the free **Shopify Bundles** app and build the four bundles below from their component products, so bundle stock draws down the real stock.
-- [ ] Set the bundle prices; each saves £1.99 against its components.
+- [ ] Install the free **Shopify Bundles** app and build the eight bundles below from their component products (the customer picks each sized component's size), so bundle stock draws down the real stock.
+- [ ] Set the bundle prices from the table; every bundle is cheaper than its parts at the launch price and at the regular price. The two trios clear the £30 free-delivery line and the Klarna line on their own.
+- [ ] Put the bundles in a `bundles` collection and point **Cart drawer → Bundles collection** at it, and **Cart drawer → One-tap add-on** at the Bow Tie Collar.
 
 ## F · Apps
 
@@ -114,13 +118,17 @@ makes the strike-through true.
 
 On Shopify: **Price = launch price, Compare-at price = regular price**, on every variant.
 
-## The four bundles
+## The eight bundles
 
-| Bundle | Contents | Launch price | Regular price | Saving | vs buying separately |
+| Bundle | Contents | Launch price | Regular price | Saves at launch | Saves at regular |
 |---|---|---|---|---|---|
-| Halloween Pair | Devil Bat Cape + Spider Costume | £23.99 | £28.99 | 17% | £1.99 |
-| Pumpkin Patch | Pumpkin Hat & Ruffle Collar + Bow Tie Collar | £18.99 | £23.49 | 19% | £1.99 |
-| First Costume Kit | Bow Tie Collar + Bandana Collar | £14.99 | £18.49 | 19% | £1.99 |
-| Festive Pair | Santa Hat & Scarf Set + Bow Tie Collar | £24.99 | £30.49 | 18% | £1.99 |
+| Halloween Pair | Devil Bat Cape + Spider Costume | £23.99 | £28.99 | £1.99 | £1.99 |
+| Pumpkin Patch | Pumpkin Hat & Ruffle Collar + Bow Tie Collar | £18.99 | £23.49 | £1.99 | £1.99 |
+| First Costume Kit | Bow Tie Collar + Bandana Collar | £14.99 | £18.49 | £1.99 | £1.99 |
+| Festive Pair | Santa Hat & Scarf Set + Bow Tie Collar | £24.99 | £30.49 | £1.99 | £1.99 |
+| **Halloween Trio** | Devil Bat Cape + Spider Costume + Bow Tie Collar | £31.99 | £34.99 | £2.98 | £6.98 |
+| **Festive Trio** | Santa Hat & Scarf Set + Bow Tie Collar + Bandana Collar | £32.99 | £36.99 | £1.98 | £4.98 |
+| **One for Every Season** | 3 × Bow Tie Collar (red, blue, green tartan) | £24.99 | £27.99 | £1.98 | £4.98 |
+| **Two Cats** | 2 × Bow Tie Collar (red tartan) | £15.99 | £19.99 | £1.99 | £1.99 |
 
-Each bundle stays £1.99 cheaper than its two pieces both during and after the offer.
+Every bundle is cheaper than its pieces both during and after the offer; the trios also carry free delivery (£30+) and Klarna.

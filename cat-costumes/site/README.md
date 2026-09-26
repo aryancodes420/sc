@@ -71,6 +71,7 @@ supplier's shots has their own text baked in.
 | `quiz.html` | Which costume for my cat? — occasion → tolerance → neck (or breed) → sized shortlist |
 | `breeds.html` | Ten breeds, typical neck ranges, size suggestion per sized product (computed from the size tables) |
 | `photo-draw.html` | Cat of the Month: free-entry random draw (CAP 8.24), any cat photo qualifies, full terms, honest empty winners wall |
+| Cart drawer (`openDrawer()` in `site.js`) | Opens on every add instead of a toast: lines with size/colour/bell, £ gap to free delivery, the one-tap add-on that closes it, the bundle the basket holds the parts of (swap) or is one item away from (add), gift note, express slots. Also the add-on tick box in the buy box, colour swatches on the Bow Tie Collar (one card per colour on the shop page; unphotographed colours say so) and the bell on/off line property |
 | `refund-policy.html`, `shipping-policy.html`, `terms.html`, `privacy.html` | Legal pages. Every trader detail and the returns promise are filled from `BUSINESS` and `RETURNS` in `data.js` (`bizFill()`); a draft banner shows until the trader name and address are set |
 | `cart.html` | Lines carry size; free-delivery progress; totals |
 | `sizing.html` | Fit & care — how to measure, every size we sell in one table, care per product, returns |
