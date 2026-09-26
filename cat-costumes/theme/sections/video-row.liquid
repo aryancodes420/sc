@@ -6,6 +6,9 @@
 <section style="padding-top:0">
   <div class="wrap">
     <div class="sec-head"><div><h2>{{ section.settings.heading }}</h2><p>{{ section.settings.subheading }}</p></div></div>
+    {%- if section.blocks.size == 0 -%}
+    <p class="empty-line">No clips yet — the first 10–20 second phone clips of the cats in the products go here the day they are filmed.</p>
+    {%- else -%}
     <div class="phones">
       {%- for block in section.blocks limit: 5 -%}
         {%- assign p = block.settings.product -%}
@@ -30,6 +33,7 @@
         {%- endfor -%}
       {%- endif -%}
     </div>
+    {%- endif -%}
   </div>
 </section>
 {% schema %}

@@ -872,3 +872,78 @@ body.drawer-open{overflow:hidden}
 .summary .daddon,.summary .dbundle{margin:10px 0}
 .summary .dnote{margin:12px 0 0}
 @media(prefers-reduced-motion:reduce){.drawer,.drawer-bg{transition:none}}
+
+/* ---------- phase 3: the product page on a phone ---------- */
+/* subtitle under the name (search terms: "for cats & small dogs", "breakaway") */
+.subtitle{margin:0 0 .5em;color:var(--muted);font-weight:700;font-size:1rem}
+.pcard .sub{margin:0 0 4px;font-size:.78rem;color:var(--muted);line-height:1.3}
+.pdp-desc .ticks{margin-top:.6em}
+/* safety and wear */
+.safety{background:#fff;border:3px solid var(--line);border-radius:var(--r);padding:22px 26px}
+.safety h2{font-size:1.3rem;margin-bottom:.5em}
+.safety ul{list-style:none;padding:0;margin:0;display:grid;gap:.55em}
+.safety li{padding-left:1.8em;position:relative}
+.safety li:before{content:"🛡️";position:absolute;left:0;top:.05em;font-size:.9em}
+.safety li.house{color:var(--muted);font-size:.92rem;border-top:2px solid var(--line);padding-top:.7em;margin-top:.3em}
+.safety li.house:before{content:"🐾"}
+/* size table: cm with inches underneath */
+.sizetable .in{display:block;font-size:.78rem;color:var(--muted);font-weight:400}
+.sizetable th:nth-child(3),.sizetable th:nth-child(4){white-space:nowrap}
+.chartnote{margin:.6em 0 0}
+/* empty content slots collapse to one line */
+.empty-line{margin:0;padding:12px 16px;border:2px dashed var(--line);border-radius:var(--r-sm);color:var(--muted);font-size:.9rem;font-weight:700}
+/* gallery: scroll-snap track (phones) and dots; desktop keeps main + thumbs */
+.gallery .track{display:none}
+.gallery .dots{display:none}
+.gallery .clip{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;background:#000}
+.thumbs button{position:relative}
+.thumbs .play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:1.1rem;text-shadow:0 1px 4px rgba(0,0,0,.6);background:rgba(0,0,0,.18)}
+/* mobile menu button (injected by site.js) */
+.burger{display:none}
+@media(max-width:560px){
+  /* one-row 64px header: logo, Shop, Saved, Cart, menu button */
+  .topbar{font-size:.78rem;padding:.4em 14px;line-height:1.3}
+  .nav{flex-wrap:nowrap;gap:8px;padding:9px 0;min-height:64px;position:relative}
+  .logo{font-size:1.2rem}.logo .mark{width:32px;height:32px;flex:0 0 32px}
+  .nav .links{width:auto;margin-left:auto;gap:2px;flex-wrap:nowrap}
+  .nav .links a{padding:.4em .5em;font-size:.82rem;white-space:nowrap}
+  .nav .links a.more{display:none}
+  .burger{display:inline-flex;flex-direction:column;justify-content:center;gap:4px;width:40px;height:40px;border:2px solid var(--line);border-radius:12px;background:#fff;padding:0 9px;cursor:pointer;flex:0 0 40px}
+  .burger i{display:block;height:2.5px;background:var(--ink);border-radius:2px}
+  .nav.open .links a.more{display:block}
+  .nav.open .links{position:absolute;top:100%;right:0;left:0;background:var(--cream);border-bottom:3px solid var(--line);padding:8px 12px 12px;flex-direction:column;align-items:stretch;gap:2px;box-shadow:var(--shadow-lg);z-index:41}
+  .nav.open .links a{font-size:1rem;padding:.6em .8em}
+  .led{font-size:.8rem;padding:.45em 0}
+  /* product page order: gallery → name & price → three tiles → buy → description → the rest */
+  .pdp-stack{display:flex;flex-direction:column;padding-block:8px 0}
+  .pdp-stack > *{order:10}
+  .pdp-stack .crumbs{order:0;margin-bottom:8px;font-size:.78rem}
+  .pdp-stack .gallery{order:1;margin-bottom:14px}
+  .pdp-stack .pdp-head{order:2;margin-bottom:12px}
+  .pdp-stack .objections{order:3;margin-bottom:8px}
+  .pdp-stack .obj.keep{order:4;margin-bottom:12px}
+  .pdp-stack .pdp-buy{order:5;margin-bottom:22px}
+  .pdp-stack .pdp-desc{order:6}
+  .pdp-head h1{font-size:1.55rem;margin-bottom:.05em}
+  .subtitle{font-size:.9rem;margin-bottom:.35em}
+  .pdp-head .headrow .price{font-size:1.45rem!important}
+  /* gallery: 360px snap track with dots; thumbs and the zoom main are desktop only */
+  .gallery .mainwrap .main{display:none}
+  .gallery .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:var(--r);border:3px solid var(--line);background:#fff}
+  .gallery .track::-webkit-scrollbar{display:none}
+  .gallery .slide{flex:0 0 100%;scroll-snap-align:start;height:360px}
+  .gallery .slide img,.gallery .slide .clip{width:100%;height:360px;object-fit:cover;aspect-ratio:auto}
+  .gallery .dots{display:flex;justify-content:center;gap:6px;margin-top:8px}
+  .gallery .dots i{width:7px;height:7px;border-radius:50%;background:var(--line);display:block;transition:background .2s,transform .2s}
+  .gallery .dots i.on{background:var(--ink);transform:scale(1.25)}
+  .thumbs{display:none}
+  /* objection cards as three tiles; the open one takes the row */
+  .objections{grid-template-columns:repeat(3,1fr);gap:8px}
+  .obj summary{flex-direction:column;justify-content:center;text-align:center;padding:10px 6px;gap:4px}
+  .obj summary i{font-size:1.2rem}.obj summary b{font-size:.78rem;line-height:1.2}.obj .plus{display:none}
+  .objections details[open]{grid-column:1/-1}
+  .objections details[open] summary{flex-direction:row;text-align:left;padding:10px 14px}
+  .obj.keep summary{flex-direction:row;padding:10px 14px}
+  .pdp-buy .field{margin-bottom:12px}
+  .pdp-stack .express{margin-top:10px}
+}

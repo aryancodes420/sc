@@ -9,14 +9,16 @@
       {{ shop.name }}
     </a>
     <nav class="links">
+      {%- comment -%} on phones only the first link and the cart stay in the 64px row; the rest fold behind the menu button {%- endcomment -%}
       {%- for link in linklists[section.settings.menu].links -%}
-        <a href="{{ link.url }}" {% if link.active %}class="active"{% endif %}>{{ link.title }}</a>
+        <a href="{{ link.url }}" class="{% if link.active %}active{% endif %}{% unless forloop.first %} more{% endunless %}">{{ link.title }}</a>
       {%- endfor -%}
       <a href="{{ routes.cart_url }}" class="cartlink">
         {{ 'layout.cart.title' | t }}
         <span class="count" data-cart-count {% if cart.item_count == 0 %}style="display:none"{% endif %}>{{ cart.item_count }}</span>
       </a>
     </nav>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" data-burger><i></i><i></i><i></i></button>
   </div>
 </header>
 {% schema %}

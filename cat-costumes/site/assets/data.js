@@ -12,7 +12,9 @@
 const PRODUCTS = [
   /* ---------- Everyday ---------- */
   {
-    id: "bow-tie-collar", name: "Bow Tie Collar", price: 8.99, list: 10.99, alias: "Reginald", cat: "everyday",
+    id: "bow-tie-collar", name: "Bow Tie Collar",
+    safety: ["Breakaway buckle: it opens under a sharp pull, so a snagged collar comes off rather than holding the cat. That is the trade-off — it can also come off in rough play.", "The bell unclips from its ring. Take it off for kittens under 2.5 kg or any cat that chews small parts.", "Two fingers under the strap is right; tighter is too tight.", "Never attach a lead to this collar."],
+    subtitle: "Breakaway bow tie collar for cats & small dogs", price: 8.99, list: 10.99, alias: "Reginald", cat: "everyday",
     badge: "Bestseller", motif: "bowtie",
     images: ["bow-tie-1.webp","bow-tie-2.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-5.webp","bow-tie-6.webp"],
     /* Colour is a variant: one card per colour on the shop page, swatches on the product page, and the
@@ -44,7 +46,9 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256803258255247", cost: 1.09, sold: "5,000+", rating: 4.8, choice: true }
   },
   {
-    id: "bandana", name: "Bandana Collar", price: 7.99, list: 9.49, alias: "Roadie", cat: "everyday",
+    id: "bandana", name: "Bandana Collar",
+    safety: ["Buckle collar, not breakaway: fit it with two fingers of slack and take it off unsupervised outdoors.", "Machine washable at 30°C; dry flat.", "Never attach a lead to this collar."],
+    subtitle: "Buckle bandana collar for cats & small dogs · UK stock", price: 7.99, list: 9.49, alias: "Roadie", cat: "everyday",
     addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "UK stock", motif: "bandana", noDeliveryDates: true,
     images: ["bandana-1.webp","bandana-2.webp","bandana-3.webp","bandana-4.webp","bandana-5.webp","bandana-6.webp"],
@@ -72,7 +76,9 @@ const PRODUCTS = [
 
   /* ---------- Halloween ---------- */
   {
-    id: "lion-mane", name: "Lion Mane", price: 9.99, list: 11.99, alias: "Kingsley", cat: "halloween",
+    id: "lion-mane", name: "Lion Mane",
+    safety: ["Nothing covers the face, eyes or ears. Velcro under the chin — one pull and it's off.", "On for the photo, then off. Not for wearing unsupervised or overnight.", "Runs big: between sizes, take the smaller.", "Spot clean only."],
+    subtitle: "Lion mane costume for cats & small dogs", price: 9.99, list: 11.99, alias: "Kingsley", cat: "halloween",
     addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Bestseller", motif: "mane",
     images: ["lion-mane-1.webp","lion-mane-2.webp","lion-mane-3.webp","lion-mane-4.webp","lion-mane-5.webp","lion-mane-6.webp"],
@@ -98,7 +104,9 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256805876802123", cost: 4.20, sold: "700+", rating: 4.6, choice: true }
   },
   {
-    id: "bat-cape", name: "Devil Bat Cape", price: 12.99, list: 15.49, alias: "Vlad", cat: "halloween",
+    id: "bat-cape", name: "Devil Bat Cape",
+    safety: ["Sits on the shoulders; the hood stays behind the ears, never over the eyes.", "On for the photo, then off. Not for wearing unsupervised, outdoors or near a fire.", "Adjustable neck tie — two fingers of slack.", "Spot clean only."],
+    subtitle: "Devil bat cape costume for cats & small dogs", price: 12.99, list: 15.49, alias: "Vlad", cat: "halloween",
     addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Halloween", motif: "cape",
     images: ["bat-cape-5.webp","bat-cape-4.webp","bat-cape-3.webp","bat-cape-2.webp","bat-cape-1.webp","bat-cape-6.webp"],
@@ -124,7 +132,9 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256812487071410", cost: 4.54, sold: "1,000+", rating: 4.6, choice: true }
   },
   {
-    id: "spider-costume", name: "Spider Costume", price: 12.99, list: 15.49, alias: "Boris", cat: "halloween",
+    id: "spider-costume", name: "Spider Costume",
+    safety: ["The legs have wire cores: check each one on arrival and don't let the cat chew them.", "Fastens under the chest like a harness; best for cats already used to a harness.", "On for the photo, then off. Not for wearing unsupervised or outdoors.", "Never attach a lead to the costume."],
+    subtitle: "Spider costume for cats & small dogs", price: 12.99, list: 15.49, alias: "Boris", cat: "halloween",
     addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Halloween", motif: "bat",
     images: ["spider-1.webp","spider-2.webp","spider-3.webp","spider-4.webp","spider-5.webp","spider-6.webp"],
@@ -133,8 +143,8 @@ const PRODUCTS = [
     forMeIf: ["Your cat is relaxed about a harness or jumper", "You've measured neck and chest", "You want the full costume, not just a hat"],
     fit: "Two sizes, velcro fastening. Measure the neck and chest.",
     sizes: [
-      { label: "S", neck: "20–32cm", note: "Chest 32–42cm — most cats" },
-      { label: "M", neck: "30–40cm", note: "Chest 40–55cm — large cats, small dogs" }
+      { label: "S", neck: "20–32cm", chest: "32–42cm", note: "Most cats" },
+      { label: "M", neck: "30–40cm", chest: "40–55cm", note: "Large cats, small dogs" }
     ],
     specs: [
       "Eight plush spider legs on bendable wire cores — pose them, and keep them away from chewers",
@@ -149,7 +159,9 @@ const PRODUCTS = [
     source: { platform: "AliExpress", id: "3256805889809397", cost: 4.93, sold: "500+", rating: 4.6, choice: true }
   },
   {
-    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar", price: 11.99, list: 14.49, alias: "Pip", cat: "halloween",
+    id: "pumpkin-set", name: "Pumpkin Hat & Ruffle Collar",
+    safety: ["Chin strap on the hat, ruffle on the collar — nothing over the eyes.", "On for the photo, then off. A minute or two is all the photo needs.", "Spot clean only."],
+    subtitle: "Pumpkin hat & ruffle collar set for cats & small dogs", price: 11.99, list: 14.49, alias: "Pip", cat: "halloween",
     addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Halloween", motif: "pumpkin",
     images: ["pumpkin-1.webp","pumpkin-2.webp","pumpkin-3.webp","pumpkin-4.webp","pumpkin-5.webp","pumpkin-6.webp"],
@@ -173,7 +185,9 @@ const PRODUCTS = [
 
   /* ---------- Christmas ---------- */
   {
-    id: "santa-set", name: "Santa Hat & Scarf Set", price: 17.99, list: 21.49, alias: "Nick", cat: "christmas",
+    id: "santa-set", name: "Santa Hat & Scarf Set",
+    safety: ["Velcro on both pieces, nothing over the face; the scarf sits loose, not tied.", "On for the photo, then off. Not for wearing unsupervised.", "Spot clean only."],
+    subtitle: "Santa hat & scarf set for cats & small dogs", price: 17.99, list: 21.49, alias: "Nick", cat: "christmas",
     addon: { id: "bow-tie-collar", label: "Add the Bow Tie Collar" },
     badge: "Christmas", motif: "santa",
     images: ["santa-1.webp","santa-2.webp","santa-3.webp","santa-4.webp","santa-5.webp","santa-6.webp"],
@@ -197,20 +211,22 @@ const PRODUCTS = [
 
   /* ---------- Bundles (draw on component stock) ---------- */
   {
-    id: "halloween-pair", name: "Halloween Pair", price: 23.99, list: 28.99, cat: "bundle",
+    id: "halloween-pair", name: "Halloween Pair",
+    subtitle: "Two Halloween costumes for cats & small dogs", price: 23.99, list: 28.99, cat: "bundle",
     badge: "Save £1.99", motif: "cape", contains: ["bat-cape", "spider-costume"],
     images: ["bat-cape-5.webp","spider-1.webp","bat-cape-2.webp","spider-2.webp"],
     blurb: "Devil Bat Cape and Spider Costume together — two looks for the one night that matters.",
     ticks: ["Two costumes, one parcel", "Saves £1.99 against buying separately", "Pick one size for both"],
     forMeIf: ["You want the two Halloween looks that get the biggest reaction — one for the photo, one for the door", "You'd rather have a spare in case one comes straight off", "You want to save £1.99 and get one parcel instead of two"],
     fit: "Pick one size for both. S suits most cats.",
-    sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", note: "Large cats" } ],
+    sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", chest: "32–42cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", chest: "40–55cm", note: "Large cats" } ],
     specs: ["Devil Bat Cape (£12.99)", "Spider Costume (£12.99)", "Ships as one parcel"],
     box: ["1 × Devil Bat Cape with hood", "1 × Spider Costume"],
     care: "See each product.", confirm: [], source: null
   },
   {
-    id: "pumpkin-patch", name: "Pumpkin Patch", price: 18.99, list: 23.49, cat: "bundle",
+    id: "pumpkin-patch", name: "Pumpkin Patch",
+    subtitle: "Pumpkin set + breakaway bow tie collar for cats & small dogs", price: 18.99, list: 23.49, cat: "bundle",
     badge: "Save £1.99", motif: "pumpkin", contains: ["pumpkin-set", "bow-tie-collar"],
     images: ["pumpkin-1.webp","bow-tie-1.webp","pumpkin-6.webp","bow-tie-4.webp"],
     blurb: "The #1 searched cat costume plus the bestselling collar.",
@@ -222,7 +238,8 @@ const PRODUCTS = [
     care: "See each product.", confirm: [], source: null
   },
   {
-    id: "first-costume-kit", name: "First Costume Kit", price: 14.99, list: 18.49, cat: "bundle",
+    id: "first-costume-kit", name: "First Costume Kit",
+    subtitle: "Breakaway bow tie + bandana collar for cats & small dogs", price: 14.99, list: 18.49, cat: "bundle",
     badge: "Save £1.99", motif: "bowtie", contains: ["bow-tie-collar", "bandana"],
     images: ["bow-tie-1.webp","bandana-2.webp","bow-tie-3.webp","bandana-1.webp"],
     blurb: "The easiest place to start: a bow tie collar and a bandana collar — nothing goes over the head.",
@@ -235,7 +252,8 @@ const PRODUCTS = [
     care: "See each product.", confirm: [], source: null
   },
   {
-    id: "festive-pair", name: "Festive Pair", price: 24.99, list: 30.49, cat: "bundle",
+    id: "festive-pair", name: "Festive Pair",
+    subtitle: "Santa set + breakaway bow tie collar for cats & small dogs", price: 24.99, list: 30.49, cat: "bundle",
     badge: "Save £1.99", motif: "santa", contains: ["santa-set", "bow-tie-collar"],
     images: ["santa-1.webp","bow-tie-1.webp","santa-3.webp","bow-tie-6.webp"],
     blurb: "Santa hat and scarf with a plaid bow tie collar — the Christmas card, sorted.",
@@ -249,20 +267,22 @@ const PRODUCTS = [
   /* ---- the £30 basket: trios and collar sets (GROWTH-PLAN §10 action 2). Bundle prices are set so the
      saving is real at the launch price AND at the regular price; bundleSaving() shows whichever applies. ---- */
   {
-    id: "halloween-trio", name: "Halloween Trio", price: 31.99, list: 34.99, cat: "bundle",
+    id: "halloween-trio", name: "Halloween Trio",
+    subtitle: "Bat cape, spider costume + breakaway bow tie collar for cats & small dogs", price: 31.99, list: 34.99, cat: "bundle",
     badge: "Free delivery", motif: "bat", contains: ["bat-cape", "spider-costume", "bow-tie-collar"],
     images: ["bat-cape-1.webp","spider-2.webp","bow-tie-2.webp","bat-cape-5.webp"],
     blurb: "Bat cape, spider costume and the bestselling bow tie collar: two Halloween looks and one for every other day. Clears free delivery on its own.",
     ticks: ["Three pieces, one parcel, free UK delivery", "Cheaper than buying the three apart", "One size choice covers the cape and the spider"],
     forMeIf: ["You want the two Halloween looks plus a collar the cat keeps on", "You want free delivery and Klarna in one go", "It's a gift and you'd rather send one box"],
     fit: "Pick one size for the cape and the spider. The bow tie collar adjusts.",
-    sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", note: "Large cats" } ],
+    sizes: [ { label: "S", neck: "cape ~29cm · spider 20–32cm", chest: "32–42cm", note: "Most cats" }, { label: "M", neck: "cape ~33cm · spider 30–40cm", chest: "40–55cm", note: "Large cats" } ],
     specs: ["Devil Bat Cape", "Spider Costume", "Bow Tie Collar (red tartan, with bell)", "Ships as one parcel"],
     box: ["1 × Devil Bat Cape with hood", "1 × Spider Costume", "1 × Bow Tie Collar"],
     care: "See each product.", confirm: [], source: null
   },
   {
-    id: "festive-trio", name: "Festive Trio", price: 32.99, list: 36.99, cat: "bundle",
+    id: "festive-trio", name: "Festive Trio",
+    subtitle: "Santa set, breakaway bow tie + bandana collar for cats & small dogs", price: 32.99, list: 36.99, cat: "bundle",
     badge: "Free delivery", motif: "santa", contains: ["santa-set", "bow-tie-collar", "bandana"],
     images: ["santa-1.webp","bow-tie-1.webp","bandana-2.webp","santa-3.webp"],
     blurb: "Santa hat and scarf for the card, a bow tie collar for the day and a bandana collar for the rest of the year. Free delivery on its own.",
@@ -275,7 +295,8 @@ const PRODUCTS = [
     care: "See each product.", confirm: [], source: null
   },
   {
-    id: "bow-tie-trio", name: "One for Every Season", price: 24.99, list: 27.99, cat: "bundle",
+    id: "bow-tie-trio", name: "One for Every Season",
+    subtitle: "Three breakaway bow tie collars for cats & small dogs", price: 24.99, list: 27.99, cat: "bundle",
     badge: "Three colours", motif: "bowtie", contains: ["bow-tie-collar", "bow-tie-collar", "bow-tie-collar"],
     colourSet: ["red", "blue", "green"],
     images: ["bow-tie-1.webp","bow-tie-3.webp","bow-tie-4.webp","bow-tie-6.webp"],
@@ -288,7 +309,8 @@ const PRODUCTS = [
     care: "Spot clean. Wipe the buckle; do not machine wash.", confirm: [], source: null
   },
   {
-    id: "two-cats", name: "Two Cats", price: 15.99, list: 19.99, cat: "bundle",
+    id: "two-cats", name: "Two Cats",
+    subtitle: "Two breakaway bow tie collars for cats & small dogs", price: 15.99, list: 19.99, cat: "bundle",
     badge: "Matching pair", motif: "bowtie", contains: ["bow-tie-collar", "bow-tie-collar"],
     colourSet: ["red", "red"],
     images: ["bow-tie-2.webp","bow-tie-5.webp","bow-tie-1.webp","bow-tie-4.webp"],
@@ -316,6 +338,14 @@ const FIT_GUIDE = {
   between: "Between two sizes? Take the larger. A slightly loose costume gets worn; a tight one comes straight off.",
   rule: "If you can slide two fingers under a collar, it's right. Tighter than that is too tight."
 };
+
+const SAFETY_COMMON = "Supervise your cat while they wear anything from us. Stop if they are distressed. Keep small parts away from kittens. Wait 24 hours after a spot-on flea treatment before dressing up.";
+const SIZE_CHART_NOTE = "Maker's chart. Our own measured figures (with chest and weight) replace these when stock lands.";
+
+/* Analytics — empty until the accounts exist. Nothing loads while an id is "". GA4: Measurement ID (G-…);
+   Meta: Pixel ID; TikTok: Pixel code. On Shopify these are installed by the sales channels instead
+   (Facebook & Instagram, TikTok, Google & YouTube) and fire through Customer Events — see LAUNCH-CHECKLIST. */
+const ANALYTICS = { ga4: "", meta: "", tiktok: "" };
 
 const FREE_SHIPPING_AT = 30;
 

@@ -25,11 +25,9 @@
 
     <div class="art">
       {%- if colour_variant and colour_variant.featured_image -%}
-        <img src="{{ colour_variant.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }} — {{ colour_value | escape }}" width="600" height="600" loading="lazy">
+        {{ colour_variant.featured_image | image_url: width: 800 | image_tag: widths: '300, 400, 600, 800', sizes: '(max-width: 560px) 50vw, (max-width: 960px) 33vw, 300px', loading: 'lazy', alt: product.title }}
       {%- elsif product.featured_image -%}
-        <img src="{{ product.featured_image | image_url: width: 600 }}"
-             alt="{{ product.featured_image.alt | default: product.title | escape }}"
-             width="600" height="600" loading="lazy">
+        {{ product.featured_image | image_url: width: 800 | image_tag: widths: '300, 400, 600, 800', sizes: '(max-width: 560px) 50vw, (max-width: 960px) 33vw, 300px', loading: 'lazy' }}
         {%- if colour_value -%}<span class="cardnote">Photo shows {{ colour_opt.values.first | downcase }} — {{ colour_value | downcase }} photographed when it lands</span>
         {%- elsif product.images[1] -%}<img class="alt" src="{{ product.images[1] | image_url: width: 600 }}" alt="" width="600" height="600" loading="lazy">{%- endif -%}
       {%- else -%}
@@ -39,6 +37,7 @@
 
     <div class="body">
       <h3>{{ product.title }}{% if colour_value %} <span class="cvar">{{ colour_value }}</span>{% endif %}</h3>
+      {%- if product.metafields.custom.subtitle != blank -%}<p class="sub">{{ product.metafields.custom.subtitle }}</p>{%- endif -%}
       {%- if colour_opt -%}<span class="swatches mini" aria-label="Colours">{%- for cv2 in colour_opt.values -%}<i style="background:{{ cv2.swatch.color | default: '#ccc' }}"{% if cv2 == colour_value %} class="on"{% endif %} title="{{ cv2 | escape }}"></i>{%- endfor -%}</span>{%- endif -%}
       {%- assign rc = product.metafields.reviews.rating_count.value | default: 0 -%}
       {%- assign rv = product.metafields.reviews.rating.value.rating | default: 0 | times: 1.0 -%}

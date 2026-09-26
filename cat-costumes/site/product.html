@@ -72,7 +72,8 @@
     host.innerHTML = '<div class="empty"><h1>Can\'t find that one</h1>' +
       '<p class="muted">It may have sold out or been renamed.</p><a class="btn" href="shop.html">Back to the shop</a></div>';
   } else {
-    document.title = p.name + " — Catwalk Club";
+    document.title = fullName(p) + " — Catwalk Club";
+    var md = document.querySelector('meta[name="description"]'); if(md) md.setAttribute("content", fullName(p) + ". " + p.blurb);
     var hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
     var videos = Array.isArray(p.videos) ? p.videos : [];
     var colourParam = new URLSearchParams(location.search).get("colour");
@@ -89,15 +90,19 @@
       /* 2 · product */
       '<div class="pdp-head">' +
         '<h1 style="margin-bottom:.15em">' + p.name + '</h1>' +
+        (p.subtitle ? '<p class="subtitle">' + p.subtitle + '</p>' : '') +
         aliasTag(p) +
         ratingLine(p.id) +
         '<div class="headrow"><p class="price ' + (savePct(p) ? "sale" : "") + '" style="font-size:1.7rem;margin:0">' + priceHTML(p) + '</p></div>' +
         savedLine(p) +
         (savePct(p) ? '<p class="launchline">' + SALE.label + ': ' + money(p.price) + ' until ' + saleEndsText() + ', then ' + money(p.list) + '.</p>' : '') +
         instalmentsLine(currentPrice(p)) +
-        '<p class="muted" style="font-size:1.08rem;margin-top:.5em">' + p.blurb + '</p>' +
+      '</div>' +
+      /* blurb, ticks and fit: after the buy box on a phone (CSS order), beside it on desktop */
+      '<div class="pdp-desc">' +
+        '<p class="muted" style="font-size:1.08rem;margin-top:0">' + p.blurb + '</p>' +
         tickList(p) +
-        '<p><span class="fitline">⇔ ' + p.fit + '</span></p>' +
+        '<p style="margin:0"><span class="fitline">⇔ ' + p.fit + '</span></p>' +
       '</div>' +
 
       /* 3 · add to cart + express checkout + trust */
@@ -122,14 +127,15 @@
         paymentIcons() +
       '</div>' +
 
-      /* 3b · who it suits */
+      /* 3b · who it suits, and the safety and wear lines every product carries */
       forMeIf(p) +
+      safetyBlock(p) +
 
       /* 4 · lifestyle videos */
       '<section class="videos"><h2>See it on a cat</h2>' +
         (videos.length
           ? '<div class="video-grid">' + videos.map(function(v){ return '<video controls muted loop playsinline preload="metadata" src="' + v + '"></video>'; }).join("") + '</div>'
-          : '<div class="video-slot">Lifestyle videos go here — film a 10–20 second clip of the ' + p.name.toLowerCase() + ' on a cat and drop it into the product\'s media on Shopify.</div>') +
+          : '<p class="empty-line">No clip of the ' + p.name.toLowerCase() + ' on a cat yet — it goes here, and in slot 1 of the gallery, the day it is filmed.</p>') +
       '</section>' +
 
       /* 5 · reviews */
@@ -195,6 +201,7 @@
     if(p.addon) paintAddonNote(p, qty);
     document.getElementById("add").onclick   = function(){
       addToCart(p.id, size, qty, { colour: colour, props: props });
+      track("add_to_cart", { id: p.id, name: p.name, price: currentPrice(p), qty: qty });
       var box = document.querySelector("[data-addon]");
       if(box && box.checked){
         var a = byId(box.dataset.addon); var aCol = null;
@@ -206,6 +213,7 @@
     document.getElementById("paynow").addEventListener("click", function(e){ var b = e.target.closest("[data-ex]"); if(b) toast(b.dataset.ex + " activates on Shopify once payments are enabled"); });
     stickyATC(p, function(){ return { size: size, qty: qty, colour: colour }; });
     productJsonLd(p);
+    track("view_item", { id: p.id, name: p.name, price: currentPrice(p), qty: 1 });
     host.addEventListener("click", function(e){
       var w = e.target.closest("[data-wish]"); if(!w) return;
       toast(toggleWish(w.dataset.wish) ? "Saved to wishlist" : "Removed from wishlist");

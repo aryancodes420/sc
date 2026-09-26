@@ -24,12 +24,17 @@ function catArt(motif, key){
 
 /* ---------------------------------------------------------------- images --- */
 const IMG = "assets/img/";
-function productImg(p, i, cls){
+/* Every product photo has a 400px copy in img/400/ (scripts/build-images.py); srcset lets a phone's
+   two-up grid load the small one. `big` = the gallery main image: full size on every screen ≥ 400px. */
+function productImg(p, i, cls, big){
   const file = p.images && p.images[i];
   if(!file) return catArt(p.motif, p.id);
-  return `<img class="${cls || ""}" src="${IMG}${file}" alt="${p.name}" width="800" height="800" loading="${i ? "lazy" : "eager"}"
-    onerror="this.parentNode.innerHTML=catArt('${p.motif}','${p.id}')">`;
+  const sizes = big ? "(max-width: 560px) 100vw, 600px" : "(max-width: 560px) 50vw, (max-width: 960px) 33vw, 300px";
+  return `<img class="${cls || ""}" src="${IMG}${file}" srcset="${IMG}400/${file} 400w, ${IMG}${file} 800w" sizes="${sizes}" alt="${esc(fullName(p))}" width="800" height="800" loading="${i ? "lazy" : "eager"}"
+    onerror="this.onerror=null;this.removeAttribute('srcset');this.src='${IMG}${file}'">`;
 }
+/* the name search engines and the tab see: "Bow Tie Collar — Breakaway bow tie collar for cats & small dogs" */
+const fullName = p => p.subtitle ? p.name + " — " + p.subtitle : p.name;
 
 /* ----------------------------------------------------------------- misc --- */
 const money = n => "£" + n.toFixed(2);
@@ -246,7 +251,7 @@ function productCard(p, colour){
       ${badge}
       <div class="art">${art}</div>
       <div class="body">
-        <h3>${p.name}${c ? ' <span class="cvar">' + esc(c.label) + '</span>' : ''}</h3>${swatches}
+        <h3>${p.name}${c ? ' <span class="cvar">' + esc(c.label) + '</span>' : ''}</h3>${p.subtitle ? '<p class="sub">' + esc(p.subtitle) + '</p>' : ''}${swatches}
         ${cardRating(p)}
         <p class="blurb">${p.blurb}</p>
         <span class="price ${savePct(p) ? "sale" : ""}">${priceHTML(p)}</span>
@@ -275,22 +280,72 @@ const renderGrid = (el, list) => { el.innerHTML = list.map(x => Array.isArray(x)
 /* Six-image gallery: main image plus thumbnails. */
 function mountGallery(host, p){
   const imgs = p.images || [];
+  const video = Array.isArray(p.videos) && p.videos[0] ? p.videos[0] : null;
+  /* slides: the on-body clip first when one exists (poster = the first photo), then the photos */
+  const slides = (video ? [{ video }] : []).concat(imgs.map((f, i) => ({ i })));
+  const slide = (sl, big) => sl.video
+    ? '<video class="clip" src="' + esc(sl.video) + '" poster="' + IMG + (imgs[0] || "") + '" muted loop playsinline controls preload="metadata" aria-label="' + esc(p.name) + ' on a cat"></video>'
+    : productImg(p, sl.i, "", big);
   host.innerHTML =
-    '<div class="mainwrap"><div class="main" data-main>' + productImg(p, 0) + '</div>' + galleryOverlays(p) + '</div>' +
+    '<div class="mainwrap"><div class="main" data-main>' + slide(slides[0], true) + '</div>' + galleryOverlays(p) +
+      '<div class="track" data-track>' + slides.map((sl, k) => '<div class="slide" data-k="' + k + '">' + slide(sl, true) + '</div>').join("") + '</div>' +
+      (slides.length > 1 ? '<div class="dots" data-dots>' + slides.map((sl, k) => '<i' + (k === 0 ? ' class="on"' : '') + '></i>').join("") + '</div>' : '') +
+    '</div>' +
     '<div class="thumbs" data-thumbs>' +
-      imgs.map((f, i) => `<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="Photo ${i+1}">
-        <img src="${IMG}${f}" alt="" width="200" height="200" loading="lazy"></button>`).join("") +
+      slides.map((sl, k) => `<button type="button" data-i="${k}" aria-pressed="${k===0}" aria-label="${sl.video ? "Video" : "Photo " + (sl.i + 1)}">` +
+        (sl.video ? '<img src="' + IMG + '400/' + (imgs[0] || "") + '" alt="" width="200" height="200" loading="lazy"><span class="play">▶</span>' : `<img src="${IMG}400/${imgs[sl.i]}" alt="" width="200" height="200" loading="lazy">`) + '</button>').join("") +
     '</div>';
+  const track = host.querySelector("[data-track]"), dots = host.querySelectorAll("[data-dots] i");
   host.querySelector("[data-thumbs]").addEventListener("click", e => {
     const b = e.target.closest("button"); if(!b) return;
-    host.querySelector("[data-main]").innerHTML = productImg(p, +b.dataset.i);
+    const k = +b.dataset.i;
+    host.querySelector("[data-main]").innerHTML = slide(slides[k], true);
     host.querySelectorAll("[data-thumbs] button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    if(track){ const sEl = track.children[k]; if(sEl) track.scrollTo({ left: sEl.offsetLeft, behavior: "smooth" }); }
   });
+  if(track){ let t = null; track.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(() => {
+    const k = Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); dots.forEach((d, j) => d.classList.toggle("on", j === k));
+    host.querySelectorAll("[data-thumbs] button").forEach((x, j) => x.setAttribute("aria-pressed", String(j === k))); }, 80); }, { passive: true }); }
 }
 
 /* ----------------------------------------------------------------- chrome -- */
+/* ----- mobile header: one 64px row. Shop / Saved / Cart stay in the row; the rest folds behind a menu button ----- */
+function mountBurger(){
+  const nav = document.querySelector("header.site .nav"), links = nav && nav.querySelector(".links"); if(!nav || !links || nav.querySelector(".burger")) return;
+  links.querySelectorAll("a").forEach(a => { const h = a.getAttribute("href") || ""; if(!/^(shop|wishlist|cart)\.html/.test(h)) a.classList.add("more"); });
+  const b = document.createElement("button"); b.className = "burger"; b.type = "button"; b.setAttribute("aria-label", "Menu"); b.setAttribute("aria-expanded", "false"); b.innerHTML = "<i></i><i></i><i></i>";
+  nav.appendChild(b);
+  b.addEventListener("click", () => { const open = nav.classList.toggle("open"); b.setAttribute("aria-expanded", String(open)); });
+  document.addEventListener("click", e => { if(!nav.contains(e.target)) { nav.classList.remove("open"); b.setAttribute("aria-expanded", "false"); } });
+}
+/* ----- analytics: GA4 / Meta / TikTok load only when an id is set in ANALYTICS; UTMs are kept for 30 days ----- */
+const UTM_KEY = "catwalk.utm.v1";
+function captureUtm(){
+  try{
+    const q = new URLSearchParams(location.search); const keys = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+    if(keys.some(k => q.has(k))){ const o = { at: Date.now() }; keys.forEach(k => { if(q.get(k)) o[k] = q.get(k); }); localStorage.setItem(UTM_KEY, JSON.stringify(o)); }
+  }catch(e){}
+}
+function getUtm(){ try{ const o = JSON.parse(localStorage.getItem(UTM_KEY)); return o && Date.now() - o.at < 30 * 864e5 ? o : null; }catch(e){ return null; } }
+function initAnalytics(){
+  captureUtm();
+  const A = typeof ANALYTICS === "object" && ANALYTICS ? ANALYTICS : {};
+  const load = src => { const sc = document.createElement("script"); sc.async = true; sc.src = src; document.head.appendChild(sc); };
+  if(A.ga4){ load("https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(A.ga4)); window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); }; gtag("js", new Date()); gtag("config", A.ga4, { currency: "GBP" }); }
+  if(A.meta){ window.fbq = window.fbq || function(){ (fbq.q = fbq.q || []).push(arguments); }; fbq.loaded = true; fbq.version = "2.0"; load("https://connect.facebook.net/en_US/fbevents.js"); fbq("init", A.meta); fbq("track", "PageView"); }
+  if(A.tiktok){ window.ttq = window.ttq || { q: [], track: function(){ this.q.push(["track"].concat([].slice.call(arguments))); }, page: function(){ this.q.push(["page"]); } }; load("https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=" + encodeURIComponent(A.tiktok) + "&lib=ttq"); ttq.page(); }
+}
+/* one call per shop event; each pixel gets its own vocabulary. ev: view_item | add_to_cart | begin_checkout; d: { id, name, price, qty, value } */
+function track(ev, d){
+  d = d || {}; const value = d.value != null ? d.value : (d.price || 0) * (d.qty || 1);
+  const item = { item_id: d.id, item_name: d.name, price: d.price, quantity: d.qty || 1 };
+  try{ if(window.gtag) gtag("event", ev, { currency: "GBP", value: value, items: [item] }); }catch(e){}
+  try{ if(window.fbq){ const m = { view_item: "ViewContent", add_to_cart: "AddToCart", begin_checkout: "InitiateCheckout" }[ev]; if(m) fbq("track", m, { currency: "GBP", value: value, content_ids: [d.id], content_type: "product" }); } }catch(e){}
+  try{ if(window.ttq){ const m = { view_item: "ViewContent", add_to_cart: "AddToCart", begin_checkout: "InitiateCheckout" }[ev]; if(m) ttq.track(m, { currency: "GBP", value: value, content_id: d.id, content_type: "product", content_name: d.name, quantity: d.qty || 1 }); } }catch(e){}
+  try{ (window.__events = window.__events || []).push([ev, d, getUtm()]); }catch(e){}
+}
 function initChrome(){
-  paintCount();
+  paintCount(); mountBurger(); initAnalytics();
   paintWish();
   initOffer();
   initChat();
@@ -509,7 +564,7 @@ function productJsonLd(p){
     "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "GB", "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow", "merchantReturnDays": RETURNS.days, "returnMethod": "https://schema.org/ReturnByMail", "returnFees": RETURNS.freePostage ? "https://schema.org/FreeReturn" : "https://schema.org/ReturnFeesCustomerResponsibility" }
   });
   const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
-  jsonLd({ "@context": "https://schema.org", "@type": "Product", "name": p.name, "sku": p.id, "description": p.blurb,
+  jsonLd({ "@context": "https://schema.org", "@type": "Product", "name": fullName(p), "sku": p.id, "description": p.blurb,
     "image": (p.images || []).map(f => abs(IMG + f)), "brand": { "@type": "Brand", "name": "Catwalk Club" },
     "category": catOf(p.cat).label, "audience": { "@type": "PeopleAudience", "suggestedGender": "unisex" },
     "offers": hasSizes ? p.sizes.map(offer) : offer(null) });
@@ -662,13 +717,31 @@ function initChat(){
 /* ================================================================ tier 2 ==== */
 /* ----- size from a neck measurement, using each product's own size table ----- */
 function neckNums(str){ return (String(str).split("cm")[0].match(/\d+(?:\.\d+)?/g) || []).map(Number); }
-function sizeFor(p, neck){
+/* neck first; when the product's chart has a chest column and a chest was typed, the size must fit both */
+function sizeFor(p, neck, chest){
   if(!Array.isArray(p.sizes) || !p.sizes.length) return { label: "One size", ok: true, neck: p.fit };
+  const hasChest = p.sizes.some(s => s.chest);
   for(const s of p.sizes){
     const n = neckNums(s.neck); const max = n.length > 1 ? n[1] : n[0];
-    if(!max || neck <= max) return { label: s.label, ok: true, neck: s.neck };
+    const c = hasChest && chest ? neckNums(s.chest) : []; const cmax = c.length > 1 ? c[1] : c[0];
+    if((!max || neck <= max) && (!cmax || chest <= cmax)) return { label: s.label, ok: true, neck: s.neck + (s.chest ? ", chest " + s.chest : "") };
   }
-  return { label: null, ok: false, neck: "Largest size is " + p.sizes[p.sizes.length - 1].neck };
+  const last = p.sizes[p.sizes.length - 1];
+  return { label: null, ok: false, neck: "Largest size is neck " + last.neck + (last.chest ? ", chest " + last.chest : "") };
+}
+const cmToIn = str => String(str).replace(/(\d+(?:\.\d+)?)(?:\s?[–-]\s?(\d+(?:\.\d+)?))?\s?cm/g, (m, a, b) => (a / 2.54).toFixed(1) + (b ? "–" + (b / 2.54).toFixed(1) : "") + " in");
+function sizeTable(p){
+  if(!Array.isArray(p.sizes) || !p.sizes.length) return '<p><b>' + esc(p.fit) + '</b></p>';
+  const hasChest = p.sizes.some(s => s.chest), hasWeight = p.sizes.some(s => s.weight);
+  const cell = v => v ? '<b>' + esc(v) + '</b><span class="in">' + esc(cmToIn(v)) + '</span>' : '<span class="muted">—</span>';
+  return '<div class="tablewrap"><table class="sizetable"><thead><tr><th>Size</th><th>Neck</th><th>Chest</th><th>Weight</th><th>Notes</th></tr></thead><tbody>' +
+    p.sizes.map(s => '<tr><td class="sz">' + s.label + '</td><td>' + cell(s.neck) + '</td><td>' + (hasChest ? cell(s.chest) : '<span class="muted">n/a</span>') + '</td><td>' + (s.weight ? cell(s.weight) : '<span class="muted">measured on arrival</span>') + '</td><td class="muted">' + esc(s.note || "") + '</td></tr>').join("") +
+    '</tbody></table></div><p class="small muted chartnote">' + esc(SIZE_CHART_NOTE) + '</p>';
+}
+/* safety and wear: the product's own lines plus the house rule, on every product page */
+function safetyBlock(p){
+  const own = p.safety || (p.contains ? [].concat(...p.contains.map(id => (byId(id) || {}).safety || [])).filter((x, i, a) => a.indexOf(x) === i) : []);
+  return '<section class="safety" id="safety"><h2>Safety &amp; wear</h2><ul>' + own.map(l => '<li>' + esc(l) + '</li>').join("") + '<li class="house">' + esc(SAFETY_COMMON) + '</li></ul></section>';
 }
 
 /* ----- genuine Halloween countdown: shown until the date passes ----- */
@@ -717,6 +790,7 @@ const aliasTag = p => p.alias ? '<span class="alias">aka ' + esc(p.alias) + '</s
 /* ----- UGC wall: honest empty frames until real customer photos exist ----- */
 function ugcWall(){
   const shots = DRAW.winners.slice(0, 6);
+  if(!shots.length) return '<p class="empty-line">No customer photos yet — the first go up the day they arrive. Tag <b>' + esc(DRAW.handle) + '</b> or <a href="photo-draw.html">enter ' + esc(DRAW.name) + '</a>.</p>';
   const frames = [];
   for(let i = 0; i < 6; i++){
     const w = shots[i];
@@ -825,7 +899,7 @@ function objectionCards(p){
   }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and " + RETURNS.days + " days to return it" + (RETURNS.wornOk ? ", worn or not." : ".");
   const fitInner = hasSizes
     ? '<p>Every size is a <b>neck measurement</b>. Wrap a soft tape where a collar sits, add two fingers, and type the number:</p>' +
-      '<div class="mini" data-mini><input type="number" min="10" max="60" step="1" placeholder="neck cm" aria-label="Neck in cm"><button class="btn btn-sm" type="button">Check</button></div><p class="mini-out" data-mini-out></p>' +
+      '<div class="mini" data-mini><input type="number" min="10" max="60" step="1" placeholder="neck cm" aria-label="Neck in cm">' + (p.sizes.some(s => s.chest) ? '<input type="number" min="15" max="80" step="1" placeholder="chest cm" aria-label="Chest in cm" data-chest>' : '') + '<button class="btn btn-sm" type="button">Check</button></div><p class="mini-out" data-mini-out></p>' +
       '<p class="small muted" style="margin:0">Between sizes? Take the larger. <a href="breeds.html">Sizes by breed</a> · <a href="sizing.html">How to measure</a></p>'
     : '<p><b>' + esc(p.fit) + '</b></p><p class="small muted" style="margin:0">No size to pick. <a href="sizing.html">How it fastens</a></p>';
   const delivery = p.noDeliveryDates
@@ -846,11 +920,12 @@ function wireMiniFinder(host, p){
   const out = host.querySelector("[data-mini-out]"), inp = m.querySelector("input");
   const run = () => {
     const n = parseFloat(inp.value); if(!(n > 0)){ out.textContent = ""; return; }
-    const r = sizeFor(p, n);
+    const ch = m.querySelector("[data-chest]"); const c = ch ? parseFloat(ch.value) : NaN;
+    const r = sizeFor(p, n, c > 0 ? c : null);
     if(r.ok){ out.innerHTML = '✅ Order <b>size ' + r.label + '</b> (neck ' + esc(r.neck) + ') — selected below.'; const b = host.querySelector('#sizes button[data-s="' + r.label + '"]'); if(b) b.click(); }
     else out.innerHTML = '⚠️ ' + esc(r.neck) + ' — this one won\'t fit a ' + n + 'cm neck. <a href="contact.html?product=' + p.id + '">Ask us</a> or try the <a href="product.html?id=bow-tie-collar">Bow Tie Collar</a>, which adjusts.';
   };
-  m.querySelector("button").addEventListener("click", run); inp.addEventListener("keydown", e => { if(e.key === "Enter") run(); });
+  m.querySelector("button").addEventListener("click", run); m.querySelectorAll("input").forEach(i => i.addEventListener("keydown", e => { if(e.key === "Enter") run(); }));
 }
 /* "You've saved £X" + pay-in-3 */
 function savedLine(p){ return savePct(p) ? '<p class="saved">You\'ve saved ' + money(p.list - p.price) + '</p>' : ""; }
@@ -861,9 +936,7 @@ function instalmentsLine(amount){
 /* details as three accordions */
 function detailsAccordions(p){
   const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
-  const dims = hasSizes
-    ? '<div class="tablewrap"><table><thead><tr><th>Size</th><th>Neck</th><th>Notes</th></tr></thead><tbody>' + p.sizes.map(s => '<tr><td class="sz">' + s.label + '</td><td><b>' + s.neck + '</b></td><td class="muted">' + s.note + '</td></tr>').join("") + '</tbody></table></div>'
-    : '<p><b>' + esc(p.fit) + '</b></p>';
+  const dims = sizeTable(p);
   return '<div class="details acc" id="fit">' +
     '<details open><summary>Product details &amp; dimensions</summary><div class="inner">' +
       '<h3>What you get</h3><ul class="deets">' + p.specs.map(d => '<li>' + d + '</li>').join("") + '</ul>' +

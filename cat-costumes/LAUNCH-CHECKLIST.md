@@ -50,6 +50,9 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [ ] Cross-sell metafields: on each product, `bundles` → the bundle products it sits in; on each bundle, `contains` → its components (two or three). That is what draws the "Cheaper together" cards with the saving, and what the cart drawer uses to offer the bundle a basket is one item away from.
 - [ ] **Bow Tie Collar colours:** add option `Colour` with values *Red tartan*, *Blue tartan*, *Green tartan* (set each value's swatch colour in the option settings so the swatches render); upload a photo per colour as the variant image once it exists — until then the theme shows the red photos with "photographed when it lands". Collection pages show one card per colour.
 - [ ] **Bell on/off:** metafield `custom.line_option` (multi-line text) on the Bow Tie Collar: `Bell` / `With bell` / `Without bell` / `Same price — the bell unclips from its ring.` It becomes a line property, not a variant.
+- [ ] **Subtitle + SEO title:** metafield `custom.subtitle` on every product (e.g. "Breakaway bow tie collar for cats & small dogs"), and paste it into the product's *Search engine listing* title after the name, so the tab, Google and the structured data all carry "for cats & small dogs" and "breakaway".
+- [ ] **Safety & wear:** metafield `custom.safety` (list) on every product — the lines are in `site/assets/data.js`; the house rule is a Product section setting.
+- [ ] **Size chart columns:** metafields `custom.size_chest` and `custom.size_weight` (multi-line, one line per variant) — the spider's chest figures come from the maker; leave weight blank until stock is measured and the table says "measured on arrival".
 - [ ] **Add-on tick box:** metafield `custom.addon` (product reference) on every non-bundle product → the Bow Tie Collar (and on the bow tie itself, a second bow tie is offered by the drawer instead). The Product section's *Default add-on* setting covers products without the metafield.
 - [ ] Assign each product to its collection.
 - [ ] **Lifestyle videos:** film a 10–20 second clip of each product on a cat and add it as product media. The product page shows videos automatically when they exist. No videos exist yet — this is the one content item still to be made.
@@ -83,7 +86,8 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 - [ ] Check every product page on a phone: gallery, objection cards, size picker + stock pill, express checkout buttons, sticky add-to-cart, videos, reviews slot, details, cross-sell.
 - [ ] Test the offer pop-up end to end: sign up, check the customer appears tagged `welcome10`, check the welcome email arrives with a working code.
 - [ ] Send a test message through the Contact page and confirm it lands in the store email.
-- [ ] Connect Google Analytics 4 and the Meta pixel (Settings → Customer events / channels).
+- [ ] **Pixels:** install the **Google & YouTube**, **Facebook & Instagram** and **TikTok** sales channels — each installs its pixel (and Meta's Conversions API) through Shopify's Customer Events with no theme code. Check Settings → Customer events shows all three, then place a £1 test order and see it in each dashboard. UTM parameters are saved to every order's attributes by the theme (`catwalk.js`), so Shopify's orders list shows the source without any pixel.
+- [ ] **Newsletter and pop-up** are Shopify customer forms already: Shopify Email → Automations → *Welcome new subscriber* sends `WELCOME10`; turn on *Abandoned checkout* too (Marketing → Automations).
 - [ ] Remove the password page. Set the launch date to the day the stock lands.
 
 ## I · After stock lands

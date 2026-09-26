@@ -5,6 +5,9 @@
       <div><h2>{{ section.settings.heading }}</h2><p>{{ section.settings.subheading }} <b>{{ section.settings.handle }}</b>{% if section.settings.draw_url != blank %} or enter <a href="{{ section.settings.draw_url }}">Cat of the Month</a>{% endif %}.</p></div>
       {%- if section.settings.draw_url != blank -%}<a class="btn btn-ghost btn-sm" href="{{ section.settings.draw_url }}">Enter this month →</a>{%- endif -%}
     </div>
+    {%- if section.blocks.size == 0 -%}
+    <p class="empty-line">No customer photos yet — the first go up the day they arrive. Tag <b>{{ section.settings.handle }}</b>{% if section.settings.draw_url != blank %} or <a href="{{ section.settings.draw_url }}">enter Cat of the Month</a>{% endif %}.</p>
+    {%- else -%}
     <div class="ugc-grid">
       {%- for block in section.blocks limit: 6 -%}
         <figure class="ugc" {{ block.shopify_attributes }}>
@@ -15,6 +18,7 @@
       {%- assign empties = 6 | minus: section.blocks.size -%}
       {%- if empties > 0 -%}{%- for i in (1..empties) -%}<figure class="ugc empty"><span>🐾</span><figcaption>Your cat here</figcaption></figure>{%- endfor -%}{%- endif -%}
     </div>
+    {%- endif -%}
   </div>
 </section>
 {% schema %}

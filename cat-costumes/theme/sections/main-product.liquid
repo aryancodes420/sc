@@ -46,6 +46,13 @@
         {%- else -%}Out of stock{%- endif -%}
       </span>
     </div>
+    {%- comment -%} phones: a scroll-snap track of the on-body clip (first) and the photos, with dots. Desktop keeps main + thumbs. {%- endcomment -%}
+    <div class="track" data-track>
+      {%- for v in videos limit: 1 -%}<div class="slide">{{ v | media_tag: class: 'clip', image_size: '800x', autoplay: false, loop: true, muted: true, controls: true }}</div>{%- endfor -%}
+      {%- for image in product.images limit: 6 -%}<div class="slide">{{ image | image_url: width: 800 | image_tag: widths: '400, 800', sizes: '100vw', loading: 'lazy', alt: image.alt | default: product.title }}</div>{%- endfor -%}
+    </div>
+    {%- assign n_slides = product.images.size | at_most: 6 -%}{%- if videos.size > 0 -%}{%- assign n_slides = n_slides | plus: 1 -%}{%- endif -%}
+    {%- if n_slides > 1 -%}<div class="dots" data-dots>{%- for i in (1..n_slides) -%}<i{% if forloop.first %} class="on"{% endif %}></i>{%- endfor -%}</div>{%- endif -%}
     {%- if product.images.size > 1 -%}
       <div class="thumbs" data-gallery-thumbs>
         {%- for image in product.images limit: 6 -%}
@@ -89,6 +96,7 @@
   {%- comment -%} 2 · product {%- endcomment -%}
   <div class="pdp-head">
     <h1 style="margin-bottom:.15em">{{ product.title }}</h1>
+    {%- if product.metafields.custom.subtitle != blank -%}<p class="subtitle">{{ product.metafields.custom.subtitle }}</p>{%- endif -%}
     {%- if product.metafields.custom.alias != blank -%}<span class="alias">aka {{ product.metafields.custom.alias }}</span>{%- endif -%}
     <a class="rating" href="#reviews">
       {%- if rating_count > 0 -%}
@@ -216,6 +224,15 @@
     </section>
   {%- endif -%}
 
+  {%- comment -%} 3c · safety and wear: the product's own lines (custom.safety, list) plus the house rule on every product {%- endcomment -%}
+  <section class="safety" id="safety">
+    <h2>Safety &amp; wear</h2>
+    <ul>
+      {%- if product.metafields.custom.safety != blank -%}{%- for t in product.metafields.custom.safety.value -%}<li>{{ t }}</li>{%- endfor -%}{%- endif -%}
+      <li class="house">{{ section.settings.safety_house }}</li>
+    </ul>
+  </section>
+
   {%- comment -%} 4 · lifestyle videos — product media of type video / external video {%- endcomment -%}
   {%- if videos.size > 0 or ext_videos.size > 0 -%}
     <section class="videos">
@@ -230,7 +247,7 @@
       </div>
     </section>
   {%- elsif request.design_mode -%}
-    <section class="videos"><div class="video-slot">Lifestyle videos appear here — add video media to this product.</div></section>
+    <section class="videos"><p class="empty-line">No clip of the {{ product.title | downcase }} on a cat yet — it goes here, and in slot 1 of the gallery, the day it is filmed (add it as product media).</p></section>
   {%- endif -%}
 
   {%- comment -%} 5 · reviews — an app block (Judge.me, Loox) dropped in via the theme editor {%- endcomment -%}
@@ -297,10 +314,13 @@
 
     <h3>Dimensions &amp; fit</h3>
     {%- unless product.has_only_default_variant -%}
-      <div class="tablewrap"><table>
-        <thead><tr><th>Size</th><th>Neck / notes</th></tr></thead>
-        <tbody>{%- for variant in product.variants -%}<tr><td class="sz">{{ variant.title }}</td><td>{{ size_notes[forloop.index0] | strip }}</td></tr>{%- endfor -%}</tbody>
+      {%- assign size_chest = product.metafields.custom.size_chest | newline_to_br | split: '<br />' -%}
+      {%- assign size_weight = product.metafields.custom.size_weight | newline_to_br | split: '<br />' -%}
+      <div class="tablewrap"><table class="sizetable">
+        <thead><tr><th>Size</th><th>Neck / notes</th><th>Chest</th><th>Weight</th></tr></thead>
+        <tbody>{%- for variant in product.variants -%}{%- assign i = forloop.index0 -%}<tr><td class="sz">{{ variant.title }}</td><td>{{ size_notes[i] | strip }}</td><td>{% if size_chest[i] != blank %}<b>{{ size_chest[i] | strip }}</b>{% else %}<span class="muted">n/a</span>{% endif %}</td><td>{% if size_weight[i] != blank %}<b>{{ size_weight[i] | strip }}</b>{% else %}<span class="muted">measured on arrival</span>{% endif %}</td></tr>{%- endfor -%}</tbody>
       </table></div>
+      <p class="small muted chartnote">{{ section.settings.chart_note }}</p>
     {%- else -%}
       <p><b>{{ product.metafields.custom.fit }}</b></p>
     {%- endunless -%}
@@ -421,6 +441,8 @@
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show Shop Pay / Apple Pay / Google Pay button", "default": true,
       "info": "Buttons appear once accelerated checkouts are enabled under Settings → Payments." },
     { "type": "text", "id": "videos_heading", "label": "Videos heading", "default": "See it on a cat" },
+    { "type": "textarea", "id": "safety_house", "label": "Safety line on every product", "default": "Supervise your cat while they wear anything from us. Stop if they are distressed. Keep small parts away from kittens. Wait 24 hours after a spot-on flea treatment before dressing up." },
+    { "type": "text", "id": "chart_note", "label": "Size chart note", "default": "Maker's chart. Our own measured figures (with chest and weight) replace these when stock lands." },
     { "type": "product", "id": "addon_product", "label": "Default add-on (tick box in the buy box)", "info": "Used when a product has no custom.addon metafield. Bundles never show it." },
     { "type": "text", "id": "addon_label", "label": "Add-on label", "default": "Add the" },
     { "type": "checkbox", "id": "show_related", "label": "Show related products", "default": true },

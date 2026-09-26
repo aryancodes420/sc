@@ -365,3 +365,34 @@ function wireDrawer(){
   document.querySelectorAll("[data-open-drawer]").forEach(el => el.addEventListener("click", e => { e.preventDefault(); refreshDrawer(true); }));
 }
 document.addEventListener("DOMContentLoaded", wireDrawer);
+
+/* ================================================================ phase 3 ==== */
+/* mobile menu button (header.liquid) */
+function wireBurger(){
+  const nav = document.querySelector("header.site .nav"), b = nav && nav.querySelector("[data-burger]"); if(!nav || !b) return;
+  b.addEventListener("click", () => { const open = nav.classList.toggle("open"); b.setAttribute("aria-expanded", String(open)); });
+  document.addEventListener("click", e => { if(!nav.contains(e.target)){ nav.classList.remove("open"); b.setAttribute("aria-expanded", "false"); } });
+}
+/* gallery track dots (phones) and thumb → track scroll */
+function wireTrack(root){
+  const g = (root || document).querySelector("[data-gallery]"); if(!g) return;
+  const track = g.querySelector("[data-track]"), dots = g.querySelectorAll("[data-dots] i"), thumbs = g.querySelectorAll("[data-gallery-thumbs] button"); if(!track) return;
+  let t = null; track.addEventListener("scroll", () => { clearTimeout(t); t = setTimeout(() => { const k = Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); dots.forEach((d, j) => d.classList.toggle("on", j === k)); }, 80); }, { passive: true });
+  thumbs.forEach((b, j) => b.addEventListener("click", () => { const off = track.querySelectorAll(".slide").length - thumbs.length; const sEl = track.children[j + Math.max(0, off)]; if(sEl) track.scrollTo({ left: sEl.offsetLeft, behavior: "smooth" }); }));
+}
+/* UTMs: kept for 30 days and written to the cart as attributes, so every order shows its source in admin.
+   The pixels themselves are installed by the sales channels (Google & YouTube, Facebook & Instagram, TikTok)
+   and fire through Shopify's Customer Events — nothing to add here. */
+function wireUtm(){
+  const KEY = "catwalk.utm.v1", keys = ["utm_source","utm_medium","utm_campaign","utm_content","utm_term"];
+  try{
+    const q = new URLSearchParams(location.search);
+    if(keys.some(k => q.has(k))){ const o = { at: Date.now() }; keys.forEach(k => { if(q.get(k)) o[k] = q.get(k); }); localStorage.setItem(KEY, JSON.stringify(o)); }
+    const o = JSON.parse(localStorage.getItem(KEY)); if(!o || Date.now() - o.at > 30 * 864e5 || o.sent) return;
+    const attributes = {}; keys.forEach(k => { if(o[k]) attributes[k] = o[k]; });
+    if(!window.fetch) return;
+    fetch("/cart/update.js", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ attributes }) }).then(() => { o.sent = true; localStorage.setItem(KEY, JSON.stringify(o)); }).catch(() => {});
+  }catch(e){}
+}
+document.addEventListener("DOMContentLoaded", () => { wireBurger(); wireTrack(); wireUtm(); });
+document.addEventListener("shopify:section:load", e => wireTrack(e.target));
