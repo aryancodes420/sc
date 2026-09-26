@@ -599,24 +599,24 @@ Film once, publish three times: TikTok native, Instagram Reels native (no waterm
 
 ### 5.4 Thirty scripted posts, Days 1–30 (27 September – 26 October)
 
-Assumes the bandana (UK dropship) is on hand first and the six China-sourced samples arrive during week one; if they slip, Days 9–13 become collar and bandana posts (formats 3, 5, 6, 10) and the guess-series starts the day the box arrives. "Keyword CTA" = `Comment "SPIDER" and I'll send the link`, on no more than one post in three. Order-by dates below must be replaced with the real date once stock is counted in (§1.1).
+Built on what can physically be in the owner's hands. On 26 September the owner orders **one Bandana Collar** (UK dropship, 2–5 working days → on hand ~29 Sep – 2 Oct) and **one Bow Tie Collar** on the listing's fastest line (ESTIMATED 1–10 Oct; a comparable Choice listing showed "Delivery Oct 01–06" on 26 Sep, §7.3) to their own address — the §10 checklist, item 5. Nothing else exists before the boxes land on **8–20 October** (§8.4; a separate sample cannot beat the bulk order, and no supplier photo goes in a post — image rights, §6.2). So Days 1–14 are story, character, measuring, safety and ask-the-audience formats, plus the bandana from the day it arrives and the bow tie from the day it arrives; **the costume series runs from landing day + 1** (block L below) and displaces, day for day, whatever is scheduled. "Keyword CTA" = `Comment "SPIDER" and I'll send the link`, on no more than one post in three. Order-by dates must be replaced with the real date once stock is counted in (§1.1); until then the only sellable line is the bandana and every other CTA is "Notify me".
 
 | Day | Date | Pillar / format | Product | Hook | Shots | CTA |
 |---|---|---|---|---|---|---|
 | 1 | Sun 27 Sep | B/11 story | none | "I'm opening a cat-costume shop in four weeks with two cats and no ad budget. Day 1." | talking head; the cats; the empty stock box; the site; "five seconds, one photo, treats" | "Follow for the launch. Everything we sell is for cats & small dogs." |
-| 2 | Mon 28 Sep | A/1 | Bandana (Roadie) | "Rate his reaction to a bandana, 1–10" | clip on; hold; walk; off; treat | "Bandana collar for cats & small dogs · UK stock · bio" |
-| 3 | Tue 29 Sep | C/5 | Bow tie (Reginald) | "Why this clip is *meant* to come undone" | close-up; pull; pop; refit; two-finger check | "Breakaway bow tie collar · bio" |
-| 4 | Wed 30 Sep | D/3 | Bow tie colours | "Which does he wear to Nan's: red or blue?" | red 4 s, blue 4 s, split | "A or B below" |
+| 2 | Mon 28 Sep | C/6 | none (tape measure) | "How to measure a cat's neck. He did not consent." | tape at the neck, cm on screen, the two-finger rule; "under 3 kg, size down" | "Size guide in bio; DM me your cat's neck in cm" |
+| 3 | Tue 29 Sep | B | none | "Meet the staff." | each cat by name, one trait, one catchphrase; the founder last | no CTA (a question: "which one's the boss?") |
+| 4 | Wed 30 Sep | A/4 | the cat's own everyday collar | "Cat costumes are a five-second sport. Here's the rule before we've sold a thing." | timer; collar on; photo; off; treats | "This is the rule we sell by — bio" |
 | 5 | Thu 1 Oct | D | Cat of the Month opens | "Cat of the Month is open — free to enter, no purchase, any cat, one winner drawn at random on 1 Nov" | owner to camera; "closes 31 Oct · UK 18+ · £25 credit" on screen; the cats | "Post any cat with #catwalkclubcat or email it — free entry, full terms in bio" |
-| 6 | Fri 2 Oct | A/1 | Lion Mane (Kingsley) | "He has no idea he's a lion" | mane up; velcro; hold; sit; walk; off | "Lion mane for cats · S/M/L · bio" |
-| 7 | Sat 3 Oct | B/8 | bow tie, bandana, mane | no words; three walks | hard cuts; last cut bare | "Week 1 done. The mane won. Bio for all three." |
-| 8 | Sun 4 Oct | C/6 | mane | "Does the lion mane fit a 3 kg cat? Tape measure." | tape; S vs M; "between sizes take the smaller" | "Size guide in bio; DM me your cat's neck in cm" |
-| 9 | Mon 5 Oct | A/2 (1 of 5) | Spider (Boris) | "Halloween costume 1 of 5. Guess tomorrow's." | legs on; walk; a leg wobbles; "supervised, not for chewers" | "Guess tomorrow's in the comments" |
-| 10 | Tue 6 Oct | A/2 (2 of 5) | Bat Cape (Vlad) | "2 of 5. You guessed bat. It's bat." | cape; hood; betrayed look; walk; off | keyword CTA `Comment "VLAD"` |
-| 11 | Wed 7 Oct | A/2 (3 of 5) | Pumpkin set (Pip) | "3 of 5. The hat lasted 4 seconds. The collar's staying." | hat on, off; ruffle stays; sits normally | "Sold as a set — the collar's the bit they tolerate" |
-| 12 | Thu 8 Oct | D/3 | spider vs cape | "Halloween photo: spider or bat?" | Cat 1 spider, Cat 2 cape, split | "Vote · Halloween Trio in bio" |
-| 13 | Fri 9 Oct | A/4 | any costume | "Cat costumes are a five-second sport" | timer; on; photo; off; treats | "Order by [real date] for Halloween delivery" |
-| 14 | Sat 10 Oct | E/11 story | none | "Week 2: [N] orders, one problem, one thing I'd change" | a real order count; the postage cost; the cats | "Week 3 next Saturday" |
+| 6 | Fri 2 Oct | A/1 | Bandana (Roadie) — the unit ordered 26 Sep; if it has not arrived, swap with Day 8 | "Rate his reaction to a bandana, 1–10" | clip on; hold; walk; off; treat | "Bandana collar for cats & small dogs · UK stock · the one thing you can buy today · bio" |
+| 7 | Sat 3 Oct | E/11 story | none | "Week 1: [N] followers, the stock order is placed, and what a bandana actually costs me" | the order confirmation (numbers blurred), the EORI email, the cats | "Week 2 next Saturday" |
+| 8 | Sun 4 Oct | C/9 | any breakaway collar the household owns (say so on screen) | "Don't put a breakaway on a kitten under 1.5 kg — here's why" | sugar-bag pull test vs the adult cat; "ours land [8–20 Oct]" | "Safety notes on every product page" |
+| 9 | Mon 5 Oct | D/3 | none (text on screen) | "Which lands first on the cat: spider or bat? Boxes due next week." | Cat 1 with "SPIDER" card, Cat 2 with "BAT" card; split | "Vote · tap Notify me on either page" |
+| 10 | Tue 6 Oct | C/6 | Bandana | "Does a bandana fit a 3 kg cat? Tape measure." | tape; the one size on hand against the S/M/L chart; two-finger check | "Size guide in bio; DM your cat's neck cm" |
+| 11 | Wed 7 Oct | E/12 | whichever was asked | "You asked: [the most-asked question so far]" | answer in one shot | "Ask the next one below" |
+| 12 | Thu 8 Oct | C/5 | Bow tie (Reginald) — if the unit has arrived; otherwise E: "tracking says [date]" | "Why this clip is *meant* to come undone" | close-up; pull; pop; refit; two-finger check | "Breakaway bow tie collar · Notify me · bio" |
+| 13 | Fri 9 Oct | E/7 | the first bandana order, with consent — or the notify-me count | "Packing the first order" / "[N] of you tapped Notify me" | item, tissue, bag, note, postbox; cat on the parcel | "Bandana ships now · everything else lands [date]" |
+| 14 | Sat 10 Oct | E/11 story | none | "Week 2: today I size the Christmas order on 14 days of data. Here they are." | plays, followers, bandana orders, notify-me count; the three order sizes on a card | "Week 3 next Saturday" |
 | 15 | Sun 11 Oct | C/9 | bow tie | "Don't put a breakaway on a kitten under 1.5 kg — here's the proof" | sugar-bag test vs adult cat | "Safety notes on every product page" |
 | 16 | Mon 12 Oct | A/1 | spider | "Rate the spider 1–10 (his rating: 0)" | second cat; same beats | keyword CTA `Comment "BORIS"` |
 | 17 | Tue 13 Oct | E/7 | Halloween orders | "Packing day" | packing montage; postbox; cat on parcels | "Order by [real date] for Halloween" |
@@ -633,6 +633,21 @@ Assumes the bandana (UK dropship) is on hand first and the six China-sourced sam
 | 28 | Sat 24 Oct | E/11 story | none | "Week 4: the honest numbers before Halloween" | orders, sessions, best and worst post, the Christmas plan | "Week 5 next Saturday" |
 | 29 | Sun 25 Oct | A/1 | mane + bow tie | "Lion in a bow tie. Rate it." | both on; sit; walk; off | keyword CTA `Comment "KINGSLEY"` |
 | 30 | Mon 26 Oct | C/6 | bandana S/M/L | "S, M or L? All three on the same cat" | three sizes, tape, two-finger check | "Bandana collar · UK stock · arrives in days" |
+
+**Block L — the costume series, dated from landing day (L = the day the boxes are counted in, 8–20 Oct; earliest L+1 Fri 9 Oct, latest Wed 21 Oct).** These seven posts replace whatever Days 15–30 hold on those dates, one for one; the displaced collar and bandana posts move later. Film all seven on landing day and L+1, when every product is in hand and the cats are fresh to them.
+
+| Day | Pillar / format | Product | Hook | Shots | CTA |
+|---|---|---|---|---|---|
+| L | E | the boxes | "They're here. Counting in, checking every spider leg." | box open; count; a leg inspected; the real order-by date written on a card | "Order by [real date] for Halloween — from today" |
+| L+1 | A/2 (1 of 5) | Spider (Boris) | "Halloween costume 1 of 5. Guess tomorrow's." | legs on; walk; a leg wobbles; "supervised, not for chewers" | "Guess tomorrow's in the comments" |
+| L+2 | A/2 (2 of 5) | Bat Cape (Vlad) | "2 of 5. You guessed bat. It's bat." | cape; hood; betrayed look; walk; off | keyword CTA `Comment "VLAD"` |
+| L+3 | A/2 (3 of 5) | Pumpkin set (Pip) | "3 of 5. The hat lasted 4 seconds. The collar's staying." | hat on, off; ruffle stays; sits normally | "Sold as a set — the collar's the bit they tolerate" |
+| L+4 | A/1 (4 of 5) | Lion Mane (Kingsley) | "4 of 5. He has no idea he's a lion." | mane up; velcro; hold; sit; walk; off | "Lion mane for cats · S/M/L · bio" |
+| L+5 | A/3 (5 of 5) | Bow tie colours | "5 of 5, and the one they keep on: red, blue or green?" | red 4 s, blue 4 s, green 4 s, split | "A, B or C below" |
+| L+6 | D/3 | spider vs cape | "Halloween photo: spider or bat?" | Cat 1 spider, Cat 2 cape, split | "Vote · Halloween Trio in bio" |
+| L+7 | C/6 | mane | "Does the lion mane fit a 3 kg cat? Tape measure." | tape; S vs M; "between sizes take the smaller" | "Size guide in bio; DM me your cat's neck in cm" |
+
+Days 15–30 below stand as written only if stock has landed by Sun 11 Oct (the earliest case); on the latest landing (20 Oct) the costume posts they contain (Days 16, 19, 22, 23, 25, 27, 29) cannot be filmed until L, so the bandana and bow tie carry formats 3, 5, 6, 10 and 12 until then and Block L runs 21–28 Oct — which still leaves the Halloween Trio on screen for the last selling week before the 26 Oct cut-off.
 
 Two rules: if a post passes 100,000 plays in 48 hours, post a follow-up on the same cat and product within 24 hours ("Part 2", "you asked…"); after four weeks drop the two weakest formats by median plays and double the two strongest.
 
