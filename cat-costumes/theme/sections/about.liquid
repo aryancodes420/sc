@@ -31,7 +31,7 @@
   <section style="padding-top:0">
     <div class="callout">
       <h3 style="margin-top:0">Business details</h3>
-      <p class="small muted" style="margin:0">{{ section.settings.business }}{% if settings.contact_email != blank %} Email: <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>.{% endif %}</p>
+      <p class="small muted" style="margin:0">{% render 'business-line' %}{% if settings.contact_email != blank %} Email <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a>.{% endif %}{% if settings.returns_address != blank or settings.trader_address != blank %} Returns to: {{ settings.returns_address | default: settings.trader_address }}.{% endif %}{% if section.settings.business != blank %} {{ section.settings.business }}{% endif %}</p>
     </div>
   </section>
 </div>
@@ -43,7 +43,7 @@
     { "type": "text", "id": "heading", "label": "Heading", "default": "Costumes made for cats, chosen by someone who has actually tried to dress one." },
     { "type": "textarea", "id": "lede", "label": "Intro", "default": "Catwalk Club is a small UK shop selling the pieces we would put on our own cats: two everyday collars, four Halloween looks and a Christmas set. Every one is sized from a cat's neck, leaves the face and eyes clear, and comes with the measurements, materials and washing instructions on the page." },
     { "type": "image_picker", "id": "image", "label": "Photo" },
-    { "type": "textarea", "id": "business", "label": "Business details", "default": "Trader name, registered address and email go here before trading — a legal requirement for UK distance selling." }
+    { "type": "textarea", "id": "business", "label": "Extra business details (optional)", "info": "The trader name, address and returns address come from Theme settings → Business & returns.", "default": "" }
   ],
   "blocks": [
     { "type": "panel", "name": "Panel", "settings": [

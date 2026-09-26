@@ -146,6 +146,75 @@
     ]
   },
   {
+    "name": "Business & returns",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Trader details are a legal requirement for UK distance selling. They print in the footer, on the About and Contact pages, in the competition terms and in structured data. Leave blank and the theme shows 'trader name and address to be added before trading'."
+      },
+      {
+        "type": "text",
+        "id": "trader_name",
+        "label": "Trader (person or company behind the shop)",
+        "info": "e.g. A. Sarna trading as Catwalk Club, or Catwalk Club Ltd (company no. 12345678)"
+      },
+      {
+        "type": "text",
+        "id": "trader_address",
+        "label": "Geographic address, one line"
+      },
+      {
+        "type": "text",
+        "id": "dispatch_town",
+        "label": "Dispatch town"
+      },
+      {
+        "type": "text",
+        "id": "returns_address",
+        "label": "Returns address",
+        "info": "Leave blank to use the address above."
+      },
+      {
+        "type": "text",
+        "id": "vat_number",
+        "label": "VAT registration number",
+        "info": "Blank until registered."
+      },
+      {
+        "type": "header",
+        "content": "Returns"
+      },
+      {
+        "type": "checkbox",
+        "id": "returns_worn_ok",
+        "label": "Accept returns worn or not",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "returns_free_postage",
+        "label": "Free return postage",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "returns_postage_estimate",
+        "label": "Return postage estimate shown to customers",
+        "default": "about £3"
+      },
+      {
+        "type": "checkbox",
+        "id": "returns_free_size_swap",
+        "label": "Free size swaps",
+        "default": true
+      },
+      {
+        "type": "paragraph",
+        "content": "The returns window (days) is under Orders & stock. Every returns line on the theme is rendered from these settings by snippets/returns-line.liquid; the policy text itself lives in Settings → Policies."
+      }
+    ]
+  },
+  {
     "name": "Launch offer",
     "settings": [
       {

@@ -70,7 +70,8 @@ supplier's shots has their own text baked in.
 | `track-order.html` | Order lookup (demo), delivery expectations with real dates |
 | `quiz.html` | Which costume for my cat? — occasion → tolerance → neck (or breed) → sized shortlist |
 | `breeds.html` | Ten breeds, typical neck ranges, size suggestion per sized product (computed from the size tables) |
-| `photo-draw.html` | Cat of the Month: judged photo competition, free entry, full terms, honest empty winners wall |
+| `photo-draw.html` | Cat of the Month: free-entry random draw (CAP 8.24), any cat photo qualifies, full terms, honest empty winners wall |
+| `refund-policy.html`, `shipping-policy.html`, `terms.html`, `privacy.html` | Legal pages. Every trader detail and the returns promise are filled from `BUSINESS` and `RETURNS` in `data.js` (`bizFill()`); a draft banner shows until the trader name and address are set |
 | `cart.html` | Lines carry size; free-delivery progress; totals |
 | `sizing.html` | Fit & care — how to measure, every size we sell in one table, care per product, returns |
 | `faq.html` | Ten questions for this range |
@@ -98,4 +99,4 @@ Tier 2 additions (19 Sep 2026): save-by-bundling lists 4 bundles with "Save £1.
 1. **Pricing is set** (18 Sep 2026) at the top of the mainstream tier — level with Pets at Home /
    Petco, 1.5–2.5× Amazon, below specialists. Rationale and anchors in `../sourcing.md`.
 2. **Confirm the list above** on each listing before placing the bulk order.
-3. **Payments, legal pages, reviews app.** Unchanged.
+3. **Payments and the reviews app.** Unchanged. Legal pages exist (26 Sep); they take effect once `BUSINESS.legalName` and `BUSINESS.address` are filled.

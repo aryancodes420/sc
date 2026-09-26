@@ -23,8 +23,13 @@
       {%- endfor -%}
     </div>
     <div class="legal">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.legal_note }}</span>
-      <span>{{ powered_by_link }}</span>
+      <span>&copy; {{ 'now' | date: '%Y' }} {% render 'business-line' %} {{ section.settings.legal_note }}</span>
+      <span>
+        {%- if section.settings.show_policy_links -%}
+          {%- for policy in shop.policies -%}{%- if policy.body != blank -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{% unless forloop.last %} &middot; {% endunless %}{%- endif -%}{%- endfor -%}
+        {%- endif -%}
+        {{ powered_by_link }}
+      </span>
     </div>
     {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
       <ul class="payicons svg" aria-label="Payment methods accepted">
@@ -39,6 +44,7 @@
   "max_blocks": 3,
   "settings": [
     { "type": "text", "id": "legal_note", "label": "Legal note", "default": "All rights reserved." },
+    { "type": "checkbox", "id": "show_policy_links", "label": "Show policy links (Refund, Shipping, Privacy, Terms from Settings → Policies)", "default": true },
     { "type": "checkbox", "id": "show_payment_icons", "label": "Show payment icons", "default": true }
   ],
   "blocks": [

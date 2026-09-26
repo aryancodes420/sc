@@ -53,6 +53,7 @@
             <div class="sumline total"><span>Total</span><span>{{ cart.total_price | money }}</span></div>
             <p class="small muted" style="margin:.2em 0 .8em">Delivery calculated at checkout.</p>
             <button class="btn btn-block" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+            <p class="small muted" style="margin:10px 0 0">{% render 'returns-line' %}{% if shop.refund_policy.url != blank %} <a href="{{ shop.refund_policy.url }}">Refund policy</a>{% endif %}{% if shop.shipping_policy.url != blank %} · <a href="{{ shop.shipping_policy.url }}">Delivery</a>{% endif %}</p>
           </div>
         </div>
       </form>

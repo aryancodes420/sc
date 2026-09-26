@@ -28,7 +28,8 @@
           <h3>💬 Quicker ways</h3>
           {%- if settings.whatsapp_number != blank -%}<p><b>WhatsApp:</b> <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}">+{{ settings.whatsapp_number | remove: '+' }}</a></p>{%- endif -%}
           {%- if settings.contact_email != blank -%}<p><b>Email:</b> <a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>{%- endif -%}
-          <p style="margin:0"><b>Hours:</b> {{ settings.contact_hours | default: 'Mon–Fri, 9am–6pm UK time' }}</p>
+          <p><b>Hours:</b> {{ settings.contact_hours | default: 'Mon–Fri, 9am–6pm UK time' }}</p>
+          <p style="margin:0"><b>Returns to:</b> {{ settings.returns_address | default: settings.trader_address | default: 'the returns address on your dispatch note' }}{% if shop.refund_policy.url != blank %} — <a href="{{ shop.refund_policy.url }}">how returns work</a>{% endif %}</p>
         </div>
         <div class="panel">
           <h3>🔎 Before you write</h3>

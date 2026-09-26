@@ -241,6 +241,7 @@ function initChrome(){
   if(y) y.textContent = new Date().getFullYear();
   const lg = document.querySelector("footer .legal");
   if(lg && !lg.querySelector(".payicons")) lg.insertAdjacentHTML("afterend", paymentIcons());
+  bizFill(document);
   const tb = document.querySelector(".topbar");
   if(tb) tb.innerHTML = 'Free UK delivery over <b>£' + FREE_SHIPPING_AT + '</b> &nbsp;·&nbsp; ' + countdownHTML();
   mountTicker();
@@ -329,7 +330,7 @@ function objectionCards(p){
     "spider-costume": "Fastens under the chest like a harness. Best for cats already used to one.",
     "pumpkin-set": "Chin strap on the hat, ruffle on the collar. A minute or two is all the photo needs.",
     "santa-set": "Velcro on both pieces, nothing over the face. A minute or two is all the photo needs."
-  }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.";
+  }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and " + RETURNS.days + " days to return it" + (RETURNS.wornOk ? ", worn or not." : ".");
   return '<div class="objections">' +
     '<a href="#fit"><b>Will it fit my cat?</b><span>' + esc(fitA) + '</span></a>' +
     '<a href="faq.html"><b>When will it arrive?</b><span>' + (p.noDeliveryDates ? 'Tracked UK delivery. Free over £' + FREE_SHIPPING_AT + '.' : 'Order today: arrives ' + deliveryWindow() + '. Free over £' + FREE_SHIPPING_AT + '.') + '</span></a>' +
@@ -352,11 +353,44 @@ function paymentIcons(){
 }
 
 /* ----- four-icon trust row ----- */
+/* Returns and trader details — rendered from RETURNS and BUSINESS in data.js so the words are the
+   same everywhere and change in one place. */
+function returnsLine(){
+  const worn = RETURNS.wornOk ? ", worn or not" : " unworn, in the packaging";
+  const post = RETURNS.freePostage ? "Return postage is free" : "You pay the return postage (about £" + RETURNS.returnPostageEstimate + ")";
+  const swap = RETURNS.freeSizeSwap ? "; size swaps are free." : ".";
+  return "<b>" + RETURNS.days + " days to send it back" + worn + ".</b> " + post + swap;
+}
+function returnsShort(){ return (RETURNS.wornOk ? "worn or not, " : "") + RETURNS.days + " days"; }
+function bizReady(){ return !!(BUSINESS.legalName && BUSINESS.address); }
+function bizTrader(){ return bizReady() ? (BUSINESS.legalName + (BUSINESS.legalName === BUSINESS.tradingName ? "" : ", trading as " + BUSINESS.tradingName)) : BUSINESS.tradingName; }
+function businessLine(){
+  if(!bizReady()) return BUSINESS.tradingName + " · trader name and address to be added before trading.";
+  return bizTrader() + ", " + BUSINESS.address + (BUSINESS.vatNumber ? " · VAT no. " + BUSINESS.vatNumber : "") + ".";
+}
+function returnsAddress(){ return BUSINESS.returnsAddress || BUSINESS.address || "the returns address on your dispatch note"; }
+/* Fill any [data-biz="field"] element from BUSINESS / RETURNS / DRAW / CONTACT; unset fields show an honest placeholder. */
+function bizFill(root){
+  const map = {
+    trader: bizTrader(), tradingName: BUSINESS.tradingName, legalName: BUSINESS.legalName || "[trader name — to be added before trading]",
+    address: BUSINESS.address || "[geographic address — to be added before trading]", returnsAddress: returnsAddress(),
+    dispatchTown: BUSINESS.dispatchTown || "[dispatch town]", vat: BUSINESS.vatNumber ? "VAT registration number " + BUSINESS.vatNumber + "." : "Not VAT registered; prices are not subject to VAT.",
+    updated: BUSINESS.policiesUpdated, line: businessLine(), email: CONTACT.email, hours: CONTACT.hours, reply: CONTACT.reply,
+    returnsLine: returnsLine(), returnsDays: String(RETURNS.days), refundDays: String(RETURNS.refundWithinDays),
+    returnPostage: RETURNS.freePostage ? "free" : "paid by you (about £" + RETURNS.returnPostageEstimate + ")",
+    sizeSwap: RETURNS.freeSizeSwap ? "free: we send the new size first with a prepaid label for the old one" : "treated as a return and a new order",
+    deliveryCost: "£" + DELIVERY.cost.toFixed(2), freeAt: "£" + FREE_SHIPPING_AT, deliveryDays: DELIVERY.min + "–" + DELIVERY.max + " working days",
+    promoter: DRAW.promoter || "[promoter's trading name and address — to be added before the first round opens]",
+    drawName: DRAW.name, prize: DRAW.prize, drawnWithin: String(DRAW.drawnWithin), prizeWithin: String(DRAW.prizeWithin), handle: DRAW.handle, firstCloses: DRAW.firstCloses, closes: DRAW.closes
+  };
+  (root || document).querySelectorAll("[data-biz]").forEach(el => { const k = el.getAttribute("data-biz"); if(k in map){ if(/Line$/.test(k)) el.innerHTML = map[k]; else el.textContent = map[k]; if(k === "email" && el.tagName === "A") el.href = "mailto:" + map[k]; } });
+  const draft = (root || document).querySelector("[data-biz-draft]"); if(draft) draft.hidden = bizReady();
+}
 function trustRow(p){
   const uk = p.id === "bandana";
   return '<div class="trust4">' +
     '<div><i>📦</i><b>Free UK delivery</b><span>on orders over £' + FREE_SHIPPING_AT + '</span></div>' +
-    '<div><i>↩️</i><b>30-day returns</b><span>worn or not</span></div>' +
+    '<div><i>↩️</i><b>' + RETURNS.days + '-day returns</b><span>' + (RETURNS.wornOk ? 'worn or not' : 'unworn') + '</span></div>' +
     '<div><i>🐱</i><b>Sized for cats</b><span>faces and eyes clear</span></div>' +
     '<div><i>' + (uk ? "🇬🇧" : "🔒") + '</i><b>' + (uk ? "UK stock" : "Secure checkout") + '</b><span>' + (uk ? "dispatched here" : "Shopify Payments") + '</span></div>' +
   '</div>';
@@ -396,7 +430,8 @@ function crossSell(p){
 function jsonLd(obj){
   const s = document.createElement("script"); s.type = "application/ld+json"; s.textContent = JSON.stringify(obj); document.head.appendChild(s);
 }
-const ORG = { "@type": "Organization", "name": "Catwalk Club", "url": abs("index.html"), "email": CONTACT.email, "logo": abs("assets/img/lion-mane-2.webp"),
+const ORG = { "@type": "Organization", "name": BUSINESS.tradingName, "legalName": BUSINESS.legalName || undefined, "url": abs("index.html"), "email": CONTACT.email, "logo": abs("assets/img/logo.svg"),
+  "address": BUSINESS.address ? { "@type": "PostalAddress", "streetAddress": BUSINESS.address, "addressCountry": "GB" } : undefined,
   "contactPoint": { "@type": "ContactPoint", "contactType": "customer service", "email": CONTACT.email, "areaServed": "GB", "availableLanguage": "en" } };
 function orgJsonLd(){ jsonLd(Object.assign({ "@context": "https://schema.org" }, ORG)); }
 function productJsonLd(p){
@@ -407,7 +442,7 @@ function productJsonLd(p){
     "shippingDetails": { "@type": "OfferShippingDetails", "shippingRate": { "@type": "MonetaryAmount", "value": DELIVERY.cost.toFixed(2), "currency": "GBP" },
       "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "GB" },
       "deliveryTime": { "@type": "ShippingDeliveryTime", "transitTime": { "@type": "QuantitativeValue", "minValue": DELIVERY.min, "maxValue": DELIVERY.max, "unitCode": "DAY" } } },
-    "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "GB", "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow", "merchantReturnDays": 30, "returnMethod": "https://schema.org/ReturnByMail", "returnFees": "https://schema.org/FreeReturn" }
+    "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "GB", "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow", "merchantReturnDays": RETURNS.days, "returnMethod": "https://schema.org/ReturnByMail", "returnFees": RETURNS.freePostage ? "https://schema.org/FreeReturn" : "https://schema.org/ReturnFeesCustomerResponsibility" }
   });
   const hasSizes = Array.isArray(p.sizes) && p.sizes.length > 0;
   jsonLd({ "@context": "https://schema.org", "@type": "Product", "name": p.name, "sku": p.id, "description": p.blurb,
@@ -649,7 +684,7 @@ function objectionCards(p){
     "spider-costume": "Fastens under the chest like a harness. Best for cats already used to one.",
     "pumpkin-set": "Chin strap on the hat, ruffle on the collar. A minute or two is all the photo needs.",
     "santa-set": "Velcro on both pieces, nothing over the face. A minute or two is all the photo needs."
-  }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and 30 days to return it, worn or not.";
+  }[p.id] || "Nothing covers the face. Put it on, get the shot, take it off — and " + RETURNS.days + " days to return it" + (RETURNS.wornOk ? ", worn or not." : ".");
   const fitInner = hasSizes
     ? '<p>Every size is a <b>neck measurement</b>. Wrap a soft tape where a collar sits, add two fingers, and type the number:</p>' +
       '<div class="mini" data-mini><input type="number" min="10" max="60" step="1" placeholder="neck cm" aria-label="Neck in cm"><button class="btn btn-sm" type="button">Check</button></div><p class="mini-out" data-mini-out></p>' +
@@ -700,7 +735,7 @@ function detailsAccordions(p){
       '<h3>Materials &amp; care</h3><p style="margin:0">' + p.care + '</p></div></details>' +
     '<details><summary>Delivery &amp; returns</summary><div class="inner">' +
       '<div class="tablewrap"><table><thead><tr><th>Service</th><th>Estimate</th><th>Cost</th></tr></thead><tbody><tr><td>UK standard, tracked</td><td>2–4 working days</td><td>£' + DELIVERY.cost.toFixed(2) + '</td></tr><tr><td>UK standard over £' + FREE_SHIPPING_AT + '</td><td>2–4 working days</td><td><b>Free</b></td></tr></tbody></table></div>' +
-      '<p style="margin:.8em 0 0">Not right? Send it back within 30 days, worn or not. <span class="small muted">Placeholder terms — confirm before trading.</span></p></div></details>' +
+      '<p style="margin:.8em 0 0">Not right? ' + returnsLine() + ' <a class="small" href="refund-policy.html">Refund policy</a></p></div></details>' +
     '<details><summary>Is it right for my cat?</summary><div class="inner">' +
       '<p>Built for dress-up moments — photos, parties, visits. Pop it on, get the shot, and take it off when you are done. Nothing here covers the face or eyes. Supervise your cat while they are wearing it.</p>' +
       '<p style="margin:0">Not sure? <a href="#pdpquiz">Answer three questions</a> and we\'ll shortlist the pieces your cat will actually wear.</p></div></details>' +
@@ -710,7 +745,7 @@ function detailsAccordions(p){
 function drawBlock(){
   return '<section class="drawblock"><p class="kicker" style="margin:0 0 10px">📸 ' + esc(DRAW.name) + '</p>' +
     '<h2>Your cat could be next month\'s winner</h2>' +
-    '<p class="muted">Order, take the photo, send it in. Every month the best photo of a cat in a Catwalk Club piece wins <b>' + esc(DRAW.prize) + '</b>. Free to enter, no purchase necessary — the first round closes ' + esc(DRAW.firstCloses) + '.</p>' +
+    '<p class="muted">Send us a photo of your cat — in one of our pieces or not. One entry is drawn at random every month and wins <b>' + esc(DRAW.prize) + '</b>. Free to enter, no purchase necessary — the first round closes ' + esc(DRAW.firstCloses) + '.</p>' +
     '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><a class="btn" href="photo-draw.html">How to enter</a><a class="small" href="mailto:' + esc(DRAW.entryEmail) + '?subject=' + encodeURIComponent(DRAW.name) + '">Already ordered? Send your photo →</a></div>' +
     (DRAW.winners.length ? '<h3 style="margin-top:22px">🏆 Previous winners</h3>' + podium() : '') +
   '</section>';

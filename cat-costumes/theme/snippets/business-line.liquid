@@ -1,0 +1,6 @@
+{%- comment -%} Trader line for the footer, About, Contact and the competition terms. {%- endcomment -%}
+{%- if settings.trader_name != blank and settings.trader_address != blank -%}
+  {{ settings.trader_name }}, {{ settings.trader_address }}{% if settings.vat_number != blank %} · VAT no. {{ settings.vat_number }}{% endif %}.
+{%- else -%}
+  {{ shop.name }} · trader name and address to be added before trading.
+{%- endif -%}

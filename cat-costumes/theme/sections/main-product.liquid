@@ -79,7 +79,7 @@
         {%- if product.metafields.custom.specs != blank -%}<li>{{ product.metafields.custom.specs.value | first }}</li>{%- endif -%}
         <li>Every photo on this page is the product you get, on a real cat</li>
         {%- if product.metafields.custom.care != blank -%}<li>{{ product.metafields.custom.care }}</li>{%- endif -%}
-        <li>Not right? <b>{{ settings.returns_days }} days to return it, worn or not</b></li>
+        <li>Not right? <b>{{ settings.returns_days }} days to return it{% if settings.returns_worn_ok %}, worn or not{% endif %}</b></li>
       </ul>
       <p class="small muted" style="margin:.6em 0 0"><a href="{{ settings.contact_page | default: '/pages/contact' }}?product={{ product.handle }}">Ask us anything about it</a></p>
     </div></details>
@@ -171,7 +171,7 @@
 
     <div class="trust4">
       <div><i>📦</i><b>Free UK delivery</b><span>on orders over £{{ settings.free_shipping_threshold }}</span></div>
-      <div><i>↩️</i><b>{{ settings.returns_days }}-day returns</b><span>worn or not</span></div>
+      <div><i>↩️</i><b>{{ settings.returns_days }}-day returns</b><span>{% if settings.returns_worn_ok %}worn or not{% else %}unworn{% endif %}</span></div>
       <div><i>🐱</i><b>Sized for cats</b><span>faces and eyes clear</span></div>
       {%- if product.metafields.custom.badge_uk == true -%}
         <div><i>🇬🇧</i><b>UK stock</b><span>dispatched here</span></div>
@@ -303,7 +303,7 @@
         <tr><td>UK standard over £{{ settings.free_shipping_threshold }}</td><td>2–4 working days</td><td><b>Free</b></td></tr>
       </tbody>
     </table></div>
-    <p style="margin:.8em 0 0">Not right? Send it back within {{ settings.returns_days }} days, worn or not.</p>
+    <p style="margin:.8em 0 0">Not right? {% render 'returns-line' %}{% if shop.refund_policy.url != blank %} <a class="small" href="{{ shop.refund_policy.url }}">Refund policy</a>{% endif %}</p>
     </div></details>
 
     <details><summary>Is it right for my cat?</summary><div class="inner">

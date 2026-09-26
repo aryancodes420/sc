@@ -1,23 +1,24 @@
 {%- comment -%}
-  Cat of the Month: a judged photo competition, free to enter. Winners are blocks — add one
-  only when it's real. The terms below are a starting point; put your trading name and
-  address in before the first round opens.
+  Cat of the Month: a free-entry prize draw (CAP Code 8.24 — a random draw, not a judged
+  competition, so no judging criteria are needed and any cat photo qualifies). Winners are
+  blocks — add one only when it's real. The promoter line comes from Theme settings →
+  Business & returns; the draw cannot lawfully open until it is filled in.
 {%- endcomment -%}
 <div class="wrap">
   <section style="padding-bottom:10px">
     {% render 'breadcrumbs' %}
     <span class="kicker">📸 {{ section.settings.name }}</span>
     <h1 style="margin-top:14px;margin-bottom:.2em">{{ section.settings.heading }}</h1>
-    <p class="muted" style="font-size:1.1rem;max-width:62ch">Every month we pick the best photo of a cat in a {{ shop.name }} piece. The winner gets <b>{{ section.settings.prize }}</b>. Free to enter, no purchase necessary, and the next round closes <b>{{ section.settings.closes }}</b>.</p>
+    <p class="muted" style="font-size:1.1rem;max-width:62ch">Send us a photo of your cat — in one of our pieces or not. One entry is drawn at random every month and wins <b>{{ section.settings.prize }}</b>. Free to enter, no purchase necessary, and the next round closes <b>{{ section.settings.closes }}</b>.</p>
   </section>
   <section style="padding-top:10px">
     <div class="two">
-      <div class="panel"><h3>1 · Take the photo</h3><p style="margin:0">Any of our pieces, on your cat. Face clear, in focus, and the cat looking like they own the place. Phone photos are fine.</p></div>
-      <div class="panel"><h3>2 · Send it in</h3><p>Post it and tag <b>{{ section.settings.handle }}</b> on Instagram or TikTok, <i>or</i> email it to <a href="mailto:{{ section.settings.email }}?subject=Cat%20of%20the%20Month">{{ section.settings.email }}</a> with your cat's name and your county. Both routes count the same.</p><p class="small muted" style="margin:0">Entries close at midnight UK time on the last day of the month.</p></div>
+      <div class="panel"><h3>1 · Take the photo</h3><p style="margin:0">Your cat, in one of our pieces or in nothing at all — every cat photo qualifies. Face clear, in focus, phone photos are fine. Nothing may cover the face or eyes.</p></div>
+      <div class="panel"><h3>2 · Send it in</h3><p>Post it and tag <b>{{ section.settings.handle }}</b> on Instagram or TikTok, <i>or</i> email it to <a href="mailto:{{ section.settings.email }}?subject=Cat%20of%20the%20Month">{{ section.settings.email }}</a> with your cat's name and your county. Both routes count the same.</p><p class="small muted" style="margin:0">Entries close at 23:59 UK time on the last day of the month.</p></div>
     </div>
   </section>
   <section style="padding-top:0">
-    <div class="sec-head"><div><h2>Previous winners</h2><p>Every winner gets a frame here, for good.</p></div></div>
+    <div class="sec-head"><div><h2>Previous winners</h2><p>Every winner gets a frame here, for good — by first name or the cat's name, and county.</p></div></div>
     {%- if section.blocks.size > 0 -%}
       {% render 'podium', blocks: section.blocks %}
     {%- else -%}
@@ -28,15 +29,15 @@
     <div class="panel terms">
       <h3>Terms</h3>
       <ol>
-        <li><b>Promoter:</b> {{ section.settings.promoter }}. UK only, entrants 18 or over.</li>
-        <li><b>How to enter:</b> post a photo of a cat wearing a {{ shop.name }} product and tag {{ section.settings.handle }} on Instagram or TikTok, or email the photo to {{ section.settings.email }}. <b>No purchase is necessary</b> and both entry routes are treated identically.</li>
-        <li><b>Rounds:</b> monthly. Each round opens on the 1st and closes at midnight UK time on the last day of the month.</li>
-        <li><b>Judging:</b> the {{ shop.name }} team picks the winner on photo quality, how well the piece is shown and how relaxed the cat looks. It is a judged competition, not a random draw. The decision is final.</li>
-        <li><b>Prize:</b> {{ section.settings.prize }}. Credit is valid for 12 months, non-transferable, no cash alternative.</li>
-        <li><b>Winner:</b> notified within 7 days of the close and announced on this page with the cat's name and the entrant's county unless the entrant asks us not to. Entrants may object to publication by email.</li>
+        <li><b>Promoter:</b> {% if settings.trader_name != blank and settings.trader_address != blank %}{{ settings.trader_name }}, {{ settings.trader_address }}{% else %}{{ section.settings.promoter }}{% endif %}. Open to UK residents aged 18 or over. Not open to the promoter's household.</li>
+        <li><b>How to enter, free:</b> post a photo of your cat and tag {{ section.settings.handle }} on Instagram or TikTok, or email the photo to {{ section.settings.email }}. Any photo of a cat qualifies — it does not have to be wearing a {{ shop.name }} product. <b>No purchase is necessary</b>, both routes are treated identically, and one entry per household per round counts.</li>
+        <li><b>Rounds:</b> monthly. Each round opens on the 1st and closes at 23:59 UK time on the last day of the month. The next round closes {{ section.settings.closes }} at 23:59.</li>
+        <li><b>How the winner is chosen:</b> a <b>random draw</b>. Within {{ section.settings.drawn_within }} days of the close, every eligible entry is numbered and one is drawn at random; the draw is recorded and the record kept for 12 months. Photo quality does not affect the draw. No judging, no votes.</li>
+        <li><b>Prize:</b> {{ section.settings.prize }}, sent within {{ section.settings.prize_within }} days of the draw. Credit is valid for 12 months, non-transferable, no cash alternative. One prize per round.</li>
+        <li><b>Winner:</b> notified within {{ section.settings.drawn_within }} days of the close by reply on the platform or by email. If we cannot reach the winner within 14 days, a reserve entry is drawn. The winner's first name or the cat's name and their county are published on this page; a winner may object to publication by emailing {{ section.settings.email }}, and we will still give the information to anyone who asks whether the prize was awarded, as the CAP Code requires.</li>
         <li><b>Your photo:</b> by entering you give {{ shop.name }} permission to show the photo on this website and its social accounts, with credit. You keep the copyright and can withdraw the permission at any time by email.</li>
         <li><b>Welfare:</b> entries where the cat looks distressed or restrained are not eligible. Nothing may cover the face or eyes.</li>
-        <li><b>Data:</b> names, emails and photos are used only to run the competition and are deleted 12 months after the round closes unless you are a winner shown on this page.</li>
+        <li><b>Data:</b> names, emails and photos are used only to run the competition and are deleted 12 months after the round closes unless you are a winner shown on this page.{% if shop.privacy_policy.url != blank %} See the <a href="{{ shop.privacy_policy.url }}">privacy policy</a>.{% endif %}</li>
       </ol>
       {%- if page.content != blank -%}<div class="rte">{{ page.content }}</div>{%- endif -%}
     </div>
@@ -52,7 +53,9 @@
     { "type": "text", "id": "closes", "label": "Next round closes", "default": "31 October 2026" },
     { "type": "text", "id": "handle", "label": "Social handle", "default": "@catwalkclub" },
     { "type": "text", "id": "email", "label": "Entry email" },
-    { "type": "text", "id": "promoter", "label": "Promoter (trading name and address)", "default": "[Trading name, registered address — fill before the first round opens]" }
+    { "type": "text", "id": "promoter", "label": "Promoter (used only if Theme settings → Business & returns is empty)", "default": "[promoter's trading name and address — to be added before the first round opens]" },
+    { "type": "range", "id": "drawn_within", "label": "Draw held within (days of the close)", "min": 1, "max": 14, "step": 1, "default": 7 },
+    { "type": "range", "id": "prize_within", "label": "Prize sent within (days of the draw)", "min": 7, "max": 30, "step": 1, "default": 30 }
   ],
   "blocks": [
     { "type": "winner", "name": "Winner", "settings": [

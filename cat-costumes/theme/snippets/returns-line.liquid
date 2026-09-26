@@ -1,0 +1,12 @@
+{%- comment -%}
+  The returns promise, rendered from theme settings so every page says the same thing.
+  render 'returns-line'                → full line: "30 days to send it back, worn or not. You pay the return postage (about £3); size swaps are free."
+  render 'returns-line', short: true   → "worn or not, 30 days"
+{%- endcomment -%}
+{%- assign days = settings.returns_days | default: 30 -%}
+{%- if short -%}
+  {%- if settings.returns_worn_ok -%}worn or not, {% endif -%}{{ days }} days
+{%- else -%}
+  <b>{{ days }} days to send it back{% if settings.returns_worn_ok %}, worn or not{% else %} unworn, in the packaging{% endif %}.</b>
+  {% if settings.returns_free_postage %}Return postage is free{% else %}You pay the return postage ({{ settings.returns_postage_estimate | default: 'about £3' }}){% endif %}{% if settings.returns_free_size_swap %}; size swaps are free.{% else %}.{% endif %}
+{%- endif -%}

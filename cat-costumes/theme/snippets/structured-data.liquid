@@ -10,6 +10,8 @@
   "@type": "Organization",
   "name": {{ shop.name | json }},
   "url": {{ shop.url | json }},
+  {%- if settings.trader_name != blank -%}"legalName": {{ settings.trader_name | json }},{%- endif -%}
+  {%- if settings.trader_address != blank -%}"address": { "@type": "PostalAddress", "streetAddress": {{ settings.trader_address | json }}, "addressCountry": "GB" },{%- endif -%}
   {%- if settings.logo != blank -%}"logo": {{ settings.logo | image_url: width: 600 | prepend: 'https:' | json }},{%- endif -%}
   {%- if settings.contact_email != blank -%}"email": {{ settings.contact_email | json }},{%- endif -%}
   "contactPoint": { "@type": "ContactPoint", "contactType": "customer service", "areaServed": "GB", "availableLanguage": "en"
@@ -47,7 +49,7 @@
           "deliveryTime": { "@type": "ShippingDeliveryTime", "transitTime": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 4, "unitCode": "DAY" } } },
         "hasMerchantReturnPolicy": { "@type": "MerchantReturnPolicy", "applicableCountry": "GB",
           "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-          "merchantReturnDays": {{ settings.returns_days | default: 30 | json }}, "returnMethod": "https://schema.org/ReturnByMail", "returnFees": "https://schema.org/FreeReturn" }
+          "merchantReturnDays": {{ settings.returns_days | default: 30 | json }}, "returnMethod": "https://schema.org/ReturnByMail", "returnFees": {% if settings.returns_free_postage %}"https://schema.org/FreeReturn"{% else %}"https://schema.org/ReturnFeesCustomerResponsibility"{% endif %} }
       }{%- unless forloop.last -%},{%- endunless -%}
       {%- endfor -%}
     ]

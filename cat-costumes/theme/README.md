@@ -72,7 +72,8 @@ FAQ, Track your order, Contact, About, legal pages).
 | About | `page.about` | Pre-filled; edit in the theme editor |
 | Which costume? (quiz) | `page.quiz` | Handle `quiz`. Assign the seven products to the pre-made blocks in the editor |
 | Sizes by breed | `page.breeds` | Handle `sizes-by-breed`. Ten breeds pre-filled; pick the sized products in the section's product list |
-| Cat of the Month | `page.photo-draw` | Judged photo competition, free entry, terms included. Fill in the promoter line before the first round |
+| Cat of the Month | `page.photo-draw` | Free-entry random draw (CAP 8.24), any cat photo qualifies, terms included. The promoter line comes from Theme settings → Business & returns; fill it before the first round |
+| Policies | Settings → Policies | Paste the drafts in `../policies/`; the footer lists them and the cart, product page and contact page link to them |
 
 **Blog** — create a blog called *Journal* (or keep Shopify's *News*). Three posts are drafted in
 `../content/blog/` (measuring, sizes by breed, keeping it on): paste each in as an article. The

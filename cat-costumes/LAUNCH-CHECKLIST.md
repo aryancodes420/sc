@@ -67,9 +67,9 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 ## G · Legal & policy
 
-- [ ] Generate **Refund, Privacy, Terms, Shipping** policies from Settings → Policies (Shopify provides UK templates), then link them in the footer menu.
-- [ ] Put the returns window and shipping terms in the policies exactly as the site states them (30 days, £3.95 / free over £30).
-- [ ] Business details on the About page's *Business details* box and the contact page (trader name, address, email) — a UK legal requirement for distance selling.
+- [ ] Paste the four drafts in `policies/` (refund, shipping, terms of service, privacy) into Settings → Policies after replacing every `[PLACEHOLDER]`. Shopify publishes them at `/policies/…`, links them at checkout, and the theme footer lists them (Footer section → *Show policy links*).
+- [ ] The returns promise is **30 days, worn or not; customer pays return postage (about £3); size swaps free** — decided 26 Sep (GROWTH-PLAN §10). It is rendered everywhere from Theme settings → **Business & returns** (`returns-line` snippet) and `RETURNS` in `site/assets/data.js`; the policy text must say the same.
+- [ ] Theme settings → **Business & returns**: trader name, geographic address, dispatch town, returns address, VAT number (blank until registered). Until filled, the footer, About, Contact, the competition terms and the legal pages show "to be added before trading" — nothing is invented. (Static site: `BUSINESS` in `data.js`.)
 - [ ] Cookie consent banner (Shopify's built-in, Settings → Customer privacy).
 
 ## H · Before flipping the switch
@@ -86,7 +86,7 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 - [ ] Count in, set inventory quantities per variant.
 - [ ] Photograph your own cat in three of the seven (own imagery, not the supplier's, for ads).
-- [ ] Open the first *Cat of the Month* round (1 October) and post it on Instagram/TikTok; the first winner's photo becomes the first frame on the homepage wall.
+- [ ] Open the first *Cat of the Month* round (1 October). It is a **random draw** (CAP Code 8.24): any cat photo qualifies, free entry, closes 31 Oct 23:59, UK 18+, drawn within 7 days and the draw recorded, prize within 30 days, winner published by first name or the cat's name and county. The promoter line must be filled (Theme settings → Business & returns; `DRAW.promoter` on the static site) before the round opens. The first winner's photo becomes the first frame on the homepage wall.
 - [ ] First email to the list. Ads start only once you have the above.
 
 ---

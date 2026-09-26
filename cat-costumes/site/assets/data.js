@@ -314,15 +314,44 @@ const WEAR_LABELS = [null, "A collar, and that's it", "A collar and a hat", "Any
 const DRAW = {
   name: "Cat of the Month",
   prize: "£25 Catwalk Club credit and a feature on the site",
-  closes: "last day of every month, midnight UK time",
+  closes: "last day of every month, 23:59 UK time",
   firstCloses: "31 October 2026",
+  drawnWithin: 7,            /* days after the close: one entry drawn at random, the draw recorded */
+  prizeWithin: 30,           /* days after the draw: prize sent */
   handle: "@catwalkclub",
   entryEmail: "hello@catwalkclub.co.uk",
+  promoter: "",              /* trading name and address of the promoter, e.g. "A. Sarna trading as Catwalk Club, 1 Example Street, Leeds LS1 1AA" — REQUIRED before the first round opens */
   winners: []   /* { month: "October 2026", name: "Mabel (Leeds)", image: "ugc/mabel.webp", product: "lion-mane" } */
 };
 
 /* Reviews from the makers' listings live in assets/reviews.js (SUPPLIER_REVIEWS), loaded by
    product.html only. Shared with the sellers' permission; shown with a one-line source note. */
+/* Returns policy — ONE place. The words everywhere on the site (product page, cart, footer, FAQ,
+   the refund policy page and the product JSON-LD) are rendered from these four flags by
+   returnsLine() in site.js. Change a flag and the words follow. Decided 26 Sep 2026 (GROWTH-PLAN §10). */
+const RETURNS = {
+  days: 30,               /* from delivery; on top of the 14-day statutory cancellation right */
+  wornOk: true,           /* a cat that says no is a return, not a failure */
+  freePostage: false,     /* customer pays the return postage (Royal Mail Tracked 48 large letter, about £3) */
+  returnPostageEstimate: 3,
+  freeSizeSwap: true,     /* we send the new size first with a prepaid label for the old one */
+  refundWithinDays: 14    /* of the return arriving; the statutory timing */
+};
+
+/* Trader details — a legal requirement for UK distance selling (Consumer Contracts Regulations 2013,
+   E-Commerce Regulations 2002). Rendered into the footer, the About and Contact pages, the legal
+   pages, the competition terms and Organization JSON-LD. Leave a field "" and the site shows an
+   honest "to be added before trading" line in its place — nothing is invented. */
+const BUSINESS = {
+  tradingName: "Catwalk Club",
+  legalName: "",           /* the person or company behind the trading name, e.g. "Aryan Sarna" or "Catwalk Club Ltd (company no. 12345678)" */
+  address: "",             /* full geographic address, one line, e.g. "1 Example Street, Leeds, LS1 1AA, United Kingdom" */
+  dispatchTown: "",        /* where parcels are posted from, e.g. "Leeds" */
+  returnsAddress: "",      /* leave "" to use the address above */
+  vatNumber: "",           /* "" until registered */
+  policiesUpdated: "26 September 2026"
+};
+
 const SYNDICATION_NOTE = "Reviews collected from the maker's listing for this product, shared with permission.";
 
 /* Average and count per product from the makers' listings — shown on product cards. Bundles inherit nothing. */
