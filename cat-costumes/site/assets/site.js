@@ -465,7 +465,7 @@ function expressRow(){
 }
 function paymentIcons(){
   return '<ul class="payicons logos" aria-label="Payment methods accepted">' +
-    PAYMENT_ICONS.map(i => '<li><img src="' + IMG + 'pay/' + i.file + '.svg" alt="' + esc(i.name) + '" width="38" height="24" loading="lazy"></li>').join("") + '</ul>';
+    PAYMENT_ICONS.map(i => '<li><img src="' + IMG + 'pay/' + i.file + '.svg" alt="' + esc(i.name) + '" width="38" height="24"></li>').join("") + '</ul>';
 }
 
 /* ----- four-icon trust row ----- */
@@ -492,7 +492,7 @@ function bizFill(root){
     address: BUSINESS.address || "[geographic address — to be added before trading]", returnsAddress: returnsAddress(),
     dispatchTown: BUSINESS.dispatchTown || "[dispatch town]", vat: BUSINESS.vatNumber ? "VAT registration number " + BUSINESS.vatNumber + "." : "Not VAT registered; prices are not subject to VAT.",
     updated: BUSINESS.policiesUpdated, line: businessLine(), email: CONTACT.email, hours: CONTACT.hours, reply: CONTACT.reply,
-    returnsLine: returnsLine(), returnsDays: String(RETURNS.days), refundDays: String(RETURNS.refundWithinDays),
+    returnsLine: returnsLine(), returnsDays: String(RETURNS.days), returnsLabel: RETURNS.days + "-day returns", refundDays: String(RETURNS.refundWithinDays),
     returnPostage: RETURNS.freePostage ? "free" : "paid by you (about £" + RETURNS.returnPostageEstimate + ")",
     sizeSwap: RETURNS.freeSizeSwap ? "free: we send the new size first with a prepaid label for the old one" : "treated as a return and a new order",
     deliveryCost: "£" + DELIVERY.cost.toFixed(2), freeAt: "£" + FREE_SHIPPING_AT, deliveryDays: DELIVERY.min + "–" + DELIVERY.max + " working days",

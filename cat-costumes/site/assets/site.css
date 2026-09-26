@@ -947,3 +947,10 @@ body.drawer-open{overflow:hidden}
   .pdp-buy .field{margin-bottom:12px}
   .pdp-stack .express{margin-top:10px}
 }
+
+/* ---------- fixes from the visual review ---------- */
+.cart-grid{grid-template-columns:1.6fr 1fr;align-items:start}
+@media(max-width:960px){.cart-grid{grid-template-columns:1fr}}
+/* "Goes well with" inside the 780px product stack: four min-content cards overflowed by 7px */
+.pdp-stack .grid-p{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.pcard-wrap{min-width:0}

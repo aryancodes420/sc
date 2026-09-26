@@ -13,7 +13,7 @@
       </div>
     {%- else -%}
       <form action="{{ routes.cart_url }}" method="post" novalidate>
-        <div class="two" style="grid-template-columns:1.6fr 1fr;align-items:start">
+        <div class="two cart-grid">
           <div>
             {%- for item in cart.items -%}
               <div class="cartrow">

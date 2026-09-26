@@ -76,7 +76,7 @@
     }
     var total = cartTotal(), left = Math.max(0, FREE_SHIPPING_AT - total), ship = left > 0 ? 3.95 : 0, cb = completingBundle();
     host.innerHTML =
-      '<div class="two" style="grid-template-columns:1.6fr 1fr;align-items:start"><div id="lines"></div>' +
+      '<div class="two cart-grid"><div id="lines"></div>' +
       '<div class="summary"><h3>Summary</h3>' +
         '<div class="sumline"><span>Subtotal</span><b>' + money(total) + '</b></div>' +
         '<div class="sumline"><span>Delivery</span><b>' + (ship ? money(ship) : "Free") + '</b></div>' +
