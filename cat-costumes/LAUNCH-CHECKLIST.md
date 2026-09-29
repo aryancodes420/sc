@@ -44,6 +44,8 @@ Dates assume a Halloween launch: customers stop ordering around **mid-October**.
 
 ## D · Products — the seven
 
+- [ ] Start from **`PRODUCT-SHEET.md`** (every product, variant, size, colour, spec and supplier detail, generated from `site/assets/data.js`) and **`products-shopify.csv`** (Shopify import: 15 products, 30 variants, launch price + compare-at, SEO title, landed cost, status *draft*). Import the CSV under Products → Import, then add the photos and the metafields by hand. Bell on/off is a line property, not in the CSV.
+
 - [x] Catalogue, specs, sizes, care, in-the-box and 42 photos are all in `site/assets/data.js` and `site/assets/img/`.
 - [ ] Create the seven products. For each: title, blurb → description, **variants** (option `Size`: S/M/L, or S/M) with **Price = launch price and Compare-at = regular price** (table below), upload its six photos, set inventory tracking on.
 - [ ] Metafields (namespace `custom`): `fit`, `blurb`, `ticks` (list), `for_me_if` (list), `alias` (optional nickname), `specs` (list), `box` (list), `care`, `size_notes` (one line per variant), `badge`, `badge_uk` (bandana only). Values are all in `data.js` (`ticks`, `forMeIf`, `alias`).
