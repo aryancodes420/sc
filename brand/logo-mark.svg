@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>The Dog Nook</title>
+  <g transform="translate(0 -18)">
+  <!-- outer nook arch -->
+  <path d="M96 448V246a160 160 0 0 1 320 0v202z" fill="#6f795c"/>
+  <!-- inner nook -->
+  <path d="M138 448V246a118 118 0 0 1 236 0v202z" fill="#F3EDE4"/>
+  <!-- crescent moon -->
+  <path d="M306 196a30 30 0 1 0 22 46a24 24 0 1 1 -22 -46z" fill="#8B9578"/>
+  <!-- cushion -->
+  <rect x="150" y="404" width="212" height="40" rx="15" fill="#c79079"/>
+  <g transform="translate(256 410) scale(0.9) translate(-250 -410)">
+  <!-- body -->
+  <path d="M176 410c0-62 46-92 96-92c50 0 84 34 84 76c0 10-6 16-16 16z" fill="#a86b4f"/>
+  <!-- tail curling over the front -->
+  <path d="M350 404c-8 12-40 14-62 4" fill="none" stroke="#7f4127" stroke-width="14" stroke-linecap="round"/>
+  <!-- head -->
+  <path d="M150 410c-14 0-22-8-22-18c0-12 10-18 22-20c4-22 22-34 42-34c26 0 42 18 42 40c0 18-10 32-26 32z" fill="#a86b4f"/>
+  <!-- ear -->
+  <path d="M196 344c18 0 26 16 22 34c-3 14-12 22-20 22c-8 0-10-12-10-26c0-16 0-30 8-30z" fill="#7f4127"/>
+  <!-- closed eye -->
+  <path d="M164 380q8 7 16 0" fill="none" stroke="#2e2a22" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- nose -->
+  <ellipse cx="132" cy="390" rx="8" ry="6.5" fill="#2e2a22"/>
+  </g>
+  <!-- floor -->
+  <rect x="76" y="440" width="360" height="22" rx="11" fill="#6f795c"/>
+  </g>
+</svg>
