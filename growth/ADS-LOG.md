@@ -157,3 +157,9 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   ENABLED, ad groups and bids unchanged. `write_status: applied`.
 - Supermetrics write access was turned on by the owner. Every change still needs the
   owner's yes first (`CLAUDE.md` §7).
+
+### 2026-10-21: owner confirmed XXL
+- The £0.50 bid on the **XXL (121×88, £129.99)** is intended. Running sizes: **Medium £0.40,
+  XXL £0.50**. Large and XL are excluded. (Temu's size chart labels the 121cm bed "XL",
+  hence the earlier wording.)
+- Breakeven CVR at these bids: Medium 1.07% · XXL 0.72% (£0.50 ÷ £69.90).
