@@ -254,3 +254,6 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   values may not be recognised. Low impact: product_type "Dog Beds" and titles carry the
   meaning, and Google also auto-categorises. Re-check tomorrow; if still 2, get a screenshot
   of the supplemental source details and the sheet's header row.
+- 21:56 BST: ✅ **category 4434 (Dog Beds) applied to Medium and XXL** via the sheet. Large
+  and XL stay at 2 (not in the sheet, not advertised). Review: **still pending initial
+  review** (all bed sizes). Google Ads: 0 impressions. Next check: Thu 22 Oct.
