@@ -232,3 +232,15 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
 - **Owner leaning Shopping-only.** Claude's view: fine. Search was only a stopgap while the bed
   is pending review. The cost is ~2–3 days without data. Revisit Search only if the bed is
   still pending after **Fri 24 Oct**.
+
+### 2026-10-21 16:34 BST check (Supermetrics live read)
+- **Still "Pending initial review"** for Shopping ads and free listings (GB) on all 15 items.
+  Google Ads: 0 impressions, £0 spend. Shopify: 0 real orders.
+- ✅ **Titles applied:**
+  - Medium: "Orthopaedic Dog Bed Medium 73 x 58 cm – …"
+  - XXL: "Orthopaedic Dog Bed XXL 121 x 88 cm for Large Dogs – …"
+  - Large and XL use the new SEO base title.
+- ⚠️ **google_product_category is now `2`** (Animals & Pet Supplies > Pet Supplies). Shopify's
+  "Pet Beds > Orthopedic Beds" maps to that broad node. The precise node is **4434 Dog Beds**
+  (confirmed in Google's en-GB taxonomy file). Fix: add a `google_product_category` column =
+  4434 to the "Bed titles" supplemental sheet (owner, optional, 30 seconds).
