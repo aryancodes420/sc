@@ -505,3 +505,33 @@ business days on every product.
 - **Chosen method:** a clean SEO title in Shopify (base for every size) plus a supplemental
   sheet with per-size titles: `growth/merchant-center/bed-titles-supplemental.csv`. Size and
   cm sit inside the first ~70 visible characters, because size decides the click for a bed.
+
+---
+
+## M. UK keyword demand for the bed (Google Keyword Planner via Supermetrics, 2026-10-21)
+
+✅ Primary data from the store's own Google Ads account (8576250915), location GB, English.
+Bids are Google's top-of-page range.
+
+| Keyword | Searches/mo | Top-of-page bid |
+|---|---:|---|
+| large dog bed | 9,900 | £0.15–£0.76 |
+| dog bed for large dogs | 9,900 | £0.15–£0.76 |
+| extra large dog bed | 2,400 | £0.18–£0.85 |
+| memory foam dog bed | 2,400 | £0.19–£1.18 |
+| washable dog bed | 1,900 | £0.16–£0.85 |
+| xxl dog bed | 1,000 | £0.16–£0.73 |
+| orthopaedic dog bed | 880 | £0.25–£1.49 |
+| orthopaedic dog bed large | 720 | £0.22–£1.41 |
+| dog bed with sides | 590 | £0.15–£0.79 |
+| senior dog bed | 390 | £0.19–£1.32 |
+| dog bed for arthritis | 390 | £0.20–£1.57 |
+| bolster dog bed | 320 | £0.23–£1.07 |
+| dog bed for old dog | 50 | £0.20–£1.44 |
+
+All are rated HIGH competition. Notes:
+- **"Memory foam"**: the Temu listing claims it, but our page says "foam-filled". Don't use
+  it in ads until a sample confirms.
+- **"Arthritis"**: health-adjacent, so keep it out of ad copy (CLAUDE.md §6).
+- **Search text ads don't depend on Merchant Center product approval.** They go through normal
+  ad review instead (usually about one business day).

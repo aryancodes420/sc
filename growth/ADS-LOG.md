@@ -218,3 +218,14 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   approval by ~Wed 22 to Fri 24 Oct (3–5 business days from Fri 17 Oct). Asked the owner to
   check Merchant Center for account-level "Needs attention" items, which can block review
   entirely.
+
+### 2026-10-21: first-sale plan while Shopping is pending (proposed to owner)
+- Shopping is spending £0 while the bed is pending review. Proposed a **Google Search campaign
+  today**: ~£15/day, phrase/exact match on XXL- and large-dog intent keywords (PLAYBOOK §M),
+  landing on the bed page with XXL preselected. Claude builds it **paused**; the owner
+  approves the ads before enabling.
+- Also proposed:
+  - Owner orders one Medium sample (£18.21) for real photos/video, packaging and delivery
+    truth. That unlocks Meta creative later.
+  - Owner confirms Shopify abandoned-checkout emails are on.
+  - No more store tweaks until traffic shows where people drop off.
