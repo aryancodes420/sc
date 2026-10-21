@@ -93,8 +93,10 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
      use" (§2.1); "for your own use, and not on behalf of or for the benefit of any third
      party" (§3.1). Temu may cancel purchases or terminate accounts (§7.5). This works for
      first orders, but it is not a base to scale on.
-  2. **Temu-branded packaging** reaches the customer, who can find the same bed for a third
-     of the price. That is a refund and chargeback risk.
+  2. ~~Temu-branded packaging reaches the customer~~ **CORRECTED 21 Oct: unverified.** This
+     came from one general seller blog, not this item. The "2+ business days" listing
+     suggests a UK local-warehouse seller, which may ship in its own box. **Check with a
+     sample order (M, £18.21).** The sample also yields real photos and video for the PDP.
   3. The identical item is publicly listed at £18–£51. Check whether Temu appears beside us
      on Google Shopping.
 - **Claude's recommendation:**

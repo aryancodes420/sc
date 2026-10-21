@@ -116,8 +116,10 @@ XL £34.98 · XXL £50.74, free shipping, "2+ business days". That leaves £37�
 ads, assuming the owner isn't VAT-registered (confirm), so breakeven CVR at £0.45 is
 **0.6–1.2%**. Full table in `growth/ADS-LOG.md`.
 ⚠️ **Temu's UK terms (11 Jan 2026) allow personal, non-commercial use only. Temu can cancel
-orders or close the account.** The parcel also arrives in Temu packaging, and the same bed is
-publicly listed for a third of our price. Fine for first sales; **find a non-Temu source
+orders or close the account.** The same bed is publicly listed for a third of our price.
+**Packaging is UNVERIFIED.** No order has been seen. Temu packaging may or may not be
+branded, and a UK local-warehouse seller may ship in its own box. Confirm with a sample
+order before saying either way. Fine for first sales; **find a non-Temu source
 before scaling.**
 
 **Still unknown for the other 4 products:** landed cost, supplier, ship-from location. Ask

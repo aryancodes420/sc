@@ -469,6 +469,8 @@ business days on every product.
   include order caps, cancellations and bans.
   https://branvas.com/blogs/news/temu-dropshipping-risks-alternatives
 - 🔸 **Packaging is Temu-branded,** so the customer can tell where the item came from.
+  ⚠️ This is a general claim from one seller blog and was **not verified for the BOFNL bed**.
+  UK local-warehouse sellers may ship in their own cartons. Verify with a sample order.
   https://branvas.com/blogs/news/temu-dropshipping-risks-alternatives
 - **What this means for this store:** Temu is acceptable for proving demand with the first
   few orders. Before scaling, move to a source that permits resale: the brand directly
