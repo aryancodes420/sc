@@ -229,3 +229,6 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
     truth. That unlocks Meta creative later.
   - Owner confirms Shopify abandoned-checkout emails are on.
   - No more store tweaks until traffic shows where people drop off.
+- **Owner leaning Shopping-only.** Claude's view: fine. Search was only a stopgap while the bed
+  is pending review. The cost is ~2–3 days without data. Revisit Search only if the bed is
+  still pending after **Fri 24 Oct**.
