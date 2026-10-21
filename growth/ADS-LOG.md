@@ -193,3 +193,12 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
     Washable Cover, Dark Grey"
 - Proposed SEO title (base): "Orthopaedic Dog Bed with Bolsters & Removable Washable Cover –
   Dark Grey". Category: Pet Beds › Orthopedic Beds (ap-2-9-8).
+
+### 2026-10-21 ~09:05 BST: supplemental sheet linked (owner)
+- Owner enabled the "Advanced data source management" add-on and linked the "Bed titles"
+  Google Sheet (Medium + XXL rows) to the primary source **"Shopify App API"** (Merchant
+  API, 15 products, feed label GBP_10440491036…). The source was already the new Shopify
+  connection, so the migration risk (PLAYBOOK §L) doesn't apply.
+- Check at 08:07 UTC (Supermetrics, cached): titles still the old ones. Expected, because
+  supplemental processing takes time. Re-check next session.
+- Shopify part (SEO title + category) is **still awaiting the owner's yes**.
