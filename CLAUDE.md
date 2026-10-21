@@ -359,6 +359,11 @@ read it and write the changes". For anything in Google Ads or Merchant Center, g
   preview link, and let the owner publish.
 - Product, price, discount and feed changes affect the live store and the ads. Say exactly
   what will change, and get a yes before writing.
+- **The same applies to Google Ads changes made through a connector** (for example
+  Adspirer): bids, budgets, negatives, pausing. Say exactly what will change, get a yes,
+  then log it in `growth/ADS-LOG.md`. Reading data needs no permission. Never create,
+  enable or delete campaigns, or raise the budget, unless the owner asked for that specific
+  change.
 - Deploy theme files as BASE64 via `themeFilesUpsert`, then verify `checksumMd5`
   (`HANDOFF.md` §3). Keep each file under about 7 KB.
 - **One chat at a time on the store.** Git branches don't protect Shopify.
