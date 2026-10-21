@@ -49,7 +49,8 @@ Run these before answering anything about performance, conversion or what to do 
    `8576250915`, Shopping campaign `24383153710`). Use the ShoppingPerformanceView fields
    OfferId, ProductTitle, Impressions, Clicks, Cost, Conversions; the SearchTermView
    Searchterm; and the change history (`change_description`) to see what the owner changed.
-   Merchant Center (`GMC`, ID 5875963192) needs its own Supermetrics login.
+   Merchant Center (`GMC`, ID 5875963192; report_type `diagnostics` for approvals and
+   issues, `product` for feed data) is connected too. Check it whenever impressions are low.
    **If the connector isn't available in this session**, ask the owner for exactly what §4
    needs, in one message:
    > Google Ads → Campaigns, last 7 days by day: impressions, clicks, CTR, avg CPC, cost,

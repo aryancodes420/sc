@@ -163,3 +163,21 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   XXL £0.50**. Large and XL are excluded. (Temu's size chart labels the 121cm bed "XL",
   hence the earlier wording.)
 - Breakeven CVR at these bids: Medium 1.07% · XXL 0.72% (£0.50 ÷ £69.90).
+
+### 2026-10-21: Merchant Center connected (GMC 5875963192 via Supermetrics)
+- **Owner decision:** leave the bed's compare-at ("was") prices as they are. Claude will
+  stop raising it. If Merchant Center flags it, tell the owner.
+- **Why 0 impressions: every product is "Pending initial review"** for Shopping ads and free
+  listings in GB. Created 17 Oct (XXL 18 Oct). Expect approval soon; Google usually takes up
+  to ~3 business days. Nothing to fix. **Don't edit the bed while it is pending** (edits can
+  restart review).
+- **Feed issues to fix once approved** (owner yes needed):
+  1. The bed has **no google_product_category**. Set 4434 Dog Beds. The other products
+     already have 6973/500084.
+  2. The bed title is "Orthopaedic Bolster Dog Bed | The Dog Nook Medium", with the shop
+     name mid-title and the size last. Better: product type + benefit + size in cm + colour,
+     no shop name.
+  3. The bed's feed `price` is the compare-at (65.99/87.99/109.99/142.99), with the real
+     price as the sale. This is the app's normal behaviour. Owner has accepted it.
+- The Red Grey blanket variant is disapproved for **"Generic landing page"** (the link
+  redirects to a generic page). It isn't in the ads, so fix it later.
