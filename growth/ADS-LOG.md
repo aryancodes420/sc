@@ -213,3 +213,8 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   base. Large and XL (not advertised) use the base title plus the size name.
 - Next check: final feed titles and google_product_category in Merchant Center, product
   approval, and first impressions.
+- 09:10 BST check: all 4 bed sizes are still **"Pending initial review"** for Shopping ads and
+  free listings in GB (Display already shows GB approved). Google Ads impressions: 0. Expect
+  approval by ~Wed 22 to Fri 24 Oct (3–5 business days from Fri 17 Oct). Asked the owner to
+  check Merchant Center for account-level "Needs attention" items, which can block review
+  entirely.
