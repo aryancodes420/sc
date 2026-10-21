@@ -45,8 +45,13 @@ Run these before answering anything about performance, conversion or what to do 
      sessions don't rise, attribution or landing is broken. Fix that before anything else.
    - Live theme: `themes(roles: [MAIN])`. **Theme IDs in older docs are stale.** Look it up.
 2. **Read the log:** `growth/ADS-LOG.md` (latest entries) and the top of `STATUS.md`.
-3. **Ask for Google Ads numbers** if the owner hasn't given today's. You have no Google Ads
-   or Merchant Center access, so ask for exactly what §4 needs, in one message:
+3. **Pull Google Ads numbers via the Supermetrics connector** (`ds_id` AW, account
+   `8576250915`, Shopping campaign `24383153710`). Use the ShoppingPerformanceView fields
+   OfferId, ProductTitle, Impressions, Clicks, Cost, Conversions; the SearchTermView
+   Searchterm; and the change history (`change_description`) to see what the owner changed.
+   Merchant Center (`GMC`, ID 5875963192) needs its own Supermetrics login.
+   **If the connector isn't available in this session**, ask the owner for exactly what §4
+   needs, in one message:
    > Google Ads → Campaigns, last 7 days by day: impressions, clicks, CTR, avg CPC, cost,
    > conversions, search impression share, lost IS (rank), lost IS (budget).
    > Products tab: the same columns per product. Search terms tab: the full list.

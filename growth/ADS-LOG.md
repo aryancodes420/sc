@@ -119,3 +119,32 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   spend to XL/XXL.
 - Shopify 21 Oct so far: no sessions recorded yet today (early, and analytics may lag).
   Compare-at prices still set on all 4 sizes.
+
+### 2026-10-21 ~08:15: first read via Supermetrics (Google Ads 8576250915)
+- **Campaign "Never broke again 1"** (ID 24383153710):
+  - Standard Shopping, manual CPC, £30/day.
+  - Created 20 Oct 19:30 and enabled 19:46. Status ELIGIBLE, ad APPROVED.
+  - Merchant Center 5875963192. An earlier PMax "CAMPAIGN 1" was created and removed 19 Oct.
+- **Results so far: 0 impressions** since it went live (about 12h, mostly overnight).
+  Campaign and ad are fine, so the likely cause is products still in Merchant Center review,
+  or simply too early. Merchant Center is not yet connected in Supermetrics. Re-check later
+  today.
+- **Tracking ✅:** only "Google Shopping App Purchase" counts in Conversions. Add to cart,
+  Begin checkout, Add payment info, Page view, View item and Search are all secondary.
+  Correct.
+- **Product groups** (ad group "Dog Bed", default £0.45). Only product type "dog beds" is
+  included. Inside it:
+
+  | Size | Item ID | Bid |
+  |---|---|---|
+  | Medium | shopify_zz_10519069524251_54209835893019 | **£0.40** |
+  | **XXL** (not XL) | shopify_zz_10519069524251_54286943519003 | **£0.50** |
+  | Large, XL ("everything else") | — | **excluded** |
+
+  ⚠️ The owner said "XL at £0.50", but the item bid at £0.50 is the XXL variant
+  (121×88, £129.99). XL (105×81, £99.99) is excluded. Asked the owner which they meant.
+- **Settings to fix (awaiting owner yes):**
+  - Location is "Presence or interest" → should be **Presence**.
+  - **Search partners ON** → off.
+- AI Max and final URL expansion show as enabled. They are not applicable to Shopping and
+  should have no effect.
