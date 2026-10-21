@@ -125,43 +125,67 @@ Improving checkout does nothing if nobody adds to cart.
 
 ### 4.3 Patience thresholds (don't kill anything too early)
 
+Set expectations honestly. New Shopping accounts usually see their **first conversions
+in 7–14 days**. At £30 ÷ £0.45 ≈ 66 clicks/day spread over 5 products, **no single product
+has enough data to judge for 14–30 days** unless spend is concentrated. Zero sales in week
+1 is normal. Zero adds to cart after 150 clicks is not.
+
 - **Days 1–3:** check that it works, not how well it performs. Products are serving, clicks
   land on the right page, Google sessions show in Shopify, and a test purchase registers as
-  a Google Ads conversion. Change no bids on fewer than about 50 clicks per product.
-- **Judge a product** after it has had about **100–150 clicks, or spent 1.5–2× its
-  breakeven CPA**, whichever comes first:
+  a Google Ads conversion. Change no bids on fewer than about 50 clicks per product. After
+  3–5 days, if impressions are thin, raise that product's bid by 10–20%.
+- **Judge a product** after it has had about **100–150 clicks, or spent 2× its breakeven
+  CPA**, whichever comes first:
   - Adds to cart but no sales → fix checkout, delivery or trust. The product is fine.
   - No adds to cart at all → the page or the price is losing. Check competitor prices on the
     same Shopping results before blaming the page.
-  - Very few clicks at £0.45 → the bid is too low for Q4 or the listing isn't competitive.
-    Read lost impression share (rank) before raising the bid.
-- **Kill or pause** a product only after it has spent **about 3× its breakeven CPA** with no
-  sale **and** its page has been fixed once.
+  - Very few clicks → the bid is too low for Q4 or the listing isn't competitive. Read lost
+    impression share (rank) before raising the bid.
+- **Cut the bid** at 2× breakeven CPA with no sale. **Exclude** a product only at **about
+  3× breakeven CPA** with no sale **and** after its page has been fixed once.
+  (Practitioners disagree, from 2× to 5×. 3× is the middle.)
 - **Scale** only after **3 or more sales on a product at or under breakeven CPA**, and raise
-  budget **≤20–30% every few days**. Switch from manual CPC to Max Conversions or tROAS
-  only after **about 15–30 tracked conversions in 30 days**. Before that, smart bidding has
-  too little data and wastes money.
+  budget **≤20–30% every few days**. Bidding path: Manual CPC → **Maximise Conversion
+  Value at ~15–30 conversions in 30 days** (Google's tROAS minimum is 15) → tROAS or PMax
+  at **30–50+ a month**. Before that, smart bidding has too little data and wastes money.
 - **Never** raise budget to "get the first sale faster" while tracking is unverified or a
   funnel stage is broken. It only makes the loss bigger.
 
 ### 4.4 What you do in the account (talk the owner through it click by click)
 
-- One Shopping campaign. Split products so each gets its own bid: ad group per product, or
-  product groups split by item ID. Concentrate spend on the 1–2 **hero products** with the
-  best price-to-market gap and demand (`growth/PLAYBOOK-RESEARCH.md`). Five products on
-  £30/day spreads too thin to learn anything.
+- One Standard Shopping campaign. Split products so each gets its own bid: ad group per
+  product, or product groups by item ID. The bed's 4 sizes are 4 item IDs, so group them with
+  `custom_label_0`. Concentrate spend on the 1–2 **hero products** with the best
+  price-to-market gap and demand (`growth/PLAYBOOK-RESEARCH.md`). Five products on £30/day
+  spreads too thin to learn anything.
+- **Bids by product, not one flat £0.45.** UK pet Shopping averages £0.28–£0.48 CPC, but
+  that is weighted to cheap consumables. Bigger-ticket items compete more like furniture
+  (£0.55–£1.10). Start at about: **bed £0.55–0.65 · steps/ramp/car steps £0.45 · blanket
+  £0.30–0.35**, and cap each one at breakeven CPA × expected CVR.
 - Location: **United Kingdom, "Presence: people in or regularly in"**, not the default
   "presence or interest". Exclude Northern Ireland (the shop doesn't deliver there).
-- Search partners **off** until there's data. Display expansion off.
-- **Search terms every 1–2 days** in week 1. Add negatives such as free, diy, how to make,
-  second hand, used, for sale near me, cat, human/elderly-person mobility, wooden (if not
-  sold), template, plans, and big-brand names you don't stock. Phrase or exact match.
-- Feed title formula: `[what it is] + [key spec] + [size/colour] + [who it's for]`, keywords
-  first. For example: "Dog Sofa Steps 3-Step Foam, Removable Cover, 40cm High – For Small &
-  Senior Dogs". Set `google_product_category` and `product_type`. Set `identifier_exists =
-  no` when there's no GTIN. No text or badges on Shopping images.
-- Merchant Center: shipping (free, real handling + transit days) and returns (30 days)
-  configured so the free-delivery and free-returns annotations can show.
+- Search partners **off**, display expansion off, **auto-applied recommendations off**
+  (they quietly switch settings back on).
+- **Search terms every other day** for the first few weeks, then weekly. Add negatives as
+  **phrase match** in separate lists (irrelevant / competitors / products not sold).
+  The starter list is in `growth/PLAYBOOK-RESEARCH.md` A5.
+- **Feed:**
+  - Title formula: `[product type] + [key benefit] + [size/dimensions] + [material/colour]`,
+    with keywords in the first ~70 characters. No promo text, price or shop name.
+    Example: "Dog Sofa Steps 3-Step Foam with Removable Cover – 40cm High – Grey".
+  - `google_product_category`: **4434** bed · **6973** steps/ramps · **500084** blanket.
+  - `identifier_exists = no` unless the supplier GTIN is genuine.
+  - No text, badges or watermarks on images.
+- **Compare-at prices go to Google as a sale.** The Google app sends the compare-at price as
+  `price` and the real price as `sale_price`. UK rules require the higher price to have
+  been the real price for **30 of the last 200 days**. No product here can qualify before
+  ~mid-November, so **compare-at fields stay empty until then**, and a sale only ever runs
+  from a real regular price.
+- Merchant Center:
+  - Shipping: free, with real handling and transit days.
+  - Returns: 30 days from delivery.
+  - Turn on **Google Customer Reviews**, since shop ratings need ~100 reviews in 24 months.
+  - Check Merchant Center **Diagnostics** every few days.
 
 ### 4.5 Conversion levers, in the order a pro would use them on this store
 
@@ -189,12 +213,18 @@ Improving checkout does nothing if nobody adds to cart.
 
 If Google Ads can't see purchases, every decision in §4 is guesswork. In week 1 confirm:
 
-- The Google & YouTube app's purchase conversion is set as **Primary** in Google Ads →
-  Goals, and it counts **one** per purchase. No duplicate GA4-imported purchase also set
+- **Only Purchase is Primary** in Google Ads → Goals, counting **one** per purchase. Add to
+  basket and Begin checkout are Secondary. No duplicate GA4-imported purchase is also set
   as Primary.
-- Run a real test purchase with a discount code or a refund straight after. It should show
-  in Google Ads → Conversions within about 24h (diagnostics tab).
-- The cookie banner works with Consent Mode v2. Enhanced conversions are on.
+- **Test order:** place one with a 100% discount and check in **Tag Assistant** that the
+  purchase tag fires with a value and a transaction ID. A test order that didn't come from
+  an ad click won't show as an Ads conversion, which is normal.
+- **Enhanced conversions** on (Google & YouTube app → Settings). The cookie banner is
+  Shopify's own, or one integrated with Shopify's privacy API.
+- **No conversion modelling at this budget.** Modelling needs ~700 ad clicks in 7 days; this
+  store gets at most ~460. Buyers who decline cookies won't show in Ads. **Reconcile Ads
+  conversions with Shopify orders every week.** A gap over ~20% means broken tracking, not
+  bad ads.
 - Shopify sessions from Google rise roughly in line with ad clicks.
 
 ---
@@ -219,8 +249,16 @@ They aren't about being nice:
 - **No health claims.** These are comfort and access aids. Never say "treats", "relieves
   arthritis", "reduces pain" or "reduces anxiety". Say "for dogs who find jumping harder".
   Advise a vet for new pain or weakness. The site already does this well.
-- Delivery promises must match what the supplier really achieves. Late parcels turn into
-  chargebacks, which turn into Shopify Payments holds.
+- **Be honest about where orders ship from.** Google treats hiding the fulfilment source or
+  shipping origin as *egregious*: suspension without warning. If the supplier ships from
+  abroad, say so. Delivery promises must match what the supplier really achieves, with
+  handling and transit stated separately. Late parcels turn into chargebacks, which turn
+  into Shopify Payments holds.
+- **Feed, page and structured data must agree** on price (inc. VAT), availability and
+  delivery.
+- **Appeals are finite.** If Merchant Center flags misrepresentation, fix *everything*
+  before requesting the first review. A permanent suspension can't be fixed by opening a
+  new account; Google treats that as circumvention.
 
 When a "pro dropshipper" tactic you find in research breaks one of these, say so plainly and
 offer the legal version that does the same job: a real Black Friday sale from a real
