@@ -240,3 +240,146 @@
   second failure. Appeals are finite; after that the suspension is permanent, and a new
   Merchant Center for the same business counts as circumvention. **Fix everything before
   the first review request.**
+
+---
+
+## E. Funnel benchmarks: diagnosing a store before it has sales
+
+> Compiled 2026-10-21. Category Shopping CTR and CVR figures are old (2019), and
+> bundle, upsell and BNPL uplifts are mostly vendor numbers. Treat these as orientation,
+> not targets.
+
+- ✅ **Check tracking first.** Store Growers found inaccurate conversion tracking in
+  **54%** (66 of 122) of audited accounts. In the same audits: unmanaged search terms
+  **61%**, titles misaligned with searches **32%**, PMax misconfigured **76%**, dynamic
+  remarketing missing or broken **70%**. Dennis Moons, 16 Oct 2026,
+  https://www.storegrowers.com/google-ads-mistakes/
+- **Shopping CTR:**
+  - 🔸 Average **0.66%**, top quartile **1.2%+** (16k campaigns, Jan–Sep 2025).
+    https://focus-digital.co/average-google-ads-click-through-rate/
+  - 🔸 Pet care 0.68%, home & garden 0.90% (2019 WordStream data via Store Growers, Jan 2026).
+- 🔸 **Bounce rate:** ecommerce average 36–47%, mobile ~10 points higher.
+  https://www.shopify.com/blog/bounce-rate
+- **Add to cart:**
+  - 🔸 Shopify average **4.6%**, top 20% **7.5%**, top 10% **9.6%** (Littledata, via Blend
+    Commerce 2025).
+  - 🔸 Dynamic Yield: 6.08%.
+- 🔸 **Checkout completion:** average **45%**, top 20% **59%**. Pet stores run 50–60%
+  (eightx, 29 May 2026).
+- 🔸 **Session → order:**
+  - UK median **1.85%** (gogochimp, 28 Jun 2026).
+  - Home & garden median 1.62%.
+  - Higher-ticket, considered items convert lower.
+  - Pet care on Shopping is ~**1.07%** (2019).
+- ⚠️ **Mobile vs desktop:** retail desktop 3.7% vs mobile ~2.0% (Contentsquare, Feb 2026).
+  Mobile is 62.4% of UK sales, and Dynamic Yield shows the reverse. Segment your own data.
+- **Rule of three:** zero sales in *n* clicks bounds CVR below 3/n at 95% confidence.
+  100 clicks → <3%. 300 clicks → <1%.
+
+## F. Kill, keep and scale: what practitioners use (⚠️ no consensus)
+
+- 🔸 **Minimum data before judging:** 40–60 clicks or 1× target CPA. **Exclude** at 1.5×
+  target CPA with 0 sales over 14 days, when CVR is below 1/3 of the category average, or
+  when price is >10% above the main competitors. Lengow,
+  https://www.lengow.com/get-to-know-more/exclusion-of-underperforming-products
+- 🔸 **"2× rule"** (Jackson Blackledge, Echelonn, 9 Jun 2025): cut a product when spend
+  reaches 2× its price without breaking even. Single anecdote, 674 products cut.
+- 🔸 **100+ clicks with <2 sales** (Practical Ecommerce, 2021).
+- 🔸 **Scale:** budgets **≤30% every few days**. Emmanuel Flossie (FeedArmy), Shopify AMA,
+  5 May 2025.
+  https://community.shopify.com/t/ama-recap-april-google-shopping-and-google-ads-with-emmanuel-flossie/412585
+- ✅ **tROAS experiments** need 15+ conversions in 30 days.
+  https://support.google.com/google-ads/answer/11204214
+- 🔸 **Breakeven CVR** at £0.45 CPC, *assuming* a 40% contribution margin (replace with
+  real landed costs):
+
+  | Product | Price | Breakeven CVR |
+  |---|---|---|
+  | Bed (XXL) | £129.99 | 0.87% |
+  | Car steps | £69.99 | 1.6% |
+  | 2-in-1 steps/ramp | £59.99 | 1.9% |
+  | Sofa steps | £49.99 | 2.25% |
+  | Blanket | £39.99 | 2.8% |
+
+  → **The higher-ticket items are the realistic Shopping heroes. The blanket works better
+  as an add-on than as a cold-traffic product.**
+
+## G. Trust and conversion levers for an unknown store
+
+- ✅ **Baymard cart-abandonment reasons** (Sep 2025, excluding "just browsing"):
+
+  | Reason | Share |
+  |---|---|
+  | Extra costs | 40% |
+  | Delivery too slow | 20% |
+  | Didn't trust the site with card details | 19% |
+  | Forced account creation | 18% |
+  | Returns policy | 13% |
+  | Couldn't see total cost up front | 12% |
+  | Not enough payment methods | 9% |
+
+  https://baymard.com/lists/cart-abandonment-rate
+- ✅ **Baymard product pages** (Mar 2026):
+  - Show a total-cost estimate near Buy (67% of sites don't).
+  - Link the returns policy on the product page (44% don't; 60% of users look there).
+  - Include an image showing real size (37% don't).
+
+  https://baymard.com/blog/current-state-ecommerce-product-page-ux
+- ✅ **Show a delivery date, not a speed.**
+  https://baymard.com/blog/shipping-speed-vs-delivery-date
+- ✅ Separate "Returns" and "Shipping" links in the footer.
+- ✅ **Reviews:** users trust 4.5★ from 57 ratings over 5★ from 4. Hide the rating widget
+  below ~5 reviews. https://baymard.com/blog/user-perception-of-product-ratings
+- 🔸 **UK shoppers:**
+  - 91% want a simple way to contact support; 64.3% won't return after a failed delivery
+    (Sendcloud, Jun 2025).
+  - 82% reconsider when unexpected delivery costs appear; 55% name wrong delivery times as
+    their top frustration (Ingrid, Mar 2026).
+- ⚠️ **Shop Pay:** Shopify's "+50%" claim comes from an unpublished, self-commissioned
+  study. A named case showed about 1–1.6% store-wide. Turn it on, but expect small gains.
+- ✅ **BNPL** has been **FCA-regulated since 15 Jul 2026**. Use the provider's approved
+  wording. 🔸 A 2021 Bain UK survey found 57% of merchants saw conversion rise and baskets
+  20–30% larger.
+- 🔸 **Abandoned-cart email:** about $6.77 revenue per recipient, top 10% $13.70 (Klaviyo,
+  Oct 2026).
+- 🔸 **Remarketing:** the minimum audience dropped to **100 users** (Search, Display,
+  YouTube) in Dec 2025.
+- 🔸 **Post-purchase one-click upsell:** median take rate 0.3% in one app's data, against
+  vendor claims of 3–8%. Low priority.
+- ✅ **UK legal minimum:** a 14-day right to cancel for distance sales. If the cancellation
+  information is missing, the right extends by up to 12 months.
+  https://www.businesscompanion.info/en/quick-guides/distance-sales/consumer-contracts-distance-sales
+
+## H. Most-cited first-month mistakes (ranked by how often ~10 sources mention them)
+
+1. A weak offer or price, or thin margin (under ~30% is called near-impossible).
+2. A store that looks like a scam: no real contact details, vague returns, fake-looking
+   social proof, copied supplier text.
+3. Slow or opaque shipping and surprise costs. One anecdote: cutting shipping from 20 to 5
+   days dropped refunds from 8% to 2%.
+4. Broken conversion tracking (54% of audits).
+5. Unmanaged search terms and titles that don't match searches.
+6. Judging too early, or too little budget.
+7. Merchant Center misrepresentation suspension.
+
+## I. UK enforcement: tactics that are now illegal or high-risk
+
+- ✅ **DMCC Act in force since 6 Apr 2025.** The CMA fines directly, up to 10% of global
+  turnover.
+- ✅ **Fake urgency and timers:**
+  - The CMA fined **Wayfair £4.8m** and **Appliances Direct £1.2m** on **15 Oct 2026**.
+    https://www.retail-insight-network.com/newsletters/cma-wayfair-appliances-direct-misleading-sales
+  - CMA207: urgency and scarcity claims must be true.
+    https://www.ashurstperkinscoie.com/en/insights/mind-the-nudge-the-dmccs-crackdown-on-manipulative-online-design/
+- ✅ **Reference prices:** in **Emma Sleep** (judgment 30 Jul 2026), the company admitted
+  breaches including a struck-through price on a new product never sold at that price, and
+  countdown clocks. A "was" price beside a cheaper bundle price was also flagged.
+  https://www.lewissilkin.com/insights/2026/08/03/uk-consumer-law-revolution-reference-prices-emma-sleep-case-update-high-cour-102nfr0
+- ✅ **Fake or misleadingly presented reviews** are a banned practice (Sch. 20 para 13;
+  CMA208). The CMA opened 5 review investigations on 27 Mar 2026. Showing imported
+  AliExpress or Amazon reviews as your own is high risk (inference from the statutory
+  definition).
+  https://cms.law/en/gbr/legal-updates/no-more-faux-five-stars-the-dmcc-act-bans-fake-reviews
+- ✅ **Drip pricing:** mandatory fees must be in the headline price (CMA209, Nov 2025).
+- ✅ **Pre-ticked paid add-ons** were penalised in the Appliances Direct case. Keep any
+  shipping-protection add-on unticked.

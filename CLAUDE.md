@@ -111,17 +111,20 @@ whatever the page looks like.
 
 ### 4.2 Read the funnel stage by stage and fix the first broken stage
 
-| Stage | Healthy (cold Shopping traffic, £40–£130 home/pet) | If broken, the cause is usually |
-|---|---|---|
-| Impressions | Steady daily impressions on every product | Feed disapproved, bid too low, budget not spending, location/network settings |
-| Shopping CTR | ≳0.8–1.5% | Price vs competitors on the same results page, main image, title |
-| Landing → add to cart | ≳4–8% of sessions | Price/value doubt, trust, size/fit doubt, slow or broken mobile page |
-| ATC → reached checkout | ≳40–50% | Surprise costs, delivery time, basket UX |
-| Checkout → purchase | ≳45–55% | Payment options, trust at checkout, shipping and returns clarity |
+| Stage | Average → good | Broken | If broken, the cause is usually |
+|---|---|---|---|
+| Impressions | Steady daily impressions per product | Few or none | Feed disapproved, bid too low (lost IS rank), location/network settings |
+| Shopping CTR | 0.66% avg → **1.2%+** top quartile | **< 0.5%** | Price vs the same results page, main image, title |
+| Bounce (Shopping traffic) | 36–47% (mobile ~10pt higher) | **> 60%** | Page doesn't match the ad, slow mobile page |
+| Session → add to cart | 4.6% Shopify avg → **7.5%** top 20% | **0 ATC after ~100 clicks** | Price/value, trust, size doubt |
+| ATC → reached checkout | no solid benchmark | most carts stop here | Surprise costs, no delivery *date*, weak trust in basket |
+| Checkout → purchase | 45% avg → **59%** top 20% (pet 50–60%) | **< 40%** | Shipping shock, payment options, trust |
+| Session → order | UK median 1.85%, home & garden 1.62%, pet Shopping ~1.1% | — | Higher-ticket, considered purchases convert lower |
 
-These ranges are rules of thumb. `growth/PLAYBOOK-RESEARCH.md` has the sourced ones.
-Refresh them when they're more than 3 months old. **Fix only the first broken stage.**
-Improving checkout does nothing if nobody adds to cart.
+Sources and dates are in `growth/PLAYBOOK-RESEARCH.md` §E. Refresh them when they're more
+than 3 months old. **Fix only the first broken stage.** Improving checkout does nothing if
+nobody adds to cart. Store Growers found **broken conversion tracking in 54% of audited
+accounts**, so rule that out before reading any of this.
 
 ### 4.3 Patience thresholds (don't kill anything too early)
 
@@ -129,6 +132,11 @@ Set expectations honestly. New Shopping accounts usually see their **first conve
 in 7–14 days**. At £30 ÷ £0.45 ≈ 66 clicks/day spread over 5 products, **no single product
 has enough data to judge for 14–30 days** unless spend is concentrated. Zero sales in week
 1 is normal. Zero adds to cart after 150 clicks is not.
+
+**Use the rule of three.** Zero sales in *n* clicks only shows, with 95% confidence, that CVR
+is below **3/n**. 100 clicks with no sale means "below 3%", which proves nothing for a £60
+item whose breakeven is ~2%. Proving "below 1%" takes ~300 clicks (~£135 at £0.45). Put
+this in front of the owner whenever they want to give up early, and also before you do.
 
 - **Days 1–3:** check that it works, not how well it performs. Products are serving, clicks
   land on the right page, Google sessions show in Shopify, and a test purchase registers as
@@ -191,21 +199,37 @@ has enough data to judge for 14–30 days** unless spend is concentrated. Zero s
 
 1. **Remove anything that risks suspension or breaks the law** (§6). An account that has
    been suspended converts nothing.
-2. **Trust for an unknown store:** a real About page with a real person, a reachable
-   contact, a clear "who we are / where it ships from" note, and returns stated in plain
-   words. Show express checkout (Shop Pay, Apple/Google Pay, PayPal). Show BNPL (Klarna or
-   Clearpay) on £60+ items.
-3. **Kill doubt at the decision point:** size and fit guides (already strong here), a
-   product video or GIF of the dog using it, honest "is it right for my dog?" FAQs,
-   delivery dates written as dates ("order today, arrives Mon 26–Thu 29 Oct"), not just day
-   ranges.
+2. **Trust for an unknown store.** Baymard's top abandonment reasons are extra costs (40%),
+   slow delivery (20%), not trusting the site with card details (19%), and returns policy
+   (13%). So:
+   - A real About page with a real person.
+   - A reachable contact.
+   - A clear "who we are / where it ships from" note.
+   - Returns linked **on the product page** (60% of users look for them there).
+   - Total cost (free delivery) stated next to the Buy button.
+   - Express checkout (Shop Pay, Apple/Google Pay, PayPal). Expect small gains, not the
+     vendor's "+50%".
+   - BNPL on £60+ items, using the provider's approved wording. BNPL has been
+     **FCA-regulated since 15 Jul 2026**.
+3. **Kill doubt at the decision point:**
+   - Size and fit guides (already strong here).
+   - An image showing real size with a dog on it.
+   - A product video or GIF of the dog using it.
+   - Honest "is it right for my dog?" FAQs.
+   - **Delivery shown as dates** ("order today, arrives Mon 26–Thu 29 Oct"), not day
+     ranges. 55% of UK shoppers say wrong delivery times are their top frustration.
 4. **Price vs the same Shopping page.** If Amazon Prime has the same item at £10 less,
    explain the difference (size, cover, returns) or change the price. Copy can't close a gap
    the shopper can see next to your listing.
 5. **AOV:** blanket add-on (already built), bed + blanket, steps + blanket. Do this after
    CVR is proven, not before.
-6. **Capture the people who don't buy:** an honest email capture and Shopify's free
-   abandoned-checkout email, switched on and rewritten in the brand voice.
+6. **Capture the people who don't buy:**
+   - Shopify's free abandoned-checkout email, on from day one and rewritten in the brand
+     voice. The benchmark is ~$6.77 revenue per recipient.
+   - An honest email capture.
+   - **Google remarketing:** the minimum audience is now 100 users, which this store reaches
+     within days. A small remarketing budget to people who added to cart is often the
+     cheapest first sale.
 
 ---
 
@@ -233,8 +257,15 @@ If Google Ads can't see purchases, every decision in §4 is guesswork. In week 1
 
 Stores like this one die from three things: a **Merchant Center misrepresentation
 suspension**, a **payment-provider hold**, and the UK **DMCC Act 2024**. Since April 2025
-the CMA can fine directly, up to 10% of turnover. So the rules below protect the business.
-They aren't about being nice:
+the CMA can fine directly, up to 10% of global turnover, and it is using that power:
+
+- **15 Oct 2026:** Wayfair (£4.8m) and Appliances Direct (£1.2m) were fined for fake
+  urgency and limited-time offers.
+- **Mid-2026:** Emma Sleep admitted breaches over countdown clocks and a struck-through price
+  on a product never sold at that price.
+- **27 Mar 2026:** the CMA opened five investigations into reviews.
+
+So the rules below protect the business. They aren't about being nice:
 
 - **No fake urgency.** Countdowns only to a real end date that actually happens (a real sale
   end, a real courier cut-off). No timers that reset per visitor.
