@@ -105,3 +105,17 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
     wholesaler) before scaling.
   - Hold price until ~150 clicks of data. A genuine Black Friday sale from current prices
     is possible from ~11–16 Nov.
+
+### 2026-10-21 (later): owner bids set
+- **Owner bids: Medium £0.40, XL £0.50.** L and XXL are not mentioned (status to confirm).
+- Breakeven CVR at these bids: **Medium 1.07%** (£0.40 ÷ £37.33), **XL 0.87%** (£0.50 ÷ £57.76).
+- **Claude's view:**
+  - XL at £0.50 is right: inside its ~£0.58 cap.
+  - Medium at £0.40 is just above its ~£0.37 cap. It is also the size furthest above market
+    (Amazon ~£28, Temu £18), so it is the likeliest to lose money per click. Owner may be
+    right that the cheaper size converts better, and the data will show that.
+  - If XXL is off, it has the best economics (cap ~£0.70, competitive vs Scruffs £149.99).
+- **Judge on:** Medium at ~100 clicks. 0 add to carts → drop to £0.30 or pause, and move the
+  spend to XL/XXL.
+- Shopify 21 Oct so far: no sessions recorded yet today (early, and analytics may lag).
+  Compare-at prices still set on all 4 sizes.
