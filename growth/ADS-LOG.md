@@ -31,6 +31,11 @@ these are Merchant Center misrepresentation / DMCC risks, listed in order of urg
    *Ruled out:* a real prior selling price. The products were created 12–17 Oct with zero
    orders. *Not ruled out:* the owner may have sold these exact items at the higher price
    elsewhere (ask).
+   **Feed impact:** the Google & YouTube app sends Shopify compare-at as `price` and the
+   real price as `sale_price`. The bed is therefore being advertised to Google as "on sale
+   from £65.99–£142.99". UK rules need the higher price to have applied for 30 of the past
+   200 days, so expect a disapproval or a misrepresentation flag. Clear the bed's
+   compare-at prices.
 3. **Review counts likely taken from a supplier/marketplace listing.** `dn-review-summary.json`
    shows bed 4.7★ (206), blanket 4.9★ (265), sofa steps 4.8★ (60), steps & ramp 4.8★ (48),
    car steps 4.9★ (37), with a field named `sourceRating`. Review dates (e.g. 28 Jul 2026)
@@ -40,6 +45,11 @@ these are Merchant Center misrepresentation / DMCC risks, listed in order of urg
    earlier offline-sold range. **Ask before touching anything.**
 4. Theme strings "Going out fast!" / "Low stock in this option" exist while inventory isn't
    tracked. Not confirmed whether they render. Check.
+
+**Market check (PLAYBOOK-RESEARCH §J):** only the 2-in-1 is near market price. Bed 2–2.7×
+Amazon, 3-step ~1.8×, car steps ~2.5×, blanket +20–75%. Recommended: put ~£20/day behind the
+2-in-1 and ~£10/day behind bed XL/XXL. Hold the 3-step and car steps unless repriced (owner
+decision).
 
 **Hypothesis being tested:** at £0.45 the products get enough impressions and clicks to show
 whether people add to cart. **Judge on:** day 3 (does it work: impressions, clicks, Google

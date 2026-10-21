@@ -383,3 +383,73 @@
 - ✅ **Drip pricing:** mandatory fees must be in the headline price (CMA209, Nov 2025).
 - ✅ **Pre-ticked paid add-ons** were penalised in the Appliances Direct case. Keep any
   shipping-protection add-on unticked.
+
+---
+
+## J. Competitor price snapshot: what a shopper sees beside us (21 Oct 2026)
+
+> Amazon UK product and Best Seller pages were read live with a London postcode. Pets at Home
+> pages were read from their page data. Google Trends GB, 5 years.
+> **Could not load:** the Google Shopping results page itself, Argos, eBay, ManoMano, The
+> Range, Wayfair (403). **Re-check before any price change.** Amazon review counts are often
+> shared across sizes. "Comparable" here means similar size and spec. Quality may differ, so
+> check whether our item is the same factory product before concluding.
+
+**Delivery:** most Amazon comparables arrive **next day** (22 Oct to London). We quote 2–9
+business days on every product.
+
+| Product | Us | Typical market | Position |
+|---|---|---|---|
+| Bolster bed M / L / XL / XXL | £59.99 / 79.99 / 99.99 / 129.99 | Amazon £28–£60 (Bedsure, Amazon Basics, Dreamcatcher). Pets at Home branded: Noble £50–60, Silentnight £70–80, Scruffs Harvard XL £99.99 / XXL £149.99 | 🔴 2–2.7× Amazon. ≈ branded Pets at Home |
+| 3-step sofa steps 60×40×40 | £49.99 | Amazon £24–£29 (ROMROL £25.49, 643★; Nepfaivy £26.99, 2,036★; Pawchop £28.71). Premium tier £38–£46 | 🔴 ~1.8× market |
+| 2-in-1 steps & ramp | £59.99 | Gardner Pet 2-in-1 **£39.99**, next-day, 2,107★, 100+ bought/month. Other convertibles £67–£70 | 🟡 at market. +£20 vs the leader, below other convertibles |
+| Folding 4-step car steps (fabric treads) | £69.99 | Amazon fabric-tread £25–£30. Aluminium £49–£70 | 🔴 aluminium price for a fabric spec |
+| Water-resistant blanket 170×210 | £39.99 | Amazon £23–£33 (PICK FOR LIFE #1 £32.99) | 🟠 20–75% above. **8 colours** are a real difference |
+
+**Amazon URLs** (prefix `amazon.co.uk/dp/`):
+- Beds: B0DJWKFS39, B0BBV27VMH, B0DJWK1VYK, B0F4XCVDXC, B0F1V8XW5J, B0F13RK113, B0DJWHDTXJ, B0BBV8483Y
+- Steps: B0F7R3R5N8, B0BY4C2VHD, B08B85GB69, B0GXZFF3K4, B0CS6GZ4YQ
+- 2-in-1: B0DRGDLCF8, B0DL4H3L9Z, B0H6QDZ23M
+- Car steps: B0DWXN8QWD, B0CLHCXV91, B0DL4J6W35, B0D9M33FSF, B0FW4Y2KZR
+- Blanket: B0FW3MY6LF, B09TY96848, B0C49HLLBT, B0DXVDFTRS
+
+**Pets at Home:** P70485 (Silentnight), P71631 (Noble), P72096 (Scruffs Harvard).
+
+### Demand (Google Trends GB, relative scores, not search counts)
+- "dog steps" ≈ 51 and "dog ramp" ≈ 45, versus "dog car ramp" ≈ 9 and "orthopaedic dog
+  bed" ≈ 1 on the same chart.
+- "dog blanket" ≈ 1.6× "dog steps".
+- "dog steps" is **+39%** year on year.
+- 🔸 "ramp dog" and "stair steps for dogs" show ~6.6k searches/month each (SEO Monitor,
+  seen only in a search snippet).
+
+**Seasonality (index, 100 = average month):**
+
+| Term | Oct | Nov | Dec | Peak |
+|---|---|---|---|---|
+| dog steps / ramp | 86–97 | 86–97 | 86–97 | **Jan–Feb (108–110)** |
+| dog car ramp | 73–78 | 73–78 | 73–78 | Jul–Aug (131–146), low now |
+| dog bed | 113 | 122 | 121 | — |
+| orthopaedic dog bed | 116 | 123 | 131 | — |
+| dog blanket | **131** | **157** | **154** | — |
+
+### What the research recommends (owner decides prices)
+1. **Hero: the 2-in-1 steps & ramp, ~£20/day.** It has the smallest price gap, the
+   biggest and fastest-growing demand, the convertible niche is proven by Gardner Pet's
+   volume, and January is a peak. The page must explain the £20 premium over Gardner Pet:
+   - the 86cm ramp's gentler slope (state the angle) for dogs who shouldn't jump
+   - 41cm steps that suit standard sofas
+   - a video of it converting
+   - the weight limit
+2. **Second: the bed in XL/XXL only, ~£10/day test.** It has the strongest winter
+   seasonality, and £100–£130 order value can absorb click costs. Position it against
+   Silentnight and Scruffs, not Amazon. It needs proof on the page:
+   - foam density (kg/m³) and solid-foam depth
+   - internal sleeping area
+   - liner and spare-cover availability
+3. **Hold the 3-step and car steps** off paid traffic unless repriced, to about
+   £29.99–£34.99 to compete. Car-step demand is at its yearly low.
+4. **Blanket:** demand peaks in Nov–Dec. It works on cold traffic only at about £29.99 or
+   with a gift angle. Otherwise keep it as the £30 add-on, which already exists.
+5. **Everyone:** show a **delivery date** and a Christmas last-order date. Show who pays
+   return postage on bulky items.

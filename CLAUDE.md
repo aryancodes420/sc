@@ -83,9 +83,35 @@ Google tag `AW-18519248705` and GA4 `G-V19F6S8G3D` are on the page (check they f
 scale. The £100k model in `growth/GROWTH-PLAN.md` was built for the old range. Use its
 method, not its numbers.
 
+**Competitive position (researched 2026-10-21, `growth/PLAYBOOK-RESEARCH.md` §J). This is
+the biggest conversion fact about this store right now.** Shoppers see Amazon Prime
+next-day listings beside ours on the same Shopping page.
+
+| Product | vs market | Implication |
+|---|---|---|
+| 2-in-1 steps & ramp | ≈ market (+£20 vs Gardner Pet £39.99) | **Hero.** Biggest and growing demand. The page must justify the premium |
+| Bed XL/XXL | 2–2.7× Amazon, ≈ Scruffs/Silentnight | **Second.** Winter peak. Sell against branded beds with foam specs |
+| 3-step sofa steps | ~1.8× (market £24–£29) | Don't spend on it unless repriced |
+| Car steps | ~2.5× (fabric-tread £25–£30) | Don't spend on it unless repriced. Demand is at its yearly low |
+| Blanket | 20–75% above | Add-on, or a Nov–Dec gift push at ~£29.99 |
+
+Delivery of 2–9 business days loses to next-day on every product. Show delivery **dates**.
+Pricing is the owner's decision. Your job is to put the numbers in front of them and
+re-check the market before any change.
+
+**Calendar:**
+- **Black Friday Fri 27 Nov**, Cyber Monday 30 Nov.
+- A genuine sale is only legitimate from a real regular price. If current prices haven't
+  changed since the products were created (12–17 Oct; check), they become a valid Google
+  "regular price" around **11–16 Nov**.
+- **Christmas last order** for delivery by Wed 23 Dec: about **Mon 14 Dec** at 2–7 business
+  days, about **Thu 10 Dec** for the blanket (5–9). Confirm with the supplier before
+  publishing.
+- January is the yearly peak for dog steps and ramps.
+
 **Unknown, and needed to judge profit:** landed cost per product (product + shipping +
-VAT treatment) and the supplier. Ask for these early. Until they arrive, label every profit
-figure as an estimate.
+VAT treatment), the supplier, and **where it ships from**. Ask for these early. Until they
+arrive, label every profit figure as an estimate.
 
 > ⚠️ **History:** before **2026-10-12** this was a rescue-dog / calming store (lick mats,
 > snuffle mats, donut beds, "3-3-3" bundles). `STATUS.md` (body), `POSITIONING.md`,
@@ -142,8 +168,8 @@ this in front of the owner whenever they want to give up early, and also before 
   land on the right page, Google sessions show in Shopify, and a test purchase registers as
   a Google Ads conversion. Change no bids on fewer than about 50 clicks per product. After
   3–5 days, if impressions are thin, raise that product's bid by 10–20%.
-- **Judge a product** after it has had about **100–150 clicks, or spent 2× its breakeven
-  CPA**, whichever comes first:
+- **Diagnose a product** (which funnel stage is failing, not whether to kill it) after about
+  **100–150 clicks, or 2× its breakeven CPA spent**, whichever comes first:
   - Adds to cart but no sales → fix checkout, delivery or trust. The product is fine.
   - No adds to cart at all → the page or the price is losing. Check competitor prices on the
     same Shopping results before blaming the page.
@@ -163,13 +189,14 @@ this in front of the owner whenever they want to give up early, and also before 
 
 - One Standard Shopping campaign. Split products so each gets its own bid: ad group per
   product, or product groups by item ID. The bed's 4 sizes are 4 item IDs, so group them with
-  `custom_label_0`. Concentrate spend on the 1–2 **hero products** with the best
-  price-to-market gap and demand (`growth/PLAYBOOK-RESEARCH.md`). Five products on £30/day
-  spreads too thin to learn anything.
+  `custom_label_0`. Concentrate spend on the 1–2 **hero products** (§3: the 2-in-1 at about
+  £20/day, bed XL/XXL at about £10/day). Five products on £30/day spreads too thin to learn
+  anything, and products priced at 2× Amazon burn clicks.
 - **Bids by product, not one flat £0.45.** UK pet Shopping averages £0.28–£0.48 CPC, but
   that is weighted to cheap consumables. Bigger-ticket items compete more like furniture
-  (£0.55–£1.10). Start at about: **bed £0.55–0.65 · steps/ramp/car steps £0.45 · blanket
-  £0.30–0.35**, and cap each one at breakeven CPA × expected CVR.
+  (£0.55–£1.10). Start at about: **bed £0.55–0.65 · 2-in-1 steps/ramp £0.45 · blanket
+  £0.30–0.35**, and cap each one at breakeven CPA × expected CVR. Keep the 3-step and car
+  steps excluded (or at a token bid) until they're repriced.
 - Location: **United Kingdom, "Presence: people in or regularly in"**, not the default
   "presence or interest". Exclude Northern Ireland (the shop doesn't deliver there).
 - Search partners **off**, display expansion off, **auto-applied recommendations off**

@@ -20,7 +20,11 @@
 - **🔴 Open before it costs the ad account:** evergreen countdown, price × 1.1 "was" prices,
   and review counts that look imported. Details and evidence are in the 2026-10-21 entry of
   `growth/ADS-LOG.md`. All need an owner decision before Claude edits the live theme.
-- **Unknown:** landed cost per product + supplier. Needed for breakeven CPA.
+- **🟠 Price vs market:** only the 2-in-1 steps & ramp is near market. The others run
+  1.8–2.7× Amazon equivalents. Make the 2-in-1 the hero, with bed XL/XXL second. See
+  `growth/PLAYBOOK-RESEARCH.md` §J.
+- **Unknown:** landed cost per product, supplier, and ship-from location. Needed for
+  breakeven CPA and for Google's shipping-origin rule.
 
 > ⛔ **Everything below this line is from the rescue-dog / calming era (before 2026-10-12)**:
 > old products, old theme IDs, old blockers. It is kept for history and method only. Do not
