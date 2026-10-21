@@ -2,8 +2,29 @@
 
 > **This file is the single source of truth.** Every Claude chat must read this FIRST
 > and update it before finishing. If this file and your memory disagree, **this file wins.**
+> **Live Shopify data beats both.** The operating prompt is `CLAUDE.md`.
 >
-> **Last updated:** 2026-08-05
+> **Last updated:** 2026-10-21
+
+---
+
+## 🟢 NOW (2026-10-21): live, ads on, chasing the first sale
+
+- **Store:** thedognook.co.uk is live. It is a **senior-dog comfort & mobility** store with 5
+  products: Orthopaedic Bolster Bed, 3-Step Sofa Steps, 2-in-1 Steps & Ramp, Folding Car
+  Steps, Water Resistant Blanket. Live theme `197123768603` (look it up; IDs change).
+- **Ads:** Google Shopping since 2026-10-21, manual CPC £0.45, £30/day.
+- **Orders:** 0 real (#1001 = refunded test).
+- **Next judgement points:** day 3 (is it working), then each product at 100–150 clicks.
+  See `growth/ADS-LOG.md`.
+- **🔴 Open before it costs the ad account:** evergreen countdown, price × 1.1 "was" prices,
+  and review counts that look imported. Details and evidence are in the 2026-10-21 entry of
+  `growth/ADS-LOG.md`. All need an owner decision before Claude edits the live theme.
+- **Unknown:** landed cost per product + supplier. Needed for breakeven CPA.
+
+> ⛔ **Everything below this line is from the rescue-dog / calming era (before 2026-10-12)**:
+> old products, old theme IDs, old blockers. It is kept for history and method only. Do not
+> act on it as current state.
 
 ---
 
