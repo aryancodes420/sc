@@ -249,3 +249,8 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   sheet. Likely cause: the supplemental source hasn't re-fetched since the edit (Sheets
   sources run on a schedule). Asked the owner to tap "Update"/"Fetch now" on SUPPLEMENTAL
   SOURCE 1 and confirm "Attribute names: All recognized". Re-check next session.
+- 18:26 BST, after the owner's manual fetch: category is **still 2** (read cached at
+  17:26:37 UTC, i.e. at that moment). The fetch may still be processing, or the header or
+  values may not be recognised. Low impact: product_type "Dog Beds" and titles carry the
+  meaning, and Google also auto-categorises. Re-check tomorrow; if still 2, get a screenshot
+  of the supplemental source details and the sheet's header row.
