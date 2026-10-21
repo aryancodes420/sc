@@ -76,7 +76,9 @@ Free delivery to England, Scotland and Wales. 30-day money-back guarantee. Shopi
 Google tag `AW-18519248705` and GA4 `G-V19F6S8G3D` are on the page (check they fire
 **purchase**, §5).
 
-**Ads:** Google Shopping, started **2026-10-21**. **£30/day, manual CPC £0.45.**
+**Ads:** Google Shopping, started **2026-10-21**. **£30/day, manual CPC £0.45. Owner is
+advertising the bed only** (their decision, 21 Oct). Bias spend to XL/XXL, and keep the
+2-in-1 lined up as product #2.
 **Orders: zero real ones** (#1001 was a refunded test).
 
 **Goal now: the first real sale, then a repeatable one.** The later goal is profitable

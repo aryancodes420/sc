@@ -54,3 +54,22 @@ decision).
 **Hypothesis being tested:** at £0.45 the products get enough impressions and clicks to show
 whether people add to cart. **Judge on:** day 3 (does it work: impressions, clicks, Google
 sessions in Shopify, test conversion recorded), then per product at 100–150 clicks.
+
+### 2026-10-21 (later): owner decision, bed only
+- **Owner is advertising only the Orthopaedic Bolster Dog Bed** on Shopping. Other products
+  are not in the ads.
+- Shopify at 06:54 UTC: 0 sessions today so far, 0 real orders. Bed compare-at prices are
+  still set (£65.99 / 87.99 / 109.99 / 142.99), so they are still being sent to Google as
+  a "sale".
+- **Claude's view:** one product is fine and the bed is a reasonable pick (highest order
+  value, winter peak). It is also now the single point of failure.
+  1. Clear the bed's compare-at prices first (awaiting owner yes).
+  2. Bias bids to XL/XXL, which are priced at or below Scruffs/Silentnight. M/L are about
+     2× Amazon.
+  3. Watch impression share at £0.45.
+  4. Line up the 2-in-1 as product #2.
+- **Breakeven CVR, ESTIMATED at a 40% contribution margin** (replace with real landed
+  costs): M 1.9% · L 1.4% · XL 1.1% · XXL 0.87%.
+- **Judge on:** at about 66 clicks/day, all on the bed, ~150 clicks arrive by ~day 3.
+  - 0 add to cart at 150 clicks → price vs Amazon. Move the hero to the 2-in-1.
+  - Add to cart but no sale → checkout or trust.

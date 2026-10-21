@@ -13,7 +13,7 @@
 - **Store:** thedognook.co.uk is live. It is a **senior-dog comfort & mobility** store with 5
   products: Orthopaedic Bolster Bed, 3-Step Sofa Steps, 2-in-1 Steps & Ramp, Folding Car
   Steps, Water Resistant Blanket. Live theme `197123768603` (look it up; IDs change).
-- **Ads:** Google Shopping since 2026-10-21, manual CPC £0.45, £30/day.
+- **Ads:** Google Shopping since 2026-10-21, manual CPC £0.45, £30/day, **bed only** (owner's choice).
 - **Orders:** 0 real (#1001 = refunded test).
 - **Next judgement points:** day 3 (is it working), then each product at 100–150 clicks.
   See `growth/ADS-LOG.md`.
