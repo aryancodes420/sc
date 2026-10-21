@@ -181,3 +181,15 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
      price as the sale. This is the app's normal behaviour. Owner has accepted it.
 - The Red Grey blanket variant is disapproved for **"Generic landing page"** (the link
   redirects to a generic page). It isn't in the ads, so fix it later.
+
+### 2026-10-21: per-size bed titles prepared
+- Method researched (PLAYBOOK §L): Shopify SEO title + category (Claude, needs owner yes),
+  then a Merchant Center supplemental Google Sheet with per-size titles in cm (owner, after
+  enabling the "Advanced data source management" add-on).
+- Sheet: `growth/merchant-center/bed-titles-supplemental.csv` (all 4 sizes). Promoted:
+  - Medium: "Orthopaedic Dog Bed Medium 73 x 58 cm – Bolster Sides, Removable Washable
+    Cover, Dark Grey"
+  - XXL: "Orthopaedic Dog Bed XXL 121 x 88 cm for Large Dogs – Bolster Sides, Removable
+    Washable Cover, Dark Grey"
+- Proposed SEO title (base): "Orthopaedic Dog Bed with Bolsters & Removable Washable Cover –
+  Dark Grey". Category: Pet Beds › Orthopedic Beds (ap-2-9-8).

@@ -476,3 +476,32 @@ business days on every product.
   few orders. Before scaling, move to a source that permits resale: the brand directly
   (BOFNL), CJ Dropshipping, or a UK wholesaler. A cancelled order after the customer has paid
   becomes a late delivery, then a refund or chargeback.
+
+---
+
+## L. Per-size Shopping titles for a Shopify store (checked 2026-10-21)
+
+- ✅ **How this store's feed builds titles (from live data):** Merchant Center title = Shopify
+  **SEO title** + variant name. Example: "Orthopaedic Bolster Dog Bed | The Dog Nook
+  Medium". One SEO title is shared by every size, so a measurement in cm can't go there.
+- 🔸 **The Google & YouTube app** has a "Product title preference" (SEO title or product
+  title). There is no per-variant or metafield title option.
+  https://community.shopify.com/t/feature-request-google-youtube-app-should-support-custom-metafields-for-product-titles/584385
+- ✅ **Supplemental data source** (Google Sheets: columns `id`, `title`) overrides attributes
+  of existing items, matched by ID. It can't add or remove products. The "Supplemental
+  sources" tab only appears after enabling the **"Advanced data source management"** add-on
+  (Settings → Add-ons). https://support.google.com/merchants/answer/14990942
+- 🔸 **Shopify IDs work in supplemental sheets.** Cypress North's guide (5 Feb 2025) shows a
+  `shopify_US_…` ID example. This store's IDs are `shopify_ZZ_<product>_<variant>`, exactly
+  as Merchant Center shows them.
+  https://cypressnorth.com/resources/guides/how-to-use-a-supplemental-feed-in-google-merchant-center-next-a-step-by-step-guide/
+- 🔸 **Risk:** an Aug 2026 blog reports that Shopify is moving merchants to a new "Shopify App
+  API" data source. Rules and supplements tied to the old feed ID may stop applying. Re-check
+  the titles after any data-source change.
+  https://www.4mdigitalconsulting.com/post/shopify-google-feed-migration-why-your-feed-rules-might-vanish-overnight
+- **Rejected alternative:** renaming the Shopify variants to include cm. The live theme maps
+  sizes by exact variant name (`dn-bed-checkout.liquid`: `case size_variant.title when
+  'Medium'…`), so renaming would break the size picker and dimension labels.
+- **Chosen method:** a clean SEO title in Shopify (base for every size) plus a supplemental
+  sheet with per-size titles: `growth/merchant-center/bed-titles-supplemental.csv`. Size and
+  cm sit inside the first ~70 visible characters, because size decides the click for a bed.
