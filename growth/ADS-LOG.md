@@ -205,3 +205,11 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
 - 09:08 BST, owner screenshot of "SUPPLEMENTAL SOURCE 1": **2 matched, 2 updated**, attribute
   names all recognised, no issues. The sheet is working. The Supermetrics product read
   (cached 08:08 UTC) still shows the old titles, so confirm the final title next session.
+
+### 2026-10-21: bed category + SEO title set (Claude, owner yes)
+- Category → Pet Beds › Orthopedic Beds (`ap-2-9-8`). SEO title → "Orthopaedic Dog Bed with Bolsters &
+  Removable Washable Cover – Dark Grey". Verified in the productUpdate response, no userErrors.
+- The Medium and XXL feed titles come from the supplemental sheet, which overrides this
+  base. Large and XL (not advertised) use the base title plus the size name.
+- Next check: final feed titles and google_product_category in Merchant Center, product
+  approval, and first impressions.

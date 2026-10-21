@@ -245,3 +245,11 @@ exist in three mutually different versions across git and the two drafts, and gi
 matches neither theme (table in `HANDOFF.md` §2). CRO wave 2 is therefore layered on
 top of two different JS baselines. Nobody has established which is correct — resolve
 before publishing.
+
+## 2026-10-21 — Orthopaedic Bolster Dog Bed (gid://shopify/Product/10519069524251) — owner approved
+- `category`: Uncategorized → `ap-2-9-8` Animals & Pet Supplies > Pet Supplies > Pet Beds > Orthopedic Beds
+  (Google category was empty in Merchant Center; other products already had one).
+- `seo.title`: "Orthopaedic Bolster Dog Bed | The Dog Nook" → "Orthopaedic Dog Bed with Bolsters & Removable
+  Washable Cover – Dark Grey" (this is the base title the Google & YouTube app sends to Merchant Center).
+- `seo.description`: unchanged (re-sent as-is). Product title, variants, prices, compare-at: unchanged.
+- Per-size titles with cm are applied separately by a Merchant Center supplemental Google Sheet (Medium + XXL).
