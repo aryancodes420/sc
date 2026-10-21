@@ -453,3 +453,24 @@ business days on every product.
    with a gift angle. Otherwise keep it as the £30 add-on, which already exists.
 5. **Everyone:** show a **delivery date** and a Christmas last-order date. Show who pays
    return postage on bulky items.
+
+---
+
+## K. Sourcing from Temu (checked 2026-10-21)
+
+- ✅ **Temu UK Terms of Use, last updated 11 Jan 2026,** https://www.temu.com/uk/terms-of-use.html
+  - §2.1: users must be "using the Services solely for personal (non-commercial) use".
+  - §3.1: "for your own use, and not on behalf of or for the benefit of any third party".
+  - §7.5: no use "for the benefit of another business unless explicitly permitted". Temu may
+    refuse service, terminate accounts or cancel purchases if this is breached.
+  - Dropshipping isn't named, but the clauses cover it.
+- 🔸 **Enforcement** (seller blogs, unverified): Temu reportedly flags reseller patterns such
+  as many single-item orders to different addresses or repeat purchases of one SKU. Results
+  include order caps, cancellations and bans.
+  https://branvas.com/blogs/news/temu-dropshipping-risks-alternatives
+- 🔸 **Packaging is Temu-branded,** so the customer can tell where the item came from.
+  https://branvas.com/blogs/news/temu-dropshipping-risks-alternatives
+- **What this means for this store:** Temu is acceptable for proving demand with the first
+  few orders. Before scaling, move to a source that permits resale: the brand directly
+  (BOFNL), CJ Dropshipping, or a UK wholesaler. A cancelled order after the customer has paid
+  becomes a late delivery, then a refund or chargeback.

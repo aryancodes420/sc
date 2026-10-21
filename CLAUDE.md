@@ -111,9 +111,17 @@ re-check the market before any change.
   publishing.
 - January is the yearly peak for dog steps and ramps.
 
-**Unknown, and needed to judge profit:** landed cost per product (product + shipping +
-VAT treatment), the supplier, and **where it ships from**. Ask for these early. Until they
-arrive, label every profit figure as an estimate.
+**Bed supplier and costs (owner, 21 Oct):** **Temu, brand BOFNL.** M £18.21 · L £27.78 ·
+XL £34.98 · XXL £50.74, free shipping, "2+ business days". That leaves £37–£70 per sale before
+ads, assuming the owner isn't VAT-registered (confirm), so breakeven CVR at £0.45 is
+**0.6–1.2%**. Full table in `growth/ADS-LOG.md`.
+⚠️ **Temu's UK terms (11 Jan 2026) allow personal, non-commercial use only. Temu can cancel
+orders or close the account.** The parcel also arrives in Temu packaging, and the same bed is
+publicly listed for a third of our price. Fine for first sales; **find a non-Temu source
+before scaling.**
+
+**Still unknown for the other 4 products:** landed cost, supplier, ship-from location. Ask
+before advertising them, and label every profit figure for them as an estimate.
 
 > ⚠️ **History:** before **2026-10-12** this was a rescue-dog / calming store (lick mats,
 > snuffle mats, donut beds, "3-3-3" bundles). `STATUS.md` (body), `POSITIONING.md`,
@@ -196,8 +204,9 @@ this in front of the owner whenever they want to give up early, and also before 
   anything, and products priced at 2× Amazon burn clicks.
 - **Bids by product, not one flat £0.45.** UK pet Shopping averages £0.28–£0.48 CPC, but
   that is weighted to cheap consumables. Bigger-ticket items compete more like furniture
-  (£0.55–£1.10). Start at about: **bed £0.55–0.65 · 2-in-1 steps/ramp £0.45 · blanket
-  £0.30–0.35**, and cap each one at breakeven CPA × expected CVR. Keep the 3-step and car
+  (£0.55–£1.10). Start at about: **bed by size: M £0.30 · L £0.40 · XL £0.55 · XXL £0.65
+  (from real Temu costs, 21 Oct)** · 2-in-1 steps/ramp £0.45 · blanket £0.30–0.35. Cap each
+  one at breakeven CPA × expected CVR. Keep the 3-step and car
   steps excluded (or at a token bid) until they're repriced.
 - Location: **United Kingdom, "Presence: people in or regularly in"**, not the default
   "presence or interest". Exclude Northern Ireland (the shop doesn't deliver there).

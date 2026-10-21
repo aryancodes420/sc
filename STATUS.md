@@ -23,8 +23,10 @@
 - **🟠 Price vs market:** only the 2-in-1 steps & ramp is near market. The others run
   1.8–2.7× Amazon equivalents. Make the 2-in-1 the hero, with bed XL/XXL second. See
   `growth/PLAYBOOK-RESEARCH.md` §J.
-- **Unknown:** landed cost per product, supplier, and ship-from location. Needed for
-  breakeven CPA and for Google's shipping-origin rule.
+- **Bed supplier: Temu (BOFNL).** Costs £18–£51 by size, so you keep about £37–£70 a sale
+  before ads. ⚠️ Temu's terms forbid resale. Find a non-Temu source before scaling.
+- **Unknown:** landed cost, supplier and ship-from location for the other 4 products. VAT
+  registration status.
 
 > ⛔ **Everything below this line is from the rescue-dog / calming era (before 2026-10-12)**:
 > old products, old theme IDs, old blockers. It is kept for history and method only. Do not

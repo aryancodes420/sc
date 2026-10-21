@@ -73,3 +73,33 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
 - **Judge on:** at about 66 clicks/day, all on the bed, ~150 clicks arrive by ~day 3.
   - 0 add to cart at 150 clicks → price vs Amazon. Move the hero to the 2-in-1.
   - Add to cart but no sale → checkout or trust.
+
+### 2026-10-21 (later): bed supplier and costs received
+- **Supplier: Temu**, brand **BOFNL** ("Raised Bolster Orthopedic Pet Sofa", Dark Gray
+  Detachable). Owner screenshots at 07:56. The prices match the SKU prefix `TDN-BOFNL-BED`.
+  Temu shows "Arrives in 2+ business days", free shipping.
+
+  | Size | Our price | Temu cost | Keep/sale* | Breakeven CVR @ £0.45 | Max bid @ 1% CVR |
+  |---|---|---|---|---|---|
+  | M 73×58 | £59.99 | £18.21 | £37.33 | 1.21% | £0.37 |
+  | L 93×71 | £79.99 | £27.78 | £46.36 | 0.97% | £0.46 |
+  | XL 105×81 | £99.99 | £34.98 | £57.76 | 0.78% | £0.58 |
+  | XXL 121×88 | £129.99 | £50.74 | £69.90 | 0.64% | £0.70 |
+
+  \* Before ads. After the Shopify fee (~2% + 25p) and a 5% refund allowance. **Assumes
+  the owner is not VAT-registered.** If registered, keep falls to £27 / £33 / £41 / £48.
+- **Risks found:**
+  1. **Temu UK Terms of Use (updated 11 Jan 2026):** "solely for personal (non-commercial)
+     use" (§2.1); "for your own use, and not on behalf of or for the benefit of any third
+     party" (§3.1). Temu may cancel purchases or terminate accounts (§7.5). This works for
+     first orders, but it is not a base to scale on.
+  2. **Temu-branded packaging** reaches the customer, who can find the same bed for a third
+     of the price. That is a refund and chargeback risk.
+  3. The identical item is publicly listed at £18–£51. Check whether Temu appears beside us
+     on Google Shopping.
+- **Claude's recommendation:**
+  - Bid by size: M ~£0.30 · L ~£0.40 · XL ~£0.55 · XXL ~£0.65.
+  - Owner to look for a non-Temu source for the same bed (BOFNL direct, CJ, a UK
+    wholesaler) before scaling.
+  - Hold price until ~150 clicks of data. A genuine Black Friday sale from current prices
+    is possible from ~11–16 Nov.
