@@ -244,3 +244,8 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   "Pet Beds > Orthopedic Beds" maps to that broad node. The precise node is **4434 Dog Beds**
   (confirmed in Google's en-GB taxonomy file). Fix: add a `google_product_category` column =
   4434 to the "Bed titles" supplemental sheet (owner, optional, 30 seconds).
+- 18:20 BST (live read, not cached): bed `google_product_category` is **still 2** on all 4
+  sizes. The owner says column C (`google_product_category` = 4434) has been added to the
+  sheet. Likely cause: the supplemental source hasn't re-fetched since the edit (Sheets
+  sources run on a schedule). Asked the owner to tap "Update"/"Fetch now" on SUPPLEMENTAL
+  SOURCE 1 and confirm "Attribute names: All recognized". Re-check next session.
