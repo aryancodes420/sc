@@ -148,3 +148,12 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
   - **Search partners ON** → off.
 - AI Max and final URL expansion show as enabled. They are not applicable to Shopping and
   should have no effect.
+
+### 2026-10-21: settings changed (Claude via Supermetrics, owner said yes)
+- Campaign 24383153710:
+  - Location targeting: PRESENCE_OR_INTEREST → **PRESENCE**.
+  - **Search partners: on → off.** Search stays on, Display stays off.
+- Verified in the write response: `geo_target_type: PRESENCE`, `search_partners: false`, status
+  ENABLED, ad groups and bids unchanged. `write_status: applied`.
+- Supermetrics write access was turned on by the owner. Every change still needs the
+  owner's yes first (`CLAUDE.md` §7).
