@@ -202,3 +202,6 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
 - Check at 08:07 UTC (Supermetrics, cached): titles still the old ones. Expected, because
   supplemental processing takes time. Re-check next session.
 - Shopify part (SEO title + category) is **still awaiting the owner's yes**.
+- 09:08 BST, owner screenshot of "SUPPLEMENTAL SOURCE 1": **2 matched, 2 updated**, attribute
+  names all recognised, no issues. The sheet is working. The Supermetrics product read
+  (cached 08:08 UTC) still shows the old titles, so confirm the final title next session.
