@@ -299,3 +299,11 @@ parallel traffic source (owner's call).
   column with the new-handle variant URLs, plus rows for L and XL, to the supplemental sheet
   (`growth/merchant-center/bed-titles-supplemental.csv`). No theme change is needed unless
   the issue persists. The page's og:price is the product minimum, which is secondary.
+- 18:57 GMT check (live product read): **the new 4-row sheet isn't applied yet.**
+  - Large and XL: base titles, category 2, price £59.99, old-handle links.
+  - Medium: still has the old link.
+  - XXL: unchanged.
+  - The parked-domain issue is still present.
+  - The countdown is **still live** on the homepage (data-dn-countdown present).
+  - The last sheet change took ~3h to show, so recheck later or tomorrow. Asked the owner to
+    confirm "4 matched products" on the source page, and whether the review request was sent.
