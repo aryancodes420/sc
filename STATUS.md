@@ -15,6 +15,9 @@
   Steps, Water Resistant Blanket. Live theme `197123768603` (look it up; IDs change).
 - **Ads:** Google Shopping since 2026-10-21, manual CPC £0.45, £30/day, **bed only** (owner's choice).
 - **Orders:** 0 real (#1001 = refunded test).
+- **🔴 28 Oct: Merchant Center account issue "parked domain"** is blocking ALL Shopping ads
+  (0 impressions in 8 days). The site checks out fine now, so the owner needs to request a
+  review (see `growth/ADS-LOG.md` 2026-10-28).
 - **Next judgement points:** day 3 (is it working), then each product at 100–150 clicks.
   See `growth/ADS-LOG.md`.
 - **🔴 Open before it costs the ad account:** evergreen countdown, price × 1.1 "was" prices,

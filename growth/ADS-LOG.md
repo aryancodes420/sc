@@ -257,3 +257,36 @@ sessions in Shopify, test conversion recorded), then per product at 100–150 cl
 - 21:56 BST: ✅ **category 4434 (Dog Beds) applied to Medium and XXL** via the sheet. Large
   and XL stay at 2 (not in the sheet, not advertised). Review: **still pending initial
   review** (all bed sizes). Google Ads: 0 impressions. Next check: Thu 22 Oct.
+
+## 2026-10-28: day 8 of ads. Google-side blocker assessment
+Spend £0 · Impressions 0 (last 14 days) · Sessions (Shopify) ~1/day since 21 Oct · ATC 1 (26 Oct) · Orders 0
+
+**🔴 THE BLOCKER:** Merchant Center issue `account_site_functionality_parked_domain`, "No products
+displayed: Ensure your domain offers unique, valuable content and is not expired". It is
+DISAPPROVED for Shopping ads on **every** item. It is account-level and appeared after the
+21 Oct checks, which only showed "pending initial review". The free-listings initial review
+is also still pending.
+
+**The site itself checks out today:**
+- Googlebot and Storebot UAs get 200 on the homepage, the bed page, /pages/about, /pages/contact,
+  /pages/faq and the policies.
+- Apex A record is 23.227.38.65 (Shopify) and www is a CNAME to shops.myshopify.com. The NS
+  is Cloudflare, DNS-only, not proxied.
+- The domain is registered until **2027-07-09** (Nominet RDAP).
+- No noindex. The "password" strings are only Shopify's login-form JS.
+
+So this is very likely a stale judgement from when Google first looked. That is inference,
+not proven. **Fix:** owner requests a review in Merchant Center. Appeals are limited, so
+remove trust red flags first; the evergreen countdown is still live on the homepage.
+
+**Secondary issues found:**
+- `price_updated` on Large/XL: Google auto-changed their price to £59.99. The variant pages
+  output `og:price:amount = 59.99` (the product's minimum) whatever size is selected. They
+  aren't advertised, but they would show at the wrong price. Fix: theme sets og price from
+  the selected variant.
+- The Merchant Center product_link for M/L/XL is still the old handle
+  `/products/the-everyday-bolster-bed?variant=…`, which 301s to the live page. A product
+  edit should trigger a Shopify resync.
+
+**Plan proposed:** owner hides the countdown, then requests review; Search campaign as a
+parallel traffic source (owner's call).
