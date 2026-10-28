@@ -290,3 +290,12 @@ remove trust red flags first; the evergreen countdown is still live on the homep
 
 **Plan proposed:** owner hides the countdown, then requests review; Search campaign as a
 parallel traffic source (owner's call).
+- **Price mismatch root cause (Large/XL showing £59.99 on Google):** Merchant Center still
+  holds the **old handle** link `/products/the-everyday-bolster-bed?variant=…` for M, L and
+  XL. The page's structured data (ProductGroup → hasVariant) lists the correct per-size
+  prices under the **new** handle URLs (M 59.99, L 79.99, XL 99.99, XXL 129.99, verified).
+  Google can't match the old URL to a variant, so automatic item updates fall back to
+  £59.99. XXL already has the new-handle link and wasn't flagged. **Fix:** add a `link`
+  column with the new-handle variant URLs, plus rows for L and XL, to the supplemental sheet
+  (`growth/merchant-center/bed-titles-supplemental.csv`). No theme change is needed unless
+  the issue persists. The page's og:price is the product minimum, which is secondary.
