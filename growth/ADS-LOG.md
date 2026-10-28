@@ -319,3 +319,8 @@ parallel traffic source (owner's call).
   - The only wrong pointer is **inside Merchant Center**: the Google & YouTube app still sends the old
     handle for M/L/XL. That is fixed via the supplemental sheet `link` column. Not re-publishing
     the product to the Google channel, because that could restart the initial review.
+- 19:18 GMT: still no change in Merchant Center (old links and prices on L/XL, parked domain
+  present, countdown live). Researched other merchants' fixes (PLAYBOOK §N). Recommended
+  closing the trust gaps before using a review request: phone, domain email, footer address,
+  countdown off, review source labelled or hidden. Also check Shopify Settings → Domains for
+  old connected domains.

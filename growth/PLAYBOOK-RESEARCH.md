@@ -535,3 +535,32 @@ All are rated HIGH competition. Notes:
 - **"Arthritis"**: health-adjacent, so keep it out of ad copy (CLAUDE.md §6).
 - **Search text ads don't depend on Merchant Center product approval.** They go through normal
   ad review instead (usually about one business day).
+
+---
+
+## N. "No products displayed" / parked-domain flag: what fixed it for other Shopify stores (researched 2026-10-28)
+
+> Shopify Community threads, read in full via their .json endpoints. All anecdotal; Google
+> doesn't state exact triggers. Emmanuel Flossie (FeedArmy, Google Shopping specialist)
+> answers most of them.
+
+| Case | Their situation | What fixed it / advice |
+|---|---|---|
+| Rob, 2021 ([37777](https://community.shopify.com/t/google-merchant-centre-suspension-due-to-parked-site/37777)) | Parked site / "No products on website" despite live products | Checked the guideline list, **re-requested review → approved quickly**. Believed Google "was working from the old data" of its first crawl |
+| Betty, 2021 (same thread) | Parked domain | Cause: an **old unused domain still connected to Shopify** whose pages 404'd. Advice: disconnect it |
+| Boops, 2024 ([353668](https://community.shopify.com/t/merchant-center-products-disapproved-how-to-fix/353668)) | "Domain does not show any products" | **Added missing policies, completed product info, linked Google Ads**, requested review → all approved |
+| Everman, 2024 ([367167](https://community.shopify.com/t/google-merchant-center-problems/367167)) | **Same wording as ours** ("problem identified with the domain of your online store") | Advice: business name, **address, email, phone, hours in the footer of every page**; **real product photos**, not edited/mock-up images; description below Add to cart |
+| "Website needs improvement" cases ([221024](https://community.shopify.com/t/how-to-fix-website-needs-improvements-account-issue-in-google-merchant-centre/221024), [355098](https://community.shopify.com/t/google-merchant-center-website-or-online-store-needs-improvement-help-needed/355098)) | Similar account-level quality flags | Template images/text, broken links, policy links missing from the footer, **@gmail-style email instead of a domain email**, **testimonials shown without saying where they come from**, missing images |
+| 2026 ([599865](https://community.shopify.com/t/google-shopping-feed-products-not-showing-or-getting-disapproved-on-shopify/599865)) | Products not updating from Shopify | Flossie: a known **Google & YouTube app sync bug**; fix is uninstall/reinstall the app. ⚠️ For us this risks restarting the initial review, so it's a last resort |
+| 2026 ([599372](https://community.shopify.com/t/recurring-google-merchant-center-product-page-unavailable-issue-manual-recrawl-fixes-it-then-it-slowly-comes-back/599372)) | Recurring "page unavailable" | Suspected Shopify rate-limiting Googlebot, and variant URLs. Manual recrawl clears it |
+
+**Applied to The Dog Nook (28 Oct):**
+- ✅ Already in place: policies, contact page with a postal address, about page, no broken
+  links (crawl verified), no template text, domain live, Google Ads linked.
+- ❌ Gaps matching the advice above:
+  - no phone number
+  - email is @hotmail.com, not @thedognook.co.uk
+  - address not in the footer
+  - evergreen countdown live
+  - review counts sourced from another listing, shown without saying where they come from
+  - possibly edited product images
