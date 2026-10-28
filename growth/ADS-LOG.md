@@ -307,3 +307,15 @@ parallel traffic source (owner's call).
   - The countdown is **still live** on the homepage (data-dn-countdown present).
   - The last sheet change took ~3h to show, so recheck later or tomorrow. Asked the owner to
     confirm "4 matched products" on the source page, and whether the review request was sent.
+- 2026-10-28 ~19:10: **Shopify site "pointing" audit: all clean.**
+  - Primary domain is https://thedognook.co.uk with SSL on. www, http and the myshopify domain
+    all 301 to it. Apex is 23.227.38.65 and www is a CNAME to shops.myshopify.com.
+  - Sitemap: 6 sub-sitemaps, 30 URLs, **all 200**. All 30 internal links from the homepage, bed
+    page, collections, about, contact, FAQ and policies return **200**. **No 404s.**
+  - Canonical tags are correct, and there's no robots noindex.
+  - URL redirects exist for every old handle (the-everyday-bolster-bed → orthopaedic-bolster-dog-bed,
+    etc.) and keep `?variant=`.
+  - Shopify policies are present (contact, privacy, refund, shipping, terms).
+  - The only wrong pointer is **inside Merchant Center**: the Google & YouTube app still sends the old
+    handle for M/L/XL. That is fixed via the supplemental sheet `link` column. Not re-publishing
+    the product to the Google channel, because that could restart the initial review.
