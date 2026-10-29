@@ -564,3 +564,35 @@ All are rated HIGH competition. Notes:
   - evergreen countdown live
   - review counts sourced from another listing, shown without saying where they come from
   - possibly edited product images
+
+---
+
+## O. Search terms in Shopping: how to control them (2026-10-29)
+
+- ✅ Shopping has **no positive keywords**. Google matches searches to products from feed data
+  (title, description, product type, category). We steer with titles, negatives and bids.
+  https://support.google.com/google-ads/answer/6275313?hl=en
+- ✅ **Negatives don't match close variants** (plurals, misspellings, synonyms), so add the
+  variants yourself.
+  - Broad negative: blocks if all its words appear, in any order.
+  - Phrase negative: blocks that exact word sequence, with other words around it.
+  - Exact negative: blocks only the identical query.
+  - Negatives added from the search terms report default to exact match.
+
+  https://support.google.com/google-ads/answer/2453972?hl=en ·
+  https://support.google.com/google-ads/answer/7302992?hl=en ·
+  https://support.google.com/google-ads/answer/7102466?hl=en-GB
+- ✅ An **account-level negative list** applies to Search and Shopping inventory.
+  https://support.google.com/google-ads/answer/11396330?hl=en
+- 🔸 **Query sculpting** (advanced): 3 campaigns with the same products at High, Medium and
+  Low priority.
+  - The High campaign catches generic queries at a low bid. Its negatives push specific
+    queries down to Medium/Low campaigns with higher bids.
+  - Known pitfalls: Google doesn't always respect priorities, and campaign-level negatives
+    apply to every product in the campaign.
+  - Many advertisers now use a single Smart Bidding campaign instead.
+  - For this store: only worth it after 2–4 weeks of search-term data and more budget.
+
+  https://www.datafeedwatch.com/blog/negative-keywords-and-priority-settings-in-google-shopping ·
+  https://www.storegrowers.com/google-shopping-campaign-priority ·
+  https://nilsrooijmans.com/daily/?p=1644
