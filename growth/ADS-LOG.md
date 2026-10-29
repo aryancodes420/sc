@@ -344,3 +344,7 @@ parallel traffic source (owner's call).
   - First impressions within ~24h.
   - Day 3 after first impressions: Google sessions showing in Shopify, and the search terms.
   - Diagnose each size at 100–150 clicks.
+- 12:39 GMT: across all 15 items, the **only** remaining issue is `pending_initial_policy_review_free_listings`.
+  Shopping ads are approved in GB everywhere, and the Red Grey "generic landing page" issue is gone. Merchant
+  Center's "Limited visibility" status comes from free listings still being under review, not from ads.
+  Revisit if still pending by ~Wed 4 Nov.
