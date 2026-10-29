@@ -369,3 +369,15 @@ parallel traffic source (owner's call).
     its price.
   - ⚠️ The countdown is still live. AI Max / final URL expansion flags are on but don't
     apply to Shopping.
+- **Negatives added** (Claude via Supermetrics, owner said "yes negatives"). Two shared lists,
+  all PHRASE match, attached to campaign 24383153710. write_status applied, verified in the
+  response.
+  - **"DN - Irrelevant (DIY, used, other animals)"** (30), ID 12291874713: free, diy, how to make,
+    homemade, home made, pattern(s), sewing, crochet, knitting, knitted, second hand,
+    secondhand, used, preloved, wholesale, bulk, cheap, cheapest, cat(s), kitten, rabbit,
+    horse, baby, toddler, cover only, replacement cover(s), jobs.
+  - **"DN - Other retailers"** (17), ID 12296154128: ebay, gumtree, marketplace, argos, pets at
+    home, amazon, dunelm, ikea, b&m, the range, tesco, aldi, lidl, wilko, temu, zooplus,
+    wayfair. temu, zooplus and wayfair were added beyond the list shown to the owner.
+  - Competitor *brands* (Bedsure, Scruffs, Silentnight…) are not pre-blocked. Add them from
+    real search terms.
