@@ -324,3 +324,23 @@ parallel traffic source (owner's call).
   closing the trust gaps before using a review request: phone, domain email, footer address,
   countdown off, review source labelled or hidden. Also check Shopify Settings → Domains for
   old connected domains.
+
+## 2026-10-29: day 9. ✅ Merchant Center block lifted
+- 12:37 GMT (Supermetrics GMC diagnostics, updated 07:00): **Shopping ads APPROVED in GB for
+  all 4 bed sizes.** The `account_site_functionality_parked_domain` issue is **gone**. Only
+  free listings are still "pending initial review".
+- The `price_updated` issue is gone.
+  - Feed prices now: M 65.99 · L 87.99 · XL 109.99 · XXL 142.99. These are the compare-at
+    prices sent as `price`, with the real price as `sale_price`, matching the site.
+  - Titles with cm are applied to all 4 sizes. Category is 4434 on all 4.
+  - The product_link field still shows the old handle for M/L/XL (301 to the live page). It
+    isn't blocking anything now.
+- The owner pasted a Google Ads product report still showing "No products displayed" on all
+  items. That's lag in Google Ads behind Merchant Center. Others show "Excluded product or
+  listing group", which is expected (only Medium + XXL are bid). "$" is a display quirk;
+  currency is GBP.
+- Google Ads: 0 impressions so far. The countdown is still live on the homepage.
+- **Next judgement points:**
+  - First impressions within ~24h.
+  - Day 3 after first impressions: Google sessions showing in Shopify, and the search terms.
+  - Diagnose each size at 100–150 clicks.
