@@ -348,3 +348,9 @@ parallel traffic source (owner's call).
   Shopping ads are approved in GB everywhere, and the Red Grey "generic landing page" issue is gone. Merchant
   Center's "Limited visibility" status comes from free listings still being under review, not from ads.
   Revisit if still pending by ~Wed 4 Nov.
+- 12:42 GMT: campaign 24383153710 is ENABLED, with budget, bids, PRESENCE and partners off all
+  unchanged. But Google Ads `primary_status` is **NOT_ELIGIBLE**, reason UNKNOWN (it was
+  ELIGIBLE on 21 Oct). 0 impressions today. Most likely Google Ads hasn't yet synced the
+  Merchant Center approval (the owner's product report still shows "No products displayed").
+  If still not eligible on 30 Oct: owner checks the status hover reason, Billing, and the
+  Merchant Center link (Tools → Data manager / Linked accounts).
