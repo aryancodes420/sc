@@ -354,3 +354,18 @@ parallel traffic source (owner's call).
   Merchant Center approval (the owner's product report still shows "No products displayed").
   If still not eligible on 30 Oct: owner checks the status hover reason, Billing, and the
   Merchant Center link (Tools → Data manager / Linked accounts).
+- 12:50 GMT **campaign audit** (owner asked if optimised):
+  - ✅ Standard Shopping on manual CPC with eCPC off: right for an account with no conversions.
+  - ✅ £30/day, UK only with PRESENCE, search partners and display off, only Medium + XXL
+    biddable, ad approved.
+  - ✅ Auto-tagging on. Only Purchase counts in conversions (MANY_PER_CLICK). No pending
+    recommendations.
+  - ❌ **No negative keywords at all.** Proposed a starter list (below), pending owner yes.
+  - ⚠️ Bids: XXL £0.50 is below what it can afford (~£0.65–0.70); Medium £0.40 is above its
+    ~£0.37 cap. Owner's call.
+  - ❌ **Landing page:** an XXL click lands on `?variant=XXL` but the page shows "From £59.99"
+    with no size preselected (dn-product-story uses product.price; dn-bed-checkout never
+    checks the selected variant). Proposed a theme-copy fix to preselect the size and show
+    its price.
+  - ⚠️ The countdown is still live. AI Max / final URL expansion flags are on but don't
+    apply to Shopping.
