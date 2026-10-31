@@ -381,3 +381,24 @@ parallel traffic source (owner's call).
     wayfair. temu, zooplus and wayfair were added beyond the list shown to the owner.
   - Competitor *brands* (Bedsure, Scruffs, Silentnight…) are not pre-blocked. Add them from
     real search terms.
+
+## 2026-10-31: day 11. Ads barely serving
+- Google Ads: **3 impressions in 3 days**, 0 clicks, £0.
+  - 29 Oct: car steps 1 ("dog steps for truck").
+  - 30 Oct: car steps 1.
+  - 31 Oct: XXL 1 ("biggest dog bed you can buy").
+  - Impression share: null (too little data).
+- Campaign 24383153710 is ENABLED but `primary_status` is still **NOT_ELIGIBLE**, reason
+  UNKNOWN via the API. Both ads are APPROVED.
+- Merchant Center (30 Oct 07:00 update):
+  - Medium is approved for Shopping ads **and** free listings.
+  - L/XL/XXL are approved for Shopping ads; their free listings are still pending.
+  - No other issues.
+- **Owner changes, 29 Oct 16:01–16:05:**
+  - XXL bid £0.50 → £0.45; Medium £0.40 → £0.45.
+  - New ad group "Folding Dog Car Steps" (car steps item only, £0.45).
+  - Car steps is priced ~2.5× market (PLAYBOOK §J). Owner's call.
+- Diagnosis: Merchant Center and bids aren't the limit. The campaign-level "Not eligible" in
+  Google Ads is, and the API hides its reason. Asked the owner for a screenshot of the
+  campaign status hover and Billing → Summary. Suspects: billing or advertiser verification,
+  or Ads not yet refreshing product statuses after the parked-domain clearance.
