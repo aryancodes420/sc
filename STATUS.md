@@ -15,8 +15,8 @@
   Steps, Water Resistant Blanket. Live theme `197123768603` (look it up; IDs change).
 - **Ads:** Google Shopping since 2026-10-21, manual CPC £0.45, £30/day, **bed only** (owner's choice).
 - **Orders:** 0 real (#1001 = refunded test).
-- ✅ **29 Oct: Merchant Center "parked domain" block cleared.** Shopping ads are approved in GB for
-  all bed sizes; free listings are still pending. Waiting for the first impressions.
+- ✅ **29 Oct: Merchant Center "parked domain" block cleared.** ✅ **2 Nov: campaign ELIGIBLE** in
+  Google Ads; impressions ramping (12 on 1 Nov), 0 clicks yet. The Supermetrics trial ends 4 Nov.
 - **Next judgement points:** day 3 (is it working), then each product at 100–150 clicks.
   See `growth/ADS-LOG.md`.
 - **🔴 Open before it costs the ad account:** evergreen countdown, price × 1.1 "was" prices,

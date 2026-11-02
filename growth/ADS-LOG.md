@@ -402,3 +402,23 @@ parallel traffic source (owner's call).
   Google Ads is, and the API hides its reason. Asked the owner for a screenshot of the
   campaign status hover and Billing → Summary. Suspects: billing or advertiser verification,
   or Ads not yet refreshing product statuses after the parked-domain clearance.
+
+## 2026-11-02: day 13. ✅ Campaign ELIGIBLE, impressions ramping
+- Campaign `primary_status` is now **ELIGIBLE** (it was NOT_ELIGIBLE on 31 Oct).
+- Impressions by day:
+  - 29 Oct: 1
+  - 30 Oct: 1
+  - 31 Oct: 2
+  - **1 Nov: 12** (XXL 5 · car steps 6 · Medium 1)
+  - Totals: clicks 0, spend £0. Impression share still null (too little data).
+- Search terms (7 days):
+  - Relevant: "large dog bed", "orthopedic dog bed large", "dog bed", "dog bed for medium
+    dog", "greyhound bed", "biggest dog bed you can buy", "doggy steps for car", "dog steps for
+    truck".
+  - Irrelevant: **"pet loader" ×3**. Pet Loader is a UK brand of dog loading ramps, and these
+    hit the car steps. Proposed adding "pet loader" to the Other retailers/brands list
+    (owner yes needed).
+- Shopify: 0 real orders.
+- **Supermetrics trial expires 4 Nov.** The owner needs to decide whether to pay, switch to
+  Windsor, or go back to screenshots.
+- Judge on: if still under ~50 impressions/day by Wed 4 Nov, raise the XXL bid towards £0.60.
