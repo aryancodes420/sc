@@ -422,3 +422,24 @@ parallel traffic source (owner's call).
 - **Supermetrics trial expires 4 Nov.** The owner needs to decide whether to pay, switch to
   Windsor, or go back to screenshots.
 - Judge on: if still under ~50 impressions/day by Wed 4 Nov, raise the XXL bid towards £0.60.
+- 08:37 GMT **search terms review** (14 days, 11 terms, 11 impressions, 0 clicks):
+  - **Dog Bed (6), all relevant:**
+    - "orthopedic dog bed large"
+    - "large dog bed"
+    - "biggest dog bed you can buy"
+    - "dog bed"
+    - "dog bed for medium dog"
+    - "greyhound bed" (fits the XXL 121 cm)
+  - **Car Steps (5):**
+    - Relevant: "doggy steps for car", "dog steps for truck" (borderline, kept).
+    - **Irrelevant: "pet loader" / "pet loader mini 12 platform" / "pet loader ultra light 14.5
+      platform"**. That's a competitor ramp brand → proposed phrase negative "pet loader".
+  - Volume, not query quality, is the constraint.
+  - Car steps feed title is still the SEO title with the shop name ("Folding Dog Car Steps for
+    Car Boots | The Dog Nook"). Added a car steps row to the supplemental sheet:
+    - title "Folding Dog Car Steps for Car Boot – 4 Steps, 76 cm High, Metal Frame, Fabric
+      Treads, Black"
+    - category 6973
+    - link to the current handle
+
+    The sheet now has 5 rows, sent to the owner for import.
