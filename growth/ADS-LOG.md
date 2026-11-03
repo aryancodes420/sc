@@ -475,3 +475,32 @@ parallel traffic source (owner's call).
     partners off and negatives unchanged. `write_status: applied`.
   - "dfs" and "pet loader" negatives: pet loader is moot now that car steps are out. "dfs"
     is still pending an owner yes.
+- **Steps question (owner: "should we advertise the dog stairs?")**
+  - UK keyword volumes (Keyword Planner, 3 Nov), with top-of-page bid ranges:
+
+    | Term | Searches/mo | Bid range |
+    |---|---|---|
+    | dog steps | 6,600 | £0.11–0.43 |
+    | dog ramp | 6,600 | £0.11–0.39 |
+    | dog steps for bed | 5,400 | £0.11–0.50 |
+    | dog stairs | 3,600 | £0.12–0.59 |
+    | dog ramp for bed | 1,900 | — |
+    | dog steps for sofa | 1,600 | — |
+    | dog ramp for sofa | 1,600 | — |
+    | pet steps | 1,300 | — |
+    | dog steps and ramp | 1,000 | — |
+
+    Demand is bigger than for the bed, and clicks are cheaper.
+  - **Verdict: advertise the 2-in-1 steps & ramp (£59.99, ≈ market), not the 3-step
+    (£49.99 vs £24–29 market).**
+  - Needs before launch:
+    - The 2-in-1's landed cost, to set the bid (unknown).
+    - A feed fix. The current title is "Dog Sofa Steps & 2-in-1 Ramp | The Dog Nook" and the
+      link uses the old handle `the-everyday-sofa-steps` (301).
+  - Added a sheet row:
+    - title "Dog Sofa Steps & Ramp 2-in-1 – Convertible Foam, 41 cm Steps or 86 cm Ramp,
+      Removable Cover"
+    - category 6973
+    - link to the current handle (200)
+
+    The sheet is now 6 rows.
