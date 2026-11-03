@@ -464,3 +464,14 @@ parallel traffic source (owner's call).
   ~£0.70 breakeven cap at 1% CVR. Owner changes it in the UI (product-group unit bids). Then
   judge again at ~150 impressions.
 - **The Supermetrics trial expires 4 Nov.** After that, use owner screenshots.
+- **17:1x GMT: restructure (Claude via Supermetrics, owner asked "do it and remove the dog steps")**
+  - Ad group 202245231518 "Dog Bed" → renamed **"Dog Bed - XXL"**. Product filter is XXL item
+    only, bid **£0.65** (was £0.45).
+  - Ad group 201292088283 "Folding Dog Car Steps" → repurposed as **"Dog Bed - Medium"**. Product
+    filter is Medium item only, bid **£0.45** (unchanged). This keeps its approved product ad
+    and avoids creating a new ad group.
+  - **Car steps are now in no ad group, so they are out of the ads.**
+  - Verified by re-reading the campaign: ELIGIBLE, both ads APPROVED, budget, PRESENCE,
+    partners off and negatives unchanged. `write_status: applied`.
+  - "dfs" and "pet loader" negatives: pet loader is moot now that car steps are out. "dfs"
+    is still pending an owner yes.

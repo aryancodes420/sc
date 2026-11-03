@@ -83,8 +83,9 @@ Google tag `AW-18519248705` and GA4 `G-V19F6S8G3D` are on the page (check they f
 **purchase**, §5).
 
 **Ads:** Google Shopping, started **2026-10-21**. **£30/day, manual CPC £0.45. Owner is
-advertising the bed only** (their decision, 21 Oct): **Medium £0.40 and XXL £0.50**; Large
-and XL are excluded. Keep the
+advertising the bed only** (their decision, 21 Oct). Since 3 Nov there are two ad groups:
+**"Dog Bed - XXL" £0.65** and **"Dog Bed - Medium" £0.45**. Large, XL and car steps are
+not advertised. Keep the
 2-in-1 lined up as product #2.
 **Orders: zero real ones** (#1001 was a refunded test).
 
