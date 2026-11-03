@@ -443,3 +443,24 @@ parallel traffic source (owner's call).
     - link to the current handle
 
     The sheet now has 5 rows, sent to the owner for import.
+
+## 2026-11-03: day 14. Still 0 clicks
+- Impressions by day:
+  - 29 Oct: 1
+  - 30 Oct: 1
+  - 31 Oct: 2
+  - 1 Nov: 12
+  - 2 Nov: 5 (Medium)
+  - **Total: 21 impressions, 0 clicks, £0.** Absolute-top impression share is 0% every day,
+    and the other IS metrics are null.
+- **0 clicks from 21 impressions is statistically expected.** At a 0.66–1.2% Shopping CTR,
+  that's ~1 click per 80–150 impressions. **The constraint is impression volume**, which
+  means losing auctions at £0.45 with no history.
+- New search terms:
+  - Relevant: "dog bed with sides" ×2, "large dog bed with sides", "orthopedic dog bed".
+  - Irrelevant: **"dfs dog bed"**, a DFS retailer search → propose negative "dfs" with
+    "pet loader".
+- **Recommendation:** raise the XXL product-group bid £0.45 → £0.65. It is still under its
+  ~£0.70 breakeven cap at 1% CVR. Owner changes it in the UI (product-group unit bids). Then
+  judge again at ~150 impressions.
+- **The Supermetrics trial expires 4 Nov.** After that, use owner screenshots.
