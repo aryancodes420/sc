@@ -504,3 +504,35 @@ parallel traffic source (owner's call).
     - link to the current handle (200)
 
     The sheet is now 6 rows.
+
+## 2026-11-04: day 15. Deep troubleshoot (owner: "not enough impressions, no clicks")
+- **Totals since 29 Oct: 21 impressions, 0 clicks, £0.**
+  - 2 Nov: 5
+  - **3 Nov: 0, 4 Nov: 0** (to 16:54)
+  - Absolute-top IS 0%; other IS metrics null.
+- **Green (verified):**
+  - Campaign ENABLED + ELIGIBLE, £30/day, manual CPC, UK PRESENCE, partners off.
+  - Both ads APPROVED.
+  - All 15 items APPROVED for Shopping ads in GB, no issues (GMC updated 08:00 today).
+  - Change log confirms the 3 Nov rebuild was correct:
+    - XXL unit £0.65 + everything else excluded.
+    - Medium unit £0.45 + everything else excluded.
+    - The 3 Nov zero started *before* the 17:07 rebuild, so the rebuild isn't the cause.
+  - Not budget-limited (£0 spent). Purchase is the primary conversion; auto-tagging on.
+- **Diagnosis: we're losing auctions, not missing eligibility.** Queries are relevant (search
+  terms review 2–3 Nov). Likely causes, in order:
+  1. Price vs the same results. The bed is 2–2.7× Amazon equivalents (PLAYBOOK §J), which
+     lowers predicted CTR and ad rank.
+  2. Brand-new account with no history, shop ratings or reviews.
+  3. Bids at the low end for Q4 beds (Black Friday run-up).
+  4. Only 2 SKUs in auctions.
+- 0 clicks is expected at 21 impressions (~1 click per 80–150).
+- Tried to load the live Google Shopping results to check competitors. Plain fetch needs
+  JS. A headless-browser attempt was **denied by the permission classifier (bot-check
+  circumvention)**, so it wasn't pursued. Asked the owner for a phone screenshot instead.
+- **Proposed:**
+  - Do this first: switch to **Maximise clicks with a £0.80 max CPC cap** for 7 days (practitioner
+    pattern for new Shopping accounts, PLAYBOOK §A3), owner yes needed.
+  - Add the 2-in-1 steps (cost needed).
+  - XXL price test (owner decision).
+  - Supermetrics ends 5 Nov, so write changes must happen today or via the owner.
