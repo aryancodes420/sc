@@ -547,3 +547,17 @@ parallel traffic source (owner's call).
   not bids, so move to the XXL price test. Clicks: diagnose at ~100. Don't touch the campaign
   during learning.
 - The Supermetrics trial ends today. Next checks come from owner screenshots.
+- 01:44 GMT, owner: "impressions so low, something is definitely wrong".
+  - **Supermetrics reporting is now TRIAL_EXPIRED.** data_query fails. The campaign read
+    still works: ENABLED, LEARNING, TARGET_SPEND £0.65 cap, both ads APPROVED, settings
+    unchanged.
+  - No broken setting is visible.
+  - Remaining unknowns that only the owner's UI can show:
+    - Products tab status.
+    - Product-group Benchmark max CPC / Benchmark CTR / impression share / lost IS (rank).
+    - The live Shopping results page.
+  - **Proposed fix to raise impressions:** put more products into the auction.
+    - Large (keep £46, breakeven 1.4% at £0.65) and XL (£58, 1.1%), now that bidding is
+      automatic.
+    - The 2-in-1 steps once its cost is known.
+  - Requested 3 screenshots.
