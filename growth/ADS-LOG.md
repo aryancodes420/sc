@@ -536,3 +536,14 @@ parallel traffic source (owner's call).
   - Add the 2-in-1 steps (cost needed).
   - XXL price test (owner decision).
   - Supermetrics ends 5 Nov, so write changes must happen today or via the owner.
+
+## 2026-11-05: day 16
+- **Owner switched bidding to Maximise clicks (TARGET_SPEND) with a £0.65 max CPC cap.**
+  Verified via Supermetrics 01:42 GMT: status LEARNING (BIDDING_STRATEGY_LEARNING); budget,
+  PRESENCE, partners off and negatives unchanged. Ad-group bids are now ignored.
+- The £0.65 cap is under XXL's ~£0.70 breakeven at 1% CVR, and above Medium's ~£0.37.
+  Accepted as a 7-day data-buying test.
+- **Judge on:** Sun 8 Nov for impressions/day (target ≥30). Under that means price or ad rank,
+  not bids, so move to the XXL price test. Clicks: diagnose at ~100. Don't touch the campaign
+  during learning.
+- The Supermetrics trial ends today. Next checks come from owner screenshots.
